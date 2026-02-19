@@ -1,0 +1,69 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is inspired by Keep a Changelog, with versions listed in reverse chronological order.
+
+## [Unreleased]
+
+### Added
+- Added `AGENTS.md` to define Codex collaboration and engineering conventions.
+- Added `CHANGELOG.md` to track notable project changes.
+- Added `DEVELOPMENT_PLAN.md` with phased modular roadmap and immediate foundation execution steps.
+- Added `docs/backend-design-structure.md` to define backend modular architecture, layer boundaries, dependency rules, and error-handling strategy.
+- Added backend foundation scaffold under `src/backend` with API/Application/Domain/Infrastructure projects and solution wiring.
+- Added domain primitives: `Currency`, `Money`, and `ExpenseCategory`.
+- Added baseline health endpoint: `GET /api/health`.
+- Added DI registration extensions for Application and Infrastructure layers.
+- Added `IHealthStatusService` application service and wired health endpoint through DI.
+- Added `TravelDate` domain value object.
+- Added backend test project `TravelAccounting.Domain.Tests` with coverage for currency, money, and travel date primitives.
+- Added React + TypeScript frontend shell at `src/frontend/web` with health-check integration.
+- Added frontend quality gates: ESLint, TypeScript type-check, and Vitest.
+- Added `.github/workflows/ci.yml` to run backend and frontend checks in CI.
+- Added root `.gitignore` for `.NET` and Node build artifacts.
+- Added typed API configuration section (`App`) with startup validation.
+- Added trips backend domain model (`Trip`, `TripStatus`) with lifecycle rules.
+- Added trips application layer contracts/services and trip DTO/request models.
+- Added trips API endpoints for list/get/create/update/archive.
+- Added in-memory trips repository in infrastructure for phase-2 MVP persistence.
+- Added trips frontend UI for create/edit/archive and list rendering.
+- Added domain tests for trip lifecycle validations.
+- Added API integration tests for trips create endpoint (`TravelAccounting.Api.Tests`) to guard against model-binding/validation regressions returning `500`.
+- Added expenses backend domain model and application services for expense CRUD linked to trips.
+- Added expenses API endpoints for list/get/create/update/delete under trip scope.
+- Added reference endpoint `GET /api/reference/countries` for destination/currency metadata.
+- Added in-memory expenses repository for phase-3 MVP persistence.
+- Added expenses frontend UI with create/edit/delete flows and trip-scoped listing.
+- Added UI support for destination country selection and explicit origin/destination currency labeling.
+- Added API integration tests for expense create flow and countries reference endpoint.
+- Added exchange-rate application contracts/services/repository interfaces.
+- Added in-memory exchange-rate repository and API endpoints for per-day trip rates.
+- Added expense conversion output fields (`homeAmount`, `homeCurrency`, `exchangeRateUsed`) computed from exchange rates.
+- Added frontend exchange-rate UI (save/list rates) and home-currency equivalents in expense list.
+- Added API integration tests for exchange-rate conversion behavior.
+- Added external exchange-rate provider integration (`ExchangeRateHostProvider`) with automatic fetch-and-cache on conversion.
+- Added `docs/workflow-diagram.md` with end-to-end and conversion-flow diagrams.
+
+### Changed
+- Replaced `AGENTS.md` template with project-specific context, modular branch strategy, and strict engineering execution rules.
+- Updated `README.md` with backend structure, run/build commands, and framework note.
+- Upgraded backend target frameworks from `net7.0` to `net10.0` after installing `.NET SDK 10.0.103`.
+- Updated backend architecture docs and README to document DI composition-root and dependency rules.
+- Renamed DI extension classes/files to explicit names: `ApplicationServiceCollectionExtensions` and `InfrastructureServiceCollectionExtensions`.
+- Updated `README.md` with frontend workflow, test commands, and environment configuration details.
+- Updated `DEVELOPMENT_PLAN.md` to mark Foundation as completed and define `module/trips` as next module.
+- Added troubleshooting documentation for frontend JSON parse error caused by missing API proxy (`Unexpected token '<'`).
+- Updated `DEVELOPMENT_PLAN.md` to mark Trips MVP as completed and set `module/expenses` as next module.
+- Updated `README.md` with phase-2 trips module usage and endpoint documentation.
+- Added troubleshooting note for ASP.NET model-binding validation failure on positional record request DTOs.
+- Refined troubleshooting guidance with a concrete standard: class-based request DTOs by default, and constructor-parameter annotations when records are used.
+- Updated `README.md` with phase-3 expenses module endpoints and UI capabilities.
+- Updated `DEVELOPMENT_PLAN.md` to mark Expenses MVP completed and set `module/exchange-rates` as next.
+- Updated frontend startup behavior to surface a clear API connectivity error when backend is offline.
+- Updated frontend env default API port in `.env.example` to `5214` and documented `ECONNREFUSED` proxy troubleshooting.
+- Updated `README.md` with phase-4 exchange-rate module endpoints and conversion behavior.
+- Updated `DEVELOPMENT_PLAN.md` to mark Exchange Rates MVP completed and set `module/accounting-ledger` as next.
+- Updated phase-4 UX from manual rate input to automatic provider-based assignment.
+- Hardened exchange-rate provider/conversion flow to prevent 500s on external rate lookup failures (non-success HTTP or request errors).
+- Switched exchange-rate provider implementation to exchangerate.host and added access-key based configuration support.
