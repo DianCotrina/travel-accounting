@@ -1,0 +1,14 @@
+# .NET
+**/bin/
+**/obj/
+
+# Node
+**/node_modules/
+**/dist/
+
+# Editor and OS
+.DS_Store
+Thumbs.db
+
+# Local temp
+.tmp/
