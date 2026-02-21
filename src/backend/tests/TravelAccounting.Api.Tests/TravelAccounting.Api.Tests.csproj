@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\TravelAccounting.Api\TravelAccounting.Api.csproj" />
+    <ProjectReference Include="..\..\TravelAccounting.Infrastructure\TravelAccounting.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
