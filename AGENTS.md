@@ -39,3 +39,8 @@ Example scenario: an American user traveling in Argentina records expenses in AR
 ## Documentation
 - Keep `README.md` and code-level docs aligned with behavior.
 - Record notable user-facing or architectural changes in `CHANGELOG.md`.
+
+## Delivery Workflow
+- After making code changes, run the relevant tests and/or smoke checks.
+- If checks pass, commit and push automatically.
+- If checks fail, report failures clearly and do not push until resolved.
