@@ -1,20 +1,28 @@
 using TravelAccounting.Domain.Common;
 using TravelAccounting.Domain.Trips;
+using TravelAccounting.Application.Auth;
 
 namespace TravelAccounting.Application.Trips;
 
-internal sealed class TripsService(ITripRepository tripRepository) : ITripsService
+internal sealed class TripsService(
+    ITripRepository tripRepository,
+    ICurrentUserContext currentUserContext) : ITripsService
 {
     public async Task<IReadOnlyList<TripDto>> ListAsync(CancellationToken cancellationToken)
     {
+        var currentUserId = currentUserContext.UserId;
         var trips = await tripRepository.ListAsync(cancellationToken);
-        return trips.Select(MapToDto).ToArray();
+        return trips
+            .Where(trip => trip.OwnerUserId == currentUserId)
+            .Select(MapToDto)
+            .ToArray();
     }
 
     public async Task<TripDto?> GetAsync(Guid id, CancellationToken cancellationToken)
     {
+        var currentUserId = currentUserContext.UserId;
         var trip = await tripRepository.GetAsync(id, cancellationToken);
-        return trip is null ? null : MapToDto(trip);
+        return trip is null || trip.OwnerUserId != currentUserId ? null : MapToDto(trip);
     }
 
     public async Task<TripDto> CreateAsync(CreateTripRequest request, CancellationToken cancellationToken)
@@ -23,6 +31,7 @@ internal sealed class TripsService(ITripRepository tripRepository) : ITripsServi
 
         var trip = new Trip(
             Guid.NewGuid(),
+            currentUserContext.UserId,
             request.Name,
             request.DestinationCountry,
             new Currency(request.HomeCurrency),
@@ -39,7 +48,7 @@ internal sealed class TripsService(ITripRepository tripRepository) : ITripsServi
         ArgumentNullException.ThrowIfNull(request);
 
         var trip = await tripRepository.GetAsync(id, cancellationToken);
-        if (trip is null)
+        if (trip is null || trip.OwnerUserId != currentUserContext.UserId)
         {
             return null;
         }
@@ -58,7 +67,7 @@ internal sealed class TripsService(ITripRepository tripRepository) : ITripsServi
     public async Task<TripDto?> ArchiveAsync(Guid id, CancellationToken cancellationToken)
     {
         var trip = await tripRepository.GetAsync(id, cancellationToken);
-        if (trip is null)
+        if (trip is null || trip.OwnerUserId != currentUserContext.UserId)
         {
             return null;
         }

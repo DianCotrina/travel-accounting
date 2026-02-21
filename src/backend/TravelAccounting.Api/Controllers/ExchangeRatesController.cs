@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TravelAccounting.Api.ExchangeRates;
 using TravelAccounting.Application.ExchangeRates;
@@ -5,6 +6,7 @@ using TravelAccounting.Application.ExchangeRates;
 namespace TravelAccounting.Api.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("api/trips/{tripId:guid}/exchange-rates")]
 public sealed class ExchangeRatesController(IExchangeRatesService exchangeRatesService) : ControllerBase
 {

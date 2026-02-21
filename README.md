@@ -114,6 +114,21 @@ Implemented frontend functionality:
 - Filtered report summary (counts and totals by category).
 - CSV export download for accounting workflows.
 
+## Auth and Multiuser Module (Phase 7)
+
+Implemented backend functionality:
+- Header-based authentication scheme for protected endpoints (`X-User-Id`).
+- Per-user ownership on trips and user-isolated access for:
+  - Trips
+  - Expenses
+  - Exchange rates
+  - Ledger summaries
+  - Reports/exports
+
+Implemented frontend functionality:
+- All API requests now include `X-User-Id`.
+- Configurable user id through `VITE_USER_ID` (default `demo-user`).
+
 ## Local Commands
 
 Build backend:
@@ -183,6 +198,11 @@ GET http://localhost:<port>/api/trips/{tripId}/reports/summary
 GET http://localhost:<port>/api/trips/{tripId}/reports/export/csv
 ```
 
+Auth header for protected endpoints:
+```text
+X-User-Id: <your-user-id>
+```
+
 Auto-rate behavior:
 - When an expense is listed and no local rate exists for that trip/day/currency pair, backend fetches a rate from configured provider and persists it.
 - Current provider: exchangerate.host (`ExternalServices:ExchangeRates:BaseUrl`).
@@ -195,6 +215,9 @@ Frontend API base URL (optional):
 ```text
 src/frontend/web/.env.example
 ```
+Includes:
+- `VITE_API_BASE_URL`
+- `VITE_USER_ID`
 
 ## Troubleshooting
 

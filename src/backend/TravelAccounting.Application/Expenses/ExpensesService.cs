@@ -1,5 +1,6 @@
 using TravelAccounting.Application.Trips;
 using TravelAccounting.Application.ExchangeRates;
+using TravelAccounting.Application.Auth;
 using TravelAccounting.Domain.Common;
 using TravelAccounting.Domain.Expenses;
 
@@ -9,12 +10,13 @@ internal sealed class ExpensesService(
     IExpenseRepository expenseRepository,
     ITripRepository tripRepository,
     IExchangeRateRepository exchangeRateRepository,
-    IExchangeRateProvider exchangeRateProvider) : IExpensesService
+    IExchangeRateProvider exchangeRateProvider,
+    ICurrentUserContext currentUserContext) : IExpensesService
 {
     public async Task<IReadOnlyList<ExpenseDto>> ListByTripAsync(Guid tripId, CancellationToken cancellationToken)
     {
         var trip = await tripRepository.GetAsync(tripId, cancellationToken);
-        if (trip is null)
+        if (trip is null || trip.OwnerUserId != currentUserContext.UserId)
         {
             return [];
         }
@@ -32,7 +34,7 @@ internal sealed class ExpensesService(
         }
 
         var trip = await tripRepository.GetAsync(expense.TripId, cancellationToken);
-        if (trip is null)
+        if (trip is null || trip.OwnerUserId != currentUserContext.UserId)
         {
             return null;
         }
@@ -45,7 +47,7 @@ internal sealed class ExpensesService(
         ArgumentNullException.ThrowIfNull(request);
 
         var trip = await tripRepository.GetAsync(request.TripId, cancellationToken);
-        if (trip is null)
+        if (trip is null || trip.OwnerUserId != currentUserContext.UserId)
         {
             return null;
         }
@@ -89,7 +91,7 @@ internal sealed class ExpensesService(
             request.Notes);
 
         var trip = await tripRepository.GetAsync(expense.TripId, cancellationToken);
-        if (trip is null)
+        if (trip is null || trip.OwnerUserId != currentUserContext.UserId)
         {
             return null;
         }

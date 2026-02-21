@@ -162,3 +162,18 @@ Each module ships with backend API, frontend UI, validation, tests, and docs upd
 1. `module/auth-and-multiuser` (if needed)
 - Add ownership boundaries and authentication model.
 - Define audit requirements for accounting-sensitive edits.
+
+## Auth and Multiuser Status
+- Status: Completed (MVP)
+- Implemented header-based authentication for protected APIs (`X-User-Id`).
+- Added per-user trip ownership in domain (`Trip.OwnerUserId`).
+- Enforced user data isolation across trips, expenses, exchange rates, ledger, and reports.
+- Added integration tests for:
+  - unauthorized access without user header (`401`)
+  - cross-user trip access isolation (`404`)
+- Updated frontend API calls to send `X-User-Id` via `VITE_USER_ID`.
+
+## Next Module
+1. Security hardening and production auth rollout
+- Replace header-based auth with real identity provider/JWT.
+- Add audit trail for critical accounting edits.

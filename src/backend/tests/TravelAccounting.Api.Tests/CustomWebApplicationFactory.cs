@@ -7,6 +7,8 @@ namespace TravelAccounting.Api.Tests;
 
 public sealed class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
+    public const string DefaultTestUserId = "test-user";
+
     protected override void ConfigureWebHost(Microsoft.AspNetCore.Hosting.IWebHostBuilder builder)
     {
         builder.ConfigureServices(services =>
@@ -14,6 +16,15 @@ public sealed class CustomWebApplicationFactory : WebApplicationFactory<Program>
             services.RemoveAll<IExchangeRateProvider>();
             services.AddSingleton<IExchangeRateProvider, FakeExchangeRateProvider>();
         });
+    }
+
+    protected override void ConfigureClient(HttpClient client)
+    {
+        base.ConfigureClient(client);
+        if (!client.DefaultRequestHeaders.Contains("X-User-Id"))
+        {
+            client.DefaultRequestHeaders.Add("X-User-Id", DefaultTestUserId);
+        }
     }
 
     private sealed class FakeExchangeRateProvider : IExchangeRateProvider

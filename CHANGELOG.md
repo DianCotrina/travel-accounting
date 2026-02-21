@@ -54,6 +54,9 @@ The format is inspired by Keep a Changelog, with versions listed in reverse chro
   - `GET /api/trips/{tripId}/reports/export/csv`
 - Added frontend reports section with date/category filters and CSV download.
 - Added API integration tests for reports summary filtering and CSV export (`ReportsApiTests`).
+- Added auth-and-multiuser MVP with header-based authentication (`X-User-Id`) and per-user ownership isolation.
+- Added authenticated user context abstraction (`ICurrentUserContext`) and HTTP implementation.
+- Added API integration tests for unauthorized access and cross-user data isolation (`AuthApiTests`).
 
 ### Changed
 - Replaced `AGENTS.md` template with project-specific context, modular branch strategy, and strict engineering execution rules.
@@ -81,3 +84,7 @@ The format is inspired by Keep a Changelog, with versions listed in reverse chro
 - Updated `README.md` with phase-5 accounting ledger endpoint and UI behavior.
 - Updated `DEVELOPMENT_PLAN.md` to mark Reports Export MVP completed and set `module/auth-and-multiuser` as next.
 - Updated `README.md` with phase-6 reports/export endpoints and UI workflow.
+- Updated services/controllers to enforce trip ownership checks across trips, expenses, exchange rates, ledger, and reports.
+- Updated frontend API calls to include `X-User-Id`, with new `VITE_USER_ID` env support.
+- Updated `DEVELOPMENT_PLAN.md` to mark Auth and Multiuser MVP completed.
+- Updated `README.md` with phase-7 auth/multiuser behavior and usage.

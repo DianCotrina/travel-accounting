@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TravelAccounting.Api.Expenses;
 using TravelAccounting.Application.Expenses;
@@ -5,6 +6,7 @@ using TravelAccounting.Application.Expenses;
 namespace TravelAccounting.Api.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("api/trips/{tripId:guid}/[controller]")]
 public sealed class ExpensesController(IExpensesService expensesService) : ControllerBase
 {

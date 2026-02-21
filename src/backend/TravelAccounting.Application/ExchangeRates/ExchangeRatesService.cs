@@ -1,15 +1,23 @@
 using TravelAccounting.Application.Trips;
+using TravelAccounting.Application.Auth;
 using TravelAccounting.Domain.Common;
 
 namespace TravelAccounting.Application.ExchangeRates;
 
 internal sealed class ExchangeRatesService(
     IExchangeRateRepository exchangeRateRepository,
-    ITripRepository tripRepository) : IExchangeRatesService
+    ITripRepository tripRepository,
+    ICurrentUserContext currentUserContext) : IExchangeRatesService
 {
-    public Task<IReadOnlyList<ExchangeRateDto>> ListByTripAsync(Guid tripId, CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<ExchangeRateDto>> ListByTripAsync(Guid tripId, CancellationToken cancellationToken)
     {
-        return exchangeRateRepository.ListByTripAsync(tripId, cancellationToken);
+        var trip = await tripRepository.GetAsync(tripId, cancellationToken);
+        if (trip is null || trip.OwnerUserId != currentUserContext.UserId)
+        {
+            return [];
+        }
+
+        return await exchangeRateRepository.ListByTripAsync(tripId, cancellationToken);
     }
 
     public async Task<ExchangeRateDto?> UpsertAsync(
@@ -20,7 +28,7 @@ internal sealed class ExchangeRatesService(
         ArgumentNullException.ThrowIfNull(request);
 
         var trip = await tripRepository.GetAsync(tripId, cancellationToken);
-        if (trip is null)
+        if (trip is null || trip.OwnerUserId != currentUserContext.UserId)
         {
             return null;
         }
