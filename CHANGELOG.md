@@ -57,6 +57,7 @@ The format is inspired by Keep a Changelog, with versions listed in reverse chro
 - Added auth-and-multiuser MVP with header-based authentication (`X-User-Id`) and per-user ownership isolation.
 - Added authenticated user context abstraction (`ICurrentUserContext`) and HTTP implementation.
 - Added API integration tests for unauthorized access and cross-user data isolation (`AuthApiTests`).
+- Added modular frontend component architecture by splitting `App.tsx` into shared app types and section components (`HealthCard`, `TripsSection`, `ExpensesSection`).
 
 ### Changed
 - Replaced `AGENTS.md` template with project-specific context, modular branch strategy, and strict engineering execution rules.

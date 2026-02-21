@@ -15,6 +15,9 @@ Frontend scaffold lives in `src/frontend/web`:
 - React + TypeScript + Vite
 - Health check shell connected to `/api/health`
 - Vitest + Testing Library baseline
+- Modular UI structure:
+  - `src/frontend/web/src/app` for shared app-level types/state defaults
+  - `src/frontend/web/src/components` for feature UI sections (`HealthCard`, `TripsSection`, `ExpensesSection`)
 
 ## Foundation Coverage
 
