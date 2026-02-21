@@ -48,6 +48,12 @@ The format is inspired by Keep a Changelog, with versions listed in reverse chro
 - Added accounting-ledger API endpoint `GET /api/trips/{tripId}/ledger/summary`.
 - Added frontend ledger summary UI for trip/category/day totals and conversion coverage.
 - Added API integration tests for ledger aggregation (`AccountingLedgerApiTests`).
+- Added reports-export application module with filtered summary and CSV export services.
+- Added reports API endpoints:
+  - `GET /api/trips/{tripId}/reports/summary`
+  - `GET /api/trips/{tripId}/reports/export/csv`
+- Added frontend reports section with date/category filters and CSV download.
+- Added API integration tests for reports summary filtering and CSV export (`ReportsApiTests`).
 
 ### Changed
 - Replaced `AGENTS.md` template with project-specific context, modular branch strategy, and strict engineering execution rules.
@@ -73,3 +79,5 @@ The format is inspired by Keep a Changelog, with versions listed in reverse chro
 - Switched exchange-rate provider implementation to exchangerate.host and added access-key based configuration support.
 - Updated `DEVELOPMENT_PLAN.md` to mark Accounting Ledger MVP completed and set `module/reports-export` as next.
 - Updated `README.md` with phase-5 accounting ledger endpoint and UI behavior.
+- Updated `DEVELOPMENT_PLAN.md` to mark Reports Export MVP completed and set `module/auth-and-multiuser` as next.
+- Updated `README.md` with phase-6 reports/export endpoints and UI workflow.

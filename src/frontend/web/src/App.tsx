@@ -93,6 +93,32 @@ type LedgerSummary = {
   dayTotals: LedgerDayTotal[];
 };
 
+type ReportCategoryTotal = {
+  category: string;
+  expenseCount: number;
+  totalLocalAmount: number;
+  totalHomeAmount: number;
+};
+
+type ReportSummary = {
+  tripId: string;
+  localCurrency: string;
+  homeCurrency: string;
+  fromDate?: string | null;
+  toDate?: string | null;
+  category?: string | null;
+  expenseCount: number;
+  totalLocalAmount: number;
+  totalHomeAmount: number;
+  categoryTotals: ReportCategoryTotal[];
+};
+
+type ReportFilterState = {
+  fromDate: string;
+  toDate: string;
+  category: string;
+};
+
 const initialFormState: TripFormState = {
   name: "",
   destinationCountry: "",
@@ -110,6 +136,12 @@ const initialExpenseFormState: ExpenseFormState = {
   notes: "",
 };
 
+const initialReportFilters: ReportFilterState = {
+  fromDate: "",
+  toDate: "",
+  category: "",
+};
+
 export default function App() {
   const [health, setHealth] = useState<HealthResponse | null>(null);
   const [trips, setTrips] = useState<Trip[]>([]);
@@ -117,6 +149,8 @@ export default function App() {
   const [countries, setCountries] = useState<CountryReference[]>([]);
   const [exchangeRates, setExchangeRates] = useState<ExchangeRate[]>([]);
   const [ledgerSummary, setLedgerSummary] = useState<LedgerSummary | null>(null);
+  const [reportSummary, setReportSummary] = useState<ReportSummary | null>(null);
+  const [reportFilters, setReportFilters] = useState<ReportFilterState>(initialReportFilters);
   const [error, setError] = useState<string | null>(null);
   const [selectedTripId, setSelectedTripId] = useState<string | null>(null);
   const [selectedExpenseId, setSelectedExpenseId] = useState<string | null>(null);
@@ -146,6 +180,12 @@ export default function App() {
     : "";
   const ledgerSummaryUrl = selectedExpensesTripId
     ? `${tripsUrl}/${selectedExpensesTripId}/ledger/summary`
+    : "";
+  const reportSummaryUrl = selectedExpensesTripId
+    ? `${tripsUrl}/${selectedExpensesTripId}/reports/summary`
+    : "";
+  const reportCsvUrl = selectedExpensesTripId
+    ? `${tripsUrl}/${selectedExpensesTripId}/reports/export/csv`
     : "";
 
   const loadHealth = useCallback(async (): Promise<void> => {
@@ -232,6 +272,34 @@ export default function App() {
     setLedgerSummary(data);
   }, [ledgerSummaryUrl, selectedExpensesTripId]);
 
+  const loadReportSummary = useCallback(async (): Promise<void> => {
+    if (!selectedExpensesTripId) {
+      setReportSummary(null);
+      return;
+    }
+
+    const query = new URLSearchParams();
+    if (reportFilters.fromDate) {
+      query.set("fromDate", reportFilters.fromDate);
+    }
+    if (reportFilters.toDate) {
+      query.set("toDate", reportFilters.toDate);
+    }
+    if (reportFilters.category) {
+      query.set("category", reportFilters.category);
+    }
+
+    const response = await fetch(
+      query.toString() ? `${reportSummaryUrl}?${query.toString()}` : reportSummaryUrl
+    );
+    if (!response.ok) {
+      throw new Error(`Report summary request failed with ${response.status}.`);
+    }
+
+    const data = (await response.json()) as ReportSummary;
+    setReportSummary(data);
+  }, [reportFilters.category, reportFilters.fromDate, reportFilters.toDate, reportSummaryUrl, selectedExpensesTripId]);
+
   useEffect(() => {
     loadHealth()
       .then(async () => {
@@ -248,7 +316,12 @@ export default function App() {
 
   useEffect(() => {
     if (selectedExpensesTripId) {
-      Promise.all([loadExpenses(), loadExchangeRates(), loadLedgerSummary()]).catch((loadError) => {
+      Promise.all([
+        loadExpenses(),
+        loadExchangeRates(),
+        loadLedgerSummary(),
+        loadReportSummary(),
+      ]).catch((loadError) => {
         setError(
           loadError instanceof Error
             ? loadError.message
@@ -257,8 +330,9 @@ export default function App() {
       });
     } else {
       setLedgerSummary(null);
+      setReportSummary(null);
     }
-  }, [loadExpenses, loadExchangeRates, loadLedgerSummary, selectedExpensesTripId]);
+  }, [loadExpenses, loadExchangeRates, loadLedgerSummary, loadReportSummary, selectedExpensesTripId]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault();
@@ -367,6 +441,7 @@ export default function App() {
     await loadExpenses();
     await loadExchangeRates();
     await loadLedgerSummary();
+    await loadReportSummary();
     clearExpenseForm();
   }
 
@@ -387,9 +462,54 @@ export default function App() {
     await loadExpenses();
     await loadExchangeRates();
     await loadLedgerSummary();
+    await loadReportSummary();
     if (selectedExpenseId === expenseId) {
       clearExpenseForm();
     }
+  }
+
+  async function handleLoadReportSummary(): Promise<void> {
+    setError(null);
+    await loadReportSummary();
+  }
+
+  async function handleDownloadReportCsv(): Promise<void> {
+    if (!selectedExpensesTripId) {
+      setError("Select a trip before exporting reports.");
+      return;
+    }
+
+    const query = new URLSearchParams();
+    if (reportFilters.fromDate) {
+      query.set("fromDate", reportFilters.fromDate);
+    }
+    if (reportFilters.toDate) {
+      query.set("toDate", reportFilters.toDate);
+    }
+    if (reportFilters.category) {
+      query.set("category", reportFilters.category);
+    }
+
+    const response = await fetch(
+      query.toString() ? `${reportCsvUrl}?${query.toString()}` : reportCsvUrl
+    );
+    if (!response.ok) {
+      throw new Error(`Report export failed with ${response.status}.`);
+    }
+
+    const blob = await response.blob();
+    const contentDisposition = response.headers.get("content-disposition") ?? "";
+    const match = contentDisposition.match(/filename="?([^"]+)"?/i);
+    const fileName = match?.[1] ?? "trip-report.csv";
+
+    const downloadUrl = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = downloadUrl;
+    anchor.download = fileName;
+    document.body.append(anchor);
+    anchor.click();
+    anchor.remove();
+    URL.revokeObjectURL(downloadUrl);
   }
 
   function startExpenseEdit(expense: Expense): void {
@@ -540,6 +660,7 @@ export default function App() {
                 ...initialExpenseFormState,
                 currency: selectedTrip?.localCurrency ?? "ARS",
               });
+              setReportFilters(initialReportFilters);
             }}
           >
             <option value="">Select trip</option>
@@ -610,6 +731,102 @@ export default function App() {
                     </div>
                   </article>
                 ))}
+              </>
+            )}
+          </section>
+        )}
+
+        {selectedTripForExpenses && (
+          <section className="card">
+            <h3>Reports & Export</h3>
+            <div className="trip-form">
+              <label>
+                From date
+                <input
+                  type="date"
+                  value={reportFilters.fromDate}
+                  onChange={(event) =>
+                    setReportFilters({ ...reportFilters, fromDate: event.target.value })
+                  }
+                />
+              </label>
+              <label>
+                To date
+                <input
+                  type="date"
+                  value={reportFilters.toDate}
+                  onChange={(event) =>
+                    setReportFilters({ ...reportFilters, toDate: event.target.value })
+                  }
+                />
+              </label>
+              <input
+                placeholder="Category filter (optional)"
+                value={reportFilters.category}
+                onChange={(event) =>
+                  setReportFilters({ ...reportFilters, category: event.target.value })
+                }
+              />
+              <div className="actions">
+                <button
+                  type="button"
+                  onClick={() => {
+                    handleLoadReportSummary().catch((loadError) => {
+                      setError(
+                        loadError instanceof Error
+                          ? loadError.message
+                          : "Report summary failed unexpectedly."
+                      );
+                    });
+                  }}
+                >
+                  Load report
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    handleDownloadReportCsv().catch((loadError) => {
+                      setError(
+                        loadError instanceof Error
+                          ? loadError.message
+                          : "Report export failed unexpectedly."
+                      );
+                    });
+                  }}
+                >
+                  Download CSV
+                </button>
+              </div>
+            </div>
+
+            {reportSummary && (
+              <>
+                <p>
+                  Filtered expenses: {reportSummary.expenseCount}
+                </p>
+                <p>
+                  Total local: {reportSummary.totalLocalAmount} {reportSummary.localCurrency}
+                </p>
+                <p>
+                  Total home: {reportSummary.totalHomeAmount} {reportSummary.homeCurrency}
+                </p>
+                {reportSummary.categoryTotals.length > 0 && (
+                  <>
+                    <h4>Category breakdown</h4>
+                    {reportSummary.categoryTotals.map((item) => (
+                      <article key={item.category} className="trip-row">
+                        <div>{item.category}</div>
+                        <div>{item.expenseCount} expenses</div>
+                        <div>
+                          {item.totalLocalAmount} {reportSummary.localCurrency}
+                        </div>
+                        <div>
+                          {item.totalHomeAmount} {reportSummary.homeCurrency}
+                        </div>
+                      </article>
+                    ))}
+                  </>
+                )}
               </>
             )}
           </section>
