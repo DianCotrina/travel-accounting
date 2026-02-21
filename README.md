@@ -103,6 +103,17 @@ Implemented frontend functionality:
   - Totals by day.
   - Converted vs missing-conversion counts.
 
+## Reports Export Module (Phase 6)
+
+Implemented backend functionality:
+- `GET /api/trips/{tripId}/reports/summary`
+- `GET /api/trips/{tripId}/reports/export/csv`
+
+Implemented frontend functionality:
+- Report filter UI by date range and category.
+- Filtered report summary (counts and totals by category).
+- CSV export download for accounting workflows.
+
 ## Local Commands
 
 Build backend:
@@ -164,6 +175,12 @@ PUT http://localhost:<port>/api/trips/{tripId}/exchange-rates
 Ledger endpoint quick check:
 ```text
 GET http://localhost:<port>/api/trips/{tripId}/ledger/summary
+```
+
+Reports endpoints quick check:
+```text
+GET http://localhost:<port>/api/trips/{tripId}/reports/summary
+GET http://localhost:<port>/api/trips/{tripId}/reports/export/csv
 ```
 
 Auto-rate behavior:
