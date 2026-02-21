@@ -44,6 +44,10 @@ The format is inspired by Keep a Changelog, with versions listed in reverse chro
 - Added API integration tests for exchange-rate conversion behavior.
 - Added external exchange-rate provider integration (`ExchangeRateHostProvider`) with automatic fetch-and-cache on conversion.
 - Added `docs/workflow-diagram.md` with end-to-end and conversion-flow diagrams.
+- Added accounting-ledger application module with trip summary DTOs/service and aggregation logic.
+- Added accounting-ledger API endpoint `GET /api/trips/{tripId}/ledger/summary`.
+- Added frontend ledger summary UI for trip/category/day totals and conversion coverage.
+- Added API integration tests for ledger aggregation (`AccountingLedgerApiTests`).
 
 ### Changed
 - Replaced `AGENTS.md` template with project-specific context, modular branch strategy, and strict engineering execution rules.
@@ -67,3 +71,5 @@ The format is inspired by Keep a Changelog, with versions listed in reverse chro
 - Updated phase-4 UX from manual rate input to automatic provider-based assignment.
 - Hardened exchange-rate provider/conversion flow to prevent 500s on external rate lookup failures (non-success HTTP or request errors).
 - Switched exchange-rate provider implementation to exchangerate.host and added access-key based configuration support.
+- Updated `DEVELOPMENT_PLAN.md` to mark Accounting Ledger MVP completed and set `module/reports-export` as next.
+- Updated `README.md` with phase-5 accounting ledger endpoint and UI behavior.
