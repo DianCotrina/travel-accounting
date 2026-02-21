@@ -147,3 +147,18 @@ Each module ships with backend API, frontend UI, validation, tests, and docs upd
 1. `module/reports-export`
 - Build report/export views with accounting filters.
 - Add CSV export for accounting workflows.
+
+## Reports Export Status
+- Status: Completed (MVP)
+- Implemented filtered reporting endpoint:
+  - `GET /api/trips/{tripId}/reports/summary`
+- Implemented CSV export endpoint:
+  - `GET /api/trips/{tripId}/reports/export/csv`
+- Added report filters by date range and category.
+- Added frontend report summary + CSV download workflow.
+- Added API integration tests for summary filters and CSV export.
+
+## Next Module
+1. `module/auth-and-multiuser` (if needed)
+- Add ownership boundaries and authentication model.
+- Define audit requirements for accounting-sensitive edits.
