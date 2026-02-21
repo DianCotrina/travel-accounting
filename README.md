@@ -90,6 +90,19 @@ Implemented frontend functionality:
 - Home-currency equivalent display per expense
 - Conversion fallback message when a rate is missing
 
+## Accounting Ledger Module (Phase 5)
+
+Implemented backend functionality:
+- `GET /api/trips/{tripId}/ledger/summary`
+
+Implemented frontend functionality:
+- Ledger summary for the selected trip in Expenses section.
+- Aggregated totals:
+  - Trip totals in local and home currency.
+  - Totals by category.
+  - Totals by day.
+  - Converted vs missing-conversion counts.
+
 ## Local Commands
 
 Build backend:
@@ -146,6 +159,11 @@ Exchange rates endpoints quick check:
 ```text
 GET http://localhost:<port>/api/trips/{tripId}/exchange-rates
 PUT http://localhost:<port>/api/trips/{tripId}/exchange-rates
+```
+
+Ledger endpoint quick check:
+```text
+GET http://localhost:<port>/api/trips/{tripId}/ledger/summary
 ```
 
 Auto-rate behavior:

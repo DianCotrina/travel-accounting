@@ -130,3 +130,20 @@ Each module ships with backend API, frontend UI, validation, tests, and docs upd
 - Aggregate totals by day/category/trip in local and home currency.
 - Add discrepancy/reconciliation views.
 - Define rounding/reporting rules for accounting exports.
+
+## Accounting Ledger Status
+- Status: Completed (MVP)
+- Implemented backend ledger summary endpoint:
+  - `GET /api/trips/{tripId}/ledger/summary`
+- Added trip-scoped aggregation in local/home currency:
+  - Totals across the trip
+  - Totals by category
+  - Totals by day
+  - Converted vs missing-conversion counters
+- Added frontend ledger summary section in expenses workflow.
+- Added API integration test coverage for ledger summary aggregation.
+
+## Next Module
+1. `module/reports-export`
+- Build report/export views with accounting filters.
+- Add CSV export for accounting workflows.

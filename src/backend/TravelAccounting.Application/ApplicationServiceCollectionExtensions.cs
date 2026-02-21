@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using TravelAccounting.Application.AccountingLedger;
 using TravelAccounting.Application.Expenses;
 using TravelAccounting.Application.ExchangeRates;
 using TravelAccounting.Application.Health;
@@ -15,6 +16,7 @@ public static class ApplicationServiceCollectionExtensions
         services.AddScoped<ITripsService, TripsService>();
         services.AddScoped<IExpensesService, ExpensesService>();
         services.AddScoped<IExchangeRatesService, ExchangeRatesService>();
+        services.AddScoped<IAccountingLedgerService, AccountingLedgerService>();
 
         return services;
     }
