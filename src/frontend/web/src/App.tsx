@@ -62,6 +62,37 @@ type ExchangeRate = {
   rate: number;
 };
 
+type LedgerCategoryTotal = {
+  category: string;
+  totalLocalAmount: number;
+  convertedHomeAmount: number;
+  expenseCount: number;
+  convertedExpenseCount: number;
+  missingHomeConversionCount: number;
+};
+
+type LedgerDayTotal = {
+  date: string;
+  totalLocalAmount: number;
+  convertedHomeAmount: number;
+  expenseCount: number;
+  convertedExpenseCount: number;
+  missingHomeConversionCount: number;
+};
+
+type LedgerSummary = {
+  tripId: string;
+  localCurrency: string;
+  homeCurrency: string;
+  totalLocalAmount: number;
+  convertedHomeAmount: number;
+  expenseCount: number;
+  convertedExpenseCount: number;
+  missingHomeConversionCount: number;
+  categoryTotals: LedgerCategoryTotal[];
+  dayTotals: LedgerDayTotal[];
+};
+
 const initialFormState: TripFormState = {
   name: "",
   destinationCountry: "",
@@ -85,6 +116,7 @@ export default function App() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [countries, setCountries] = useState<CountryReference[]>([]);
   const [exchangeRates, setExchangeRates] = useState<ExchangeRate[]>([]);
+  const [ledgerSummary, setLedgerSummary] = useState<LedgerSummary | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [selectedTripId, setSelectedTripId] = useState<string | null>(null);
   const [selectedExpenseId, setSelectedExpenseId] = useState<string | null>(null);
@@ -111,6 +143,9 @@ export default function App() {
     : "";
   const exchangeRatesUrl = selectedExpensesTripId
     ? `${tripsUrl}/${selectedExpensesTripId}/exchange-rates`
+    : "";
+  const ledgerSummaryUrl = selectedExpensesTripId
+    ? `${tripsUrl}/${selectedExpensesTripId}/ledger/summary`
     : "";
 
   const loadHealth = useCallback(async (): Promise<void> => {
@@ -182,6 +217,21 @@ export default function App() {
     setExchangeRates(data);
   }, [exchangeRatesUrl, selectedExpensesTripId]);
 
+  const loadLedgerSummary = useCallback(async (): Promise<void> => {
+    if (!selectedExpensesTripId) {
+      setLedgerSummary(null);
+      return;
+    }
+
+    const response = await fetch(ledgerSummaryUrl);
+    if (!response.ok) {
+      throw new Error(`Ledger summary request failed with ${response.status}.`);
+    }
+
+    const data = (await response.json()) as LedgerSummary;
+    setLedgerSummary(data);
+  }, [ledgerSummaryUrl, selectedExpensesTripId]);
+
   useEffect(() => {
     loadHealth()
       .then(async () => {
@@ -198,15 +248,17 @@ export default function App() {
 
   useEffect(() => {
     if (selectedExpensesTripId) {
-      Promise.all([loadExpenses(), loadExchangeRates()]).catch((loadError) => {
+      Promise.all([loadExpenses(), loadExchangeRates(), loadLedgerSummary()]).catch((loadError) => {
         setError(
           loadError instanceof Error
             ? loadError.message
             : "Expenses or rates load failed unexpectedly."
         );
       });
+    } else {
+      setLedgerSummary(null);
     }
-  }, [loadExpenses, loadExchangeRates, selectedExpensesTripId]);
+  }, [loadExpenses, loadExchangeRates, loadLedgerSummary, selectedExpensesTripId]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault();
@@ -314,6 +366,7 @@ export default function App() {
 
     await loadExpenses();
     await loadExchangeRates();
+    await loadLedgerSummary();
     clearExpenseForm();
   }
 
@@ -333,6 +386,7 @@ export default function App() {
 
     await loadExpenses();
     await loadExchangeRates();
+    await loadLedgerSummary();
     if (selectedExpenseId === expenseId) {
       clearExpenseForm();
     }
@@ -502,6 +556,63 @@ export default function App() {
             Origin currency: {selectedTripForExpenses.homeCurrency} | Destination
             currency: {selectedTripForExpenses.localCurrency}
           </p>
+        )}
+
+        {selectedTripForExpenses && ledgerSummary && (
+          <section className="card">
+            <h3>Ledger Summary</h3>
+            <p>
+              Total local: {ledgerSummary.totalLocalAmount} {ledgerSummary.localCurrency}
+            </p>
+            <p>
+              Total home (converted): {ledgerSummary.convertedHomeAmount} {ledgerSummary.homeCurrency}
+            </p>
+            <p>
+              Expenses: {ledgerSummary.expenseCount} | Converted:{" "}
+              {ledgerSummary.convertedExpenseCount} | Missing conversion:{" "}
+              {ledgerSummary.missingHomeConversionCount}
+            </p>
+
+            {ledgerSummary.categoryTotals.length > 0 && (
+              <>
+                <h4>By Category</h4>
+                {ledgerSummary.categoryTotals.map((item) => (
+                  <article key={item.category} className="trip-row">
+                    <div>{item.category}</div>
+                    <div>
+                      {item.totalLocalAmount} {ledgerSummary.localCurrency}
+                    </div>
+                    <div>
+                      {item.convertedHomeAmount} {ledgerSummary.homeCurrency}
+                    </div>
+                    <div>
+                      {item.convertedExpenseCount}/{item.expenseCount} converted
+                    </div>
+                  </article>
+                ))}
+              </>
+            )}
+
+            {ledgerSummary.dayTotals.length > 0 && (
+              <>
+                <h4>By Day</h4>
+                {ledgerSummary.dayTotals.map((item) => (
+                  <article key={item.date} className="trip-row">
+                    <div>{item.date}</div>
+                    <div>
+                      {item.totalLocalAmount} {ledgerSummary.localCurrency}
+                    </div>
+                    <div>
+                      {item.convertedHomeAmount} {ledgerSummary.homeCurrency}
+                    </div>
+                    <div>
+                      {item.convertedExpenseCount}/{item.expenseCount} converted
+                    </div>
+                  </article>
+                ))}
+              </>
+            )}
+          </section>
         )}
 
         <form
