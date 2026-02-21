@@ -1,0 +1,19 @@
+import type { HealthResponse } from "../app/types";
+
+type HealthCardProps = {
+  health: HealthResponse | null;
+};
+
+export function HealthCard({ health }: HealthCardProps) {
+  if (!health) {
+    return null;
+  }
+
+  return (
+    <section className="card">
+      <h2>API Health</h2>
+      <p>Status: {health.status}</p>
+      <p>UTC: {health.utcNow}</p>
+    </section>
+  );
+}
