@@ -47,14 +47,27 @@ internal sealed class ExchangeRateHostProvider(
             var payload = await response.Content.ReadFromJsonAsync<ExchangeRateHostResponse>(cancellationToken);
             if (payload?.Success != true || payload.Rates is null)
             {
-                logger.LogWarning(
-                    "Exchange rate provider returned unsuccessful payload for {Endpoint}. Error: {Error}",
-                    endpoint,
-                    payload?.Error?.Info ?? "unknown");
-                return null;
+                if (payload?.Success != true)
+                {
+                    logger.LogWarning(
+                        "Exchange rate provider returned unsuccessful payload for {Endpoint}. Error: {Error}",
+                        endpoint,
+                        payload?.Error?.Info ?? "unknown");
+                    return null;
+                }
             }
 
-            return payload.Rates.TryGetValue(to, out var rate) ? rate : null;
+            var parsedRate = TryGetRateFromPayload(payload, from, to);
+            if (parsedRate is null)
+            {
+                logger.LogWarning(
+                    "Exchange rate provider payload did not contain a rate for {From} to {To} ({Endpoint}).",
+                    from,
+                    to,
+                    endpoint);
+            }
+
+            return parsedRate;
         }
         catch (HttpRequestException exception)
         {
@@ -74,10 +87,50 @@ internal sealed class ExchangeRateHostProvider(
         }
     }
 
+    private static decimal? TryGetRateFromPayload(
+        ExchangeRateHostResponse payload,
+        string fromCurrency,
+        string toCurrency)
+    {
+        if (payload.Rates is not null && payload.Rates.TryGetValue(toCurrency, out var directRate))
+        {
+            return directRate;
+        }
+
+        if (payload.Quotes is null || string.IsNullOrWhiteSpace(payload.Source))
+        {
+            return null;
+        }
+
+        var source = payload.Source.ToUpperInvariant();
+
+        var directKey = $"{source}{toCurrency}";
+        if (source == fromCurrency && payload.Quotes.TryGetValue(directKey, out var directQuote))
+        {
+            return directQuote;
+        }
+
+        var inverseKey = $"{source}{fromCurrency}";
+        if (source == toCurrency && payload.Quotes.TryGetValue(inverseKey, out var inverseQuote))
+        {
+            return inverseQuote == 0m ? null : 1m / inverseQuote;
+        }
+
+        if (payload.Quotes.TryGetValue(directKey, out var toQuote) &&
+            payload.Quotes.TryGetValue(inverseKey, out var fromQuote))
+        {
+            return fromQuote == 0m ? null : toQuote / fromQuote;
+        }
+
+        return null;
+    }
+
     private sealed class ExchangeRateHostResponse
     {
         public bool Success { get; init; }
         public Dictionary<string, decimal>? Rates { get; init; }
+        public Dictionary<string, decimal>? Quotes { get; init; }
+        public string? Source { get; init; }
         public ErrorResponse? Error { get; init; }
     }
 
