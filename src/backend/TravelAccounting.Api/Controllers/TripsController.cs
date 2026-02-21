@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TravelAccounting.Api.Trips;
 using TravelAccounting.Application.Trips;
@@ -5,6 +6,7 @@ using TravelAccounting.Application.Trips;
 namespace TravelAccounting.Api.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("api/[controller]")]
 public sealed class TripsController(ITripsService tripsService) : ControllerBase
 {

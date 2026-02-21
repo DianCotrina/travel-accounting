@@ -144,6 +144,15 @@ public sealed class ExchangeRatesApiTests(CustomWebApplicationFactory factory)
                 services.AddSingleton<IExchangeRateProvider, ThrowingProvider>();
             });
         }
+
+        protected override void ConfigureClient(HttpClient client)
+        {
+            base.ConfigureClient(client);
+            if (!client.DefaultRequestHeaders.Contains("X-User-Id"))
+            {
+                client.DefaultRequestHeaders.Add("X-User-Id", CustomWebApplicationFactory.DefaultTestUserId);
+            }
+        }
     }
 
     private sealed class ThrowingProvider : IExchangeRateProvider

@@ -6,6 +6,7 @@ public sealed class Trip
 {
     public Guid Id { get; private set; }
     public string Name { get; private set; }
+    public string OwnerUserId { get; private set; }
     public string DestinationCountry { get; private set; }
     public Currency HomeCurrency { get; private set; }
     public Currency LocalCurrency { get; private set; }
@@ -15,6 +16,7 @@ public sealed class Trip
 
     public Trip(
         Guid id,
+        string ownerUserId,
         string name,
         string destinationCountry,
         Currency homeCurrency,
@@ -32,6 +34,11 @@ public sealed class Trip
             throw new ArgumentException("Trip name cannot be empty.", nameof(name));
         }
 
+        if (string.IsNullOrWhiteSpace(ownerUserId))
+        {
+            throw new ArgumentException("Owner user id cannot be empty.", nameof(ownerUserId));
+        }
+
         if (string.IsNullOrWhiteSpace(destinationCountry))
         {
             throw new ArgumentException("Destination country cannot be empty.", nameof(destinationCountry));
@@ -43,6 +50,7 @@ public sealed class Trip
         }
 
         Id = id;
+        OwnerUserId = ownerUserId.Trim();
         Name = name.Trim();
         DestinationCountry = destinationCountry.Trim();
         HomeCurrency = homeCurrency ?? throw new ArgumentNullException(nameof(homeCurrency));

@@ -1,5 +1,8 @@
+using Microsoft.AspNetCore.Authentication;
+using TravelAccounting.Api.Auth;
 using TravelAccounting.Api.Configuration;
 using TravelAccounting.Application;
+using TravelAccounting.Application.Auth;
 using TravelAccounting.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +11,18 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ICurrentUserContext, HttpCurrentUserContext>();
+builder.Services
+    .AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = HeaderUserIdAuthenticationHandler.SchemeName;
+        options.DefaultChallengeScheme = HeaderUserIdAuthenticationHandler.SchemeName;
+    })
+    .AddScheme<AuthenticationSchemeOptions, HeaderUserIdAuthenticationHandler>(
+        HeaderUserIdAuthenticationHandler.SchemeName,
+        _ => { });
+builder.Services.AddAuthorization();
 builder.Services
     .AddOptions<AppSettings>()
     .Bind(builder.Configuration.GetSection(AppSettings.SectionName))
@@ -32,6 +47,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

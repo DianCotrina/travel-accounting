@@ -160,6 +160,7 @@ export default function App() {
     initialExpenseFormState
   );
   const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+  const userId = import.meta.env.VITE_USER_ID ?? "demo-user";
   const healthUrl = apiBaseUrl ? `${apiBaseUrl}/api/health` : "/api/health";
   const tripsUrl = apiBaseUrl ? `${apiBaseUrl}/api/trips` : "/api/trips";
   const countriesUrl = apiBaseUrl
@@ -188,19 +189,28 @@ export default function App() {
     ? `${tripsUrl}/${selectedExpensesTripId}/reports/export/csv`
     : "";
 
+  const apiFetch = useCallback(
+    async (input: string, init?: RequestInit): Promise<Response> => {
+      const headers = new Headers(init?.headers);
+      headers.set("X-User-Id", userId);
+      return fetch(input, { ...init, headers });
+    },
+    [userId]
+  );
+
   const loadHealth = useCallback(async (): Promise<void> => {
-    const response = await fetch(healthUrl);
+    const response = await apiFetch(healthUrl);
     if (!response.ok) {
       throw new Error(`Health request failed with ${response.status}.`);
     }
 
     const data = (await response.json()) as HealthResponse;
     setHealth(data);
-  }, [healthUrl]);
+  }, [apiFetch, healthUrl]);
 
   const loadTrips = useCallback(async (): Promise<void> => {
     try {
-      const response = await fetch(tripsUrl);
+      const response = await apiFetch(tripsUrl);
       if (!response.ok) {
         throw new Error(`Trip list request failed with ${response.status}.`);
       }
@@ -215,17 +225,17 @@ export default function App() {
           : "Failed to load trips unexpectedly."
       );
     }
-  }, [tripsUrl]);
+  }, [apiFetch, tripsUrl]);
 
   const loadCountries = useCallback(async (): Promise<void> => {
-    const response = await fetch(countriesUrl);
+    const response = await apiFetch(countriesUrl);
     if (!response.ok) {
       throw new Error(`Countries request failed with ${response.status}.`);
     }
 
     const data = (await response.json()) as CountryReference[];
     setCountries(data);
-  }, [countriesUrl]);
+  }, [apiFetch, countriesUrl]);
 
   const loadExpenses = useCallback(async (): Promise<void> => {
     if (!selectedExpensesTripId) {
@@ -233,14 +243,14 @@ export default function App() {
       return;
     }
 
-    const response = await fetch(expensesUrl);
+    const response = await apiFetch(expensesUrl);
     if (!response.ok) {
       throw new Error(`Expenses request failed with ${response.status}.`);
     }
 
     const data = (await response.json()) as Expense[];
     setExpenses(data);
-  }, [expensesUrl, selectedExpensesTripId]);
+  }, [apiFetch, expensesUrl, selectedExpensesTripId]);
 
   const loadExchangeRates = useCallback(async (): Promise<void> => {
     if (!selectedExpensesTripId) {
@@ -248,14 +258,14 @@ export default function App() {
       return;
     }
 
-    const response = await fetch(exchangeRatesUrl);
+    const response = await apiFetch(exchangeRatesUrl);
     if (!response.ok) {
       throw new Error(`Exchange rates request failed with ${response.status}.`);
     }
 
     const data = (await response.json()) as ExchangeRate[];
     setExchangeRates(data);
-  }, [exchangeRatesUrl, selectedExpensesTripId]);
+  }, [apiFetch, exchangeRatesUrl, selectedExpensesTripId]);
 
   const loadLedgerSummary = useCallback(async (): Promise<void> => {
     if (!selectedExpensesTripId) {
@@ -263,14 +273,14 @@ export default function App() {
       return;
     }
 
-    const response = await fetch(ledgerSummaryUrl);
+    const response = await apiFetch(ledgerSummaryUrl);
     if (!response.ok) {
       throw new Error(`Ledger summary request failed with ${response.status}.`);
     }
 
     const data = (await response.json()) as LedgerSummary;
     setLedgerSummary(data);
-  }, [ledgerSummaryUrl, selectedExpensesTripId]);
+  }, [apiFetch, ledgerSummaryUrl, selectedExpensesTripId]);
 
   const loadReportSummary = useCallback(async (): Promise<void> => {
     if (!selectedExpensesTripId) {
@@ -289,7 +299,7 @@ export default function App() {
       query.set("category", reportFilters.category);
     }
 
-    const response = await fetch(
+    const response = await apiFetch(
       query.toString() ? `${reportSummaryUrl}?${query.toString()}` : reportSummaryUrl
     );
     if (!response.ok) {
@@ -298,7 +308,7 @@ export default function App() {
 
     const data = (await response.json()) as ReportSummary;
     setReportSummary(data);
-  }, [reportFilters.category, reportFilters.fromDate, reportFilters.toDate, reportSummaryUrl, selectedExpensesTripId]);
+  }, [apiFetch, reportFilters.category, reportFilters.fromDate, reportFilters.toDate, reportSummaryUrl, selectedExpensesTripId]);
 
   useEffect(() => {
     loadHealth()
@@ -351,7 +361,7 @@ export default function App() {
     const url = isEditing ? `${tripsUrl}/${selectedTripId}` : tripsUrl;
     const method = isEditing ? "PUT" : "POST";
 
-    const response = await fetch(url, {
+    const response = await apiFetch(url, {
       method,
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -369,7 +379,7 @@ export default function App() {
   async function handleArchive(id: string): Promise<void> {
     setError(null);
 
-    const response = await fetch(`${tripsUrl}/${id}/archive`, {
+    const response = await apiFetch(`${tripsUrl}/${id}/archive`, {
       method: "POST",
     });
 
@@ -423,7 +433,7 @@ export default function App() {
     const method = selectedExpenseId ? "PUT" : "POST";
     const url = selectedExpenseId ? `${expensesUrl}/${selectedExpenseId}` : expensesUrl;
 
-    const response = await fetch(url, {
+    const response = await apiFetch(url, {
       method,
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -450,7 +460,7 @@ export default function App() {
       return;
     }
 
-    const response = await fetch(`${expensesUrl}/${expenseId}`, {
+    const response = await apiFetch(`${expensesUrl}/${expenseId}`, {
       method: "DELETE",
     });
 
@@ -490,7 +500,7 @@ export default function App() {
       query.set("category", reportFilters.category);
     }
 
-    const response = await fetch(
+    const response = await apiFetch(
       query.toString() ? `${reportCsvUrl}?${query.toString()}` : reportCsvUrl
     );
     if (!response.ok) {
