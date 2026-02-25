@@ -71,7 +71,7 @@ Example scenario: an American user traveling in Argentina records expenses in AR
 - Keep the UI mobile-friendly and responsive by default.
 
 ### Brand Assets
-- Check `brand_assets/` (if present) before using placeholders.
+- Check `assets/` (especially `assets/logos/` and `assets/design-inspirations/`) before using placeholders.
 - Use provided logos, palettes, and style guides exactly when available.
 - Do not invent brand colors if a brand palette exists.
 
