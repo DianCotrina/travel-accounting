@@ -96,3 +96,9 @@ Example scenario: an American user traveling in Argentina records expenses in AR
   - `npm --prefix src/frontend/web run lint`
 - If the change is visual, do a quick smoke test in the browser (or screenshot review if available).
 - If checks fail, fix before commit/push.
+
+### Frontend UI Review Mode
+- For frontend UI review requests, use a structured checklist covering accessibility, focus states, forms, motion, typography, content handling, images, performance, navigation/state, touch/safe areas, theming, locale/i18n, hydration safety, and anti-patterns.
+- Report findings grouped by file using `file:line` format with terse, high-signal notes (no long explanations unless the fix is non-obvious).
+- Apply framework-appropriate checks (React/Vite in this repo) and avoid Next.js-specific assumptions unless the code actually uses them.
+- Include repo-specific checks: reuse shared category catalog/components, preserve landing-page modularity, and flag encoding/mojibake text issues.
