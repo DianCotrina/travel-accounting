@@ -1,0 +1,58 @@
+[
+  {
+    "id": "food-drinks",
+    "label": "Food & Drinks",
+    "accent": "#ef4444",
+    "shortCode": "FD"
+  },
+  {
+    "id": "shopping",
+    "label": "Shopping",
+    "accent": "#38bdf8",
+    "shortCode": "SH"
+  },
+  {
+    "id": "housing",
+    "label": "Housing",
+    "accent": "#f59e0b",
+    "shortCode": "HS"
+  },
+  {
+    "id": "transportation",
+    "label": "Transportation",
+    "accent": "#64748b",
+    "shortCode": "TR"
+  },
+  {
+    "id": "vehicle",
+    "label": "Vehicle",
+    "accent": "#a855f7",
+    "shortCode": "VH"
+  },
+  {
+    "id": "life-entertainment",
+    "label": "Life & Entertainment",
+    "accent": "#65a30d",
+    "shortCode": "LE"
+  },
+  {
+    "id": "communication-pc",
+    "label": "Communication, PC",
+    "accent": "#4f46e5",
+    "shortCode": "CP"
+  },
+  {
+    "id": "financial-expenses",
+    "label": "Financial expenses",
+    "accent": "#14b8a6",
+    "shortCode": "FE"
+  },
+  {
+    "id": "investments",
+    "label": "Investments",
+    "accent": "#f43f5e",
+    "shortCode": "IN"
+  },
+  { "id": "income", "label": "Income", "accent": "#f59e0b", "shortCode": "IC" },
+  { "id": "others", "label": "Others", "accent": "#a3a3a3", "shortCode": "OT" }
+]

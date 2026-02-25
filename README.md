@@ -278,6 +278,8 @@ Frontend landing page:
 
 - The app now includes a standalone landing page built with reusable React components and the project logo (`assets/logos/sacatucuenta-logo.png`, served in frontend public assets).
 - The landing page includes a product-preview/video placeholder section and visual design references for future UI iterations.
+- Landing categories are backed by JSON data (`src/frontend/web/src/app/landingCategories.json`) for reuse in dropdowns and filters.
+- The landing page includes a 4-step "How it works" timeline and a placeholder current-users/ratings social-proof section.
 
 ## Troubleshooting
 
