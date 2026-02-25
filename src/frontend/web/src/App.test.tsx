@@ -16,5 +16,13 @@ describe("App", () => {
         name: /show the workflow in a short demo video/i,
       }),
     ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", {
+        name: /start with the login method that works best for you/i,
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /continue with gmail/i }),
+    ).toBeInTheDocument();
   });
 });
