@@ -44,3 +44,55 @@ Example scenario: an American user traveling in Argentina records expenses in AR
 - After making code changes, run the relevant tests and/or smoke checks.
 - If checks pass, commit and push automatically.
 - If checks fail, report failures clearly and do not push until resolved.
+
+## Frontend Design & UI Execution Rules
+
+### Always Do First (Frontend)
+- If a `frontend-design` skill is available in the current session, invoke it before writing frontend UI code.
+- If no such skill is available, follow the rules in this section directly.
+- Preserve the existing React/Vite architecture unless the user explicitly asks for a standalone prototype.
+
+### Reference-Driven UI Work
+- If a reference image is provided, match layout, spacing, typography, and color as closely as possible.
+- Do not add features, sections, or content that are not present in the reference.
+- Use placeholder content only where real content/assets are not provided.
+- If visual matching is requested, perform at least two comparison/fix passes before considering the task complete (unless the user stops earlier).
+
+### Visual Review Workflow (Portable)
+- Always preview from a local server (`http://localhost:<port>`), not `file:///`.
+- If screenshot tooling exists in the repo, use it; otherwise use the available local preview workflow.
+- Avoid hardcoded machine paths in instructions. Use placeholders when documenting local tool paths:
+  - `<put your path here>`
+- If the user or repo provides a screenshot script, document and use the repo-local path only.
+
+### Output Defaults (This Repo)
+- Default to React components within `src/frontend/web`, not single-file HTML.
+- Reuse existing app structure and patterns before introducing new UI architecture.
+- Keep the UI mobile-friendly and responsive by default.
+
+### Brand Assets
+- Check `brand_assets/` (if present) before using placeholders.
+- Use provided logos, palettes, and style guides exactly when available.
+- Do not invent brand colors if a brand palette exists.
+
+### Anti-Generic Design Guardrails
+- Avoid default-looking color choices; use intentional, project-appropriate palettes.
+- Use layered depth (base/elevated/floating) rather than flat repeated cards.
+- Use purposeful typography hierarchy; avoid identical visual treatment for headings and body text.
+- Do not use `transition-all`; animate only the properties that need to change.
+- Every interactive element must have hover, focus-visible, and active states.
+- Keep spacing consistent and token-like, not ad hoc.
+
+### Frontend Architecture Rules
+- Keep shared frontend types and defaults in app-level modules (for example `src/frontend/web/src/app`).
+- Split large UI surfaces into focused components (presentation) and keep orchestration in container components.
+- Reuse fetch helpers / shared request patterns instead of duplicating API wiring.
+- Preserve current behavior while refactoring; refactors should be behavior-safe by default.
+
+### Frontend Validation Checklist
+- Run relevant checks after frontend changes:
+  - `npm --prefix src/frontend/web run typecheck`
+  - `npm --prefix src/frontend/web run test`
+  - `npm --prefix src/frontend/web run lint`
+- If the change is visual, do a quick smoke test in the browser (or screenshot review if available).
+- If checks fail, fix before commit/push.
