@@ -2,6 +2,7 @@ import "./LandingPage.css";
 import { LandingNavbar } from "./ui/LandingNavbar";
 import { HeroSectionDark } from "./ui/HeroSectionDark";
 import { HowItWorks } from "./ui/HowItWorks";
+import { AnalyticsDashboardPreview } from "./ui/AnalyticsDashboardPreview";
 import { ShootingStars } from "./ui/shooting-stars";
 
 const productStats = [
@@ -112,82 +113,6 @@ const faqs = [
   },
 ];
 
-function DashboardMock() {
-  return (
-    <div className="sa-hero-panel" aria-hidden="true">
-      <div className="sa-hero-panel__toolbar">
-        <span className="sa-dot sa-dot--red" />
-        <span className="sa-dot sa-dot--amber" />
-        <span className="sa-dot sa-dot--green" />
-        <p>Travel Accounting Dashboard</p>
-      </div>
-
-      <div className="sa-hero-panel__body">
-        <aside className="sa-side-menu">
-          <div className="sa-side-menu__brand" />
-          <div className="sa-side-menu__item sa-side-menu__item--active" />
-          <div className="sa-side-menu__item" />
-          <div className="sa-side-menu__item" />
-          <div className="sa-side-menu__item" />
-        </aside>
-
-        <div className="sa-dashboard-content">
-          <div className="sa-dashboard-top">
-            <div className="sa-stat-card sa-stat-card--accent">
-              <span>Today Spend (ARS)</span>
-              <strong>19,000</strong>
-            </div>
-            <div className="sa-stat-card">
-              <span>Home Eq. (USD)</span>
-              <strong>13.82</strong>
-            </div>
-            <div className="sa-stat-card">
-              <span>Entries</span>
-              <strong>6</strong>
-            </div>
-            <div className="sa-stat-card">
-              <span>Categories</span>
-              <strong>3</strong>
-            </div>
-          </div>
-
-          <div className="sa-dashboard-main">
-            <div className="sa-chart-card">
-              <div className="sa-chart-card__header">
-                <span>Weekly Trend</span>
-                <small>Travel + Food + Transport</small>
-              </div>
-              <div className="sa-chart-card__graph">
-                <div className="sa-chart-line" />
-                <div className="sa-chart-glow" />
-              </div>
-            </div>
-
-            <div className="sa-summary-card">
-              <p>Top Categories</p>
-              <ul>
-                <li>
-                  <span>Food & Drinks</span>
-                  <strong>42%</strong>
-                </li>
-                <li>
-                  <span>Transportation</span>
-                  <strong>31%</strong>
-                </li>
-                <li>
-                  <span>Tourism</span>
-                  <strong>18%</strong>
-                </li>
-              </ul>
-              <button type="button">Export CSV</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export function LandingPage() {
   return (
     <div className="sa-landing" aria-labelledby="sa-hero-title">
@@ -232,7 +157,7 @@ export function LandingPage() {
           secondaryCtaText="Explore Features"
           secondaryCtaHref="#features"
           stats={productStats}
-          bottomSlot={<DashboardMock />}
+          bottomSlot={<AnalyticsDashboardPreview />}
           gridOptions={{ angle: 66, cellSize: 54, opacity: 0.2, lineColor: "#ff6a1c10" }}
         />
 
