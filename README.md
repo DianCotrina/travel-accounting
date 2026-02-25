@@ -280,6 +280,8 @@ Frontend landing page:
 - The landing page includes a product-preview/video placeholder section and visual design references for future UI iterations.
 - Landing categories are backed by JSON data (`src/frontend/web/src/app/landingCategories.json`) for reuse in dropdowns and filters.
 - The landing page includes a 4-step "How it works" timeline and a placeholder current-users/ratings social-proof section.
+- The landing page now includes explicit `About`, `Testimonials`, `Contact Us`, and `Footer` sections with visible contact information and clear CTAs.
+- Login options UI includes provider-style entry methods for Gmail, phone number, iCloud, and passkey (frontend preview only).
 
 ## Troubleshooting
 

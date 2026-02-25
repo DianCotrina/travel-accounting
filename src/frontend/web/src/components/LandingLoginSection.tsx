@@ -11,6 +11,7 @@ type MethodOption = {
   label: string;
   helper: string;
   cta: string;
+  iconLabel: string;
 };
 
 const methodOptions: MethodOption[] = [
@@ -19,24 +20,28 @@ const methodOptions: MethodOption[] = [
     label: "Gmail",
     helper: "Use your Google account email to continue.",
     cta: "Continue with Gmail",
+    iconLabel: "G",
   },
   {
     id: "phone",
     label: "Phone number",
     helper: "Send a one-time code to your number.",
     cta: "Continue with phone number",
+    iconLabel: "☎",
   },
   {
     id: "icloud",
     label: "iCloud",
     helper: "Sign in with Apple / iCloud identity.",
     cta: "Continue with iCloud",
+    iconLabel: "⌁",
   },
   {
     id: "passkey",
     label: "Passkey",
     helper: "Use a device passkey for faster, passwordless access.",
     cta: "Continue with passkey",
+    iconLabel: "⌘",
   },
 ];
 
@@ -139,7 +144,13 @@ export function LandingLoginSection({
               }
               onClick={() => setSelectedMethod(option.id)}
             >
-              {option.label}
+              <span
+                className={`login-method-pill__icon login-method-pill__icon--${option.id}`}
+                aria-hidden="true"
+              >
+                {option.iconLabel}
+              </span>
+              <span>{option.label}</span>
             </button>
           ))}
         </div>
@@ -170,6 +181,7 @@ export function LandingLoginSection({
               inputMode={getInputMode(selectedMethod)}
               spellCheck={false}
               autoCapitalize="none"
+              aria-describedby="landing-login-hint"
               onChange={(event) => setIdentifier(event.target.value)}
             />
           </label>
@@ -184,7 +196,7 @@ export function LandingLoginSection({
             </button>
           )}
 
-          <p className="landing-login-card__hint">
+          <p id="landing-login-hint" className="landing-login-card__hint">
             UI preview only: final auth flow will be connected to backend auth
             in a later phase.
           </p>

@@ -94,3 +94,4 @@ The format is inspired by Keep a Changelog, with versions listed in reverse chro
 - Updated `README.md` with phase-7 auth/multiuser behavior and usage.
 - Refreshed frontend UI styling for landing + workspace sections, preserving existing accounting flows with improved layout and visual hierarchy.
 - Evolved the landing page into a product-marketing surface with social proof, a 4-step workflow timeline, and JSON-driven category catalog preview.
+- Expanded landing page information architecture with About, Testimonials, Contact Us, and Footer sections plus visible contact info and provider-styled login method UI.
