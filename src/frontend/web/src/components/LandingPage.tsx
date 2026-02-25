@@ -2,6 +2,7 @@ import categoryCatalog from "../app/landingCategories.json";
 import type { CategoryCatalogEntry } from "../app/categoryCatalog";
 import { CategoryCatalogPreview } from "./CategoryCatalogPreview";
 import { LandingLoginSection } from "./LandingLoginSection";
+import "./LandingPage.css";
 
 type LandingPageProps = {
   onGoToWorkspace?: () => void;
