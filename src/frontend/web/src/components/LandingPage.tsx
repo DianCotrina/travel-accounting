@@ -74,14 +74,20 @@ const categories = categoryCatalog as CategoryCatalogEntry[];
 export function LandingPage({ onGoToWorkspace }: LandingPageProps) {
   return (
     <section className="landing-shell" aria-labelledby="landing-title">
+      <a className="skip-link" href="#landing-main">
+        Skip to main content
+      </a>
       <div className="landing-backdrop" aria-hidden="true" />
 
-      <header className="landing-nav">
+      <header className="landing-nav" aria-label="Site header">
         <div className="brand-pill">
           <img
             src="/sacatucuenta-logo.png"
             alt="Sacatucuenta logo"
             className="brand-pill__logo"
+            width={768}
+            height={768}
+            fetchPriority="high"
           />
           <div>
             <strong>Sacatucuenta</strong>
@@ -103,271 +109,287 @@ export function LandingPage({ onGoToWorkspace }: LandingPageProps) {
         </nav>
       </header>
 
-      <div className="landing-hero">
-        <div className="landing-copy">
-          <p className="eyebrow">Travel accounting for real trips</p>
-          <div className="hero-badge-row" aria-label="Product positioning">
-            <span className="hero-badge">Built for travelers</span>
-            <span className="hero-badge hero-badge--accent">
-              Accounting-ready outputs
-            </span>
-          </div>
-
-          <h1 id="landing-title">
-            Record expenses abroad and understand the impact in your own
-            currency.
-          </h1>
-
-          <p className="landing-description">
-            Sacatucuenta helps you keep a clean spending trail while traveling
-            internationally. Track local costs, preserve conversion visibility,
-            and prepare reports for review.
-          </p>
-
-          <div className="landing-actions">
-            <a
-              className="cta-primary"
-              href="#product-demo"
-              onClick={onGoToWorkspace}
-            >
-              Watch product preview
-            </a>
-            <a className="cta-secondary" href="#social-proof">
-              See user ratings
-            </a>
-          </div>
-
-          <ul className="landing-metrics" aria-label="Product highlights">
-            <li>
-              <span>Multi-currency</span>
-              <strong>Trip + home totals</strong>
-            </li>
-            <li>
-              <span>Fast entry</span>
-              <strong>Category-first logging</strong>
-            </li>
-            <li>
-              <span>Exports</span>
-              <strong>CSV-ready reporting</strong>
-            </li>
-          </ul>
-        </div>
-
-        <div className="landing-visual" aria-hidden="true">
-          <div className="glow-ring glow-ring--a" />
-          <div className="glow-ring glow-ring--b" />
-          <div className="hero-card">
-            <div className="hero-card__top">
-              <img
-                src="/sacatucuenta-logo.png"
-                alt=""
-                className="hero-card__logo"
-                role="presentation"
-              />
-              <div className="hero-card__identity">
-                <p>Buenos Aires trip</p>
-                <strong>Feb 18 - Feb 24</strong>
-              </div>
+      <main id="landing-main">
+        <div className="landing-hero anchor-section">
+          <div className="landing-copy">
+            <p className="eyebrow">Travel accounting for real trips</p>
+            <div className="hero-badge-row" aria-label="Product positioning">
+              <span className="hero-badge">Built for travelers</span>
+              <span className="hero-badge hero-badge--accent">
+                Accounting-ready outputs
+              </span>
             </div>
 
-            <div className="hero-card__grid">
-              <div className="hero-stat">
-                <span>Trip total (ARS)</span>
-                <strong>245,340</strong>
-              </div>
-              <div className="hero-stat">
-                <span>Home total (USD)</span>
-                <strong>178.22</strong>
-              </div>
-              <div className="hero-stat hero-stat--wide">
-                <span>Today categories</span>
-                <strong>Meals + Transport + Museum</strong>
-              </div>
+            <h1 id="landing-title">
+              Record expenses abroad and understand the impact in your own
+              currency.
+            </h1>
+
+            <p className="landing-description">
+              Sacatucuenta helps you keep a clean spending trail while traveling
+              internationally. Track local costs, preserve conversion
+              visibility, and prepare reports for review.
+            </p>
+
+            <div className="landing-actions">
+              <a
+                className="cta-primary"
+                href="#product-demo"
+                onClick={onGoToWorkspace}
+              >
+                Watch product preview
+              </a>
+              <a className="cta-secondary" href="#social-proof">
+                See user ratings
+              </a>
             </div>
 
-            <div className="hero-card__footer">
-              <div className="hero-progress">
-                <div className="hero-progress__row">
-                  <span className="hero-progress__label">
-                    Entries categorized
-                  </span>
-                  <span className="hero-progress__value">89%</span>
-                </div>
-                <div className="hero-progress__track" role="presentation">
-                  <div className="hero-progress__fill" />
+            <ul className="landing-metrics" aria-label="Product highlights">
+              <li>
+                <span>Multi-currency</span>
+                <strong>Trip + home totals</strong>
+              </li>
+              <li>
+                <span>Fast entry</span>
+                <strong>Category-first logging</strong>
+              </li>
+              <li>
+                <span>Exports</span>
+                <strong>CSV-ready reporting</strong>
+              </li>
+            </ul>
+          </div>
+
+          <div className="landing-visual" aria-hidden="true">
+            <div className="glow-ring glow-ring--a" />
+            <div className="glow-ring glow-ring--b" />
+            <div className="hero-card">
+              <div className="hero-card__top">
+                <img
+                  src="/sacatucuenta-logo.png"
+                  alt=""
+                  className="hero-card__logo"
+                  role="presentation"
+                  width={768}
+                  height={768}
+                />
+                <div className="hero-card__identity">
+                  <p>Buenos Aires trip</p>
+                  <strong>Feb 18 - Feb 24</strong>
                 </div>
               </div>
-              <p className="hero-card__note">
-                Home conversion available for most expenses
-              </p>
+
+              <div className="hero-card__grid">
+                <div className="hero-stat">
+                  <span>Trip total (ARS)</span>
+                  <strong>245,340</strong>
+                </div>
+                <div className="hero-stat">
+                  <span>Home total (USD)</span>
+                  <strong>178.22</strong>
+                </div>
+                <div className="hero-stat hero-stat--wide">
+                  <span>Today categories</span>
+                  <strong>Meals + Transport + Museum</strong>
+                </div>
+              </div>
+
+              <div className="hero-card__footer">
+                <div className="hero-progress">
+                  <div className="hero-progress__row">
+                    <span className="hero-progress__label">
+                      Entries categorized
+                    </span>
+                    <span className="hero-progress__value">89%</span>
+                  </div>
+                  <div className="hero-progress__track" role="presentation">
+                    <div className="hero-progress__fill" />
+                  </div>
+                </div>
+                <p className="hero-card__note">
+                  Home conversion available for most expenses
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <LandingLoginSection onGoToWorkspace={onGoToWorkspace} />
+        <LandingLoginSection onGoToWorkspace={onGoToWorkspace} />
 
-      <section
-        id="social-proof"
-        className="landing-social-proof"
-        aria-labelledby="social-proof-title"
-      >
-        <div className="landing-social-proof__intro">
-          <p className="eyebrow">Current users & ratings</p>
-          <h2 id="social-proof-title">
-            Trusted by travelers who need accounting clarity
-          </h2>
-          <p>
-            Social proof content for the landing page. Replace these examples
-            with real metrics and testimonials as users adopt the product.
-          </p>
-        </div>
-
-        <div className="landing-social-proof__grid">
-          {socialProof.map((item) => (
-            <article key={item.name} className="social-card">
-              <div className="social-card__top">
-                <strong>{item.name}</strong>
-                <span>{item.rating}</span>
-              </div>
-              <p className="social-card__users">
-                {item.users} current/active users
-              </p>
-              <p className="social-card__quote">"{item.quote}"</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section
-        id="how-it-works"
-        className="landing-how-it-works"
-        aria-labelledby="how-it-works-title"
-      >
-        <div className="landing-how-it-works__header">
-          <p className="eyebrow">// How it works</p>
-          <h2 id="how-it-works-title">
-            From travel spending to accounting-ready records in four steps
-          </h2>
-          <p>
-            Inspired by your reference, adapted to Sacatucuenta&apos;s workflow
-            and terminology.
-          </p>
-        </div>
-
-        <div
-          className="timeline-list"
-          role="list"
-          aria-label="How it works steps"
+        <section
+          id="social-proof"
+          className="landing-social-proof"
+          aria-labelledby="social-proof-title"
         >
-          {howItWorksSteps.map((step) => (
-            <article key={step.step} className="timeline-item" role="listitem">
-              <div className="timeline-item__marker" aria-hidden="true">
-                <span>{step.step}</span>
-              </div>
-              <div className="timeline-item__content">
-                <h3>{step.title}</h3>
-                <p>{step.description}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section
-        id="product-demo"
-        className="landing-showcase"
-        aria-labelledby="product-demo-title"
-      >
-        <div className="landing-showcase__copy">
-          <p className="eyebrow">Product walkthrough</p>
-          <h2 id="product-demo-title">
-            Show the workflow in a short demo video
-          </h2>
-          <p>
-            Keep the landing page focused on value. Use a short video
-            walkthrough to present the operational workflow once you record it.
-          </p>
-          <ul className="landing-checklist">
-            <li>Trip setup with home vs destination currency</li>
-            <li>Daily expense capture and conversion tracking</li>
-            <li>Ledger summary and CSV export flow</li>
-          </ul>
-        </div>
-
-        <div className="landing-video-card" aria-label="Demo video placeholder">
-          <div className="landing-video-card__header">
-            <span className="dot dot--red" />
-            <span className="dot dot--amber" />
-            <span className="dot dot--green" />
-            <p>Product preview</p>
+          <div className="landing-social-proof__intro">
+            <p className="eyebrow">Current users & ratings</p>
+            <h2 id="social-proof-title">
+              Trusted by travelers who need accounting clarity
+            </h2>
+            <p>
+              Social proof content for the landing page. Replace these examples
+              with real metrics and testimonials as users adopt the product.
+            </p>
           </div>
-          <div className="landing-video-card__body">
-            <div className="play-button" aria-hidden="true">
-              &#9654;
-            </div>
-            <p>Replace this panel with an embedded product video.</p>
-            <div className="landing-video-card__timeline" aria-hidden="true">
-              <span className="landing-video-card__timeline-fill" />
-            </div>
-            <div className="landing-video-card__chapters" aria-hidden="true">
-              {previewChapters.map((chapter) => (
-                <span key={chapter}>{chapter}</span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
 
-      <section
-        className="landing-inspirations"
-        aria-labelledby="landing-inspirations-title"
-      >
-        <div className="landing-inspirations__copy">
-          <p className="eyebrow">Category catalog preview</p>
-          <h2 id="landing-inspirations-title">
-            JSON-driven categories for dropdowns and filters
-          </h2>
-          <p>
-            The categories reference is now represented as data so we can reuse
-            the same source for future expense forms, filters, and reporting UI.
-          </p>
-
-          <CategoryCatalogPreview categories={categories} />
-
-          <div
-            className="landing-inspirations__tags"
-            aria-label="UI directions"
-          >
-            {categoryTags.map((tag) => (
-              <span key={tag}>{tag}</span>
+          <div className="landing-social-proof__grid">
+            {socialProof.map((item) => (
+              <article key={item.name} className="social-card">
+                <div className="social-card__top">
+                  <strong>{item.name}</strong>
+                  <span>{item.rating}</span>
+                </div>
+                <p className="social-card__users">
+                  {item.users} current/active users
+                </p>
+                <p className="social-card__quote">"{item.quote}"</p>
+              </article>
             ))}
           </div>
-        </div>
+        </section>
 
-        <figure className="landing-inspirations__figure">
-          <div className="landing-inspirations__frame">
-            <div
-              className="landing-inspirations__frame-header"
-              aria-hidden="true"
-            >
+        <section
+          id="how-it-works"
+          className="landing-how-it-works"
+          aria-labelledby="how-it-works-title"
+        >
+          <div className="landing-how-it-works__header">
+            <p className="eyebrow">// How it works</p>
+            <h2 id="how-it-works-title">
+              From travel spending to accounting-ready records in four steps
+            </h2>
+            <p>
+              Inspired by your reference, adapted to Sacatucuenta&apos;s
+              workflow and terminology.
+            </p>
+          </div>
+
+          <div
+            className="timeline-list"
+            role="list"
+            aria-label="How it works steps"
+          >
+            {howItWorksSteps.map((step) => (
+              <article
+                key={step.step}
+                className="timeline-item"
+                role="listitem"
+              >
+                <div className="timeline-item__marker" aria-hidden="true">
+                  <span>{step.step}</span>
+                </div>
+                <div className="timeline-item__content">
+                  <h3>{step.title}</h3>
+                  <p>{step.description}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          id="product-demo"
+          className="landing-showcase"
+          aria-labelledby="product-demo-title"
+        >
+          <div className="landing-showcase__copy">
+            <p className="eyebrow">Product walkthrough</p>
+            <h2 id="product-demo-title">
+              Show the workflow in a short demo video
+            </h2>
+            <p>
+              Keep the landing page focused on value. Use a short video
+              walkthrough to present the operational workflow once you record
+              it.
+            </p>
+            <ul className="landing-checklist">
+              <li>Trip setup with home vs destination currency</li>
+              <li>Daily expense capture and conversion tracking</li>
+              <li>Ledger summary and CSV export flow</li>
+            </ul>
+          </div>
+
+          <div
+            className="landing-video-card"
+            aria-label="Demo video placeholder"
+          >
+            <div className="landing-video-card__header">
               <span className="dot dot--red" />
               <span className="dot dot--amber" />
               <span className="dot dot--green" />
-              <p>Reference panel</p>
+              <p>Product preview</p>
             </div>
-
-            <img
-              src="/categories.png"
-              alt="Expense categories menu inspiration"
-              className="landing-inspirations__image"
-            />
+            <div className="landing-video-card__body">
+              <div className="play-button" aria-hidden="true">
+                &#9654;
+              </div>
+              <p>Replace this panel with an embedded product video.</p>
+              <div className="landing-video-card__timeline" aria-hidden="true">
+                <span className="landing-video-card__timeline-fill" />
+              </div>
+              <div className="landing-video-card__chapters" aria-hidden="true">
+                {previewChapters.map((chapter) => (
+                  <span key={chapter}>{chapter}</span>
+                ))}
+              </div>
+            </div>
           </div>
-          <figcaption>
-            Reference image from `assets/design-inspirations/categories.png`
-          </figcaption>
-        </figure>
-      </section>
+        </section>
+
+        <section
+          className="landing-inspirations"
+          aria-labelledby="landing-inspirations-title"
+        >
+          <div className="landing-inspirations__copy">
+            <p className="eyebrow">Category catalog preview</p>
+            <h2 id="landing-inspirations-title">
+              JSON-driven categories for dropdowns and filters
+            </h2>
+            <p>
+              The categories reference is now represented as data so we can
+              reuse the same source for future expense forms, filters, and
+              reporting UI.
+            </p>
+
+            <CategoryCatalogPreview categories={categories} />
+
+            <div
+              className="landing-inspirations__tags"
+              aria-label="UI directions"
+            >
+              {categoryTags.map((tag) => (
+                <span key={tag}>{tag}</span>
+              ))}
+            </div>
+          </div>
+
+          <figure className="landing-inspirations__figure">
+            <div className="landing-inspirations__frame">
+              <div
+                className="landing-inspirations__frame-header"
+                aria-hidden="true"
+              >
+                <span className="dot dot--red" />
+                <span className="dot dot--amber" />
+                <span className="dot dot--green" />
+                <p>Reference panel</p>
+              </div>
+
+              <img
+                src="/categories.png"
+                alt="Expense categories menu inspiration"
+                className="landing-inspirations__image"
+                width={320}
+                height={492}
+                loading="lazy"
+              />
+            </div>
+            <figcaption>
+              Reference image from `assets/design-inspirations/categories.png`
+            </figcaption>
+          </figure>
+        </section>
+      </main>
     </section>
   );
 }

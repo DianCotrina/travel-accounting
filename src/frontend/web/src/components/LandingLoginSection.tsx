@@ -45,6 +45,7 @@ export function LandingLoginSection({
 }: LandingLoginSectionProps) {
   const [selectedMethod, setSelectedMethod] = useState<LoginMethod>("gmail");
   const [identifier, setIdentifier] = useState("");
+  const panelId = `login-panel-${selectedMethod}`;
 
   const selectedOption = useMemo(
     () =>
@@ -69,16 +70,28 @@ export function LandingLoginSection({
 
   function getIdentifierPlaceholder(method: LoginMethod): string {
     if (method === "phone") {
-      return "+1 555 123 4567";
+      return "+1 555 123 4567…";
     }
     if (method === "passkey") {
-      return "name@example.com";
+      return "name@example.com…";
     }
     if (method === "icloud") {
-      return "name@icloud.com";
+      return "name@icloud.com…";
     }
 
-    return "name@gmail.com";
+    return "name@gmail.com…";
+  }
+
+  function getAutocomplete(method: LoginMethod): string {
+    if (method === "phone") {
+      return "tel";
+    }
+
+    return "email";
+  }
+
+  function getInputMode(method: LoginMethod): "tel" | "email" {
+    return method === "phone" ? "tel" : "email";
   }
 
   return (
@@ -116,7 +129,9 @@ export function LandingLoginSection({
               key={option.id}
               type="button"
               role="tab"
+              id={`login-tab-${option.id}`}
               aria-selected={selectedMethod === option.id}
+              aria-controls={`login-panel-${option.id}`}
               className={
                 selectedMethod === option.id
                   ? "login-method-pill login-method-pill--active"
@@ -131,12 +146,15 @@ export function LandingLoginSection({
 
         <form
           className="landing-login-card__form"
+          role="tabpanel"
+          id={panelId}
+          aria-labelledby={`login-tab-${selectedMethod}`}
           onSubmit={(event) => {
             event.preventDefault();
             onGoToWorkspace?.();
           }}
         >
-          <div className="landing-login-card__header">
+          <div className="landing-login-card__header" aria-live="polite">
             <p>{selectedOption.label}</p>
             <span>{selectedOption.helper}</span>
           </div>
@@ -145,8 +163,13 @@ export function LandingLoginSection({
             {getIdentifierLabel(selectedMethod)}
             <input
               type={selectedMethod === "phone" ? "tel" : "email"}
+              name={selectedMethod === "phone" ? "phone" : "email"}
               value={identifier}
               placeholder={getIdentifierPlaceholder(selectedMethod)}
+              autoComplete={getAutocomplete(selectedMethod)}
+              inputMode={getInputMode(selectedMethod)}
+              spellCheck={false}
+              autoCapitalize="none"
               onChange={(event) => setIdentifier(event.target.value)}
             />
           </label>
