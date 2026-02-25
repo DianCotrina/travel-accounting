@@ -83,6 +83,33 @@ Example scenario: an American user traveling in Argentina records expenses in AR
 - Do not use `transition-all`; animate only the properties that need to change.
 - Every interactive element must have hover, focus-visible, and active states.
 - Keep spacing consistent and token-like, not ad hoc.
+- Avoid repeating the same bordered panel shell across every section; vary section morphology and chapter rhythm.
+
+### Landing Page Pattern (Recommended Baseline)
+- For marketing landing pages, prefer a chapter-based layout with clear section contrast instead of stacked identical cards.
+- Use a strong hero chapter (largest visual weight), followed by sections with intentionally different treatments (open layout, framed stage, editorial quotes, quiet FAQ, strong closing CTA band).
+- Default landing flow (adapt as needed):
+  - Header/Nav + Hero
+  - Benefits / Why It Matters
+  - Pricing
+  - Testimonials / Social Proof
+  - FAQ
+  - Final CTA + Footer
+- Keep one dominant element per section (for example: hero dashboard, featured pricing plan, featured testimonial).
+- Vary spacing density between sections (spacious -> medium -> compact -> spacious) so the page does not feel uniform or cramped.
+- Use section-specific shell treatments:
+  - some sections open (no outer frame),
+  - some sections framed,
+  - some sections split/asymmetric,
+  - some sections quieter/minimal.
+- Add `scroll-margin-top` for anchored sections and ensure nav jumps land on a clear section start.
+- Preserve accessibility and interaction quality while styling:
+  - visible focus states,
+  - hover/active states,
+  - keyboard-accessible nav/dropdowns,
+  - readable contrast in dark themes.
+- Prefer subtle motion (small lift/zoom on hover, opacity/transform transitions) over heavy animation.
+- Use reusable section components with local CSS (or modules) and keep page orchestration in a single landing container component.
 
 ### Frontend Architecture Rules
 - Keep shared frontend types and defaults in app-level modules (for example `src/frontend/web/src/app`).
