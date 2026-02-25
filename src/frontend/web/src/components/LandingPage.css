@@ -51,6 +51,14 @@
 .sa-main,
 .sa-footer {
   position: relative;
+}
+
+.sa-nav {
+  z-index: 5;
+}
+
+.sa-main,
+.sa-footer {
   z-index: 3;
 }
 
