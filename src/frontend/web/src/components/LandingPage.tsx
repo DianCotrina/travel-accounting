@@ -1,4 +1,5 @@
-import "./LandingPage.css";
+Ôªøimport "./LandingPage.css";
+import { ShootingStars } from "./ui/shooting-stars";
 
 const productStats = [
   { label: "Trips logged", value: "12,480+" },
@@ -218,7 +219,33 @@ export function LandingPage() {
       </header>
 
       <main id="top" className="sa-main">
-        <section className="sa-hero" aria-labelledby="sa-hero-title">
+                <section className="sa-hero" aria-labelledby="sa-hero-title">
+          <div className="sa-hero__sky" aria-hidden="true">
+            <div className="sa-hero__skyGlow" />
+            <div className="sa-hero__skyStars" />
+            <ShootingStars
+              className="sa-hero__shootingStars sa-hero__shootingStars--a"
+              starColor="#ff8f47"
+              trailColor="#ff6a1c"
+              minSpeed={12}
+              maxSpeed={26}
+              minDelay={900}
+              maxDelay={2600}
+              starWidth={14}
+              starHeight={1.2}
+            />
+            <ShootingStars
+              className="sa-hero__shootingStars sa-hero__shootingStars--b"
+              starColor="#ffd09e"
+              trailColor="#ff9c4f"
+              minSpeed={8}
+              maxSpeed={18}
+              minDelay={1600}
+              maxDelay={3800}
+              starWidth={10}
+              starHeight={1}
+            />
+          </div>
           <p className="sa-kicker">Travel Accounting Platform</p>
           <h1 id="sa-hero-title">
             Track foreign travel expenses without losing accounting clarity.
@@ -325,7 +352,7 @@ export function LandingPage() {
           <div className="sa-card-grid sa-card-grid--two">
             {testimonials.map((item) => (
               <blockquote key={item.person} className="sa-testimonial-card">
-                <p className="sa-testimonial-card__quote">ì{item.quote}î</p>
+                <p className="sa-testimonial-card__quote">‚Äú{item.quote}‚Äù</p>
                 <footer>
                   <strong>{item.person}</strong>
                   <span>{item.role}</span>
@@ -385,3 +412,5 @@ export function LandingPage() {
     </div>
   );
 }
+
+
