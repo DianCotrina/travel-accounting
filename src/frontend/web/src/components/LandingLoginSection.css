@@ -9,6 +9,13 @@
     inset 0 1px 0 #ffffff0d;
   display: grid;
   gap: 1rem;
+  max-width: 64rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.landing-login__copy {
+  text-align: center;
 }
 
 .landing-login__copy h2 {
@@ -30,6 +37,8 @@
   margin: 0.95rem 0 0;
   padding-left: 1.05rem;
   color: #e2dcf6;
+  display: inline-block;
+  text-align: left;
 }
 
 .landing-login__benefits li + li {
@@ -44,6 +53,8 @@
     0 24px 38px #00000040,
     inset 0 1px 0 #ffffff10;
   overflow: hidden;
+  max-width: 34rem;
+  margin: 0 auto;
 }
 
 .landing-login-card:focus-within {
@@ -234,7 +245,7 @@
 
 @media (min-width: 48rem) {
   .landing-login {
-    grid-template-columns: 1.05fr 0.95fr;
+    grid-template-columns: 1fr;
     align-items: start;
     gap: 1rem;
   }
@@ -243,6 +254,10 @@
 @media (max-width: 40rem) {
   .landing-login {
     border-radius: 1.25rem;
+  }
+
+  .landing-login__copy {
+    text-align: left;
   }
 
   .landing-login-card__methods {

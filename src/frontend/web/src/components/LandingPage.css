@@ -1,14 +1,11 @@
 .landing-shell {
   position: relative;
   overflow: hidden;
-  border: 1px solid #2a1c56;
-  border-radius: 2rem;
-  padding: 1rem;
-  background:
-    linear-gradient(160deg, #090022 0%, #0d042d 48%, #07001f 100%);
-  box-shadow:
-    0 36px 90px #0000007a,
-    inset 0 1px 0 #ffffff10;
+  border: 0;
+  border-radius: 0;
+  padding: 0.35rem 0.15rem 2rem;
+  background: transparent;
+  box-shadow: none;
 }
 
 .landing-shell::before {
@@ -17,20 +14,20 @@
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(circle at 18% 22%, #6e45ff2b 0, transparent 38%),
-    radial-gradient(circle at 86% 16%, #3dfd9818 0, transparent 34%),
-    radial-gradient(circle at 72% 72%, #e4c5fc12 0, transparent 42%);
+    radial-gradient(circle at 50% -10%, #6e45ff2b 0, transparent 44%),
+    radial-gradient(circle at 5% 34%, #3dfd9812 0, transparent 26%),
+    radial-gradient(circle at 96% 78%, #66ffe41a 0, transparent 22%);
 }
 
 .landing-backdrop {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background-image:
-    linear-gradient(#ffffff06 1px, transparent 1px),
-    linear-gradient(90deg, #ffffff05 1px, transparent 1px);
-  background-size: 44px 44px;
-  mask-image: linear-gradient(180deg, #000, transparent 82%);
+  background:
+    radial-gradient(ellipse 70% 28% at 50% 3%, transparent 56%, #6e45ff20 57%, transparent 58%),
+    radial-gradient(ellipse 70% 28% at 50% 3%, transparent 70%, #6e45ff10 71%, transparent 72%),
+    radial-gradient(ellipse 70% 28% at 50% 97%, transparent 56%, #3dfd9818 57%, transparent 58%);
+  opacity: 0.85;
 }
 
 .landing-nav,
@@ -52,7 +49,8 @@
   align-items: center;
   justify-content: space-between;
   gap: 0.9rem;
-  margin-bottom: 1.1rem;
+  margin: 0 auto 1.35rem;
+  max-width: 68rem;
   padding: 0.35rem;
   border-radius: 1.25rem;
   background: #0c0428bf;
@@ -143,6 +141,8 @@
   display: grid;
   gap: 1rem;
   align-items: stretch;
+  max-width: 64rem;
+  margin: 0 auto;
 }
 
 .landing-copy,
@@ -157,7 +157,11 @@
 
 .landing-copy {
   max-width: none;
-  padding: 1.05rem;
+  padding: 1.15rem 1rem 1rem;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 0%, #6e45ff14 0, transparent 55%),
+    linear-gradient(180deg, #0f072eeb 0%, #090320f2 100%);
 }
 
 .hero-badge-row {
@@ -165,6 +169,7 @@
   flex-wrap: wrap;
   gap: 0.45rem;
   margin-top: 0.6rem;
+  justify-content: center;
 }
 
 .hero-badge {
@@ -193,6 +198,8 @@
   line-height: 0.94;
   letter-spacing: -0.045em;
   text-wrap: balance;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .landing-copy h1::after {
@@ -211,6 +218,8 @@
   max-width: 58ch;
   color: #b8afd6;
   line-height: 1.72;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .landing-metrics {
@@ -219,6 +228,9 @@
   padding: 0;
   display: grid;
   gap: 0.65rem;
+  max-width: 50rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .landing-metrics li {
@@ -245,11 +257,13 @@
 
 .landing-visual {
   position: relative;
-  min-height: 22rem;
+  min-height: 24rem;
   display: grid;
   place-items: center;
-  padding: 1rem;
+  padding: 1.25rem 1rem 1rem;
   overflow: hidden;
+  max-width: 52rem;
+  margin: 0 auto;
 }
 
 .glow-ring {
@@ -275,15 +289,15 @@
 
 .hero-card {
   position: relative;
-  width: min(100%, 26rem);
-  border-radius: 1.4rem;
+  width: min(100%, 41rem);
+  border-radius: 1rem;
   border: 1px solid #3a2b70;
   background:
     linear-gradient(180deg, #160b41f2 0%, #0f072fea 100%);
   box-shadow:
     0 28px 56px #00000055,
     inset 0 1px 0 #ffffff14;
-  padding: 1rem;
+  padding: 0.9rem;
 }
 
 .hero-card::before {
@@ -295,11 +309,22 @@
   background: radial-gradient(circle at 85% 10%, #3dfd9818, transparent 36%);
 }
 
+.hero-card::after {
+  content: "";
+  position: absolute;
+  inset: auto 1rem 1rem 1rem;
+  height: 2.2rem;
+  border-radius: 0 0 0.85rem 0.85rem;
+  background: linear-gradient(180deg, #ffffff08, transparent);
+  pointer-events: none;
+}
+
 .hero-card__top {
   display: flex;
   align-items: center;
   gap: 0.7rem;
   padding-bottom: 0.85rem;
+  border-bottom: 1px solid #2a1f58;
 }
 
 .hero-card__logo {
@@ -325,8 +350,9 @@
 
 .hero-card__grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 0.9fr 1.1fr;
   gap: 0.7rem;
+  padding-top: 0.8rem;
 }
 
 .hero-stat {
@@ -335,7 +361,7 @@
   padding: 0.75rem;
   border-radius: 0.95rem;
   border: 1px solid #332766;
-  background: #110a33;
+  background: linear-gradient(180deg, #110a33 0%, #0b0622 100%);
 }
 
 .hero-stat--wide {
@@ -424,6 +450,9 @@
   box-shadow:
     0 20px 42px #00000030,
     inset 0 1px 0 #ffffff0d;
+  max-width: 64rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .landing-about,
@@ -445,6 +474,18 @@
   line-height: 1.08;
   letter-spacing: -0.03em;
   text-wrap: balance;
+}
+
+.landing-about__intro,
+.landing-social-proof__intro,
+.landing-showcase__copy,
+.landing-inspirations__copy {
+  text-align: center;
+}
+
+.landing-about__intro .landing-actions,
+.landing-showcase__copy .landing-checklist {
+  justify-content: center;
 }
 
 .landing-about__intro > p:last-of-type,
@@ -544,6 +585,18 @@
   background:
     radial-gradient(circle at 18% 16%, #6e45ff17 0, transparent 28%),
     linear-gradient(180deg, #0c0427 0%, #08021e 100%);
+  position: relative;
+}
+
+.landing-how-it-works::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background:
+    radial-gradient(ellipse 56% 18% at 50% 0%, transparent 62%, #6e45ff18 63%, transparent 64%),
+    radial-gradient(ellipse 56% 18% at 50% 100%, transparent 62%, #3dfd9810 63%, transparent 64%);
 }
 
 .landing-how-it-works__header h2 {
@@ -554,6 +607,15 @@
   line-height: 1.02;
   letter-spacing: -0.04em;
   text-wrap: balance;
+}
+
+.landing-how-it-works__header {
+  text-align: center;
+}
+
+.landing-how-it-works__header p:last-child {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .landing-how-it-works__header p:last-child {
@@ -568,6 +630,9 @@
   display: grid;
   gap: 0.85rem;
   position: relative;
+  max-width: 50rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .timeline-item {
@@ -632,6 +697,8 @@
   margin: 0.95rem 0 0;
   padding-left: 1.05rem;
   color: #ded8f4;
+  text-align: left;
+  display: inline-block;
 }
 
 .landing-checklist li + li {
@@ -802,6 +869,17 @@
   gap: 0.8rem;
   background:
     linear-gradient(180deg, #0d062aef 0%, #090220f6 100%);
+  position: relative;
+}
+
+.landing-footer::before {
+  content: "";
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  top: -1px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #6e45ff55, #3dfd9855, transparent);
 }
 
 .landing-footer__brand {
@@ -859,12 +937,11 @@
 
 @media (min-width: 48rem) {
   .landing-shell {
-    padding: 1.2rem;
-    border-radius: 2.1rem;
+    padding: 0.5rem 0.5rem 2.2rem;
   }
 
   .landing-hero {
-    grid-template-columns: 1.08fr 0.92fr;
+    grid-template-columns: 1fr;
     gap: 1rem;
   }
 
@@ -885,7 +962,7 @@
 
   .landing-showcase,
   .landing-inspirations {
-    grid-template-columns: 1.05fr 0.95fr;
+    grid-template-columns: 1fr;
     align-items: center;
     gap: 1rem;
   }
@@ -928,6 +1005,18 @@
   .landing-contact,
   .landing-footer {
     border-radius: 1.25rem;
+  }
+
+  .landing-about__intro,
+  .landing-social-proof__intro,
+  .landing-showcase__copy,
+  .landing-inspirations__copy {
+    text-align: left;
+  }
+
+  .landing-about__intro .landing-actions,
+  .landing-showcase__copy .landing-checklist {
+    justify-content: flex-start;
   }
 
   .landing-copy h1 {
