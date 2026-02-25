@@ -49,8 +49,8 @@
   align-items: center;
   justify-content: space-between;
   gap: 0.9rem;
-  margin: 0 auto 1.35rem;
-  max-width: 68rem;
+  margin: 0 auto 1.9rem;
+  max-width: 72rem;
   padding: 0.35rem;
   border-radius: 1.25rem;
   background: #0c0428bf;
@@ -141,14 +141,14 @@
   display: grid;
   gap: 1rem;
   align-items: stretch;
-  max-width: 64rem;
+  max-width: 72rem;
   margin: 0 auto;
 }
 
 .landing-copy,
 .landing-visual {
   border: 1px solid #251a4f;
-  border-radius: 1.5rem;
+  border-radius: 1.75rem;
   background: linear-gradient(180deg, #0f072eeb 0%, #090320f2 100%);
   box-shadow:
     0 20px 44px #00000035,
@@ -157,7 +157,7 @@
 
 .landing-copy {
   max-width: none;
-  padding: 1.15rem 1rem 1rem;
+  padding: 1.6rem 1.35rem 1.25rem;
   text-align: center;
   background:
     radial-gradient(circle at 50% 0%, #6e45ff14 0, transparent 55%),
@@ -194,7 +194,7 @@
   max-width: 15ch;
   color: #fff;
   font-family: Sora, "Segoe UI", sans-serif;
-  font-size: clamp(2rem, 5vw, 3.9rem);
+  font-size: clamp(2.1rem, 4.9vw, 4.35rem);
   line-height: 0.94;
   letter-spacing: -0.045em;
   text-wrap: balance;
@@ -215,9 +215,9 @@
 
 .landing-description {
   margin: 1rem 0 0;
-  max-width: 58ch;
+  max-width: 64ch;
   color: #b8afd6;
-  line-height: 1.72;
+  line-height: 1.8;
   margin-left: auto;
   margin-right: auto;
 }
@@ -228,7 +228,7 @@
   padding: 0;
   display: grid;
   gap: 0.65rem;
-  max-width: 50rem;
+  max-width: 56rem;
   margin-left: auto;
   margin-right: auto;
 }
@@ -236,7 +236,7 @@
 .landing-metrics li {
   display: grid;
   gap: 0.12rem;
-  padding: 0.85rem;
+  padding: 0.9rem 1rem;
   border-radius: 1rem;
   border: 1px solid #2a1f57;
   background:
@@ -257,12 +257,12 @@
 
 .landing-visual {
   position: relative;
-  min-height: 24rem;
+  min-height: 28rem;
   display: grid;
   place-items: center;
-  padding: 1.25rem 1rem 1rem;
+  padding: 1.6rem 1.25rem 1.25rem;
   overflow: hidden;
-  max-width: 52rem;
+  max-width: 58rem;
   margin: 0 auto;
 }
 
@@ -274,30 +274,30 @@
 }
 
 .glow-ring--a {
-  width: 18rem;
-  height: 18rem;
+  width: 24rem;
+  height: 24rem;
   background: #6e45ff3b;
   transform: translate(-24%, -18%);
 }
 
 .glow-ring--b {
-  width: 13rem;
-  height: 13rem;
+  width: 17rem;
+  height: 17rem;
   background: #3dfd9833;
   transform: translate(35%, 20%);
 }
 
 .hero-card {
   position: relative;
-  width: min(100%, 41rem);
-  border-radius: 1rem;
+  width: min(100%, 46rem);
+  border-radius: 1.2rem;
   border: 1px solid #3a2b70;
   background:
     linear-gradient(180deg, #160b41f2 0%, #0f072fea 100%);
   box-shadow:
     0 28px 56px #00000055,
     inset 0 1px 0 #ffffff14;
-  padding: 0.9rem;
+  padding: 1rem;
 }
 
 .hero-card::before {
@@ -350,9 +350,13 @@
 
 .hero-card__grid {
   display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.7rem;
   padding-top: 0.8rem;
+}
+
+.hero-stat--wide {
+  grid-column: 1 / -1;
 }
 
 .hero-stat {
@@ -362,10 +366,6 @@
   border-radius: 0.95rem;
   border: 1px solid #332766;
   background: linear-gradient(180deg, #110a33 0%, #0b0622 100%);
-}
-
-.hero-stat--wide {
-  grid-column: 1 / -1;
 }
 
 .hero-stat span {
@@ -442,15 +442,15 @@
 .landing-inspirations,
 .landing-contact,
 .landing-footer {
-  margin-top: 1.25rem;
+  margin-top: 2rem;
   border: 1px solid #251a4f;
-  border-radius: 1.5rem;
-  padding: 1rem;
+  border-radius: 1.6rem;
+  padding: 1.35rem;
   background: linear-gradient(180deg, #0f072eed 0%, #090320f4 100%);
   box-shadow:
     0 20px 42px #00000030,
     inset 0 1px 0 #ffffff0d;
-  max-width: 64rem;
+  max-width: 72rem;
   margin-left: auto;
   margin-right: auto;
 }
@@ -470,7 +470,7 @@
 .landing-inspirations h2 {
   margin: 0.55rem 0 0;
   color: #fff;
-  font-size: clamp(1.15rem, 2vw, 1.55rem);
+  font-size: clamp(1.2rem, 2vw, 1.75rem);
   line-height: 1.08;
   letter-spacing: -0.03em;
   text-wrap: balance;
@@ -495,20 +495,23 @@
 .landing-inspirations__copy > p:last-of-type {
   margin: 0.8rem 0 0;
   color: #b8afd6;
-  line-height: 1.65;
+  line-height: 1.75;
+  max-width: 68ch;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .landing-about__grid {
   display: grid;
-  gap: 0.75rem;
+  gap: 0.9rem;
 }
 
 .about-card,
 .social-card,
 .landing-contact__panel {
   border: 1px solid #2d205a;
-  border-radius: 1.1rem;
-  padding: 0.95rem;
+  border-radius: 1.15rem;
+  padding: 1rem;
   background: linear-gradient(180deg, #130b38 0%, #0f072c 100%);
   box-shadow: inset 0 1px 0 #ffffff0c;
 }
@@ -531,7 +534,7 @@
 .landing-social-proof__grid {
   margin-top: 0.95rem;
   display: grid;
-  gap: 0.75rem;
+  gap: 0.85rem;
 }
 
 .social-card {
@@ -601,9 +604,9 @@
 
 .landing-how-it-works__header h2 {
   margin: 0.55rem 0 0;
-  max-width: 22ch;
+  max-width: 18ch;
   color: #fff;
-  font-size: clamp(1.6rem, 3.4vw, 2.45rem);
+  font-size: clamp(1.7rem, 3.5vw, 2.8rem);
   line-height: 1.02;
   letter-spacing: -0.04em;
   text-wrap: balance;
@@ -626,11 +629,11 @@
 }
 
 .timeline-list {
-  margin-top: 1.1rem;
+  margin-top: 1.35rem;
   display: grid;
-  gap: 0.85rem;
+  gap: 1rem;
   position: relative;
-  max-width: 50rem;
+  max-width: 56rem;
   margin-left: auto;
   margin-right: auto;
 }
@@ -675,8 +678,8 @@
 
 .timeline-item__content {
   border: 1px solid #2b2057;
-  border-radius: 1rem;
-  padding: 0.9rem;
+  border-radius: 1.05rem;
+  padding: 1rem;
   background: linear-gradient(180deg, #120a35dd 0%, #0c0726f0 100%);
 }
 
@@ -707,7 +710,7 @@
 
 .landing-video-card {
   border: 1px solid #302362;
-  border-radius: 1.2rem;
+  border-radius: 1.3rem;
   overflow: hidden;
   background: #0a0322;
   box-shadow:
@@ -754,13 +757,13 @@
 }
 
 .landing-video-card__body {
-  min-height: 16rem;
+  min-height: 19rem;
   display: grid;
   align-content: center;
   justify-items: center;
   gap: 0.75rem;
   text-align: center;
-  padding: 1.25rem;
+  padding: 1.6rem 1.25rem;
   background:
     radial-gradient(circle at 30% 28%, #6e45ff1f 0, transparent 42%),
     radial-gradient(circle at 72% 70%, #3dfd9812 0, transparent 38%),
@@ -942,7 +945,7 @@
 
   .landing-hero {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 1.2rem;
   }
 
   .landing-metrics {
@@ -955,16 +958,16 @@
 
   .landing-about,
   .landing-contact {
-    grid-template-columns: 1.05fr 0.95fr;
+    grid-template-columns: 1fr;
     align-items: start;
-    gap: 1rem;
+    gap: 1.1rem;
   }
 
   .landing-showcase,
   .landing-inspirations {
     grid-template-columns: 1fr;
     align-items: center;
-    gap: 1rem;
+    gap: 1.1rem;
   }
 
   .landing-inspirations--catalog-only {
@@ -1004,7 +1007,7 @@
   .landing-inspirations,
   .landing-contact,
   .landing-footer {
-    border-radius: 1.25rem;
+    border-radius: 1.2rem;
   }
 
   .landing-about__intro,
@@ -1021,6 +1024,10 @@
 
   .landing-copy h1 {
     max-width: none;
+  }
+
+  .hero-card__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .landing-video-card__body {
