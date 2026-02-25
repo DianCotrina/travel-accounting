@@ -1,6 +1,7 @@
 import categoryCatalog from "../app/landingCategories.json";
 import type { CategoryCatalogEntry } from "../app/categoryCatalog";
 import { CategoryCatalogPreview } from "./CategoryCatalogPreview";
+import { LandingLoginSection } from "./LandingLoginSection";
 
 type LandingPageProps = {
   onGoToWorkspace?: () => void;
@@ -203,6 +204,8 @@ export function LandingPage({ onGoToWorkspace }: LandingPageProps) {
           </div>
         </div>
       </div>
+
+      <LandingLoginSection onGoToWorkspace={onGoToWorkspace} />
 
       <section
         id="social-proof"

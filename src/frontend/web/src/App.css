@@ -299,6 +299,177 @@ select {
   font-size: 0.94rem;
 }
 
+.landing-login {
+  margin-top: 1.25rem;
+  border: 1px solid #253347;
+  border-radius: 1rem;
+  padding: 1rem;
+  background: linear-gradient(180deg, #0a1322d9 0%, #07101ddb 100%);
+  box-shadow:
+    0 14px 28px #02061726,
+    inset 0 1px 0 #ffffff0a;
+  display: grid;
+  gap: 1rem;
+}
+
+.landing-login__copy h2 {
+  margin: 0.55rem 0 0;
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  color: #f8fbff;
+  letter-spacing: -0.02em;
+}
+
+.landing-login__copy p:last-of-type {
+  margin: 0.75rem 0 0;
+  color: #b9cadd;
+  line-height: 1.65;
+}
+
+.landing-login__benefits {
+  margin: 0.9rem 0 0;
+  padding-left: 1.05rem;
+  color: #d8e3f1;
+}
+
+.landing-login__benefits li + li {
+  margin-top: 0.35rem;
+}
+
+.landing-login-card {
+  border: 1px solid #2b3d56;
+  border-radius: 1rem;
+  background: linear-gradient(180deg, #08111fd8 0%, #060d18ee 100%);
+  box-shadow:
+    0 18px 34px #0206173a,
+    inset 0 1px 0 #ffffff0d;
+  overflow: hidden;
+}
+
+.landing-login-card__methods {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+  padding: 0.8rem;
+  border-bottom: 1px solid #223047;
+  background: #0b1527;
+}
+
+.login-method-pill {
+  min-height: 2.4rem;
+  border-radius: 0.75rem;
+  border: 1px solid #31445d;
+  background: #0c1526;
+  color: #cbd9ea;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    transform 140ms ease,
+    border-color 140ms ease,
+    background-color 140ms ease,
+    box-shadow 140ms ease;
+}
+
+.login-method-pill:hover,
+.login-method-pill:focus-visible {
+  outline: none;
+  border-color: #60a5fa;
+  background: #12203a;
+  transform: translateY(-1px);
+}
+
+.login-method-pill:active {
+  transform: translateY(0);
+}
+
+.login-method-pill--active {
+  border-color: #3b82f6;
+  background: linear-gradient(180deg, #10213f 0%, #0f1c34 100%);
+  color: #eaf3ff;
+  box-shadow: inset 0 1px 0 #ffffff12;
+}
+
+.landing-login-card__form {
+  padding: 0.9rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.landing-login-card__header p {
+  margin: 0;
+  color: #f8fbff;
+  font-weight: 700;
+}
+
+.landing-login-card__header span {
+  display: block;
+  margin-top: 0.3rem;
+  color: #aebfd4;
+  font-size: 0.84rem;
+}
+
+.landing-login-card__label {
+  display: grid;
+  gap: 0.35rem;
+  color: #d7e3f1;
+  font-weight: 500;
+}
+
+.landing-login-card__label input {
+  width: 100%;
+  border: 1px solid #334155;
+  border-radius: 0.75rem;
+  background: #09121fd4;
+  color: #f1f5f9;
+  padding: 0.65rem 0.75rem;
+  transition:
+    border-color 140ms ease,
+    box-shadow 140ms ease,
+    background-color 140ms ease;
+}
+
+.landing-login-card__label input:focus-visible {
+  outline: none;
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px #60a5fa26;
+}
+
+.landing-login-card__cta {
+  min-height: 2.65rem;
+  border-radius: 0.8rem;
+  border: 1px solid #f59e0b;
+  color: #08111f;
+  background: linear-gradient(180deg, #fcd34d 0%, #f97316 100%);
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow:
+    0 14px 24px #f973162e,
+    inset 0 1px 0 #ffffff8a;
+  transition:
+    transform 140ms ease,
+    box-shadow 140ms ease,
+    filter 140ms ease;
+}
+
+.landing-login-card__cta:hover,
+.landing-login-card__cta:focus-visible {
+  outline: none;
+  transform: translateY(-1px);
+  box-shadow:
+    0 18px 28px #f9731633,
+    inset 0 1px 0 #ffffffe0;
+}
+
+.landing-login-card__cta:active {
+  transform: translateY(0);
+}
+
+.landing-login-card__hint {
+  margin: 0;
+  color: #9eb3ca;
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
 .landing-social-proof {
   margin-top: 1.25rem;
   border: 1px solid #253347;
@@ -1016,6 +1187,12 @@ select {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .landing-login {
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: start;
+    gap: 1.15rem;
+  }
+
   .landing-showcase,
   .landing-inspirations {
     grid-template-columns: 1.05fr 0.95fr;
@@ -1055,5 +1232,9 @@ select {
 
   .landing-video-card__body {
     min-height: 13rem;
+  }
+
+  .landing-login-card__methods {
+    grid-template-columns: 1fr;
   }
 }
