@@ -98,85 +98,6 @@
   opacity: 0.2;
 }
 
-.sa-nav {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.45rem 0.7rem;
-  border: 1px solid var(--sa-border);
-  border-radius: 0.65rem;
-  background: #070707f0;
-  box-shadow: inset 0 1px 0 #ffffff05;
-}
-
-.sa-nav__brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  text-decoration: none;
-  color: var(--sa-text);
-  font-weight: 700;
-  letter-spacing: 0.02em;
-}
-
-.sa-nav__brand img {
-  width: 1.7rem;
-  height: 1.7rem;
-  object-fit: contain;
-  border-radius: 0.35rem;
-  border: 1px solid #2a2a2a;
-  background: #0f0f0f;
-  padding: 0.12rem;
-}
-
-.sa-nav__links {
-  display: inline-flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 0.45rem;
-}
-
-.sa-nav__links a {
-  color: var(--sa-muted);
-  text-decoration: none;
-  font-size: 0.85rem;
-  padding: 0.45rem 0.65rem;
-  border-radius: 0.45rem;
-  border: 1px solid transparent;
-  transition: color 140ms ease, border-color 140ms ease, background-color 140ms ease;
-}
-
-.sa-nav__links a:hover,
-.sa-nav__links a:focus-visible {
-  color: var(--sa-text);
-  border-color: var(--sa-border);
-  background: #101010;
-  outline: none;
-}
-
-.sa-nav__cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 2rem;
-  padding: 0.45rem 0.7rem;
-  border-radius: 0.45rem;
-  border: 1px solid #7f3710;
-  background: linear-gradient(180deg, #ff7d35 0%, #ff5a0f 100%);
-  color: #140904;
-  text-decoration: none;
-  font-size: 0.83rem;
-  font-weight: 700;
-  box-shadow: 0 10px 18px #ff6a1c1a;
-}
-
-.sa-nav__cta:hover,
-.sa-nav__cta:focus-visible {
-  outline: none;
-  filter: brightness(1.05);
-}
-
 .sa-main {
   margin-top: 0.65rem;
   display: grid;
@@ -903,19 +824,6 @@
 }
 
 @media (max-width: 48rem) {
-  .sa-nav {
-    grid-template-columns: 1fr;
-    justify-items: stretch;
-  }
-
-  .sa-nav__links {
-    justify-content: flex-start;
-  }
-
-  .sa-nav__cta {
-    width: 100%;
-  }
-
   .sa-hero,
   .sa-problems,
   .sa-features,

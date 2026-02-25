@@ -1,4 +1,5 @@
 ﻿import "./LandingPage.css";
+import { LandingNavbar } from "./ui/LandingNavbar";
 import { ShootingStars } from "./ui/shooting-stars";
 
 const productStats = [
@@ -222,27 +223,7 @@ export function LandingPage() {
           starHeight={1}
         />
       </div>
-      <header className="sa-nav" aria-label="Site header">
-        <a className="sa-nav__brand" href="#top">
-          <img
-            src="/sacatucuenta-logo.png"
-            alt="Sacatucuenta logo"
-            width={768}
-            height={768}
-            loading="eager"
-          />
-          <span>Sacatucuenta</span>
-        </a>
-
-        <nav className="sa-nav__links" aria-label="Primary navigation">
-          <a href="#features">Features</a>
-          <a href="#pricing">Pricing</a>
-          <a href="#testimonials">Testimonials</a>
-          <a href="#faq">FAQ</a>
-        </nav>
-
-        <a className="sa-nav__cta" href="#contact">Get Early Access</a>
-      </header>
+      <LandingNavbar />
 
       <main id="top" className="sa-main">
         <section className="sa-hero" aria-labelledby="sa-hero-title">
