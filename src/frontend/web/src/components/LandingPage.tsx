@@ -196,6 +196,32 @@ function DashboardMock() {
 export function LandingPage() {
   return (
     <div className="sa-landing" aria-labelledby="sa-hero-title">
+      <div className="sa-page-sky" aria-hidden="true">
+        <div className="sa-page-sky__glow" />
+        <div className="sa-page-sky__stars" />
+        <ShootingStars
+          className="sa-page-sky__shootingStars sa-page-sky__shootingStars--a"
+          starColor="#ff8f47"
+          trailColor="#ff6a1c"
+          minSpeed={12}
+          maxSpeed={26}
+          minDelay={900}
+          maxDelay={2600}
+          starWidth={14}
+          starHeight={1.2}
+        />
+        <ShootingStars
+          className="sa-page-sky__shootingStars sa-page-sky__shootingStars--b"
+          starColor="#ffd09e"
+          trailColor="#ff9c4f"
+          minSpeed={8}
+          maxSpeed={18}
+          minDelay={1600}
+          maxDelay={3800}
+          starWidth={10}
+          starHeight={1}
+        />
+      </div>
       <header className="sa-nav" aria-label="Site header">
         <a className="sa-nav__brand" href="#top">
           <img
@@ -219,33 +245,7 @@ export function LandingPage() {
       </header>
 
       <main id="top" className="sa-main">
-                <section className="sa-hero" aria-labelledby="sa-hero-title">
-          <div className="sa-hero__sky" aria-hidden="true">
-            <div className="sa-hero__skyGlow" />
-            <div className="sa-hero__skyStars" />
-            <ShootingStars
-              className="sa-hero__shootingStars sa-hero__shootingStars--a"
-              starColor="#ff8f47"
-              trailColor="#ff6a1c"
-              minSpeed={12}
-              maxSpeed={26}
-              minDelay={900}
-              maxDelay={2600}
-              starWidth={14}
-              starHeight={1.2}
-            />
-            <ShootingStars
-              className="sa-hero__shootingStars sa-hero__shootingStars--b"
-              starColor="#ffd09e"
-              trailColor="#ff9c4f"
-              minSpeed={8}
-              maxSpeed={18}
-              minDelay={1600}
-              maxDelay={3800}
-              starWidth={10}
-              starHeight={1}
-            />
-          </div>
+        <section className="sa-hero" aria-labelledby="sa-hero-title">
           <p className="sa-kicker">Travel Accounting Platform</p>
           <h1 id="sa-hero-title">
             Track foreign travel expenses without losing accounting clarity.
