@@ -1,4 +1,4 @@
-.sa-landing {
+﻿.sa-landing {
   --sa-bg: #050505;
   --sa-panel: #0b0b0b;
   --sa-panel-2: #111111;
@@ -156,6 +156,66 @@
     0 14px 24px #00000022;
 }
 
+
+.shooting-stars-base {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.sa-hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.sa-hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.sa-hero__sky {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.sa-hero__skyGlow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 10%, #ff6a1c12 0, transparent 46%),
+    radial-gradient(circle at 20% 70%, #ff6a1c0c 0, transparent 30%),
+    radial-gradient(circle at 85% 65%, #ff8f4708 0, transparent 28%);
+}
+
+.sa-hero__skyStars {
+  position: absolute;
+  inset: 0;
+  opacity: 0.22;
+  background-image:
+    radial-gradient(1px 1px at 16px 24px, #fff4e8, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 42px 68px, #ffd6b7, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 78px 36px, #ffffff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 128px 92px, #ffc493, rgba(0, 0, 0, 0));
+  background-size: 180px 180px;
+  background-repeat: repeat;
+}
+
+.sa-hero__shootingStars {
+  opacity: 0.8;
+}
+
+.sa-hero__shootingStars--a {
+  filter: blur(0.1px);
+}
+
+.sa-hero__shootingStars--b {
+  opacity: 0.55;
+}
 .sa-hero {
   padding: 1rem 0.95rem 0.9rem;
   text-align: center;
@@ -899,3 +959,4 @@
     justify-self: start;
   }
 }
+
