@@ -3,14 +3,11 @@ import { describe, expect, it } from "vitest";
 import App from "./App";
 
 describe("App", () => {
-  it("renders the landing placeholder after reset", () => {
+  it("renders a blank landing page canvas", () => {
     render(<App />);
 
     expect(
-      screen.getByRole("heading", { name: /new landing page coming soon/i }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("button", { name: /start redesign/i }),
+      screen.getByLabelText(/blank landing page/i),
     ).toBeInTheDocument();
   });
 });
