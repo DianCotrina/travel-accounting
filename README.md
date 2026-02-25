@@ -233,6 +233,10 @@ npm --prefix src/frontend/web run screenshot -- http://localhost:5173
 $env:BRAVE_EXECUTABLE_PATH="<put your path here>"
 ```
 
+Frontend landing page:
+- The app now includes a landing page hero before the workspace, built with reusable React components and the project logo (`assets/logos/sacatucuenta-logo.png`, served in frontend public assets).
+- Use the "Open workspace" / "Start using the app" CTA to jump directly to the accounting workspace section.
+
 ## Troubleshooting
 
 `Unexpected token '<', "<!doctype "... is not valid JSON` on API Health:

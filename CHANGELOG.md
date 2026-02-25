@@ -58,6 +58,7 @@ The format is inspired by Keep a Changelog, with versions listed in reverse chro
 - Added authenticated user context abstraction (`ICurrentUserContext`) and HTTP implementation.
 - Added API integration tests for unauthorized access and cross-user data isolation (`AuthApiTests`).
 - Added modular frontend component architecture by splitting `App.tsx` into shared app types and section components (`HealthCard`, `TripsSection`, `ExpensesSection`).
+- Added a component-based landing page for Sacatucuenta with logo-driven hero section and direct CTA into the accounting workspace.
 
 ### Changed
 - Replaced `AGENTS.md` template with project-specific context, modular branch strategy, and strict engineering execution rules.
@@ -89,3 +90,4 @@ The format is inspired by Keep a Changelog, with versions listed in reverse chro
 - Updated frontend API calls to include `X-User-Id`, with new `VITE_USER_ID` env support.
 - Updated `DEVELOPMENT_PLAN.md` to mark Auth and Multiuser MVP completed.
 - Updated `README.md` with phase-7 auth/multiuser behavior and usage.
+- Refreshed frontend UI styling for landing + workspace sections, preserving existing accounting flows with improved layout and visual hierarchy.
