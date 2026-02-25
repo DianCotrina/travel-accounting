@@ -24,48 +24,48 @@ export function PricingSection({
 }: PricingSectionProps) {
   const featuredPlan = plans.find((plan) => plan.featured) ?? plans[1] ?? plans[0];
   const sidePlans = plans.filter((plan) => plan.name !== featuredPlan.name);
+  const leftPlan = sidePlans[0];
+  const rightPlan = sidePlans[1];
 
   return (
     <section id={id} className="sa-pricingSection" aria-labelledby="sa-pricing-title">
-      <div className="sa-pricingSection__frame">
-        <div className="sa-pricingSection__intro">
+      <div className="sa-pricingSection__intro">
+        <div>
+          <p className="sa-kicker">Choose your plan</p>
+          <h2 id="sa-pricing-title">{title}</h2>
+          <p>{description}</p>
+        </div>
+        <div className="sa-pricingSection__rail">
           <div>
-            <p className="sa-kicker">Choose your plan</p>
-            <h2 id="sa-pricing-title">{title}</h2>
-            <p>{description}</p>
+            <span>Best for</span>
+            <strong>Travelers needing fast reimbursement-ready records</strong>
           </div>
-          <div className="sa-pricingSection__rail">
-            <div>
-              <span>Best for</span>
-              <strong>Travelers needing fast reimbursement-ready records</strong>
-            </div>
-            <div>
-              <span>Scales to</span>
-              <strong>Finance teams coordinating recurring travel workflows</strong>
-            </div>
+          <div>
+            <span>Scales to</span>
+            <strong>Finance teams coordinating recurring travel workflows</strong>
           </div>
         </div>
+      </div>
 
+      <div className="sa-pricingSection__stage">
         <div className="sa-pricingSection__layout">
-          <div className="sa-pricingSection__side">
-            {sidePlans.slice(0, 1).map((plan) => (
-              <article key={plan.name} className="sa-pricingSection__card sa-pricingSection__card--side">
-                <p className="sa-pricingSection__name">{plan.name}</p>
-                <div className="sa-pricingSection__price">
-                  <strong>{plan.price}</strong>
-                  <span>{plan.subtitle}</span>
-                </div>
-                <ul>
-                  {plan.highlights.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-                <a className="sa-btn sa-btn--ghost" href="#contact">
-                  {plan.cta}
-                </a>
-              </article>
-            ))}
-          </div>
+          {leftPlan ? (
+            <article className="sa-pricingSection__card sa-pricingSection__card--side sa-pricingSection__card--left">
+              <p className="sa-pricingSection__name">{leftPlan.name}</p>
+              <div className="sa-pricingSection__price">
+                <strong>{leftPlan.price}</strong>
+                <span>{leftPlan.subtitle}</span>
+              </div>
+              <ul>
+                {leftPlan.highlights.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+              <a className="sa-btn sa-btn--ghost" href="#contact">
+                {leftPlan.cta}
+              </a>
+            </article>
+          ) : null}
 
           <article className="sa-pricingSection__card sa-pricingSection__card--featured">
             <p className="sa-pricingSection__badge">Most selected for active travel</p>
@@ -84,28 +84,25 @@ export function PricingSection({
             </a>
           </article>
 
-          <div className="sa-pricingSection__side">
-            {sidePlans.slice(1).map((plan) => (
-              <article key={plan.name} className="sa-pricingSection__card sa-pricingSection__card--side">
-                <p className="sa-pricingSection__name">{plan.name}</p>
-                <div className="sa-pricingSection__price">
-                  <strong>{plan.price}</strong>
-                  <span>{plan.subtitle}</span>
-                </div>
-                <ul>
-                  {plan.highlights.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-                <a className="sa-btn sa-btn--ghost" href="#contact">
-                  {plan.cta}
-                </a>
-              </article>
-            ))}
-          </div>
+          {rightPlan ? (
+            <article className="sa-pricingSection__card sa-pricingSection__card--side sa-pricingSection__card--right">
+              <p className="sa-pricingSection__name">{rightPlan.name}</p>
+              <div className="sa-pricingSection__price">
+                <strong>{rightPlan.price}</strong>
+                <span>{rightPlan.subtitle}</span>
+              </div>
+              <ul>
+                {rightPlan.highlights.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+              <a className="sa-btn sa-btn--ghost" href="#contact">
+                {rightPlan.cta}
+              </a>
+            </article>
+          ) : null}
         </div>
       </div>
     </section>
   );
 }
-
