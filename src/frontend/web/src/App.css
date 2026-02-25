@@ -1,4 +1,5 @@
 :root {
+  color-scheme: dark;
   color: #eaf1fb;
   background:
     radial-gradient(circle at 12% 12%, #0ea5e933 0, transparent 42%),
@@ -21,6 +22,8 @@ body {
   margin: 0;
   color: #eaf1fb;
   background: transparent;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: #60a5fa22;
 }
 
 a {
@@ -34,6 +37,28 @@ select {
 .app {
   min-height: 100vh;
   padding: 1rem;
+  touch-action: manipulation;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  z-index: 5;
+  padding: 0.55rem 0.8rem;
+  border-radius: 0.65rem;
+  background: #f8fbff;
+  color: #08111f;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 10px 24px #02061740;
+  transition: top 140ms ease;
+}
+
+.skip-link:focus-visible {
+  top: 1rem;
+  outline: 2px solid #60a5fa;
+  outline-offset: 2px;
 }
 
 .eyebrow {
@@ -198,6 +223,7 @@ select {
   font-size: clamp(2rem, 5vw, 3.45rem);
   line-height: 0.98;
   letter-spacing: -0.035em;
+  text-wrap: balance;
 }
 
 .landing-description {
@@ -317,6 +343,7 @@ select {
   font-size: clamp(1.1rem, 2vw, 1.4rem);
   color: #f8fbff;
   letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 
 .landing-login__copy p:last-of-type {
@@ -343,6 +370,14 @@ select {
     0 18px 34px #0206173a,
     inset 0 1px 0 #ffffff0d;
   overflow: hidden;
+}
+
+.landing-login-card:focus-within {
+  border-color: #3b82f6;
+  box-shadow:
+    0 18px 34px #0206173a,
+    inset 0 1px 0 #ffffff0d,
+    0 0 0 2px #3b82f633;
 }
 
 .landing-login-card__methods {
@@ -486,6 +521,7 @@ select {
   font-size: clamp(1.1rem, 2vw, 1.4rem);
   color: #f8fbff;
   letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 
 .landing-social-proof__intro p:last-child {
@@ -523,12 +559,14 @@ select {
 .social-card__top span {
   color: #fde68a;
   font-weight: 700;
+  font-variant-numeric: tabular-nums;
 }
 
 .social-card__users {
   margin: 0.35rem 0 0;
   color: #93c5fd;
   font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
 }
 
 .social-card__quote {
@@ -709,11 +747,7 @@ select {
   font-size: clamp(1.5rem, 3.3vw, 2.2rem);
   line-height: 1.05;
   letter-spacing: -0.03em;
-}
-
-.landing-how-it-works__header h2::after {
-  content: "";
-  color: inherit;
+  text-wrap: balance;
 }
 
 .landing-how-it-works__header p:last-child {
@@ -840,6 +874,7 @@ select {
   font-size: clamp(1.1rem, 2vw, 1.4rem);
   color: #f8fbff;
   letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 
 .landing-showcase__copy > p:last-of-type,
@@ -1117,6 +1152,11 @@ select {
   display: block;
   background: #fff;
   margin: 0 auto;
+}
+
+#landing-main section[id],
+.anchor-section {
+  scroll-margin-top: 1rem;
 }
 
 .landing-category-list {
