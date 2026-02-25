@@ -1128,9 +1128,21 @@ select {
   width: 100%;
   border: 1px solid #334155;
   border-radius: 0.75rem;
-  background: #09121fd4;
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: #09121fd4;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #cbd5e1 50%),
+    linear-gradient(135deg, #cbd5e1 50%, transparent 50%);
+  background-position:
+    calc(100% - 1.05rem) calc(50% - 0.1rem),
+    calc(100% - 0.75rem) calc(50% - 0.1rem);
+  background-size:
+    0.4rem 0.4rem,
+    0.4rem 0.4rem;
+  background-repeat: no-repeat;
   color: #f1f5f9;
-  padding: 0.65rem 0.75rem;
+  padding: 0.65rem 2.4rem 0.65rem 0.75rem;
   transition:
     border-color 140ms ease,
     box-shadow 140ms ease,
