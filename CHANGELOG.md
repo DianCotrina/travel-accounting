@@ -7,6 +7,7 @@ The format is inspired by Keep a Changelog, with versions listed in reverse chro
 ## [Unreleased]
 
 ### Added
+
 - Added `AGENTS.md` to define Codex collaboration and engineering conventions.
 - Added `CHANGELOG.md` to track notable project changes.
 - Added `DEVELOPMENT_PLAN.md` with phased modular roadmap and immediate foundation execution steps.
@@ -61,6 +62,7 @@ The format is inspired by Keep a Changelog, with versions listed in reverse chro
 - Added a component-based landing page for Sacatucuenta with logo-driven hero section and direct CTA into the accounting workspace.
 
 ### Changed
+
 - Replaced `AGENTS.md` template with project-specific context, modular branch strategy, and strict engineering execution rules.
 - Updated `README.md` with backend structure, run/build commands, and framework note.
 - Upgraded backend target frameworks from `net7.0` to `net10.0` after installing `.NET SDK 10.0.103`.
@@ -91,3 +93,4 @@ The format is inspired by Keep a Changelog, with versions listed in reverse chro
 - Updated `DEVELOPMENT_PLAN.md` to mark Auth and Multiuser MVP completed.
 - Updated `README.md` with phase-7 auth/multiuser behavior and usage.
 - Refreshed frontend UI styling for landing + workspace sections, preserving existing accounting flows with improved layout and visual hierarchy.
+- Evolved the landing page into a product-marketing surface with social proof, a 4-step workflow timeline, and JSON-driven category catalog preview.
