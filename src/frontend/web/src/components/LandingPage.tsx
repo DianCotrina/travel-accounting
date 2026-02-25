@@ -1,6 +1,7 @@
 import "./LandingPage.css";
 import { LandingNavbar } from "./ui/LandingNavbar";
 import { HeroSectionDark } from "./ui/HeroSectionDark";
+import { HowItWorks } from "./ui/HowItWorks";
 import { ShootingStars } from "./ui/shooting-stars";
 
 const productStats = [
@@ -24,14 +25,6 @@ const problemCards = [
   },
 ];
 
-const capabilities = [
-  "Trip setup with home vs destination currency",
-  "Daily expense capture by category and subcategory",
-  "Exchange-rate assisted home equivalent tracking",
-  "Ledger summary by day and category",
-  "CSV export for reimbursements and bookkeeping",
-  "Multi-user ownership isolation (MVP)",
-];
 
 const pricingPlans = [
   {
@@ -267,14 +260,7 @@ export function LandingPage() {
               Built for real travel accounting workflows, not generic expense notes.
             </h2>
           </div>
-          <div className="sa-feature-list">
-            {capabilities.map((item, index) => (
-              <article key={item} className="sa-feature-item">
-                <span className="sa-feature-item__index">{String(index + 1).padStart(2, "0")}</span>
-                <p>{item}</p>
-              </article>
-            ))}
-          </div>
+          <HowItWorks />
         </section>
 
         <section id="pricing" className="sa-pricing" aria-labelledby="sa-pricing-title">
@@ -318,7 +304,7 @@ export function LandingPage() {
           <div className="sa-card-grid sa-card-grid--two">
             {testimonials.map((item) => (
               <blockquote key={item.person} className="sa-testimonial-card">
-                <p className="sa-testimonial-card__quote">â€œ{item.quote}â€</p>
+                <p className="sa-testimonial-card__quote">Ã¢â‚¬Å“{item.quote}Ã¢â‚¬Â</p>
                 <footer>
                   <strong>{item.person}</strong>
                   <span>{item.role}</span>
