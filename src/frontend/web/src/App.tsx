@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import type { FormEvent } from "react";
 import { ExpensesSection } from "./components/ExpensesSection";
 import { HealthCard } from "./components/HealthCard";
+import { LandingPage } from "./components/LandingPage";
 import { TripsSection } from "./components/TripsSection";
 import {
   type CountryReference,
@@ -18,6 +19,7 @@ import {
   initialFormState,
   initialReportFilters,
 } from "./app/types";
+
 export default function App() {
   const [health, setHealth] = useState<HealthResponse | null>(null);
   const [trips, setTrips] = useState<Trip[]>([]);
@@ -37,12 +39,12 @@ export default function App() {
   const [selectedExpenseId, setSelectedExpenseId] = useState<string | null>(
     null,
   );
-  const [selectedExpensesTripId, setSelectedExpensesTripId] =
-    useState<string>("");
+  const [selectedExpensesTripId, setSelectedExpensesTripId] = useState("");
   const [form, setForm] = useState<TripFormState>(initialFormState);
   const [expenseForm, setExpenseForm] = useState<ExpenseFormState>(
     initialExpenseFormState,
   );
+
   const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
   const userId = import.meta.env.VITE_USER_ID ?? "demo-user";
   const healthUrl = apiBaseUrl ? `${apiBaseUrl}/api/health` : "/api/health";
@@ -50,6 +52,7 @@ export default function App() {
   const countriesUrl = apiBaseUrl
     ? `${apiBaseUrl}/api/reference/countries`
     : "/api/reference/countries";
+
   const selectedCountry = countries.find(
     (country) => country.countryName === form.destinationCountry,
   );
@@ -71,6 +74,7 @@ export default function App() {
   const reportCsvUrl = selectedExpensesTripId
     ? `${tripsUrl}/${selectedExpensesTripId}/reports/export/csv`
     : "";
+
   const apiFetch = useCallback(
     async (input: string, init?: RequestInit): Promise<Response> => {
       const headers = new Headers(init?.headers);
@@ -79,19 +83,23 @@ export default function App() {
     },
     [userId],
   );
+
   const loadHealth = useCallback(async (): Promise<void> => {
     const response = await apiFetch(healthUrl);
     if (!response.ok) {
       throw new Error(`Health request failed with ${response.status}.`);
     }
+
     setHealth((await response.json()) as HealthResponse);
   }, [apiFetch, healthUrl]);
+
   const loadTrips = useCallback(async (): Promise<void> => {
     try {
       const response = await apiFetch(tripsUrl);
       if (!response.ok) {
         throw new Error(`Trip list request failed with ${response.status}.`);
       }
+
       setTrips((await response.json()) as Trip[]);
       setError(null);
     } catch (loadError) {
@@ -102,51 +110,64 @@ export default function App() {
       );
     }
   }, [apiFetch, tripsUrl]);
+
   const loadCountries = useCallback(async (): Promise<void> => {
     const response = await apiFetch(countriesUrl);
     if (!response.ok) {
       throw new Error(`Countries request failed with ${response.status}.`);
     }
+
     setCountries((await response.json()) as CountryReference[]);
   }, [apiFetch, countriesUrl]);
+
   const loadExpenses = useCallback(async (): Promise<void> => {
     if (!selectedExpensesTripId) {
       setExpenses([]);
       return;
     }
+
     const response = await apiFetch(expensesUrl);
     if (!response.ok) {
       throw new Error(`Expenses request failed with ${response.status}.`);
     }
+
     setExpenses((await response.json()) as Expense[]);
   }, [apiFetch, expensesUrl, selectedExpensesTripId]);
+
   const loadExchangeRates = useCallback(async (): Promise<void> => {
     if (!selectedExpensesTripId) {
       setExchangeRates([]);
       return;
     }
+
     const response = await apiFetch(exchangeRatesUrl);
     if (!response.ok) {
       throw new Error(`Exchange rates request failed with ${response.status}.`);
     }
+
     setExchangeRates((await response.json()) as ExchangeRate[]);
   }, [apiFetch, exchangeRatesUrl, selectedExpensesTripId]);
+
   const loadLedgerSummary = useCallback(async (): Promise<void> => {
     if (!selectedExpensesTripId) {
       setLedgerSummary(null);
       return;
     }
+
     const response = await apiFetch(ledgerSummaryUrl);
     if (!response.ok) {
       throw new Error(`Ledger summary request failed with ${response.status}.`);
     }
+
     setLedgerSummary((await response.json()) as LedgerSummary);
   }, [apiFetch, ledgerSummaryUrl, selectedExpensesTripId]);
+
   const loadReportSummary = useCallback(async (): Promise<void> => {
     if (!selectedExpensesTripId) {
       setReportSummary(null);
       return;
     }
+
     const query = new URLSearchParams();
     if (reportFilters.fromDate) {
       query.set("fromDate", reportFilters.fromDate);
@@ -157,6 +178,7 @@ export default function App() {
     if (reportFilters.category) {
       query.set("category", reportFilters.category);
     }
+
     const response = await apiFetch(
       query.toString()
         ? `${reportSummaryUrl}?${query.toString()}`
@@ -165,6 +187,7 @@ export default function App() {
     if (!response.ok) {
       throw new Error(`Report summary request failed with ${response.status}.`);
     }
+
     setReportSummary((await response.json()) as ReportSummary);
   }, [
     apiFetch,
@@ -174,6 +197,7 @@ export default function App() {
     reportSummaryUrl,
     selectedExpensesTripId,
   ]);
+
   useEffect(() => {
     loadHealth()
       .then(async () => {
@@ -187,6 +211,7 @@ export default function App() {
         );
       });
   }, [loadHealth, loadTrips, loadCountries]);
+
   useEffect(() => {
     if (selectedExpensesTripId) {
       Promise.all([
@@ -212,11 +237,13 @@ export default function App() {
     loadReportSummary,
     selectedExpensesTripId,
   ]);
+
   async function handleSubmit(
     event: FormEvent<HTMLFormElement>,
   ): Promise<void> {
     event.preventDefault();
     setError(null);
+
     const payload = {
       name: form.name,
       destinationCountry: form.destinationCountry,
@@ -225,23 +252,29 @@ export default function App() {
       startDate: form.startDate,
       endDate: form.endDate,
     };
+
     const isEditing = selectedTripId !== null;
     const url = isEditing ? `${tripsUrl}/${selectedTripId}` : tripsUrl;
     const method = isEditing ? "PUT" : "POST";
+
     const response = await apiFetch(url, {
       method,
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
+
     if (!response.ok) {
       const operation = isEditing ? "update" : "create";
       throw new Error(`Trip ${operation} failed with ${response.status}.`);
     }
+
     await loadTrips();
     clearForm();
   }
+
   async function handleArchive(id: string): Promise<void> {
     setError(null);
+
     const response = await apiFetch(`${tripsUrl}/${id}/archive`, {
       method: "POST",
     });
@@ -249,11 +282,13 @@ export default function App() {
       setError(`Trip archive failed with ${response.status}.`);
       return;
     }
+
     await loadTrips();
     if (selectedTripId === id) {
       clearForm();
     }
   }
+
   function startEdit(trip: Trip): void {
     setSelectedTripId(trip.id);
     setForm({
@@ -265,19 +300,23 @@ export default function App() {
       endDate: trip.endDate,
     });
   }
+
   function clearForm(): void {
     setSelectedTripId(null);
     setForm(initialFormState);
   }
+
   async function handleExpenseSubmit(
     event: FormEvent<HTMLFormElement>,
   ): Promise<void> {
     event.preventDefault();
     setError(null);
+
     if (!selectedExpensesTripId) {
       setError("Select a trip before creating expenses.");
       return;
     }
+
     const payload = {
       category: expenseForm.category,
       amount: Number(expenseForm.amount),
@@ -285,10 +324,12 @@ export default function App() {
       occurredAtUtc: new Date(expenseForm.occurredAtUtc).toISOString(),
       notes: expenseForm.notes,
     };
+
     const method = selectedExpenseId ? "PUT" : "POST";
     const url = selectedExpenseId
       ? `${expensesUrl}/${selectedExpenseId}`
       : expensesUrl;
+
     const response = await apiFetch(url, {
       method,
       headers: { "Content-Type": "application/json" },
@@ -300,16 +341,19 @@ export default function App() {
         `Expense ${selectedExpenseId ? "update" : "create"} failed with ${response.status}: ${text}`,
       );
     }
+
     await loadExpenses();
     await loadExchangeRates();
     await loadLedgerSummary();
     await loadReportSummary();
     clearExpenseForm();
   }
+
   async function handleExpenseDelete(expenseId: string): Promise<void> {
     if (!selectedExpensesTripId) {
       return;
     }
+
     const response = await apiFetch(`${expensesUrl}/${expenseId}`, {
       method: "DELETE",
     });
@@ -317,6 +361,7 @@ export default function App() {
       setError(`Expense delete failed with ${response.status}.`);
       return;
     }
+
     await loadExpenses();
     await loadExchangeRates();
     await loadLedgerSummary();
@@ -325,15 +370,18 @@ export default function App() {
       clearExpenseForm();
     }
   }
+
   async function handleLoadReportSummary(): Promise<void> {
     setError(null);
     await loadReportSummary();
   }
+
   async function handleDownloadReportCsv(): Promise<void> {
     if (!selectedExpensesTripId) {
       setError("Select a trip before exporting reports.");
       return;
     }
+
     const query = new URLSearchParams();
     if (reportFilters.fromDate) {
       query.set("fromDate", reportFilters.fromDate);
@@ -344,17 +392,20 @@ export default function App() {
     if (reportFilters.category) {
       query.set("category", reportFilters.category);
     }
+
     const response = await apiFetch(
       query.toString() ? `${reportCsvUrl}?${query.toString()}` : reportCsvUrl,
     );
     if (!response.ok) {
       throw new Error(`Report export failed with ${response.status}.`);
     }
+
     const blob = await response.blob();
     const contentDisposition =
       response.headers.get("content-disposition") ?? "";
     const match = contentDisposition.match(/filename="?([^"]+)"?/i);
     const fileName = match?.[1] ?? "trip-report.csv";
+
     const downloadUrl = URL.createObjectURL(blob);
     const anchor = document.createElement("a");
     anchor.href = downloadUrl;
@@ -364,6 +415,7 @@ export default function App() {
     anchor.remove();
     URL.revokeObjectURL(downloadUrl);
   }
+
   function startExpenseEdit(expense: Expense): void {
     setSelectedExpenseId(expense.id);
     setExpenseForm({
@@ -374,6 +426,7 @@ export default function App() {
       notes: expense.notes,
     });
   }
+
   function clearExpenseForm(): void {
     setSelectedExpenseId(null);
     setExpenseForm({
@@ -381,6 +434,7 @@ export default function App() {
       currency: selectedTripForExpenses?.localCurrency ?? "ARS",
     });
   }
+
   function handleExpensesTripSelectionChange(tripId: string): void {
     setSelectedExpensesTripId(tripId);
     setSelectedExpenseId(null);
@@ -391,87 +445,102 @@ export default function App() {
     });
     setReportFilters(initialReportFilters);
   }
+
   return (
     <main className="app">
-      {" "}
-      <h1>Travel Accounting</h1>{" "}
-      <p className="subtitle">Modular frontend architecture</p>{" "}
-      <HealthCard health={health} />{" "}
-      <TripsSection
-        form={form}
-        selectedTripId={selectedTripId}
-        selectedCountry={selectedCountry}
-        countries={countries}
-        trips={trips}
-        onFormChange={setForm}
-        onClearForm={clearForm}
-        onStartEdit={startEdit}
-        onArchive={(tripId) => {
-          void handleArchive(tripId);
-        }}
-        onSubmit={(event) => {
-          handleSubmit(event).catch((submitError) => {
-            setError(
-              submitError instanceof Error
-                ? submitError.message
-                : "Trip submit failed unexpectedly.",
-            );
-          });
-        }}
-      />{" "}
-      <ExpensesSection
-        trips={trips}
-        selectedExpensesTripId={selectedExpensesTripId}
-        selectedExpenseId={selectedExpenseId}
-        selectedTripForExpenses={selectedTripForExpenses}
-        expenseForm={expenseForm}
-        expenses={expenses}
-        exchangeRates={exchangeRates}
-        ledgerSummary={ledgerSummary}
-        reportSummary={reportSummary}
-        reportFilters={reportFilters}
-        onTripSelectionChange={handleExpensesTripSelectionChange}
-        onExpenseFormChange={setExpenseForm}
-        onClearExpenseForm={clearExpenseForm}
-        onStartExpenseEdit={startExpenseEdit}
-        onExpenseDelete={(expenseId) => {
-          void handleExpenseDelete(expenseId);
-        }}
-        onReportFiltersChange={setReportFilters}
-        onLoadReportSummary={() => {
-          handleLoadReportSummary().catch((loadError) => {
-            setError(
-              loadError instanceof Error
-                ? loadError.message
-                : "Report summary failed unexpectedly.",
-            );
-          });
-        }}
-        onDownloadReportCsv={() => {
-          handleDownloadReportCsv().catch((loadError) => {
-            setError(
-              loadError instanceof Error
-                ? loadError.message
-                : "Report export failed unexpectedly.",
-            );
-          });
-        }}
-        onExpenseSubmit={(event) => {
-          handleExpenseSubmit(event).catch((submitError) => {
-            setError(
-              submitError instanceof Error
-                ? submitError.message
-                : "Expense submit failed unexpectedly.",
-            );
-          });
-        }}
-      />{" "}
+      <LandingPage />
+
+      <section id="workspace" className="workspace-shell">
+        <div className="workspace-header">
+          <div>
+            <p className="eyebrow">Workspace</p>
+            <h1>Travel Accounting</h1>
+            <p className="subtitle">
+              Create trips, log expenses, track conversions, and export reports.
+            </p>
+          </div>
+        </div>
+
+        <HealthCard health={health} />
+
+        <TripsSection
+          form={form}
+          selectedTripId={selectedTripId}
+          selectedCountry={selectedCountry}
+          countries={countries}
+          trips={trips}
+          onFormChange={setForm}
+          onClearForm={clearForm}
+          onStartEdit={startEdit}
+          onArchive={(tripId) => {
+            void handleArchive(tripId);
+          }}
+          onSubmit={(event) => {
+            handleSubmit(event).catch((submitError) => {
+              setError(
+                submitError instanceof Error
+                  ? submitError.message
+                  : "Trip submit failed unexpectedly.",
+              );
+            });
+          }}
+        />
+
+        <ExpensesSection
+          trips={trips}
+          selectedExpensesTripId={selectedExpensesTripId}
+          selectedExpenseId={selectedExpenseId}
+          selectedTripForExpenses={selectedTripForExpenses}
+          expenseForm={expenseForm}
+          expenses={expenses}
+          exchangeRates={exchangeRates}
+          ledgerSummary={ledgerSummary}
+          reportSummary={reportSummary}
+          reportFilters={reportFilters}
+          onTripSelectionChange={handleExpensesTripSelectionChange}
+          onExpenseFormChange={setExpenseForm}
+          onClearExpenseForm={clearExpenseForm}
+          onStartExpenseEdit={startExpenseEdit}
+          onExpenseDelete={(expenseId) => {
+            void handleExpenseDelete(expenseId);
+          }}
+          onReportFiltersChange={setReportFilters}
+          onLoadReportSummary={() => {
+            handleLoadReportSummary().catch((loadError) => {
+              setError(
+                loadError instanceof Error
+                  ? loadError.message
+                  : "Report summary failed unexpectedly.",
+              );
+            });
+          }}
+          onDownloadReportCsv={() => {
+            handleDownloadReportCsv().catch((loadError) => {
+              setError(
+                loadError instanceof Error
+                  ? loadError.message
+                  : "Report export failed unexpectedly.",
+              );
+            });
+          }}
+          onExpenseSubmit={(event) => {
+            handleExpenseSubmit(event).catch((submitError) => {
+              setError(
+                submitError instanceof Error
+                  ? submitError.message
+                  : "Expense submit failed unexpectedly.",
+              );
+            });
+          }}
+        />
+      </section>
+
       {error && (
         <section className="card error">
-          {" "}
-          <h2>Error</h2> <p>{error}</p>{" "}
+          <h2>Error</h2>
+          <p>{error}</p>
         </section>
-      )}{" "}
+      )}
     </main>
   );
 }
