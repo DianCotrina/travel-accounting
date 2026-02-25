@@ -1,0 +1,150 @@
+.sa-howItWorks {
+  margin-top: 0.65rem;
+}
+
+.sa-howItWorks__indicators {
+  position: relative;
+  margin: 0 auto 0.55rem;
+  max-width: 48rem;
+}
+
+.sa-howItWorks__line {
+  position: absolute;
+  left: 16.6667%;
+  right: 16.6667%;
+  top: 50%;
+  height: 1px;
+  background: linear-gradient(90deg, #2f231c 0%, #4a2f21 50%, #2f231c 100%);
+  transform: translateY(-50%);
+}
+
+.sa-howItWorks__numbers {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.sa-howItWorks__number {
+  width: 1.9rem;
+  height: 1.9rem;
+  justify-self: center;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid #3b2a20;
+  background: #0f0f0f;
+  color: var(--sa-text);
+  font-size: 0.78rem;
+  font-weight: 700;
+  box-shadow: 0 0 0 4px #090909;
+}
+
+.sa-howItWorks__grid {
+  display: grid;
+  gap: 0.55rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.sa-howItWorks__card {
+  position: relative;
+  border: 1px solid var(--sa-border);
+  border-radius: 0.6rem;
+  background: linear-gradient(180deg, #101010 0%, #0c0c0c 100%);
+  padding: 0.7rem;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease;
+}
+
+.sa-howItWorks__card:hover,
+.sa-howItWorks__card:focus-within {
+  border-color: #503325;
+  background: linear-gradient(180deg, #121110 0%, #0d0c0c 100%);
+  box-shadow:
+    0 10px 20px #0000002b,
+    inset 0 0 0 1px #ff6a1c0c;
+  transform: translateY(-2px);
+}
+
+.sa-howItWorks__iconWrap {
+  width: 2.6rem;
+  height: 2.6rem;
+  display: grid;
+  place-items: center;
+  border-radius: 0.55rem;
+  border: 1px solid #35271f;
+  background: radial-gradient(circle at 35% 30%, #ff8f471f 0%, #170f0b 70%);
+  color: var(--sa-accent-2);
+}
+
+.sa-howItWorks__iconWrap svg {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.sa-howItWorks__card h3 {
+  margin: 0.55rem 0 0;
+  color: var(--sa-text);
+  font-size: 0.95rem;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.sa-howItWorks__card p {
+  margin: 0.45rem 0 0;
+  color: var(--sa-muted);
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.sa-howItWorks__benefits {
+  list-style: none;
+  margin: 0.65rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.sa-howItWorks__benefits li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 0.45rem;
+  color: var(--sa-muted);
+  font-size: 0.76rem;
+  line-height: 1.35;
+}
+
+.sa-howItWorks__dot {
+  width: 0.8rem;
+  height: 0.8rem;
+  margin-top: 0.1rem;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: #1a1410;
+  border: 1px solid #33241c;
+}
+
+.sa-howItWorks__dot::after {
+  content: "";
+  width: 0.32rem;
+  height: 0.32rem;
+  border-radius: 999px;
+  background: var(--sa-accent);
+  box-shadow: 0 0 8px #ff6a1c55;
+}
+
+@media (max-width: 64rem) {
+  .sa-howItWorks__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sa-howItWorks__line,
+  .sa-howItWorks__indicators {
+    display: none;
+  }
+}
+
