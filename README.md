@@ -5,6 +5,7 @@ Travel accounting web application to register daily expenses in local currency a
 ## Structure
 
 Backend scaffold lives in `src/backend`:
+
 - `TravelAccounting.Api`
 - `TravelAccounting.Application`
 - `TravelAccounting.Domain`
@@ -12,6 +13,7 @@ Backend scaffold lives in `src/backend`:
 - `tests/TravelAccounting.Domain.Tests`
 
 Frontend scaffold lives in `src/frontend/web`:
+
 - React + TypeScript + Vite
 - Health check shell connected to `/api/health`
 - Vitest + Testing Library baseline
@@ -22,27 +24,32 @@ Frontend scaffold lives in `src/frontend/web`:
 ## Foundation Coverage
 
 Implemented foundation domain primitives:
+
 - `Currency` value object
 - `Money` value object
 - `TravelDate` value object
 - `ExpenseCategory` enum
 
 Implemented API baseline:
+
 - `GET /api/health`
 
 Implemented DI baseline:
+
 - Composition root in `src/backend/TravelAccounting.Api/Program.cs`
 - `AddApplication()` in `src/backend/TravelAccounting.Application/ApplicationServiceCollectionExtensions.cs`
 - `AddInfrastructure(...)` in `src/backend/TravelAccounting.Infrastructure/InfrastructureServiceCollectionExtensions.cs`
 - `HealthController` resolves `IHealthStatusService` from DI
 
 Implemented configuration baseline:
+
 - Typed options section: `App` (`HomeCurrency`, `SupportedCurrencies`)
 - Startup validation via `ValidateDataAnnotations()`, custom validation, and `ValidateOnStart()`
 
 ## Trips Module (Phase 2)
 
 Implemented backend functionality:
+
 - `GET /api/trips`
 - `GET /api/trips/{id}`
 - `POST /api/trips`
@@ -50,18 +57,21 @@ Implemented backend functionality:
 - `POST /api/trips/{id}/archive`
 
 Implemented frontend functionality:
+
 - Create trip form
 - Edit trip flow
 - Archive trip action
 - Trip list view with status and currencies
 
 Current persistence scope:
+
 - In-memory repository (`InMemoryTripRepository`)
 - Data resets when API process restarts
 
 ## Expenses Module (Phase 3)
 
 Implemented backend functionality:
+
 - `GET /api/trips/{tripId}/expenses`
 - `GET /api/trips/{tripId}/expenses/{id}`
 - `POST /api/trips/{tripId}/expenses`
@@ -70,6 +80,7 @@ Implemented backend functionality:
 - `GET /api/reference/countries`
 
 Implemented frontend functionality:
+
 - Expense create/edit/delete UI linked to selected trip
 - Category/amount/currency/date/notes fields
 - Destination country selector fed by reference endpoint
@@ -80,6 +91,7 @@ Implemented frontend functionality:
 ## Exchange Rates Module (Phase 4)
 
 Implemented backend functionality:
+
 - `GET /api/trips/{tripId}/exchange-rates`
 - `PUT /api/trips/{tripId}/exchange-rates`
 - Expense list now includes converted home-currency fields:
@@ -88,6 +100,7 @@ Implemented backend functionality:
   - `exchangeRateUsed`
 
 Implemented frontend functionality:
+
 - Automatic exchange-rate assignment from provider during expense conversion
 - Saved rates list
 - Home-currency equivalent display per expense
@@ -96,9 +109,11 @@ Implemented frontend functionality:
 ## Accounting Ledger Module (Phase 5)
 
 Implemented backend functionality:
+
 - `GET /api/trips/{tripId}/ledger/summary`
 
 Implemented frontend functionality:
+
 - Ledger summary for the selected trip in Expenses section.
 - Aggregated totals:
   - Trip totals in local and home currency.
@@ -109,10 +124,12 @@ Implemented frontend functionality:
 ## Reports Export Module (Phase 6)
 
 Implemented backend functionality:
+
 - `GET /api/trips/{tripId}/reports/summary`
 - `GET /api/trips/{tripId}/reports/export/csv`
 
 Implemented frontend functionality:
+
 - Report filter UI by date range and category.
 - Filtered report summary (counts and totals by category).
 - CSV export download for accounting workflows.
@@ -120,6 +137,7 @@ Implemented frontend functionality:
 ## Auth and Multiuser Module (Phase 7)
 
 Implemented backend functionality:
+
 - Header-based authentication scheme for protected endpoints (`X-User-Id`).
 - Per-user ownership on trips and user-isolated access for:
   - Trips
@@ -129,33 +147,39 @@ Implemented backend functionality:
   - Reports/exports
 
 Implemented frontend functionality:
+
 - All API requests now include `X-User-Id`.
 - Configurable user id through `VITE_USER_ID` (default `demo-user`).
 
 ## Local Commands
 
 Build backend:
+
 ```powershell
 dotnet build src/backend/TravelAccounting.sln
 ```
 
 Run backend tests:
+
 ```powershell
 dotnet test src/backend/TravelAccounting.sln
 ```
 
 Run API:
+
 ```powershell
 dotnet run --project src/backend/TravelAccounting.Api
 ```
 
 Install frontend dependencies:
+
 ```powershell
 cd src/frontend/web
 npm install
 ```
 
 Run frontend checks:
+
 ```powershell
 npm run lint
 npm run typecheck
@@ -163,89 +187,109 @@ npm run test
 ```
 
 Run frontend app:
+
 ```powershell
 npm run dev
 ```
 
 Health check endpoint:
+
 ```text
 GET http://localhost:<port>/api/health
 ```
 
 Trips endpoints quick check:
+
 ```text
 GET http://localhost:<port>/api/trips
 POST http://localhost:<port>/api/trips
 ```
 
 Expenses endpoints quick check:
+
 ```text
 GET http://localhost:<port>/api/trips/{tripId}/expenses
 POST http://localhost:<port>/api/trips/{tripId}/expenses
 ```
 
 Exchange rates endpoints quick check:
+
 ```text
 GET http://localhost:<port>/api/trips/{tripId}/exchange-rates
 PUT http://localhost:<port>/api/trips/{tripId}/exchange-rates
 ```
 
 Ledger endpoint quick check:
+
 ```text
 GET http://localhost:<port>/api/trips/{tripId}/ledger/summary
 ```
 
 Reports endpoints quick check:
+
 ```text
 GET http://localhost:<port>/api/trips/{tripId}/reports/summary
 GET http://localhost:<port>/api/trips/{tripId}/reports/export/csv
 ```
 
 Auth header for protected endpoints:
+
 ```text
 X-User-Id: <your-user-id>
 ```
 
 Auto-rate behavior:
+
 - When an expense is listed and no local rate exists for that trip/day/currency pair, backend fetches a rate from configured provider and persists it.
 - Current provider: exchangerate.host (`ExternalServices:ExchangeRates:BaseUrl`).
 - Required setting: `ExternalServices:ExchangeRates:AccessKey`.
 
 Trips regression safety:
+
 - API integration tests in `src/backend/tests/TravelAccounting.Api.Tests/TripsApiTests.cs` now cover create-trip model binding/validation to prevent record-DTO validation regressions from surfacing as `500`.
 
 Frontend API base URL (optional):
+
 ```text
 src/frontend/web/.env.example
 ```
+
 Includes:
+
 - `VITE_API_BASE_URL`
 - `VITE_USER_ID`
 
 Frontend screenshot helper (optional, Brave + `puppeteer-core`):
+
 - Script: `src/frontend/web/scripts/screenshot.mjs`
 - Command:
+
 ```powershell
 npm --prefix src/frontend/web run screenshot -- http://localhost:5173
 ```
+
 - Required env var:
+
 ```powershell
 $env:BRAVE_EXECUTABLE_PATH="<put your path here>"
 ```
 
 Frontend landing page:
-- The app now includes a landing page hero before the workspace, built with reusable React components and the project logo (`assets/logos/sacatucuenta-logo.png`, served in frontend public assets).
-- Use the "Open workspace" / "Start using the app" CTA to jump directly to the accounting workspace section.
+
+- The app now includes a standalone landing page built with reusable React components and the project logo (`assets/logos/sacatucuenta-logo.png`, served in frontend public assets).
+- The landing page includes a product-preview/video placeholder section and visual design references for future UI iterations.
 
 ## Troubleshooting
 
 `Unexpected token '<', "<!doctype "... is not valid JSON` on API Health:
+
 - Root cause: frontend requested `/api/health` from the Vite dev server without proxying to backend, so the response was `index.html` instead of JSON.
 - Signal: response body starts with `<!doctype html>` while code expects JSON.
 - Fix applied in repo: Vite proxy routes `/api` to backend (`src/frontend/web/vite.config.ts`), and frontend falls back to relative `/api/health` when `VITE_API_BASE_URL` is not set.
 - If you still see it: restart `npm run dev` after config changes and ensure API is running.
 
 `[vite] http proxy error ... ECONNREFUSED` for `/api/*`:
+
 - Root cause: frontend proxy cannot reach backend API target.
 - Typical causes:
   - API process is not running.
@@ -258,6 +302,7 @@ Frontend landing page:
   - Restart frontend dev server after env/config changes.
 
 `500` with `Record type 'X' has validation metadata defined on property ... will be ignored`:
+
 - Symptom: MVC throws before controller logic runs, usually inside model-binding validation.
 - Root cause: request DTO defined as a positional `record` with validation attributes on properties, while ASP.NET expects record validation metadata on constructor parameters for that shape.
 - Fix applied in repo: changed request DTO to a class with init properties and data annotations (`src/backend/TravelAccounting.Api/Trips/UpsertTripRequest.cs`).
@@ -265,6 +310,7 @@ Frontend landing page:
 - If a `record` is required: place validation attributes on constructor parameters, not only on generated properties.
 
 `500` from exchange-rate provider with `HttpRequestException` (for example 404):
+
 - Symptom: expense creation/list can fail if external rate lookup exceptions are not handled.
 - Root cause: provider/network failures can bubble into conversion flow if not handled as optional conversion.
 - Fix applied in repo:
@@ -273,6 +319,7 @@ Frontend landing page:
 - User-visible behavior: expense is saved; conversion fields show unavailable (`homeAmount` null) until a rate can be resolved.
 
 `Exchange rate provider returned missing access key / auth errors`:
+
 - Root cause: exchangerate.host now requires `access_key`.
 - Fix: configure `ExternalServices:ExchangeRates:AccessKey` (in secrets or environment-specific config).
 - User-visible behavior while missing: expense is saved; conversion fields remain unavailable.

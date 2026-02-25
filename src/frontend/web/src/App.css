@@ -76,7 +76,9 @@ button {
 
 .landing-nav,
 .landing-hero,
-.landing-grid {
+.landing-grid,
+.landing-showcase,
+.landing-inspirations {
   position: relative;
   z-index: 1;
 }
@@ -360,6 +362,142 @@ button {
   line-height: 1.65;
 }
 
+.landing-showcase,
+.landing-inspirations {
+  margin-top: 1.25rem;
+  display: grid;
+  gap: 1rem;
+  border: 1px solid #253347;
+  border-radius: 1rem;
+  padding: 1rem;
+  background: #0a1322bf;
+  box-shadow: inset 0 1px 0 #ffffff0d;
+}
+
+.landing-showcase h2,
+.landing-inspirations h2 {
+  margin: 0.5rem 0 0;
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  color: #f8fbff;
+  letter-spacing: -0.02em;
+}
+
+.landing-showcase p,
+.landing-inspirations p {
+  margin: 0.75rem 0 0;
+  color: #b8c9dc;
+  line-height: 1.65;
+}
+
+.landing-checklist {
+  margin: 0.85rem 0 0;
+  padding-left: 1.1rem;
+  color: #d7e3f0;
+}
+
+.landing-checklist li + li {
+  margin-top: 0.45rem;
+}
+
+.landing-video-card {
+  border: 1px solid #2a3a50;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: #07101ddb;
+  box-shadow:
+    0 16px 32px #02061740,
+    inset 0 1px 0 #ffffff0d;
+}
+
+.landing-video-card__header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 0.85rem;
+  border-bottom: 1px solid #223047;
+  background: #0a1426;
+}
+
+.landing-video-card__header p {
+  margin: 0 0 0 0.25rem;
+  color: #b8c9dc;
+  font-size: 0.85rem;
+}
+
+.dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 999px;
+  display: inline-block;
+}
+
+.dot--red {
+  background: #f87171;
+}
+
+.dot--amber {
+  background: #fbbf24;
+}
+
+.dot--green {
+  background: #34d399;
+}
+
+.landing-video-card__body {
+  min-height: 15rem;
+  display: grid;
+  place-items: center;
+  gap: 0.75rem;
+  text-align: center;
+  padding: 1.25rem;
+  background:
+    radial-gradient(circle at 35% 30%, #2563eb22 0, transparent 45%),
+    radial-gradient(circle at 70% 70%, #f9731622 0, transparent 45%), #060d18;
+}
+
+.landing-video-card__body p {
+  margin: 0;
+  max-width: 28ch;
+  color: #c9d8e8;
+}
+
+.play-button {
+  width: 4.25rem;
+  height: 4.25rem;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(180deg, #fbbf24 0%, #f97316 100%);
+  color: #08111e;
+  font-size: 1.5rem;
+  box-shadow:
+    0 16px 28px #f9731633,
+    inset 0 1px 0 #ffffff8a;
+}
+
+.landing-inspirations__figure {
+  margin: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.landing-inspirations__image {
+  width: 100%;
+  max-width: 22rem;
+  border-radius: 0.9rem;
+  border: 1px solid #334155;
+  background: #fff;
+  padding: 0.4rem;
+  box-shadow:
+    0 18px 38px #02061740,
+    inset 0 1px 0 #ffffff14;
+}
+
+.landing-inspirations__figure figcaption {
+  color: #94a9bf;
+  font-size: 0.82rem;
+}
+
 .workspace-shell {
   margin-top: 1.25rem;
   border: 1px solid #1e293b;
@@ -529,6 +667,12 @@ button:active {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .landing-showcase,
+  .landing-inspirations {
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: center;
+  }
+
   .workspace-shell {
     padding: 1.1rem 1.1rem 1.25rem;
   }
@@ -558,5 +702,9 @@ button:active {
 
   .brand-pill {
     border-radius: 1rem;
+  }
+
+  .landing-video-card__body {
+    min-height: 12.5rem;
   }
 }

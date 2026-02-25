@@ -37,8 +37,12 @@ export function LandingPage({ onGoToWorkspace }: LandingPageProps) {
             <p>Travel accounting made practical</p>
           </div>
         </div>
-        <a className="ghost-link" href="#workspace" onClick={onGoToWorkspace}>
-          Open workspace
+        <a
+          className="ghost-link"
+          href="#product-demo"
+          onClick={onGoToWorkspace}
+        >
+          Watch preview
         </a>
       </header>
 
@@ -57,10 +61,10 @@ export function LandingPage({ onGoToWorkspace }: LandingPageProps) {
           <div className="landing-actions">
             <a
               className="cta-primary"
-              href="#workspace"
+              href="#product-demo"
               onClick={onGoToWorkspace}
             >
-              Start using the app
+              Watch product preview
             </a>
             <a className="cta-secondary" href="#how-it-works">
               How it works
@@ -121,6 +125,70 @@ export function LandingPage({ onGoToWorkspace }: LandingPageProps) {
             <p>{feature.description}</p>
           </article>
         ))}
+      </section>
+
+      <section
+        id="product-demo"
+        className="landing-showcase"
+        aria-labelledby="product-demo-title"
+      >
+        <div className="landing-showcase__copy">
+          <p className="eyebrow">Product walkthrough</p>
+          <h2 id="product-demo-title">
+            Show the workflow in a short demo video
+          </h2>
+          <p>
+            The landing page should sell the value first. The full workspace can
+            be shown in a video walkthrough or product tour once you record it.
+          </p>
+          <ul className="landing-checklist">
+            <li>Trip setup with home vs destination currency</li>
+            <li>Daily expense capture and conversion tracking</li>
+            <li>Ledger summary and CSV export flow</li>
+          </ul>
+        </div>
+
+        <div className="landing-video-card" aria-label="Demo video placeholder">
+          <div className="landing-video-card__header">
+            <span className="dot dot--red" />
+            <span className="dot dot--amber" />
+            <span className="dot dot--green" />
+            <p>Demo video (placeholder)</p>
+          </div>
+          <div className="landing-video-card__body">
+            <div className="play-button" aria-hidden="true">
+              ▶
+            </div>
+            <p>Replace this block with an embedded product video later.</p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        className="landing-inspirations"
+        aria-labelledby="landing-inspirations-title"
+      >
+        <div className="landing-inspirations__copy">
+          <p className="eyebrow">Design direction</p>
+          <h2 id="landing-inspirations-title">
+            Category-focused navigation inspiration
+          </h2>
+          <p>
+            Using a clear category list helps users classify travel expenses
+            fast. This reference can inform future UI iterations for expense
+            entry and reporting filters.
+          </p>
+        </div>
+        <figure className="landing-inspirations__figure">
+          <img
+            src="/categories.png"
+            alt="Expense categories menu inspiration"
+            className="landing-inspirations__image"
+          />
+          <figcaption>
+            Reference image from assets/design-inspirations/categories.png
+          </figcaption>
+        </figure>
       </section>
     </section>
   );
