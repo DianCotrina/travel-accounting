@@ -1466,6 +1466,10 @@ select {
     gap: 1.15rem;
   }
 
+  .landing-inspirations--catalog-only {
+    grid-template-columns: 1fr;
+  }
+
   .timeline-item__content {
     padding: 0.95rem 1rem;
   }

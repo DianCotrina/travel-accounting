@@ -395,7 +395,7 @@ export function LandingPage({ onGoToWorkspace }: LandingPageProps) {
         </section>
 
         <section
-          className="landing-inspirations anchor-section"
+          className="landing-inspirations landing-inspirations--catalog-only anchor-section"
           aria-labelledby="landing-inspirations-title"
         >
           <div className="landing-inspirations__copy">
@@ -419,32 +419,6 @@ export function LandingPage({ onGoToWorkspace }: LandingPageProps) {
               ))}
             </div>
           </div>
-
-          <figure className="landing-inspirations__figure">
-            <div className="landing-inspirations__frame">
-              <div
-                className="landing-inspirations__frame-header"
-                aria-hidden="true"
-              >
-                <span className="dot dot--red" />
-                <span className="dot dot--amber" />
-                <span className="dot dot--green" />
-                <p>Reference panel</p>
-              </div>
-
-              <img
-                src="/categories.png"
-                alt="Expense categories menu inspiration"
-                className="landing-inspirations__image"
-                width={320}
-                height={492}
-                loading="lazy"
-              />
-            </div>
-            <figcaption>
-              Reference image from `assets/design-inspirations/categories.png`
-            </figcaption>
-          </figure>
         </section>
 
         <section
@@ -534,7 +508,7 @@ export function LandingPage({ onGoToWorkspace }: LandingPageProps) {
 
           <div className="landing-footer__contact">
             <a href="mailto:hello@sacatucuenta.com">hello@sacatucuenta.com</a>
-            <span aria-hidden="true">•</span>
+            <span aria-hidden="true">&bull;</span>
             <a href="tel:+15551234567">+1 (555) 123-4567</a>
           </div>
         </footer>
