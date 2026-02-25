@@ -12,6 +12,8 @@ type StepItem = {
 
 interface HowItWorksProps extends React.HTMLAttributes<HTMLDivElement> {
   steps?: StepItem[];
+  title?: string;
+  description?: string;
 }
 
 interface StepCardProps {
@@ -74,9 +76,20 @@ const defaultSteps: StepItem[] = [
   },
 ];
 
-export function HowItWorks({ className, steps = defaultSteps, ...props }: HowItWorksProps) {
+export function HowItWorks({
+  className,
+  steps = defaultSteps,
+  title = "How it works",
+  description = "Sacatucuenta organizes travel accounting into a simple workflow: set trip context, capture categorized spending, and export finance-ready summaries.",
+  ...props
+}: HowItWorksProps) {
   return (
     <div className={cn("sa-howItWorks", className)} {...props}>
+      <header className="sa-howItWorks__header">
+        <h3>{title}</h3>
+        <p>{description}</p>
+      </header>
+
       <div className="sa-howItWorks__indicators" aria-hidden="true">
         <div className="sa-howItWorks__line" />
         <div className="sa-howItWorks__numbers">
@@ -96,4 +109,3 @@ export function HowItWorks({ className, steps = defaultSteps, ...props }: HowItW
     </div>
   );
 }
-
