@@ -60,23 +60,23 @@
   z-index: 2;
   pointer-events: none;
   overflow: hidden;
-  mix-blend-mode: screen;
+  opacity: 0.9;
 }
 
 .sa-page-sky__glow {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 50% 8%, #ff6a1c10 0, transparent 34%),
-    radial-gradient(circle at 15% 38%, #ff6a1c0b 0, transparent 22%),
-    radial-gradient(circle at 82% 62%, #ff8f4708 0, transparent 22%),
-    radial-gradient(circle at 50% 92%, #ff6a1c0a 0, transparent 24%);
+    radial-gradient(circle at 50% 8%, #ff6a1c0e 0, transparent 28%),
+    radial-gradient(circle at 10% 42%, #ff6a1c06 0, transparent 18%),
+    radial-gradient(circle at 88% 60%, #ff8f4705 0, transparent 18%),
+    radial-gradient(circle at 50% 92%, #ff6a1c07 0, transparent 20%);
 }
 
 .sa-page-sky__stars {
   position: absolute;
   inset: 0;
-  opacity: 0.28;
+  opacity: 0.12;
   background-image:
     radial-gradient(1px 1px at 16px 24px, #fff4e8, rgba(0, 0, 0, 0)),
     radial-gradient(1px 1px at 42px 68px, #ffd6b7, rgba(0, 0, 0, 0)),
@@ -87,15 +87,15 @@
 }
 
 .sa-page-sky__shootingStars {
-  opacity: 0.9;
+  opacity: 0.34;
 }
 
 .sa-page-sky__shootingStars--a {
-  filter: blur(0.1px);
+  filter: blur(0.15px);
 }
 
 .sa-page-sky__shootingStars--b {
-  opacity: 0.65;
+  opacity: 0.2;
 }
 
 .sa-nav {

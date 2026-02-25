@@ -1,22 +1,21 @@
 :root {
-  --sc-base-black: #07001f;
+  --sc-base-black: #050505;
   --sc-base-white: #ffffff;
-  --sc-violet: #6e45ff;
-  --sc-violet-soft: #e4c5fc;
-  --sc-green: #3dfd98;
-  --sc-green-soft: #b3fed7;
-  --sc-ink: #0f082d;
-  --sc-panel: #0e062b;
-  --sc-panel-2: #120a35;
-  --sc-border: #2f215e;
-  --sc-border-soft: #3f3079;
-  --sc-text: #f6f2ff;
-  --sc-text-muted: #b8afd6;
-  --sc-text-faint: #8f88aa;
+  --sc-ember: #ff6a1c;
+  --sc-ember-soft: #ffb182;
+  --sc-gold-soft: #ffd7a9;
+  --sc-ink: #0e0b08;
+  --sc-panel: #0d0b09;
+  --sc-panel-2: #14100d;
+  --sc-border: #2d2119;
+  --sc-border-soft: #453124;
+  --sc-text: #f8f4ef;
+  --sc-text-muted: #bcae9f;
+  --sc-text-faint: #897d71;
   color-scheme: dark;
   color: var(--sc-text);
   background: var(--sc-base-black);
-  font-family: Sora, "Segoe UI", sans-serif;
+  font-family: "Segoe UI", Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   letter-spacing: 0.02em;
@@ -36,11 +35,12 @@ body {
   margin: 0;
   color: var(--sc-text);
   background:
-    radial-gradient(circle at 16% 10%, #6e45ff2b 0, transparent 40%),
-    radial-gradient(circle at 82% 8%, #3dfd9824 0, transparent 36%),
-    radial-gradient(circle at 50% 50%, #12092f 0, #07001f 68%);
+    radial-gradient(circle at 50% 0%, #ff6a1c10 0, transparent 38%),
+    radial-gradient(circle at 18% 84%, #ff6a1c0a 0, transparent 32%),
+    radial-gradient(circle at 84% 76%, #ff8f4708 0, transparent 28%),
+    #040404;
   overflow-x: hidden;
-  -webkit-tap-highlight-color: #6e45ff22;
+  -webkit-tap-highlight-color: #ff6a1c26;
 }
 
 body::before {
@@ -48,7 +48,7 @@ body::before {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  opacity: 0.18;
+  opacity: 0.06;
   background-image:
     radial-gradient(#ffffff 0.5px, transparent 0.5px),
     radial-gradient(#ffffff 0.5px, transparent 0.5px);
@@ -94,9 +94,9 @@ input {
 
 .skip-link:focus-visible {
   top: 1rem;
-  outline: 2px solid var(--sc-green);
+  outline: 2px solid var(--sc-ember);
   outline-offset: 2px;
-  box-shadow: 0 16px 34px #3dfd9830;
+  box-shadow: 0 16px 34px #ff6a1c30;
 }
 
 .eyebrow {
