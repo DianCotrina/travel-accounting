@@ -56,7 +56,27 @@
   z-index: 3;
   margin-top: 0.8rem;
   display: grid;
-  gap: 1rem;
+  gap: 1.65rem;
+}
+
+.sa-main > section[id] {
+  scroll-margin-top: 5.5rem;
+}
+
+.sa-main > section + section {
+  position: relative;
+}
+
+.sa-main > section + section::before {
+  content: "";
+  position: absolute;
+  top: -0.95rem;
+  left: 8%;
+  right: 8%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, #1c1714 18%, #2a201a 50%, #1c1714 82%, transparent 100%);
+  opacity: 0.65;
+  pointer-events: none;
 }
 
 .sa-page-sky {
@@ -168,11 +188,21 @@
 
 @media (max-width: 48rem) {
   .sa-main {
-    gap: 0.85rem;
+    gap: 1.05rem;
+  }
+
+  .sa-main > section[id] {
+    scroll-margin-top: 4.9rem;
+  }
+
+  .sa-main > section + section::before {
+    top: -0.6rem;
+    left: 6%;
+    right: 6%;
+    opacity: 0.45;
   }
 
   .sa-btn {
     min-height: 2.5rem;
   }
 }
-
