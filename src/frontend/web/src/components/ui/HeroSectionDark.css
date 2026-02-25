@@ -1,0 +1,204 @@
+.sa-heroDark {
+  position: relative;
+  overflow: hidden;
+  padding: 0.95rem;
+  border: 1px solid var(--sa-border);
+  border-radius: 0.65rem;
+  background:
+    radial-gradient(circle at 50% -10%, #ff6a1c16 0, transparent 52%),
+    linear-gradient(180deg, #0b0b0b 0%, #060606 100%);
+  box-shadow:
+    inset 0 1px 0 #ffffff04,
+    0 14px 24px #00000022;
+}
+
+.sa-heroDark__ambient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 0%, #ff6a1c10 0, transparent 40%),
+    radial-gradient(circle at 15% 80%, #ff6a1c08 0, transparent 24%),
+    radial-gradient(circle at 85% 28%, #ff8f4707 0, transparent 20%);
+}
+
+.sa-heroDark__gridWrap {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--sa-hero-grid-opacity, 0.22);
+  mask-image: linear-gradient(to bottom, #000 12%, #000 55%, transparent 100%);
+}
+
+.sa-heroDark__gridPlane {
+  position: absolute;
+  inset: 0;
+  perspective: 220px;
+}
+
+.sa-heroDark__gridPlane::before {
+  content: "";
+  position: absolute;
+  inset: -35% -120% -75%;
+  transform-origin: 50% 0;
+  transform: rotateX(var(--sa-hero-grid-angle, 66deg));
+  background-image:
+    linear-gradient(to right, var(--sa-hero-grid-line, #ffffff0e) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--sa-hero-grid-line, #ffffff0e) 1px, transparent 1px);
+  background-size: var(--sa-hero-grid-size, 56px) var(--sa-hero-grid-size, 56px);
+  animation: sa-hero-grid-drift 18s linear infinite;
+}
+
+.sa-heroDark__gridFade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 0%, #070707 88%);
+}
+
+.sa-heroDark__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 60rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.sa-heroDark__pill {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid #2e231c;
+  background: linear-gradient(180deg, #10100f 0%, #0b0b0a 100%);
+  color: var(--sa-text);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  box-shadow: inset 0 1px 0 #ffffff06;
+}
+
+.sa-heroDark__pillIcon {
+  width: 0.95rem;
+  height: 0.95rem;
+  color: var(--sa-accent-2);
+  transition: transform 140ms ease;
+}
+
+.sa-heroDark__pill:hover .sa-heroDark__pillIcon,
+.sa-heroDark__pill:focus-visible .sa-heroDark__pillIcon {
+  transform: translateX(1px);
+}
+
+.sa-heroDark__title {
+  margin: 0.75rem auto 0;
+  max-width: 14ch;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+  color: var(--sa-text);
+  text-wrap: balance;
+}
+
+.sa-heroDark__titleAccent {
+  color: transparent;
+  background: linear-gradient(180deg, #ffb47f 0%, #ff6a1c 85%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.sa-heroDark__description {
+  margin: 0.85rem auto 0;
+  max-width: 55ch;
+  color: var(--sa-muted);
+  line-height: 1.65;
+}
+
+.sa-heroDark__actions {
+  margin-top: 0.85rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+}
+
+.sa-heroDark__stats {
+  margin: 0.9rem auto 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.45rem;
+  max-width: 34rem;
+}
+
+.sa-heroDark__stats li {
+  border: 1px solid var(--sa-border);
+  border-radius: 0.45rem;
+  padding: 0.5rem 0.65rem;
+  background: #0f0f0f;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
+.sa-heroDark__stats span {
+  color: var(--sa-faint);
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.sa-heroDark__stats strong {
+  color: var(--sa-text);
+  font-size: 0.82rem;
+}
+
+.sa-heroDark__bottom {
+  margin-top: 0.9rem;
+}
+
+.sa-heroDark__image {
+  width: 100%;
+  display: block;
+  border-radius: 0.55rem;
+  border: 1px solid #261712;
+  box-shadow: 0 14px 22px #00000030;
+}
+
+.sa-heroDark__image--light {
+  display: none;
+}
+
+@keyframes sa-hero-grid-drift {
+  from {
+    transform: rotateX(var(--sa-hero-grid-angle, 66deg)) translateY(0);
+  }
+  to {
+    transform: rotateX(var(--sa-hero-grid-angle, 66deg)) translateY(56px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sa-heroDark__gridPlane::before {
+    animation: none;
+  }
+}
+
+@media (max-width: 48rem) {
+  .sa-heroDark {
+    padding: 0.8rem 0.75rem 0.75rem;
+    border-radius: 0.6rem;
+  }
+
+  .sa-heroDark__title {
+    max-width: 12ch;
+  }
+
+  .sa-heroDark__stats {
+    grid-template-columns: 1fr;
+  }
+}
+

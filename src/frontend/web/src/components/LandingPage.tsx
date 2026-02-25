@@ -1,5 +1,6 @@
-﻿import "./LandingPage.css";
+import "./LandingPage.css";
 import { LandingNavbar } from "./ui/LandingNavbar";
+import { HeroSectionDark } from "./ui/HeroSectionDark";
 import { ShootingStars } from "./ui/shooting-stars";
 
 const productStats = [
@@ -226,37 +227,21 @@ export function LandingPage() {
       <LandingNavbar />
 
       <main id="top" className="sa-main">
-        <section className="sa-hero" aria-labelledby="sa-hero-title">
-          <p className="sa-kicker">Travel Accounting Platform</p>
-          <h1 id="sa-hero-title">
-            Track foreign travel expenses without losing accounting clarity.
-          </h1>
-          <p className="sa-hero__copy">
-            Sacatucuenta helps you log local-currency travel spending, monitor
-            home-currency impact, and export clean summaries for reimbursement
-            and bookkeeping.
-          </p>
-
-          <div className="sa-hero__actions">
-            <a className="sa-btn sa-btn--primary" href="#pricing">
-              Start Free Trial
-            </a>
-            <a className="sa-btn sa-btn--ghost" href="#features">
-              Explore Features
-            </a>
-          </div>
-
-          <ul className="sa-hero__stats" aria-label="Usage metrics">
-            {productStats.map((item) => (
-              <li key={item.label}>
-                <span>{item.label}</span>
-                <strong>{item.value}</strong>
-              </li>
-            ))}
-          </ul>
-
-          <DashboardMock />
-        </section>
+        <HeroSectionDark
+          title="Travel Accounting Platform"
+          subtitle={{
+            regular: "Track foreign travel expenses without losing ",
+            gradient: "accounting clarity.",
+          }}
+          description="Sacatucuenta helps you log local-currency travel spending, monitor home-currency impact, and export clean summaries for reimbursement and bookkeeping."
+          ctaText="Start Free Trial"
+          ctaHref="#pricing"
+          secondaryCtaText="Explore Features"
+          secondaryCtaHref="#features"
+          stats={productStats}
+          bottomSlot={<DashboardMock />}
+          gridOptions={{ angle: 66, cellSize: 54, opacity: 0.2, lineColor: "#ff6a1c10" }}
+        />
 
         <section className="sa-problems" aria-labelledby="sa-problems-title">
           <div className="sa-section-head">
@@ -333,7 +318,7 @@ export function LandingPage() {
           <div className="sa-card-grid sa-card-grid--two">
             {testimonials.map((item) => (
               <blockquote key={item.person} className="sa-testimonial-card">
-                <p className="sa-testimonial-card__quote">“{item.quote}”</p>
+                <p className="sa-testimonial-card__quote">â€œ{item.quote}â€</p>
                 <footer>
                   <strong>{item.person}</strong>
                   <span>{item.role}</span>
@@ -393,5 +378,7 @@ export function LandingPage() {
     </div>
   );
 }
+
+
 
 
