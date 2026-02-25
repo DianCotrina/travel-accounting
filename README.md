@@ -222,6 +222,17 @@ Includes:
 - `VITE_API_BASE_URL`
 - `VITE_USER_ID`
 
+Frontend screenshot helper (optional, Brave + `puppeteer-core`):
+- Script: `src/frontend/web/scripts/screenshot.mjs`
+- Command:
+```powershell
+npm --prefix src/frontend/web run screenshot -- http://localhost:5173
+```
+- Required env var:
+```powershell
+$env:BRAVE_EXECUTABLE_PATH="<put your path here>"
+```
+
 ## Troubleshooting
 
 `Unexpected token '<', "<!doctype "... is not valid JSON` on API Health:
