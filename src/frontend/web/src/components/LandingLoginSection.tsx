@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import "./LandingLoginSection.css";
 
 type LandingLoginSectionProps = {
   onGoToWorkspace?: () => void;

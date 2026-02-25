@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import type { CategoryCatalogEntry } from "../app/categoryCatalog";
+import "./CategoryCatalogPreview.css";
 
 type CategoryCatalogPreviewProps = {
   categories: CategoryCatalogEntry[];
