@@ -1,4 +1,9 @@
 import "./LandingPage.css";
+import { BenefitsSection } from "./BenefitsSection";
+import { FaqSection } from "./FaqSection";
+import { FinalCtaSection } from "./FinalCtaSection";
+import { PricingSection } from "./PricingSection";
+import { TestimonialsSection } from "./TestimonialsSection";
 import { LandingNavbar } from "./ui/LandingNavbar";
 import { HeroSectionDark } from "./ui/HeroSectionDark";
 import { HowItWorks } from "./ui/HowItWorks";
@@ -11,28 +16,27 @@ const productStats = [
   { label: "Countries used", value: "84" },
 ];
 
-const problemCards = [
+const benefitsCards = [
   {
-    title: "Scattered receipts",
-    body: "Capture travel expenses as they happen instead of rebuilding everything after the trip.",
+    title: "Stop rebuilding trips from receipts after you get home",
+    body: "Capture expenses while you travel so finance review is based on real entries, not reconstructed memory and screenshots.",
   },
   {
-    title: "Currency confusion",
-    body: "Track local amounts and home-currency impact in one accounting-friendly flow.",
+    title: "See local spending and home-currency impact in the same workflow",
+    body: "Keep destination and home currency context together so travel decisions and accounting review stay aligned.",
   },
   {
-    title: "Messy reimbursement prep",
-    body: "Export category-based summaries and CSV files ready for finance review.",
+    title: "Export summaries that finance can actually use",
+    body: "Category and ledger outputs are designed for reimbursement and bookkeeping workflows, not generic personal budgeting notes.",
   },
 ];
-
 
 const pricingPlans = [
   {
     name: "Starter",
     price: "$0",
-    subtitle: "For personal trips",
-    highlights: ["1 active trip", "Basic logging", "Manual review"],
+    subtitle: "For occasional trips",
+    highlights: ["1 active trip", "Manual review workflow", "Basic expense logging"],
     cta: "Get Started",
     featured: false,
   },
@@ -44,6 +48,7 @@ const pricingPlans = [
       "Unlimited trips",
       "Ledger summaries",
       "CSV export",
+      "Exchange-rate visibility",
       "Priority support",
     ],
     cta: "Start Free Trial",
@@ -53,11 +58,7 @@ const pricingPlans = [
     name: "Team",
     price: "$39",
     subtitle: "Per month",
-    highlights: [
-      "Multi-user workflows",
-      "Shared trip visibility",
-      "Audit-ready exports",
-    ],
+    highlights: ["Shared trip workflows", "Audit-ready exports", "Team visibility", "Onboarding support"],
     cta: "Contact Sales",
     featured: false,
   },
@@ -67,25 +68,25 @@ const testimonials = [
   {
     role: "Operations Consultant",
     quote:
-      "I stopped sending spreadsheets after every trip. Sacatucuenta gives finance a clean summary the same day.",
+      "I stopped sending spreadsheets after every trip. Sacatucuenta gives finance a clean summary the same day instead of a week later.",
     person: "Mariana R.",
   },
   {
     role: "Startup Founder",
     quote:
-      "The best part is seeing ARS expenses translated to USD without guessing rates or redoing math.",
+      "The most useful part is seeing ARS expenses translated to USD impact without guessing rates or redoing calculations at month-end.",
     person: "David L.",
   },
   {
     role: "Remote Team Lead",
     quote:
-      "Categories and exports cut reimbursement review time by more than half for our travel-heavy team.",
+      "Categories and exports cut reimbursement review time dramatically for our travel-heavy team. It removed the back-and-forth.",
     person: "Ana P.",
   },
   {
     role: "Digital Nomad",
     quote:
-      "I use it as a travel accounting journal. Everything is categorized before month-end arrives.",
+      "I use it like an accounting journal for travel. By the end of the month, everything is already categorized and exportable.",
     person: "Carlos M.",
   },
 ];
@@ -94,22 +95,22 @@ const faqs = [
   {
     question: "Does Sacatucuenta replace accounting software?",
     answer:
-      "No. It is focused on travel expense capture, conversion visibility, and clean exports for your accounting workflow.",
+      "No. It focuses on travel expense capture, currency context, and exportable summaries that fit into your accounting workflow.",
   },
   {
-    question: "Can I log expenses in the local currency and still see my home currency?",
+    question: "Can I log expenses in local currency and still review home-currency impact?",
     answer:
-      "Yes. Trips keep both destination and home currency context so you can review local totals and home-equivalent amounts.",
+      "Yes. Trips store both home and destination currency context, so local spending and home-equivalent review can be tracked together.",
   },
   {
-    question: "Can teams use it?",
+    question: "Is this useful for reimbursements and bookkeeping?",
     answer:
-      "Yes, the current MVP includes user ownership isolation and a path toward stronger multi-user workflows.",
+      "Yes. The product is designed around categorized entries, ledger summaries, and CSV exports that support reimbursement and bookkeeping processes.",
   },
   {
-    question: "Do you support CSV exports?",
+    question: "Do teams use it or is it only for solo travelers?",
     answer:
-      "Yes. You can export travel expense summaries for reimbursement, bookkeeping, or personal accounting review.",
+      "Both. Solo travelers can keep personal records clean, and teams can use the current MVP multi-user direction for shared travel workflows.",
   },
 ];
 
@@ -142,154 +143,69 @@ export function LandingPage() {
           starHeight={1}
         />
       </div>
+
       <LandingNavbar />
 
       <main id="top" className="sa-main">
         <HeroSectionDark
           title="Travel Accounting Platform"
           subtitle={{
-            regular: "Track foreign travel expenses without losing ",
-            gradient: "accounting clarity.",
+            regular: "Record foreign travel expenses with ",
+            gradient: "accounting clarity built in.",
           }}
-          description="Sacatucuenta helps you log local-currency travel spending, monitor home-currency impact, and export clean summaries for reimbursement and bookkeeping."
+          description="Sacatucuenta helps travelers and teams log local-currency expenses, review home-currency impact, and export finance-ready summaries before month-end pressure starts."
           ctaText="Start Free Trial"
           ctaHref="#pricing"
-          secondaryCtaText="Explore Features"
+          secondaryCtaText="See How It Works"
           secondaryCtaHref="#features"
           stats={productStats}
           bottomSlot={<AnalyticsDashboardPreview />}
           gridOptions={{ angle: 66, cellSize: 54, opacity: 0.2, lineColor: "#ff6a1c10" }}
         />
 
-        <section className="sa-problems" aria-labelledby="sa-problems-title">
-          <div className="sa-section-head">
-            <p className="sa-kicker">Why teams use it</p>
-            <h2 id="sa-problems-title">
-              Stop struggling with travel money management after the trip ends.
-            </h2>
-          </div>
-          <div className="sa-card-grid sa-card-grid--three">
-            {problemCards.map((card) => (
-              <article key={card.title} className="sa-panel-card">
-                <h3>{card.title}</h3>
-                <p>{card.body}</p>
-              </article>
-            ))}
-          </div>
-        </section>
+        <BenefitsSection
+          title="Built for real travel accounting work, not generic expense tracking"
+          description="The product is designed for the handoff between travelers and finance: capture daily spend during the trip, preserve currency context, and generate records that are usable for review and reimbursement."
+          proofPoints={[
+            "Local + home currency context",
+            "Category and subcategory capture",
+            "Ledger + CSV export workflow",
+          ]}
+          cards={benefitsCards}
+          workflow={
+            <HowItWorks
+              title="How the travel accounting workflow stays clean"
+              description="From trip setup to export, each step is structured to produce records that remain useful for finance review instead of turning into manual cleanup work."
+            />
+          }
+        />
 
-        <section id="features" className="sa-features" aria-labelledby="sa-features-title">
-          <div className="sa-section-head">
-            <p className="sa-kicker">Everything you need</p>
-            <h2 id="sa-features-title">
-              Built for real travel accounting workflows, not generic expense notes.
-            </h2>
-          </div>
-          <HowItWorks />
-        </section>
+        <PricingSection
+          title="Pricing for travelers and teams that care about clean records"
+          description="Start simple for personal trips, then scale into recurring travel workflows with ledger summaries and export-ready reporting."
+          plans={pricingPlans}
+        />
 
-        <section id="pricing" className="sa-pricing" aria-labelledby="sa-pricing-title">
-          <div className="sa-section-head">
-            <p className="sa-kicker">Choose your plan</p>
-            <h2 id="sa-pricing-title">Pricing for solo travelers and finance-aware teams.</h2>
-          </div>
-          <div className="sa-card-grid sa-card-grid--pricing">
-            {pricingPlans.map((plan) => (
-              <article
-                key={plan.name}
-                className={plan.featured ? "sa-pricing-card sa-pricing-card--featured" : "sa-pricing-card"}
-              >
-                <p className="sa-pricing-card__name">{plan.name}</p>
-                <div className="sa-pricing-card__priceRow">
-                  <strong>{plan.price}</strong>
-                  <span>{plan.subtitle}</span>
-                </div>
-                <ul>
-                  {plan.highlights.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-                <a className={plan.featured ? "sa-btn sa-btn--primary" : "sa-btn sa-btn--ghost"} href="#contact">
-                  {plan.cta}
-                </a>
-              </article>
-            ))}
-          </div>
-        </section>
+        <TestimonialsSection
+          title="Teams and travelers rely on clear records, not month-end reconstruction"
+          description="The strongest feedback is consistency: fewer spreadsheets, less rework, and faster reimbursement review with better expense context."
+          items={testimonials}
+        />
 
-        <section
-          id="testimonials"
-          className="sa-testimonials"
-          aria-labelledby="sa-testimonials-title"
-        >
-          <div className="sa-section-head">
-            <p className="sa-kicker">Loved by users</p>
-            <h2 id="sa-testimonials-title">Travelers and operators rely on clean summaries.</h2>
-          </div>
-          <div className="sa-card-grid sa-card-grid--two">
-            {testimonials.map((item) => (
-              <blockquote key={item.person} className="sa-testimonial-card">
-                <p className="sa-testimonial-card__quote">Ã¢â‚¬Å“{item.quote}Ã¢â‚¬Â</p>
-                <footer>
-                  <strong>{item.person}</strong>
-                  <span>{item.role}</span>
-                </footer>
-              </blockquote>
-            ))}
-          </div>
-        </section>
+        <FaqSection
+          title="Answers for evaluating the workflow"
+          description="The goal is simple: better travel accounting records with less cleanup. These answers clarify what the product is built to support today."
+          items={faqs}
+        />
 
-        <section id="faq" className="sa-faq" aria-labelledby="sa-faq-title">
-          <div className="sa-section-head">
-            <p className="sa-kicker">Frequently Asked Questions</p>
-            <h2 id="sa-faq-title">Answers for teams evaluating travel expense workflows.</h2>
-          </div>
-          <div className="sa-faq-list">
-            {faqs.map((item) => (
-              <details key={item.question} className="sa-faq-item">
-                <summary>{item.question}</summary>
-                <p>{item.answer}</p>
-              </details>
-            ))}
-          </div>
-        </section>
-
-        <section id="contact" className="sa-cta-band" aria-labelledby="sa-cta-band-title">
-          <div>
-            <p className="sa-kicker">Ready to start?</p>
-            <h2 id="sa-cta-band-title">Take control of travel expenses before month-end.</h2>
-            <p>
-              Contact the team for early access, pilot onboarding, or a walkthrough of the accounting workflow.
-            </p>
-          </div>
-          <div className="sa-cta-band__actions">
-            <a className="sa-btn sa-btn--primary" href="mailto:hello@sacatucuenta.com">
-              Email hello@sacatucuenta.com
-            </a>
-            <a className="sa-btn sa-btn--ghost" href="tel:+15551234567">
-              Call +1 (555) 123-4567
-            </a>
-          </div>
-        </section>
+        <FinalCtaSection
+          title="Take control of travel expenses before they become month-end cleanup"
+          description="Start with the traveler workflow, then extend into a finance-friendly review process with categorized records and export-ready summaries."
+          primaryCta={{ label: "Email hello@sacatucuenta.com", href: "mailto:hello@sacatucuenta.com" }}
+          secondaryCta={{ label: "Call +1 (555) 123-4567", href: "tel:+15551234567" }}
+        />
       </main>
-
-      <footer className="sa-footer" aria-label="Site footer">
-        <div className="sa-footer__brand">
-          <span>Sacatucuenta</span>
-          <p>Travel accounting made practical.</p>
-        </div>
-        <nav className="sa-footer__nav" aria-label="Footer navigation">
-          <a href="#features">Features</a>
-          <a href="#pricing">Pricing</a>
-          <a href="#testimonials">Testimonials</a>
-          <a href="#faq">FAQ</a>
-          <a href="#contact">Contact</a>
-        </nav>
-      </footer>
     </div>
   );
 }
-
-
-
 

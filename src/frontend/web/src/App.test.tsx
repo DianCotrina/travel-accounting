@@ -8,12 +8,12 @@ describe("App", () => {
 
     expect(
       screen.getByRole("heading", {
-        name: /track foreign travel expenses without losing accounting clarity/i,
+        name: /record foreign travel expenses with accounting clarity built in/i,
       }),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
-        name: /pricing for solo travelers and finance-aware teams/i,
+        name: /pricing for travelers and teams that care about clean records/i,
       }),
     ).toBeInTheDocument();
     expect(screen.getAllByRole("link", { name: /start free trial/i })).toHaveLength(2);
