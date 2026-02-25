@@ -51,15 +51,16 @@
 .sa-main,
 .sa-footer {
   position: relative;
-  z-index: 1;
+  z-index: 3;
 }
 
 .sa-page-sky {
   position: absolute;
   inset: 0;
-  z-index: 0;
+  z-index: 2;
   pointer-events: none;
   overflow: hidden;
+  mix-blend-mode: screen;
 }
 
 .sa-page-sky__glow {
@@ -75,7 +76,7 @@
 .sa-page-sky__stars {
   position: absolute;
   inset: 0;
-  opacity: 0.18;
+  opacity: 0.28;
   background-image:
     radial-gradient(1px 1px at 16px 24px, #fff4e8, rgba(0, 0, 0, 0)),
     radial-gradient(1px 1px at 42px 68px, #ffd6b7, rgba(0, 0, 0, 0)),
@@ -86,7 +87,7 @@
 }
 
 .sa-page-sky__shootingStars {
-  opacity: 0.5;
+  opacity: 0.9;
 }
 
 .sa-page-sky__shootingStars--a {
@@ -94,7 +95,7 @@
 }
 
 .sa-page-sky__shootingStars--b {
-  opacity: 0.35;
+  opacity: 0.65;
 }
 
 .sa-nav {
