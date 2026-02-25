@@ -44,6 +44,7 @@ Example scenario: an American user traveling in Argentina records expenses in AR
 - After making code changes, run the relevant tests and/or smoke checks.
 - If checks pass, commit and push automatically.
 - If checks fail, report failures clearly and do not push until resolved.
+- When running shell commands in PowerShell, do not chain commands with `&&`; use PowerShell separators (`;`) or separate commands to avoid parser errors.
 
 ## Frontend Design & UI Execution Rules
 
