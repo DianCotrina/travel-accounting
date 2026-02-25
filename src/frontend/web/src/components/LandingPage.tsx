@@ -1,15 +1,9 @@
-import { useMemo, useState } from "react";
 import categoryCatalog from "../app/landingCategories.json";
+import type { CategoryCatalogEntry } from "../app/categoryCatalog";
+import { CategoryCatalogPreview } from "./CategoryCatalogPreview";
 
 type LandingPageProps = {
   onGoToWorkspace?: () => void;
-};
-
-type CategoryCatalogItem = {
-  id: string;
-  label: string;
-  accent: string;
-  shortCode: string;
 };
 
 const howItWorksSteps = [
@@ -74,20 +68,9 @@ const categoryTags = [
   "Filter-ready taxonomy",
 ];
 
-const categories = categoryCatalog as CategoryCatalogItem[];
+const categories = categoryCatalog as CategoryCatalogEntry[];
 
 export function LandingPage({ onGoToWorkspace }: LandingPageProps) {
-  const [selectedCategoryId, setSelectedCategoryId] = useState(
-    categories[0]?.id ?? "",
-  );
-
-  const selectedCategory = useMemo(
-    () =>
-      categories.find((category) => category.id === selectedCategoryId) ??
-      categories[0],
-    [selectedCategoryId],
-  );
-
   return (
     <section className="landing-shell" aria-labelledby="landing-title">
       <div className="landing-backdrop" aria-hidden="true" />
@@ -264,8 +247,8 @@ export function LandingPage({ onGoToWorkspace }: LandingPageProps) {
             From travel spending to accounting-ready records in four steps
           </h2>
           <p>
-            Inspired by your reference, adapted to Sacatucuenta’s workflow and
-            terminology.
+            Inspired by your reference, adapted to Sacatucuenta&apos;s workflow
+            and terminology.
           </p>
         </div>
 
@@ -347,33 +330,7 @@ export function LandingPage({ onGoToWorkspace }: LandingPageProps) {
             the same source for future expense forms, filters, and reporting UI.
           </p>
 
-          <label className="landing-category-select">
-            Example categories dropdown
-            <select
-              value={selectedCategory?.id ?? ""}
-              onChange={(event) => setSelectedCategoryId(event.target.value)}
-            >
-              {categories.map((category) => (
-                <option key={category.id} value={category.id}>
-                  {category.label}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          {selectedCategory && (
-            <div className="landing-category-selected">
-              <span
-                className="landing-category-selected__dot"
-                style={{ backgroundColor: selectedCategory.accent }}
-                aria-hidden="true"
-              />
-              <div>
-                <p>Selected category</p>
-                <strong>{selectedCategory.label}</strong>
-              </div>
-            </div>
-          )}
+          <CategoryCatalogPreview categories={categories} />
 
           <div
             className="landing-inspirations__tags"
@@ -402,24 +359,6 @@ export function LandingPage({ onGoToWorkspace }: LandingPageProps) {
               alt="Expense categories menu inspiration"
               className="landing-inspirations__image"
             />
-
-            <ul
-              className="landing-category-list"
-              aria-label="Category catalog preview"
-            >
-              {categories.slice(0, 6).map((category) => (
-                <li key={category.id}>
-                  <span
-                    className="landing-category-list__icon"
-                    style={{ backgroundColor: category.accent }}
-                    aria-hidden="true"
-                  >
-                    {category.shortCode}
-                  </span>
-                  <span>{category.label}</span>
-                </li>
-              ))}
-            </ul>
           </div>
           <figcaption>
             Reference image from `assets/design-inspirations/categories.png`
