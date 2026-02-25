@@ -27,21 +27,21 @@ const methodOptions: MethodOption[] = [
     label: "Phone number",
     helper: "Send a one-time code to your number.",
     cta: "Continue with phone number",
-    iconLabel: "☎",
+    iconLabel: "\u260E",
   },
   {
     id: "icloud",
     label: "iCloud",
     helper: "Sign in with Apple / iCloud identity.",
     cta: "Continue with iCloud",
-    iconLabel: "⌁",
+    iconLabel: "\u2301",
   },
   {
     id: "passkey",
     label: "Passkey",
     helper: "Use a device passkey for faster, passwordless access.",
     cta: "Continue with passkey",
-    iconLabel: "⌘",
+    iconLabel: "\u2318",
   },
 ];
 
@@ -75,24 +75,20 @@ export function LandingLoginSection({
 
   function getIdentifierPlaceholder(method: LoginMethod): string {
     if (method === "phone") {
-      return "+1 555 123 4567…";
+      return "+1 555 123 4567\u2026";
     }
     if (method === "passkey") {
-      return "name@example.com…";
+      return "name@example.com\u2026";
     }
     if (method === "icloud") {
-      return "name@icloud.com…";
+      return "name@icloud.com\u2026";
     }
 
-    return "name@gmail.com…";
+    return "name@gmail.com\u2026";
   }
 
   function getAutocomplete(method: LoginMethod): string {
-    if (method === "phone") {
-      return "tel";
-    }
-
-    return "email";
+    return method === "phone" ? "tel" : "email";
   }
 
   function getInputMode(method: LoginMethod): "tel" | "email" {
