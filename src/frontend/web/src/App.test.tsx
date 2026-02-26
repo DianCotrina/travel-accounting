@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import App from "./App";
 
@@ -20,5 +20,21 @@ describe("App", () => {
     expect(
       screen.getByRole("link", { name: /get early access/i }),
     ).toBeInTheDocument();
+  });
+
+  it("opens the sign-in popup when clicking login", () => {
+    render(<App />);
+
+    fireEvent.click(screen.getAllByRole("button", { name: /log in/i })[0]);
+
+    expect(
+      screen.getByRole("dialog", {
+        name: /sign in to sacatucuenta/i,
+      }),
+    ).toBeInTheDocument();
+    const dialog = screen.getByRole("dialog", { name: /sign in to sacatucuenta/i });
+    expect(dialog).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /gmail/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /email me a sign-in link/i })).toBeInTheDocument();
   });
 });
