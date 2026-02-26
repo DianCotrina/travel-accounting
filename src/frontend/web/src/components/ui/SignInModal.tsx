@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import type { ReactNode } from "react";
 import {
+  AlertCircle,
   ArrowRight,
   Eye,
   EyeOff,
@@ -11,6 +12,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/app/AuthContext";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -78,6 +80,19 @@ export function SignInModal({ open, onClose }: SignInModalProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [selectedProvider, setSelectedProvider] = useState<Provider | null>(null);
   const emailInputRef = useRef<HTMLInputElement | null>(null);
+  const auth = useAuth();
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const email = (form.elements.namedItem("email") as HTMLInputElement).value;
+    const password = (form.elements.namedItem("password") as HTMLInputElement).value;
+    const success = auth.login(email, password);
+    if (success) {
+      onClose();
+    }
+  };
+
   return (
     <Dialog open={open} onOpenChange={(nextOpen) => (!nextOpen ? onClose() : undefined)}>
       <DialogContent
@@ -137,10 +152,14 @@ export function SignInModal({ open, onClose }: SignInModalProps) {
 
         <form
           className="sa-signInModal__form"
-          onSubmit={(event) => {
-            event.preventDefault();
-          }}
+          onSubmit={handleSubmit}
         >
+          {auth.error && (
+            <div className="sa-signInModal__error" role="alert">
+              <AlertCircle aria-hidden="true" />
+              <span>{auth.error}</span>
+            </div>
+          )}
           <div className="sa-signInModal__field">
             <Label htmlFor="sa-signin-email">Email</Label>
             <div className="sa-signInModal__inputWrap">

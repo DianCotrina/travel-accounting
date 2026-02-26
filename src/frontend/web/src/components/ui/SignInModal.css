@@ -171,6 +171,25 @@
   gap: 0.7rem;
 }
 
+.sa-signInModal__error {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 0.6rem;
+  border: 1px solid #5c1a1a;
+  background: #1c0d0d;
+  color: #f87171;
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.sa-signInModal__error svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  flex-shrink: 0;
+}
+
 .sa-signInModal__field {
   display: grid;
   gap: 0.35rem;
