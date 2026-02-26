@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import "./LandingPage.css";
 import { BenefitsSection } from "./BenefitsSection";
 import { FaqSection } from "./FaqSection";
@@ -70,24 +71,28 @@ const testimonials = [
     quote:
       "I stopped sending spreadsheets after every trip. Sacatucuenta gives finance a clean summary the same day instead of a week later.",
     person: "Mariana R.",
+    rating: 5,
   },
   {
     role: "Startup Founder",
     quote:
       "The most useful part is seeing ARS expenses translated to USD impact without guessing rates or redoing calculations at month-end.",
     person: "David L.",
+    rating: 5,
   },
   {
     role: "Remote Team Lead",
     quote:
       "Categories and exports cut reimbursement review time dramatically for our travel-heavy team. It removed the back-and-forth.",
     person: "Ana P.",
+    rating: 4,
   },
   {
     role: "Digital Nomad",
     quote:
       "I use it like an accounting journal for travel. By the end of the month, everything is already categorized and exportable.",
     person: "Carlos M.",
+    rating: 5,
   },
 ];
 
@@ -115,6 +120,57 @@ const faqs = [
 ];
 
 export function LandingPage() {
+  const mainRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const root = mainRef.current;
+    if (!root) {
+      return;
+    }
+
+    const sections = Array.from(root.children).filter(
+      (node): node is HTMLElement => node instanceof HTMLElement,
+    );
+
+    sections.forEach((section, index) => {
+      section.classList.add("sa-reveal");
+      section.style.setProperty("--sa-reveal-delay", `${Math.min(index * 35, 180)}ms`);
+    });
+
+    const prefersReducedMotion =
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (prefersReducedMotion) {
+      sections.forEach((section) => section.classList.add("is-visible"));
+      return;
+    }
+
+    if (typeof window.IntersectionObserver !== "function") {
+      sections.forEach((section) => section.classList.add("is-visible"));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.12,
+        rootMargin: "0px 0px -8% 0px",
+      },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="sa-landing" aria-labelledby="sa-hero-title">
       <div className="sa-page-sky" aria-hidden="true">
@@ -146,7 +202,7 @@ export function LandingPage() {
 
       <LandingNavbar />
 
-      <main id="top" className="sa-main">
+      <main id="top" className="sa-main" ref={mainRef}>
         <HeroSectionDark
           title="Travel Accounting Platform"
           subtitle={{
@@ -208,4 +264,3 @@ export function LandingPage() {
     </div>
   );
 }
-

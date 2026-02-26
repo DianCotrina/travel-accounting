@@ -4,6 +4,7 @@ export interface TestimonialItem {
   role: string;
   quote: string;
   person: string;
+  rating?: number;
 }
 
 export interface TestimonialsSectionProps {
@@ -11,6 +12,18 @@ export interface TestimonialsSectionProps {
   title: string;
   description: string;
   items: TestimonialItem[];
+}
+
+function RatingStars({ rating = 5 }: { rating?: number }) {
+  return (
+    <div className="sa-testimonialsSection__rating" aria-label={`${rating} out of 5 stars`}>
+      {Array.from({ length: 5 }).map((_, index) => (
+        <span key={index} aria-hidden="true" className={index < rating ? "is-on" : ""}>
+          ★
+        </span>
+      ))}
+    </div>
+  );
 }
 
 export function TestimonialsSection({
@@ -50,8 +63,9 @@ export function TestimonialsSection({
       <div className="sa-testimonialsSection__editorial">
         {featured ? (
           <blockquote className="sa-testimonialsSection__featured">
-            <p className="sa-testimonialsSection__featuredQuote">“{featured.quote}”</p>
+            <p className="sa-testimonialsSection__featuredQuote">{featured.quote}</p>
             <footer>
+              <RatingStars rating={featured.rating} />
               <strong>{featured.person}</strong>
               <span>{featured.role}</span>
             </footer>
@@ -61,8 +75,9 @@ export function TestimonialsSection({
         <div className="sa-testimonialsSection__stack">
           {compactCards.map((item) => (
             <blockquote key={item.person} className="sa-testimonialsSection__card">
-              <p>“{item.quote}”</p>
+              <p>{item.quote}</p>
               <footer>
+                <RatingStars rating={item.rating} />
                 <strong>{item.person}</strong>
                 <span>{item.role}</span>
               </footer>
@@ -73,8 +88,9 @@ export function TestimonialsSection({
 
       {ribbonCard ? (
         <blockquote className="sa-testimonialsSection__ribbon">
-          <p>“{ribbonCard.quote}”</p>
+          <p>{ribbonCard.quote}</p>
           <footer>
+            <RatingStars rating={ribbonCard.rating} />
             <strong>{ribbonCard.person}</strong>
             <span>{ribbonCard.role}</span>
           </footer>
