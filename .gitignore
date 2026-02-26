@@ -12,3 +12,8 @@ Thumbs.db
 
 # Local temp
 .tmp/
+
+# Local tooling / visual QA artifacts
+.claude/
+src/frontend/web/temporary-screenshots/
+src/frontend/web/src/frontend/
