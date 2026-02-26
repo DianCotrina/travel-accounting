@@ -79,6 +79,24 @@
   pointer-events: none;
 }
 
+.sa-main > * {
+  will-change: transform, opacity;
+}
+
+.sa-main > *.sa-reveal {
+  opacity: 0;
+  transform: translateY(18px) scale(0.992);
+  transition:
+    opacity 420ms ease,
+    transform 520ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition-delay: var(--sa-reveal-delay, 0ms);
+}
+
+.sa-main > *.sa-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
 .sa-page-sky {
   position: absolute;
   inset: 0;
@@ -204,5 +222,13 @@
 
   .sa-btn {
     min-height: 2.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sa-main > *.sa-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
