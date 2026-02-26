@@ -5,7 +5,6 @@ export interface FinalCtaSectionProps {
   title: string;
   description: string;
   primaryCta: { label: string; href: string };
-  secondaryCta: { label: string; href: string };
 }
 
 export function FinalCtaSection({
@@ -13,45 +12,52 @@ export function FinalCtaSection({
   title,
   description,
   primaryCta,
-  secondaryCta,
 }: FinalCtaSectionProps) {
   return (
     <section id={id} className="sa-finalCta" aria-labelledby="sa-finalCta-title">
-      <div className="sa-finalCta__band">
-        <div className="sa-finalCta__copy">
-          <p className="sa-kicker">Ready to start</p>
-          <h2 id="sa-finalCta-title">{title}</h2>
-          <p>{description}</p>
-          <div className="sa-finalCta__contactRow">
-            <span>Email: hello@sacatucuenta.com</span>
-            <span>Phone: +1 (555) 123-4567</span>
+      <div className="sa-section-inner">
+        <div className="sa-finalCta__band">
+          <div className="sa-finalCta__glow" aria-hidden="true" />
+          <div className="sa-finalCta__content">
+            <h2 id="sa-finalCta-title">{title}</h2>
+            <p>{description}</p>
+            <div className="sa-finalCta__actions">
+              <a className="sa-btn sa-btn--primary sa-btn--lg" href={primaryCta.href}>
+                {primaryCta.label}
+              </a>
+            </div>
           </div>
-        </div>
-
-        <div className="sa-finalCta__actions">
-          <a className="sa-btn sa-btn--primary" href={primaryCta.href}>
-            {primaryCta.label}
-          </a>
-          <a className="sa-btn sa-btn--ghost" href={secondaryCta.href}>
-            {secondaryCta.label}
-          </a>
         </div>
       </div>
 
-      <footer className="sa-finalCta__footer" aria-label="Site footer">
-        <div className="sa-finalCta__brand">
-          <span>Sacatucuenta</span>
-          <p>Travel accounting made practical for real trips and finance review.</p>
+      <footer className="sa-footer" aria-label="Site footer">
+        <div className="sa-footer__inner">
+          <div className="sa-footer__brand">
+            <div className="sa-footer__brandRow">
+              <img src="/sacatucuenta-logo.png" alt="" width={32} height={32} />
+              <span>Sacatucuenta</span>
+            </div>
+            <p>Travel accounting made practical.</p>
+          </div>
+          <nav className="sa-footer__columns" aria-label="Footer navigation">
+            <div>
+              <h4>Product</h4>
+              <a href="#features">Features</a>
+              <a href="#how-it-works">How It Works</a>
+              <a href="#pricing">Pricing</a>
+            </div>
+            <div>
+              <h4>Resources</h4>
+              <a href="#testimonials">Testimonials</a>
+              <a href="#faq">FAQ</a>
+              <a href="mailto:hello@sacatucuenta.com">Contact</a>
+            </div>
+          </nav>
         </div>
-        <nav className="sa-finalCta__nav" aria-label="Footer navigation">
-          <a href="#features">Features</a>
-          <a href="#pricing">Pricing</a>
-          <a href="#testimonials">Testimonials</a>
-          <a href="#faq">FAQ</a>
-          <a href="#contact">Contact</a>
-        </nav>
+        <div className="sa-footer__bottom">
+          <p>&copy; 2026 Sacatucuenta. All rights reserved.</p>
+        </div>
       </footer>
     </section>
   );
 }
-

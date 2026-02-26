@@ -22,85 +22,46 @@ export function PricingSection({
   description,
   plans,
 }: PricingSectionProps) {
-  const featuredPlan = plans.find((plan) => plan.featured) ?? plans[1] ?? plans[0];
-  const sidePlans = plans.filter((plan) => plan.name !== featuredPlan.name);
-  const leftPlan = sidePlans[0];
-  const rightPlan = sidePlans[1];
-
   return (
     <section id={id} className="sa-pricingSection" aria-labelledby="sa-pricing-title">
-      <div className="sa-pricingSection__intro">
-        <div>
-          <p className="sa-kicker">Choose your plan</p>
+      <div className="sa-section-inner">
+        <header className="sa-section-header--centered">
+          <p className="sa-kicker">Pricing</p>
           <h2 id="sa-pricing-title">{title}</h2>
           <p>{description}</p>
-        </div>
-        <div className="sa-pricingSection__rail">
-          <div>
-            <span>Best for</span>
-            <strong>Travelers needing fast reimbursement-ready records</strong>
-          </div>
-          <div>
-            <span>Scales to</span>
-            <strong>Finance teams coordinating recurring travel workflows</strong>
-          </div>
-        </div>
-      </div>
+        </header>
 
-      <div className="sa-pricingSection__stage">
-        <div className="sa-pricingSection__layout">
-          {leftPlan ? (
-            <article className="sa-pricingSection__card sa-pricingSection__card--side sa-pricingSection__card--left">
-              <p className="sa-pricingSection__name">{leftPlan.name}</p>
+        <div className="sa-pricingSection__grid">
+          {plans.map((plan) => (
+            <article
+              key={plan.name}
+              className={
+                plan.featured
+                  ? "sa-pricingSection__card sa-pricingSection__card--featured"
+                  : "sa-pricingSection__card"
+              }
+            >
+              {plan.featured ? (
+                <p className="sa-pricingSection__badge">Most Popular</p>
+              ) : null}
+              <p className="sa-pricingSection__name">{plan.name}</p>
               <div className="sa-pricingSection__price">
-                <strong>{leftPlan.price}</strong>
-                <span>{leftPlan.subtitle}</span>
+                <strong>{plan.price}</strong>
+                <span>{plan.subtitle}</span>
               </div>
               <ul>
-                {leftPlan.highlights.map((item) => (
+                {plan.highlights.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
               </ul>
-              <a className="sa-btn sa-btn--ghost" href="#contact">
-                {leftPlan.cta}
+              <a
+                className={plan.featured ? "sa-btn sa-btn--primary" : "sa-btn sa-btn--ghost"}
+                href="#contact"
+              >
+                {plan.cta}
               </a>
             </article>
-          ) : null}
-
-          <article className="sa-pricingSection__card sa-pricingSection__card--featured">
-            <p className="sa-pricingSection__badge">Most selected for active travel</p>
-            <p className="sa-pricingSection__name">{featuredPlan.name}</p>
-            <div className="sa-pricingSection__price">
-              <strong>{featuredPlan.price}</strong>
-              <span>{featuredPlan.subtitle}</span>
-            </div>
-            <ul>
-              {featuredPlan.highlights.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-            <a className="sa-btn sa-btn--primary" href="#contact">
-              {featuredPlan.cta}
-            </a>
-          </article>
-
-          {rightPlan ? (
-            <article className="sa-pricingSection__card sa-pricingSection__card--side sa-pricingSection__card--right">
-              <p className="sa-pricingSection__name">{rightPlan.name}</p>
-              <div className="sa-pricingSection__price">
-                <strong>{rightPlan.price}</strong>
-                <span>{rightPlan.subtitle}</span>
-              </div>
-              <ul>
-                {rightPlan.highlights.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-              <a className="sa-btn sa-btn--ghost" href="#contact">
-                {rightPlan.cta}
-              </a>
-            </article>
-          ) : null}
+          ))}
         </div>
       </div>
     </section>

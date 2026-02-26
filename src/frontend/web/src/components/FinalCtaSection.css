@@ -1,123 +1,161 @@
 .sa-finalCta {
-  padding: 0.8rem 0 0.2rem;
+  padding: 0;
 }
 
 .sa-finalCta__band {
-  border: 1px solid #342017;
-  border-radius: 1.2rem;
-  background:
-    radial-gradient(circle at 88% 15%, #ff6a1c16 0, transparent 36%),
-    radial-gradient(circle at 12% 100%, #ff6a1c11 0, transparent 36%),
-    linear-gradient(180deg, #15100d 0%, #0c0a09 100%);
-  box-shadow:
-    inset 0 0 0 1px #ff6a1c10,
-    0 22px 38px #00000028;
-  padding: 1.2rem 1.05rem 0.95rem;
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 1.15rem;
-  align-items: center;
+  position: relative;
+  padding: 5rem 2rem;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  background: #0a0a0a;
+  border: 1px solid #1a1a1a;
 }
 
-.sa-finalCta__copy h2 {
-  margin: 0.65rem 0 0;
-  color: var(--sa-text);
-  font-size: clamp(1.55rem, 3.1vw, 2.55rem);
-  line-height: 0.98;
+.sa-finalCta__glow {
+  position: absolute;
+  top: -50%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40rem;
+  height: 40rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ff6a1c20 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.sa-finalCta__content {
+  position: relative;
+  z-index: 1;
+}
+
+.sa-finalCta__content h2 {
+  font-size: clamp(2rem, 4vw, 3.5rem);
   letter-spacing: -0.04em;
-  max-width: 16ch;
-  text-wrap: balance;
-}
-
-.sa-finalCta__copy p:last-child {
-  margin: 0.75rem 0 0;
-  color: var(--sa-muted);
-  line-height: 1.65;
-  max-width: 56ch;
-}
-
-.sa-finalCta__contactRow {
-  margin-top: 1rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.55rem;
-}
-
-.sa-finalCta__contactRow span {
-  border: 1px solid #32241d;
-  border-radius: 999px;
-  background: #120f0e;
+  line-height: 1.05;
+  max-width: 18ch;
+  margin: 0 auto;
   color: var(--sa-text);
-  font-size: 0.82rem;
-  padding: 0.45rem 0.7rem;
+}
+
+.sa-finalCta__content p {
+  max-width: 52ch;
+  margin: 1rem auto 0;
+  color: var(--sa-muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
 }
 
 .sa-finalCta__actions {
-  display: grid;
-  gap: 0.55rem;
-  align-content: center;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
 }
 
-.sa-finalCta__actions .sa-btn {
-  width: 100%;
+/* ── Footer ── */
+
+.sa-footer {
+  margin-top: 4rem;
+  padding: 2.5rem clamp(1.25rem, 3vw, 2.5rem) 0;
+  border-top: 1px solid #1a1a1a;
 }
 
-.sa-finalCta__footer {
-  margin-top: 0.9rem;
-  border-top: 1px solid #2a1d16;
-  padding: 0.85rem 0.05rem 0.15rem;
+.sa-footer__inner {
+  max-width: 72rem;
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 0.8rem;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: start;
+}
+
+.sa-footer__brand {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.sa-footer__brandRow {
+  display: flex;
   align-items: center;
+  gap: 0.5rem;
 }
 
-.sa-finalCta__brand span {
-  display: block;
-  color: var(--sa-accent-2);
+.sa-footer__brandRow img {
+  width: 1.75rem;
+  height: 1.75rem;
+  object-fit: contain;
+  border-radius: 0.35rem;
+}
+
+.sa-footer__brandRow span {
+  color: var(--sa-text);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.sa-footer__brand p {
+  margin: 0;
+  color: var(--sa-faint);
+  font-size: 0.85rem;
+}
+
+.sa-footer__columns {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 3rem;
+}
+
+.sa-footer__columns h4 {
+  color: var(--sa-text);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0 0 0.75rem;
   font-weight: 700;
 }
 
-.sa-finalCta__brand p {
-  margin: 0.2rem 0 0;
-  color: var(--sa-faint);
-  font-size: 0.78rem;
-  line-height: 1.35;
-}
-
-.sa-finalCta__nav {
-  justify-self: end;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem 0.75rem;
-}
-
-.sa-finalCta__nav a {
+.sa-footer__columns a {
+  display: block;
   color: var(--sa-muted);
   text-decoration: none;
-  font-size: 0.8rem;
-  padding: 0.15rem 0;
+  font-size: 0.9rem;
+  padding: 0.25rem 0;
+  transition: color 200ms ease;
 }
 
-.sa-finalCta__nav a:hover,
-.sa-finalCta__nav a:focus-visible {
+.sa-footer__columns a:hover,
+.sa-footer__columns a:focus-visible {
   color: var(--sa-text);
   outline: none;
 }
 
-@media (max-width: 64rem) {
-  .sa-finalCta__band {
-    grid-template-columns: 1fr;
-  }
+.sa-footer__bottom {
+  max-width: 72rem;
+  margin: 1.5rem auto 0;
+  padding: 1.5rem 0;
+  border-top: 1px solid #111;
+  text-align: center;
+}
+
+.sa-footer__bottom p {
+  margin: 0;
+  color: var(--sa-faint);
+  font-size: 0.8rem;
 }
 
 @media (max-width: 48rem) {
-  .sa-finalCta__footer {
-    grid-template-columns: 1fr;
-    gap: 0.6rem;
+  .sa-finalCta__band {
+    padding: 3.5rem 1.5rem;
+    border-radius: 1rem;
   }
 
-  .sa-finalCta__nav {
-    justify-self: start;
+  .sa-footer__inner {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .sa-footer__columns {
+    gap: 2rem;
   }
 }

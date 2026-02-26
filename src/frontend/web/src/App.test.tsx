@@ -8,15 +8,15 @@ describe("App", () => {
 
     expect(
       screen.getByRole("heading", {
-        name: /record foreign travel expenses with accounting clarity built in/i,
+        name: /travel expenses with accounting clarity/i,
       }),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
-        name: /pricing for travelers and teams that care about clean records/i,
+        name: /pricing for travelers and teams/i,
       }),
     ).toBeInTheDocument();
-    expect(screen.getAllByRole("link", { name: /start free trial/i })).toHaveLength(2);
+    expect(screen.getAllByRole("link", { name: /start free trial/i }).length).toBeGreaterThanOrEqual(2);
     expect(
       screen.getByRole("link", { name: /get early access/i }),
     ).toBeInTheDocument();

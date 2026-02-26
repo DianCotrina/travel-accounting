@@ -1,40 +1,33 @@
 .sa-howItWorks {
-  margin-top: 0.8rem;
-  border: 1px solid #201814;
-  border-radius: 0.75rem;
-  background:
-    radial-gradient(circle at 50% 0%, #ff6a1c0b 0, transparent 36%),
-    linear-gradient(180deg, #0b0b0b 0%, #080808 100%);
-  padding: 1.4rem 1.25rem 1.2rem;
-  box-shadow: inset 0 1px 0 #ffffff04;
+  padding: 0;
 }
 
 .sa-howItWorks__header {
-  max-width: 46rem;
+  max-width: 52rem;
   margin: 0 auto;
   text-align: center;
 }
 
-.sa-howItWorks__header h3 {
-  margin: 0;
+.sa-howItWorks__header h2 {
+  margin: 0.75rem 0 0;
   color: var(--sa-text);
-  font-size: clamp(1.55rem, 3vw, 2.45rem);
-  line-height: 1.02;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.05;
   letter-spacing: -0.04em;
   text-wrap: balance;
 }
 
-.sa-howItWorks__header p {
-  margin: 0.6rem auto 0;
-  max-width: 68ch;
+.sa-howItWorks__header p:not(.sa-kicker) {
+  margin: 1rem auto 0;
+  max-width: 48ch;
   color: var(--sa-muted);
-  font-size: 0.98rem;
+  font-size: 1.05rem;
   line-height: 1.6;
 }
 
 .sa-howItWorks__indicators {
   position: relative;
-  margin: 1.35rem auto 1.05rem;
+  margin: 2.5rem auto 1.5rem;
   max-width: 62rem;
 }
 
@@ -44,7 +37,7 @@
   right: 12%;
   top: 50%;
   height: 2px;
-  background: linear-gradient(90deg, #251b16 0%, #4a2f21 50%, #251b16 100%);
+  background: linear-gradient(90deg, transparent 0%, #ff6a1c30 20%, #ff6a1c30 80%, transparent 100%);
   transform: translateY(-50%);
 }
 
@@ -55,58 +48,53 @@
 }
 
 .sa-howItWorks__number {
-  width: 2.6rem;
-  height: 2.6rem;
+  width: 3rem;
+  height: 3rem;
   justify-self: center;
   display: grid;
   place-items: center;
   border-radius: 999px;
-  border: 1px solid #433126;
-  background: #121212;
-  color: var(--sa-text);
-  font-size: 0.95rem;
+  border: 1px solid #ff6a1c40;
+  background: #0a0a0a;
+  color: var(--sa-accent);
+  font-size: 1rem;
   font-weight: 700;
-  box-shadow: 0 0 0 6px #0a0a0a;
+  box-shadow: 0 0 0 6px #030303, 0 0 20px #ff6a1c15;
 }
 
 .sa-howItWorks__grid {
   display: grid;
-  gap: 1rem;
+  gap: 1.5rem;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 0;
 }
 
 .sa-howItWorks__card {
   position: relative;
-  border: 1px solid #27201b;
-  border-radius: 0.95rem;
-  background: linear-gradient(180deg, #111111 0%, #0d0d0d 100%);
-  padding: 1.2rem 1.1rem 1.1rem;
-  min-height: 22rem;
+  border: 1px solid #1a1a1a;
+  border-radius: 1rem;
+  background: linear-gradient(180deg, #0c0c0c 0%, #080808 100%);
+  padding: 2rem 1.75rem;
   transition:
-    transform 160ms ease,
-    border-color 160ms ease,
-    box-shadow 160ms ease,
-    background-color 160ms ease;
+    transform 300ms ease,
+    border-color 300ms ease,
+    box-shadow 300ms ease;
 }
 
-.sa-howItWorks__card:hover,
-.sa-howItWorks__card:focus-within {
-  border-color: #5b3a29;
-  background: linear-gradient(180deg, #131211 0%, #0f0e0d 100%);
-  box-shadow:
-    0 12px 24px #00000035,
-    inset 0 0 0 1px #ff6a1c10;
-  transform: translateY(-2px);
+.sa-howItWorks__card:hover {
+  border-color: #ff6a1c30;
+  box-shadow: 0 0 40px #ff6a1c10;
+  transform: translateY(-4px);
 }
 
 .sa-howItWorks__iconWrap {
-  width: 3.35rem;
-  height: 3.35rem;
+  width: 3.5rem;
+  height: 3.5rem;
   display: grid;
   place-items: center;
-  border-radius: 0.8rem;
-  border: 1px solid #3c2d23;
-  background: radial-gradient(circle at 35% 30%, #ff8f4723 0%, #18110d 72%);
+  border-radius: 0.75rem;
+  border: 1px solid #2a1a12;
+  background: radial-gradient(circle at 30% 30%, #ff6a1c20 0%, transparent 70%), #111;
   color: var(--sa-accent-2);
 }
 
@@ -116,81 +104,28 @@
 }
 
 .sa-howItWorks__card h3 {
-  margin: 1rem 0 0;
+  margin: 1.25rem 0 0;
   color: var(--sa-text);
-  font-size: 1.18rem;
-  line-height: 1.18;
+  font-size: 1.15rem;
+  line-height: 1.2;
   letter-spacing: -0.02em;
-  min-height: 2.9rem;
 }
 
 .sa-howItWorks__card p {
-  margin: 0.7rem 0 0;
+  margin: 0.75rem 0 0;
   color: var(--sa-muted);
   font-size: 0.95rem;
-  line-height: 1.55;
-  min-height: 5.8rem;
-}
-
-.sa-howItWorks__benefits {
-  list-style: none;
-  margin: 1.05rem 0 0;
-  padding: 0;
-  display: grid;
-  gap: 0.7rem;
-}
-
-.sa-howItWorks__benefits li {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: start;
-  gap: 0.65rem;
-  color: var(--sa-muted);
-  font-size: 0.92rem;
-  line-height: 1.45;
-}
-
-.sa-howItWorks__dot {
-  width: 0.95rem;
-  height: 0.95rem;
-  margin-top: 0.1rem;
-  border-radius: 999px;
-  display: grid;
-  place-items: center;
-  background: #1a1410;
-  border: 1px solid #33241c;
-}
-
-.sa-howItWorks__dot::after {
-  content: "";
-  width: 0.36rem;
-  height: 0.36rem;
-  border-radius: 999px;
-  background: var(--sa-accent);
-  box-shadow: 0 0 8px #ff6a1c55;
+  line-height: 1.6;
 }
 
 @media (max-width: 64rem) {
-  .sa-howItWorks {
-    padding: 1rem 0.85rem 0.85rem;
-  }
-
   .sa-howItWorks__grid {
     grid-template-columns: 1fr;
-    gap: 0.8rem;
+    gap: 1rem;
   }
 
   .sa-howItWorks__line,
   .sa-howItWorks__indicators {
     display: none;
-  }
-
-  .sa-howItWorks__card {
-    min-height: 0;
-  }
-
-  .sa-howItWorks__card h3,
-  .sa-howItWorks__card p {
-    min-height: 0;
   }
 }

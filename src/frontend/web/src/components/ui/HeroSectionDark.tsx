@@ -1,14 +1,7 @@
 import type { CSSProperties, HTMLAttributes, ReactNode } from "react";
-import { ChevronRight } from "lucide-react";
 import "./HeroSectionDark.css";
 
-interface HeroStatItem {
-  label: string;
-  value: string;
-}
-
 interface HeroSectionDarkProps extends HTMLAttributes<HTMLDivElement> {
-  title?: string;
   subtitle?: {
     regular: string;
     gradient: string;
@@ -18,12 +11,8 @@ interface HeroSectionDarkProps extends HTMLAttributes<HTMLDivElement> {
   ctaHref?: string;
   secondaryCtaText?: string;
   secondaryCtaHref?: string;
-  bottomImage?: {
-    light: string;
-    dark: string;
-  };
-  stats?: HeroStatItem[];
   bottomSlot?: ReactNode;
+  trustedBy?: string[];
   gridOptions?: {
     angle?: number;
     cellSize?: number;
@@ -38,7 +27,6 @@ function classNames(...values: Array<string | false | undefined>) {
 
 export function HeroSectionDark({
   className,
-  title = "Travel Accounting Platform",
   subtitle = {
     regular: "Track foreign travel expenses without losing ",
     gradient: "accounting clarity.",
@@ -46,11 +34,10 @@ export function HeroSectionDark({
   description = "Log local-currency travel spending, monitor home-currency impact, and export clean summaries for reimbursement and bookkeeping.",
   ctaText = "Start Free Trial",
   ctaHref = "#pricing",
-  secondaryCtaText = "Explore Features",
-  secondaryCtaHref = "#features",
-  bottomImage,
-  stats,
+  secondaryCtaText = "See How It Works",
+  secondaryCtaHref = "#how-it-works",
   bottomSlot,
+  trustedBy,
   gridOptions,
   ...props
 }: HeroSectionDarkProps) {
@@ -75,11 +62,6 @@ export function HeroSectionDark({
       </div>
 
       <div className="sa-heroDark__inner">
-        <a className="sa-heroDark__pill" href={ctaHref}>
-          <span>{title}</span>
-          <ChevronRight className="sa-heroDark__pillIcon" aria-hidden="true" />
-        </a>
-
         <h1 id="sa-hero-title" className="sa-heroDark__title">
           {subtitle.regular}
           <span className="sa-heroDark__titleAccent">{subtitle.gradient}</span>
@@ -88,49 +70,31 @@ export function HeroSectionDark({
         <p className="sa-heroDark__description">{description}</p>
 
         <div className="sa-heroDark__actions">
-          <a className="sa-btn sa-btn--primary" href={ctaHref}>
+          <a className="sa-btn sa-btn--primary sa-btn--lg" href={ctaHref}>
             {ctaText}
           </a>
-          <a className="sa-btn sa-btn--ghost" href={secondaryCtaHref}>
+          <a className="sa-btn sa-btn--ghost sa-btn--lg" href={secondaryCtaHref}>
             {secondaryCtaText}
           </a>
         </div>
 
-        {stats && stats.length > 0 ? (
-          <ul className="sa-heroDark__stats" aria-label="Usage metrics">
-            {stats.map((item) => (
-              <li key={item.label}>
-                <span>{item.label}</span>
-                <strong>{item.value}</strong>
-              </li>
-            ))}
-          </ul>
+        {bottomSlot ? (
+          <div className="sa-heroDark__bottom">{bottomSlot}</div>
         ) : null}
 
-        {bottomSlot ? <div className="sa-heroDark__bottom">{bottomSlot}</div> : null}
-
-        {!bottomSlot && bottomImage ? (
-          <div className="sa-heroDark__bottom">
-            <img
-              src={bottomImage.dark}
-              alt="Dashboard preview"
-              className="sa-heroDark__image sa-heroDark__image--dark"
-              loading="eager"
-              width={1400}
-              height={840}
-            />
-            <img
-              src={bottomImage.light}
-              alt="Dashboard preview"
-              className="sa-heroDark__image sa-heroDark__image--light"
-              loading="eager"
-              width={1400}
-              height={840}
-            />
+        {trustedBy && trustedBy.length > 0 ? (
+          <div className="sa-heroDark__trustedBy">
+            <p>Trusted by teams at</p>
+            <div className="sa-heroDark__logos">
+              {trustedBy.map((name) => (
+                <span key={name} className="sa-heroDark__logoPlaceholder">
+                  {name}
+                </span>
+              ))}
+            </div>
           </div>
         ) : null}
       </div>
     </section>
   );
 }
-

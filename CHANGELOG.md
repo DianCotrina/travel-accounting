@@ -95,3 +95,26 @@ The format is inspired by Keep a Changelog, with versions listed in reverse chro
 - Refreshed frontend UI styling for landing + workspace sections, preserving existing accounting flows with improved layout and visual hierarchy.
 - Evolved the landing page into a product-marketing surface with social proof, a 4-step workflow timeline, and JSON-driven category catalog preview.
 - Expanded landing page information architecture with About, Testimonials, Contact Us, and Footer sections plus visible contact info and provider-styled login method UI.
+- Added `StatsBand` component for full-width stats section with gradient numbers.
+- Added `CLAUDE.md` with frontend design workflow, screenshot tooling, and anti-generic guardrails.
+
+### Changed (Landing Page Redesign — Yeldra-inspired)
+
+- Redesigned landing page from scratch with modern premium SaaS aesthetic inspired by yeldra.com, preserving the orange-black brand palette.
+- Replaced constrained `64rem` page container with full-bleed layout where each section manages its own `max-width: 72rem` inner container.
+- Increased inter-section spacing from `1.65rem` to `clamp(4rem, 8vw, 7rem)` for generous modern whitespace.
+- Removed visible section divider lines in favor of pure spacing separation.
+- Redesigned navbar: removed dropdown panel menus, switched to flat links with glassmorphism-on-scroll effect (`backdrop-filter: blur(16px)`).
+- Redesigned hero section: increased heading to `clamp(3rem, 7vw, 5.5rem)` with orange gradient keywords, removed pill badge, added trusted-by company band, removed inline stats.
+- Added floating 3D tilt effect to dashboard preview (`perspective(1200px) rotateX(2deg)`) with orange glow shadow.
+- Extracted `HowItWorks` from `BenefitsSection` into a standalone section with its own `#how-it-works` hash anchor.
+- Simplified `HowItWorks` step cards: removed benefit lists, kept icon + title + description only. Enhanced connecting line with orange gradient.
+- Restructured `BenefitsSection` from two-column intro+cards layout into centered header + 3-column icon card grid with Lucide icons (Receipt, ArrowLeftRight, FileSpreadsheet).
+- Removed `proofPoints` and `workflow` props from `BenefitsSection` interface.
+- Redesigned `PricingSection`: removed two-column intro and "rail" side panel, switched to centered header + 3-column card grid. Featured card uses orange border glow + slight scale-up.
+- Redesigned `TestimonialsSection`: replaced featured/compact/ribbon card hierarchy with uniform 2x2 grid. Added avatar circles with initial letter and orange gradient. Removed embedded stats panel.
+- Redesigned `FaqSection`: removed bordered shell wrapper, added 2-column accordion layout on desktop with `+`/`-` rotation indicators.
+- Redesigned `FinalCtaSection`: centered CTA band with ambient orange radial glow, separated multi-column footer with Product/Resources nav groups and copyright.
+- Updated `App.css`: switched font to Inter, removed dot-pattern body pseudo-element, removed unused purple CTA styles and `.eyebrow` class, removed `.app` padding.
+- Added shooting stars fade-out in lower page via CSS `mask-image` on `.sa-page-sky`.
+- Added shared CSS utilities: `.sa-section-inner`, `.sa-section-header--centered`, `.sa-btn--lg`.

@@ -85,28 +85,42 @@ Example scenario: an American user traveling in Argentina records expenses in AR
 - Keep spacing consistent and token-like, not ad hoc.
 - Avoid repeating the same bordered panel shell across every section; vary section morphology and chapter rhythm.
 
+### Anti-Conservative Design Rules
+These rules exist to prevent the page from looking dated, cramped, or overly "safe":
+- **Full-bleed over boxed:** Prefer full-width sections with inner content containers (`max-width` + `margin: auto`) instead of wrapping the entire page in a narrow bordered box.
+- **Generous spacing:** Inter-section gaps should be large (`4rem+`). Cramped layouts (gaps under `2rem` between major sections) are not allowed. Let the design breathe.
+- **No visible section dividers:** Use whitespace to separate sections, not `1px` gradient lines or `<hr>` elements. Dividers make the page feel like a form, not a product.
+- **Bold hero typography:** Hero headings must be large (`3rem+` at desktop) with tight letter-spacing (`-0.04em` or tighter). Small, polite hero text reads as generic.
+- **Flat navigation:** Prefer flat link navbars with glassmorphism on scroll. Avoid dropdown panels with grid layouts for landing pages — they add complexity without value on single-page sites.
+- **No bordered container shells around every section:** Wrapping sections in bordered rounded rectangles makes every section look identical. Use open layouts, subtle background gradients, or border-top/bottom accents instead.
+- **Accent glow over flat borders:** Use `box-shadow` with the accent color at low opacity for featured elements (cards, CTAs) instead of just a 1px colored border.
+- **Centered section headers by default:** Use centered kicker + heading + subtitle patterns for section introductions. Two-column intro layouts (text left, metadata right) are complex and rarely necessary.
+- **Cards should hover:** Every card must have a hover state that includes at least `translateY(-2px to -4px)` and a subtle border-color or glow change.
+- **Product screenshots float:** Dashboard/product preview images should have perspective transforms, layered shadows, and optional glow effects — not just flat bordered images.
+- **Stats deserve their own section:** Large impressive numbers belong in a dedicated full-width stats band with gradient text, not tucked inside another section's header.
+- **Avatar circles for testimonials:** Testimonial cards should include avatar elements (initial letter circles with brand gradient) for visual personality, not just text.
+- **No uniform card grids everywhere:** Vary visual treatment across sections — some use card grids, others use centered content, others use split layouts. Monotony is the enemy.
+
 ### Landing Page Pattern (Recommended Baseline)
-- For marketing landing pages, prefer a chapter-based layout with clear section contrast instead of stacked identical cards.
-- Use a strong hero chapter (largest visual weight), followed by sections with intentionally different treatments (open layout, framed stage, editorial quotes, quiet FAQ, strong closing CTA band).
+- For marketing landing pages, prefer a modern SaaS aesthetic with full-bleed sections, generous whitespace, and visual variety between chapters.
 - Default landing flow (adapt as needed):
-  - Header/Nav + Hero
-  - Benefits / Why It Matters
-  - Pricing
-  - Testimonials / Social Proof
-  - FAQ
-  - Final CTA + Footer
-- Keep one dominant element per section (for example: hero dashboard, featured pricing plan, featured testimonial).
-- Vary spacing density between sections (spacious -> medium -> compact -> spacious) so the page does not feel uniform or cramped.
-- Use section-specific shell treatments:
-  - some sections open (no outer frame),
-  - some sections framed,
-  - some sections split/asymmetric,
-  - some sections quieter/minimal.
+  1. **Sticky Nav** — flat links, glassmorphism on scroll, logo + CTA
+  2. **Hero** — bold heading (3rem+), gradient accent words, product screenshot with float effect, trusted-by band
+  3. **How It Works** — 3 numbered steps with connecting line and icons
+  4. **Features Grid** — 3-column icon card grid with hover glow
+  5. **Stats Band** — full-width large gradient numbers
+  6. **Pricing** — 3-column cards, featured card with accent glow + scale
+  7. **Testimonials** — uniform card grid with avatar circles and star ratings
+  8. **FAQ** — 2-column accordion on desktop
+  9. **CTA Band** — centered statement with ambient accent glow
+  10. **Footer** — multi-column with logo, nav groups, copyright
+- Each section manages its own inner container (`max-width: 72rem; margin: 0 auto`).
+- Vary section backgrounds (transparent, subtle gradients, bordered bands) so the page has visual rhythm.
 - Add `scroll-margin-top` for anchored sections and ensure nav jumps land on a clear section start.
 - Preserve accessibility and interaction quality while styling:
   - visible focus states,
   - hover/active states,
-  - keyboard-accessible nav/dropdowns,
+  - keyboard-accessible nav,
   - readable contrast in dark themes.
 - Prefer subtle motion (small lift/zoom on hover, opacity/transform transitions) over heavy animation.
 - Use reusable section components with local CSS (or modules) and keep page orchestration in a single landing container component.

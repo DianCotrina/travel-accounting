@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+import { ArrowLeftRight, FileSpreadsheet, Receipt } from "lucide-react";
 import "./LandingPage.css";
 import { BenefitsSection } from "./BenefitsSection";
 import { FaqSection } from "./FaqSection";
 import { FinalCtaSection } from "./FinalCtaSection";
 import { PricingSection } from "./PricingSection";
+import { StatsBand } from "./StatsBand";
 import { TestimonialsSection } from "./TestimonialsSection";
 import { LandingNavbar } from "./ui/LandingNavbar";
 import { SignInModal } from "./ui/SignInModal";
@@ -12,22 +14,34 @@ import { HowItWorks } from "./ui/HowItWorks";
 import { AnalyticsDashboardPreview } from "./ui/AnalyticsDashboardPreview";
 import { ShootingStars } from "./ui/shooting-stars";
 
+const trustedByCompanies = [
+  "TravelCorp",
+  "NomadOps",
+  "Globex",
+  "FinanceHub",
+  "RemoteFirst",
+];
+
 const productStats = [
   { label: "Trips logged", value: "12,480+" },
   { label: "Expense entries", value: "1.8M" },
   { label: "Countries used", value: "84" },
+  { label: "Average export time", value: "< 2 min" },
 ];
 
 const benefitsCards = [
   {
+    icon: <Receipt />,
     title: "Stop rebuilding trips from receipts after you get home",
     body: "Capture expenses while you travel so finance review is based on real entries, not reconstructed memory and screenshots.",
   },
   {
+    icon: <ArrowLeftRight />,
     title: "See local spending and home-currency impact in the same workflow",
     body: "Keep destination and home currency context together so travel decisions and accounting review stay aligned.",
   },
   {
+    icon: <FileSpreadsheet />,
     title: "Export summaries that finance can actually use",
     body: "Category and ledger outputs are designed for reimbursement and bookkeeping workflows, not generic personal budgeting notes.",
   },
@@ -206,61 +220,55 @@ export function LandingPage() {
 
       <main id="top" className="sa-main" ref={mainRef}>
         <HeroSectionDark
-          title="Travel Accounting Platform"
           subtitle={{
-            regular: "Record foreign travel expenses with ",
-            gradient: "accounting clarity built in.",
+            regular: "Travel expenses with ",
+            gradient: "accounting clarity.",
           }}
-          description="Sacatucuenta helps travelers and teams log local-currency expenses, review home-currency impact, and export finance-ready summaries before month-end pressure starts."
+          description="Log local-currency spending, monitor home-currency impact, and export finance-ready summaries — before month-end pressure starts."
           ctaText="Start Free Trial"
           ctaHref="#pricing"
           secondaryCtaText="See How It Works"
-          secondaryCtaHref="#features"
-          stats={productStats}
+          secondaryCtaHref="#how-it-works"
+          trustedBy={trustedByCompanies}
           bottomSlot={<AnalyticsDashboardPreview />}
           gridOptions={{ angle: 66, cellSize: 54, opacity: 0.2, lineColor: "#ff6a1c10" }}
         />
 
-        <BenefitsSection
-          title="Built for real travel accounting work, not generic expense tracking"
-          description="The product is designed for the handoff between travelers and finance: capture daily spend during the trip, preserve currency context, and generate records that are usable for review and reimbursement."
-          proofPoints={[
-            "Local + home currency context",
-            "Category and subcategory capture",
-            "Ledger + CSV export workflow",
-          ]}
-          cards={benefitsCards}
-          workflow={
-            <HowItWorks
-              title="How the travel accounting workflow stays clean"
-              description="From trip setup to export, each step is structured to produce records that remain useful for finance review instead of turning into manual cleanup work."
-            />
-          }
+        <HowItWorks
+          title="How the travel accounting workflow stays clean"
+          description="From trip setup to export, each step is structured to produce records that remain useful for finance review."
         />
 
+        <BenefitsSection
+          title="Built for real travel accounting work"
+          description="Designed for the handoff between travelers and finance: capture daily spend, preserve currency context, and generate records for review."
+          cards={benefitsCards}
+        />
+
+        <StatsBand stats={productStats} />
+
         <PricingSection
-          title="Pricing for travelers and teams that care about clean records"
+          title="Pricing for travelers and teams"
           description="Start simple for personal trips, then scale into recurring travel workflows with ledger summaries and export-ready reporting."
           plans={pricingPlans}
         />
 
         <TestimonialsSection
-          title="Teams and travelers rely on clear records, not month-end reconstruction"
-          description="The strongest feedback is consistency: fewer spreadsheets, less rework, and faster reimbursement review with better expense context."
+          title="Trusted by travelers and finance teams"
+          description="Fewer spreadsheets, less rework, and faster reimbursement review with better expense context."
           items={testimonials}
         />
 
         <FaqSection
           title="Answers for evaluating the workflow"
-          description="The goal is simple: better travel accounting records with less cleanup. These answers clarify what the product is built to support today."
+          description="Better travel accounting records with less cleanup."
           items={faqs}
         />
 
         <FinalCtaSection
-          title="Take control of travel expenses before they become month-end cleanup"
+          title="Take control of travel expenses before month-end"
           description="Start with the traveler workflow, then extend into a finance-friendly review process with categorized records and export-ready summaries."
-          primaryCta={{ label: "Email hello@sacatucuenta.com", href: "mailto:hello@sacatucuenta.com" }}
-          secondaryCta={{ label: "Call +1 (555) 123-4567", href: "tel:+15551234567" }}
+          primaryCta={{ label: "Start Free Trial", href: "#pricing" }}
         />
       </main>
 
