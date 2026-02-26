@@ -162,7 +162,7 @@ function DropdownMenu({
   );
 }
 
-export function LandingNavbar() {
+export function LandingNavbar({ onLoginClick }: { onLoginClick?: () => void }) {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const mobileId = useMemo(() => "sa-mobile-nav", []);
@@ -214,9 +214,9 @@ export function LandingNavbar() {
       </nav>
 
       <div className="sa-nav__actions">
-        <a className="sa-nav__login" href="#contact">
+        <button type="button" className="sa-nav__login" onClick={onLoginClick}>
           Log In
-        </a>
+        </button>
         <a className="sa-nav__cta" href="#contact">
           Get Early Access
         </a>
@@ -264,9 +264,16 @@ export function LandingNavbar() {
           </div>
 
           <div className="sa-mobileNav__footer">
-            <a className="sa-nav__login" href="#contact" onClick={() => setMobileOpen(false)}>
+            <button
+              type="button"
+              className="sa-nav__login"
+              onClick={() => {
+                setMobileOpen(false);
+                onLoginClick?.();
+              }}
+            >
               Log In
-            </a>
+            </button>
             <a className="sa-nav__cta" href="#contact" onClick={() => setMobileOpen(false)}>
               Get Early Access
             </a>
@@ -276,4 +283,3 @@ export function LandingNavbar() {
     </header>
   );
 }
-

@@ -1,4 +1,4 @@
-.sa-nav {
+﻿.sa-nav {
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
@@ -144,6 +144,7 @@
 }
 
 .sa-nav__login {
+  appearance: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -155,6 +156,7 @@
   text-decoration: none;
   font-size: 0.83rem;
   background: #101010;
+  cursor: pointer;
   transition: border-color 140ms ease, background-color 140ms ease, color 140ms ease;
 }
 
@@ -277,7 +279,7 @@
 }
 
 .sa-mobileNav__details[open] summary::after {
-  content: "–";
+  content: "−";
 }
 
 .sa-mobileNav__details ul {

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./LandingPage.css";
 import { BenefitsSection } from "./BenefitsSection";
 import { FaqSection } from "./FaqSection";
@@ -6,6 +6,7 @@ import { FinalCtaSection } from "./FinalCtaSection";
 import { PricingSection } from "./PricingSection";
 import { TestimonialsSection } from "./TestimonialsSection";
 import { LandingNavbar } from "./ui/LandingNavbar";
+import { SignInModal } from "./ui/SignInModal";
 import { HeroSectionDark } from "./ui/HeroSectionDark";
 import { HowItWorks } from "./ui/HowItWorks";
 import { AnalyticsDashboardPreview } from "./ui/AnalyticsDashboardPreview";
@@ -120,6 +121,7 @@ const faqs = [
 ];
 
 export function LandingPage() {
+  const [signInOpen, setSignInOpen] = useState(false);
   const mainRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -200,7 +202,7 @@ export function LandingPage() {
         />
       </div>
 
-      <LandingNavbar />
+      <LandingNavbar onLoginClick={() => setSignInOpen(true)} />
 
       <main id="top" className="sa-main" ref={mainRef}>
         <HeroSectionDark
@@ -261,6 +263,8 @@ export function LandingPage() {
           secondaryCta={{ label: "Call +1 (555) 123-4567", href: "tel:+15551234567" }}
         />
       </main>
+
+      <SignInModal open={signInOpen} onClose={() => setSignInOpen(false)} />
     </div>
   );
 }
