@@ -146,28 +146,6 @@
   color: var(--sa-accent-2);
 }
 
-.sa-signInModal__providerBadge {
-  width: 1rem;
-  height: 1rem;
-  display: grid;
-  place-items: center;
-  border-radius: 999px;
-  font-size: 0.72rem;
-  line-height: 1;
-  font-weight: 700;
-}
-
-.sa-signInModal__providerBadge--google {
-  background: radial-gradient(circle at 35% 35%, #ffb98b 0%, #ff6a1c 70%);
-  color: #130904;
-}
-
-.sa-signInModal__providerBadge--icloud {
-  background: #181818;
-  border: 1px solid #2f2f2f;
-  color: #f6f5f2;
-  width: 1.1rem;
-}
 
 .sa-signInModal__divider {
   display: grid;

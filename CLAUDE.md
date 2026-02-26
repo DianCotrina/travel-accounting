@@ -3,6 +3,11 @@
 ## Always Do First
 - **Invoke the `frontend-design` skill** before writing any frontend code, every session, no exceptions.
 
+## After Every Change
+- After completing and verifying each code change, **commit and push** automatically — do not wait for the user to ask.
+- Use a concise, descriptive commit message summarizing the change.
+- Push to the current branch.
+
 ## Reference Images
 - If a reference image is provided: match layout, spacing, typography, and color exactly. Swap in placeholder content (images via `https://placehold.co/`, generic copy). Do not improve or add to the design.
 - If no reference image: design from scratch with high craft (see guardrails below).
