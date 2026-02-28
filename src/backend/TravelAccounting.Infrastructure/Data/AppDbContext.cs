@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using TravelAccounting.Domain.Audit;
 using TravelAccounting.Domain.Expenses;
 using TravelAccounting.Domain.Trips;
 using TravelAccounting.Infrastructure.Data.Models;
@@ -9,6 +10,7 @@ public sealed class AppDbContext(DbContextOptions<AppDbContext> options) : DbCon
 {
     public DbSet<Trip> Trips => Set<Trip>();
     public DbSet<Expense> Expenses => Set<Expense>();
+    public DbSet<AuditEntry> AuditEntries => Set<AuditEntry>();
     public DbSet<ExchangeRateEntity> ExchangeRates => Set<ExchangeRateEntity>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -16,4 +18,3 @@ public sealed class AppDbContext(DbContextOptions<AppDbContext> options) : DbCon
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
     }
 }
-

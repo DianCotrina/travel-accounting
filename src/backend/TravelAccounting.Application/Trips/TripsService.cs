@@ -1,12 +1,15 @@
 using TravelAccounting.Domain.Common;
 using TravelAccounting.Domain.Trips;
 using TravelAccounting.Application.Auth;
+using TravelAccounting.Application.Audit;
+using TravelAccounting.Domain.Audit;
 
 namespace TravelAccounting.Application.Trips;
 
 internal sealed class TripsService(
     ITripRepository tripRepository,
-    ICurrentUserContext currentUserContext) : ITripsService
+    ICurrentUserContext currentUserContext,
+    IAuditService auditService) : ITripsService
 {
     public async Task<IReadOnlyList<TripDto>> ListAsync(CancellationToken cancellationToken)
     {
@@ -40,6 +43,14 @@ internal sealed class TripsService(
             new TravelDate(request.EndDate));
 
         await tripRepository.AddAsync(trip, cancellationToken);
+        await auditService.LogAsync(
+            currentUserContext.UserId,
+            AuditAction.Create,
+            "Trip",
+            trip.Id,
+            before: null,
+            after: SnapshotTrip(trip),
+            cancellationToken);
         return MapToDto(trip);
     }
 
@@ -53,6 +64,7 @@ internal sealed class TripsService(
             return null;
         }
 
+        var before = SnapshotTrip(trip);
         trip.Update(
             request.Name,
             request.DestinationCountry,
@@ -61,6 +73,15 @@ internal sealed class TripsService(
             new TravelDate(request.StartDate),
             new TravelDate(request.EndDate));
         await tripRepository.SaveChangesAsync(cancellationToken);
+
+        await auditService.LogAsync(
+            currentUserContext.UserId,
+            AuditAction.Update,
+            "Trip",
+            trip.Id,
+            before,
+            SnapshotTrip(trip),
+            cancellationToken);
 
         return MapToDto(trip);
     }
@@ -73,8 +94,19 @@ internal sealed class TripsService(
             return null;
         }
 
+        var before = SnapshotTrip(trip);
         trip.Archive();
         await tripRepository.SaveChangesAsync(cancellationToken);
+
+        await auditService.LogAsync(
+            currentUserContext.UserId,
+            AuditAction.Update,
+            "Trip",
+            trip.Id,
+            before,
+            SnapshotTrip(trip),
+            cancellationToken);
+
         return MapToDto(trip);
     }
 
@@ -89,5 +121,21 @@ internal sealed class TripsService(
             trip.StartDate.Value,
             trip.EndDate.Value,
             trip.Status.ToString());
+    }
+
+    private static object SnapshotTrip(Trip trip)
+    {
+        return new
+        {
+            trip.Id,
+            trip.Name,
+            trip.OwnerUserId,
+            trip.DestinationCountry,
+            HomeCurrency = trip.HomeCurrency.Code,
+            LocalCurrency = trip.LocalCurrency.Code,
+            StartDate = trip.StartDate.Value,
+            EndDate = trip.EndDate.Value,
+            Status = trip.Status.ToString(),
+        };
     }
 }
