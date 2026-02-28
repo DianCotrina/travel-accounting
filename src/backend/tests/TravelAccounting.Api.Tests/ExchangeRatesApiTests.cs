@@ -1,9 +1,12 @@
 using System.Net;
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using TravelAccounting.Application.ExchangeRates;
+using TravelAccounting.Infrastructure.Data;
 
 namespace TravelAccounting.Api.Tests;
 
@@ -140,8 +143,19 @@ public sealed class ExchangeRatesApiTests(CustomWebApplicationFactory factory)
         {
             builder.ConfigureServices(services =>
             {
+                var databaseName = $"travel-accounting-tests-failing-provider-{Guid.NewGuid():N}";
+
                 services.RemoveAll<IExchangeRateProvider>();
                 services.AddSingleton<IExchangeRateProvider, ThrowingProvider>();
+
+                services.RemoveAll<DbContextOptions<AppDbContext>>();
+                services.RemoveAll<IDbContextOptionsConfiguration<AppDbContext>>();
+                services.AddDbContext<AppDbContext>((_, options) =>
+                    options.UseInMemoryDatabase(databaseName));
+
+                using var scope = services.BuildServiceProvider().CreateScope();
+                var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                db.Database.EnsureCreated();
             });
         }
 
