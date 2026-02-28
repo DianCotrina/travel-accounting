@@ -10,7 +10,10 @@ public sealed class HttpCurrentUserContext(IHttpContextAccessor httpContextAcces
         get
         {
             var user = httpContextAccessor.HttpContext?.User;
-            var userId = user?.FindFirstValue(ClaimTypes.NameIdentifier) ?? user?.Identity?.Name;
+            var userId =
+                user?.FindFirstValue(ClaimTypes.NameIdentifier)
+                ?? user?.FindFirstValue("sub")
+                ?? user?.Identity?.Name;
 
             if (string.IsNullOrWhiteSpace(userId))
             {

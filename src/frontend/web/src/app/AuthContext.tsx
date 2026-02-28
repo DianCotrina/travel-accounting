@@ -1,16 +1,17 @@
 import { createContext, useCallback, useContext, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 
-const VALID_EMAIL = "test@gmail.com";
-const VALID_PASSWORD = "123456789";
 const STORAGE_KEY = "sa_auth_user";
+const DEV_BEARER_TOKEN = import.meta.env.VITE_AUTH_BEARER_TOKEN?.trim() ?? "";
 
 interface User {
   email: string;
+  token: string;
 }
 
 interface AuthContextValue {
   user: User | null;
+  token: string | null;
   error: string | null;
   login: (email: string, password: string) => boolean;
   logout: () => void;
@@ -22,10 +23,20 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 function readSession(): User | null {
   try {
     const raw = sessionStorage.getItem(STORAGE_KEY);
-    if (raw) return JSON.parse(raw) as User;
-  } catch {
-    /* ignore */
+    if (!raw) return null;
+
+    const parsed = JSON.parse(raw) as Partial<User>;
+    if (!parsed.email || !parsed.token) {
+      sessionStorage.removeItem(STORAGE_KEY);
+      return null;
+    }
+
+    return { email: parsed.email, token: parsed.token };
+  } catch (error) {
+    console.error("Unable to parse saved auth session.", error);
+    sessionStorage.removeItem(STORAGE_KEY);
   }
+
   return null;
 }
 
@@ -34,15 +45,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [error, setError] = useState<string | null>(null);
 
   const login = useCallback((email: string, password: string): boolean => {
-    if (email === VALID_EMAIL && password === VALID_PASSWORD) {
-      const u: User = { email };
-      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(u));
-      setUser(u);
-      setError(null);
-      return true;
+    if (!email.trim() || !password.trim()) {
+      setError("Email and password are required.");
+      return false;
     }
-    setError("Invalid email or password. Please try again.");
-    return false;
+
+    if (!DEV_BEARER_TOKEN) {
+      setError("Missing VITE_AUTH_BEARER_TOKEN. Configure a valid JWT to access the API.");
+      return false;
+    }
+
+    const sessionUser: User = { email: email.trim(), token: DEV_BEARER_TOKEN };
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(sessionUser));
+    setUser(sessionUser);
+    setError(null);
+    return true;
   }, []);
 
   const logout = useCallback(() => {
@@ -54,7 +71,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const clearError = useCallback(() => setError(null), []);
 
   const value = useMemo(
-    () => ({ user, error, login, logout, clearError }),
+    () => ({
+      user,
+      token: user?.token ?? null,
+      error,
+      login,
+      logout,
+      clearError,
+    }),
     [user, error, login, logout, clearError],
   );
 

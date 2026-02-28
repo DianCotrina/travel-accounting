@@ -1,4 +1,5 @@
 using System.Net;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -162,10 +163,9 @@ public sealed class ExchangeRatesApiTests(CustomWebApplicationFactory factory)
         protected override void ConfigureClient(HttpClient client)
         {
             base.ConfigureClient(client);
-            if (!client.DefaultRequestHeaders.Contains("X-User-Id"))
-            {
-                client.DefaultRequestHeaders.Add("X-User-Id", CustomWebApplicationFactory.DefaultTestUserId);
-            }
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+                "Bearer",
+                JwtTestTokenFactory.CreateToken(CustomWebApplicationFactory.DefaultTestUserId));
         }
     }
 

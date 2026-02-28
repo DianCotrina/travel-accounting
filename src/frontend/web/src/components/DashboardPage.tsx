@@ -22,18 +22,32 @@ import { TripsSection } from "./TripsSection";
 import { ExpensesSection } from "./ExpensesSection";
 import "./DashboardPage.css";
 
-async function api<T>(path: string, init?: RequestInit): Promise<T> {
-  const res = await fetch(path, {
-    ...init,
-    headers: { "Content-Type": "application/json", ...init?.headers },
-  });
-  if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
-  if (res.status === 204) return undefined as unknown as T;
-  return res.json() as Promise<T>;
-}
-
 export function DashboardPage() {
-  const { user, logout } = useAuth();
+  const { user, token, logout } = useAuth();
+
+  const api = useCallback(
+    async <T,>(path: string, init?: RequestInit): Promise<T> => {
+      if (!token) {
+        throw new Error("Missing bearer token in auth context.");
+      }
+
+      const headers = new Headers(init?.headers);
+      if (!headers.has("Content-Type")) {
+        headers.set("Content-Type", "application/json");
+      }
+      headers.set("Authorization", `Bearer ${token}`);
+
+      const res = await fetch(path, { ...init, headers });
+      if (!res.ok) {
+        throw new Error(`${res.status} ${res.statusText}`);
+      }
+      if (res.status === 204) {
+        return undefined as T;
+      }
+      return res.json() as Promise<T>;
+    },
+    [token],
+  );
 
   // --- trips state ---
   const [trips, setTrips] = useState<Trip[]>([]);
@@ -74,7 +88,7 @@ export function DashboardPage() {
         setBackendAvailable(false);
       }
     })();
-  }, []);
+  }, [api]);
 
   // --- load expenses when trip selection changes ---
   useEffect(() => {
@@ -95,7 +109,7 @@ export function DashboardPage() {
         /* backend down */
       }
     })();
-  }, [selectedExpensesTripId, backendAvailable]);
+  }, [selectedExpensesTripId, backendAvailable, api]);
 
   // --- trip CRUD ---
   const handleTripSubmit = useCallback(
@@ -122,7 +136,7 @@ export function DashboardPage() {
         /* backend error */
       }
     },
-    [tripForm, selectedTripId, backendAvailable],
+    [tripForm, selectedTripId, backendAvailable, api],
   );
 
   const handleStartTripEdit = useCallback((trip: Trip) => {
@@ -152,7 +166,7 @@ export function DashboardPage() {
         /* backend error */
       }
     },
-    [backendAvailable],
+    [backendAvailable, api],
   );
 
   // --- expense CRUD ---
@@ -180,7 +194,7 @@ export function DashboardPage() {
         /* backend error */
       }
     },
-    [expenseForm, selectedExpenseId, selectedExpensesTripId, backendAvailable],
+    [expenseForm, selectedExpenseId, selectedExpensesTripId, backendAvailable, api],
   );
 
   const handleStartExpenseEdit = useCallback((expense: Expense) => {
@@ -221,7 +235,7 @@ export function DashboardPage() {
         /* backend error */
       }
     },
-    [selectedExpensesTripId, backendAvailable],
+    [selectedExpensesTripId, backendAvailable, api],
   );
 
   // --- reports ---
@@ -239,7 +253,7 @@ export function DashboardPage() {
     } catch {
       /* backend error */
     }
-  }, [selectedExpensesTripId, reportFilters, backendAvailable]);
+  }, [selectedExpensesTripId, reportFilters, backendAvailable, api]);
 
   const handleDownloadReportCsv = useCallback(async () => {
     if (!backendAvailable || !selectedExpensesTripId) return;
@@ -250,6 +264,9 @@ export function DashboardPage() {
       if (reportFilters.category) params.set("category", reportFilters.category);
       const res = await fetch(
         `/api/trips/${selectedExpensesTripId}/report/csv?${params}`,
+        {
+          headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+        },
       );
       if (!res.ok) return;
       const blob = await res.blob();
@@ -262,7 +279,7 @@ export function DashboardPage() {
     } catch {
       /* backend error */
     }
-  }, [selectedExpensesTripId, reportFilters, backendAvailable]);
+  }, [selectedExpensesTripId, reportFilters, backendAvailable, token]);
 
   return (
     <div className="sa-dashboard">
