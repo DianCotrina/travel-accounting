@@ -61,6 +61,13 @@ The format is inspired by Keep a Changelog, with versions listed in reverse chro
 - Added modular frontend component architecture by splitting `App.tsx` into shared app types and section components (`HealthCard`, `TripsSection`, `ExpensesSection`).
 - Added a component-based landing page for Sacatucuenta with logo-driven hero section and direct CTA into the accounting workspace.
 - Added JWT bearer token test utilities (`JwtTestTokenFactory`) and migrated API integration test authentication to bearer tokens.
+- Added audit trail domain/application/infrastructure slices:
+  - `AuditEntry` and `AuditAction`
+  - `IAuditService` with filtered audit query support
+  - `EfAuditService` with JSON before/after diff payload generation
+- Added audit API endpoint `GET /api/audit` with query filters (`entityType`, `entityId`, `userId`, `fromDate`, `toDate`).
+- Added audit integration tests covering create/update/delete expense auditing, trip create auditing, exchange-rate upsert auditing, and user-filter authorization.
+- Added EF Core migration `20260228233504_AddAuditEntries` for immutable `audit_entries` persistence.
 
 ### Changed
 
@@ -106,6 +113,8 @@ The format is inspired by Keep a Changelog, with versions listed in reverse chro
 - Replaced API header-based auth (`X-User-Id`) with JWT bearer auth and removed `HeaderUserIdAuthenticationHandler`.
 - Updated frontend auth context and dashboard API wiring to send `Authorization: Bearer` headers.
 - Replaced frontend env variable `VITE_USER_ID` with `VITE_AUTH_BEARER_TOKEN`.
+- Updated trip/expense/exchange-rate application services to emit audit logs on accounting-sensitive mutations.
+- Strengthened expense update/delete ownership enforcement before mutation execution.
 
 ### Changed (Landing Page Redesign — Yeldra-inspired)
 

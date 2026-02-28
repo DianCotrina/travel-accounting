@@ -210,9 +210,22 @@ GET /api/trips/{tripId}/reports/export/csv
 - Updated frontend dashboard API requests to send `Authorization: Bearer <token>` from auth context.
 - Replaced frontend auth env variable `VITE_USER_ID` with `VITE_AUTH_BEARER_TOKEN`.
 
+## Audit Trail Status
+- Status: Completed (MVP)
+- Added immutable audit entries persisted in PostgreSQL table `audit_entries`.
+- Added audit logging for trip create/update/archive, expense create/update/delete, and exchange-rate create/update.
+- Added filtered audit API endpoint:
+
+```http
+GET /api/audit?entityType=Expense&entityId={id}&fromDate={utc}&toDate={utc}
+```
+
+- Added user isolation in audit queries (current user only; mismatched `userId` filter returns `403`).
+- Added API integration tests for create/update/delete audit flows and exchange-rate audit updates.
+
 ## Next Phase
-1. `module/audit-trail`
-- Add immutable audit history for accounting-sensitive create/update/delete operations.
+1. `module/hardening`
+- Add CORS policy, structured logging, rate limiting, and standardized error responses.
 
 ---
 

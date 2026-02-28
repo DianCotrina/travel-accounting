@@ -1,10 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TravelAccounting.Application.Audit;
 using TravelAccounting.Application.Expenses;
 using TravelAccounting.Application.ExchangeRates;
 using TravelAccounting.Application.Reference;
 using TravelAccounting.Application.Trips;
+using TravelAccounting.Infrastructure.Audit;
 using TravelAccounting.Infrastructure.Data;
 using TravelAccounting.Infrastructure.Data.Repositories;
 using TravelAccounting.Infrastructure.ExchangeRates;
@@ -44,6 +46,7 @@ public static class InfrastructureServiceCollectionExtensions
 
         services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 
+        services.AddScoped<IAuditService, EfAuditService>();
         services.AddScoped<ITripRepository, EfTripRepository>();
         services.AddScoped<IExpenseRepository, EfExpenseRepository>();
         services.AddScoped<IExchangeRateRepository, EfExchangeRateRepository>();

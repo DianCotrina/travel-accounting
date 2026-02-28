@@ -164,6 +164,26 @@ Implemented frontend functionality:
 - Auth context stores a bearer token in session and blocks login when token is not configured.
 - Added `.env` support for `VITE_AUTH_BEARER_TOKEN`.
 
+## Audit Trail Module (Phase 10)
+
+Implemented backend functionality:
+
+- Added immutable audit storage for accounting-sensitive changes in `audit_entries`.
+- Added audit logging for:
+  - Trip create/update/archive
+  - Expense create/update/delete
+  - Exchange-rate upsert (create/update)
+- Added query endpoint:
+  - `GET /api/audit`
+  - Filters: `entityType`, `entityId`, `userId`, `fromDate`, `toDate`
+- Added migration for audit table:
+  - `src/backend/TravelAccounting.Infrastructure/Data/Migrations/20260228233504_AddAuditEntries.cs`
+
+Security behavior:
+
+- Audit queries are scoped to the authenticated user.
+- If `userId` query parameter differs from current user, API returns `403 Forbidden`.
+
 ## Database Persistence Module (Phase 8)
 
 Implemented backend functionality:
@@ -277,6 +297,12 @@ Reports endpoints quick check:
 ```text
 GET http://localhost:<port>/api/trips/{tripId}/reports/summary
 GET http://localhost:<port>/api/trips/{tripId}/reports/export/csv
+```
+
+Audit endpoint quick check:
+
+```text
+GET http://localhost:<port>/api/audit?entityType=Expense&entityId=<expense-id>
 ```
 
 Auth header for protected endpoints:

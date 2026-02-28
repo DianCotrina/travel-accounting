@@ -1,6 +1,8 @@
 using TravelAccounting.Application.Trips;
 using TravelAccounting.Application.ExchangeRates;
 using TravelAccounting.Application.Auth;
+using TravelAccounting.Application.Audit;
+using TravelAccounting.Domain.Audit;
 using TravelAccounting.Domain.Common;
 using TravelAccounting.Domain.Expenses;
 
@@ -11,7 +13,8 @@ internal sealed class ExpensesService(
     ITripRepository tripRepository,
     IExchangeRateRepository exchangeRateRepository,
     IExchangeRateProvider exchangeRateProvider,
-    ICurrentUserContext currentUserContext) : IExpensesService
+    ICurrentUserContext currentUserContext,
+    IAuditService auditService) : IExpensesService
 {
     public async Task<IReadOnlyList<ExpenseDto>> ListByTripAsync(Guid tripId, CancellationToken cancellationToken)
     {
@@ -66,6 +69,15 @@ internal sealed class ExpensesService(
             request.Notes);
 
         await expenseRepository.AddAsync(expense, cancellationToken);
+        await auditService.LogAsync(
+            currentUserContext.UserId,
+            AuditAction.Create,
+            "Expense",
+            expense.Id,
+            before: null,
+            after: SnapshotExpense(expense),
+            cancellationToken);
+
         return await MapToDto(expense, trip, cancellationToken);
     }
 
@@ -79,11 +91,18 @@ internal sealed class ExpensesService(
             return null;
         }
 
+        var trip = await tripRepository.GetAsync(expense.TripId, cancellationToken);
+        if (trip is null || trip.OwnerUserId != currentUserContext.UserId)
+        {
+            return null;
+        }
+
         if (!Enum.TryParse<ExpenseCategory>(request.Category, true, out var category))
         {
             throw new ArgumentException("Invalid expense category.", nameof(request));
         }
 
+        var before = SnapshotExpense(expense);
         expense.Update(
             category,
             new Money(request.Amount, new Currency(request.Currency)),
@@ -91,18 +110,49 @@ internal sealed class ExpensesService(
             request.Notes);
         await expenseRepository.SaveChangesAsync(cancellationToken);
 
-        var trip = await tripRepository.GetAsync(expense.TripId, cancellationToken);
-        if (trip is null || trip.OwnerUserId != currentUserContext.UserId)
-        {
-            return null;
-        }
+        await auditService.LogAsync(
+            currentUserContext.UserId,
+            AuditAction.Update,
+            "Expense",
+            expense.Id,
+            before,
+            SnapshotExpense(expense),
+            cancellationToken);
 
         return await MapToDto(expense, trip, cancellationToken);
     }
 
-    public Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken)
     {
-        return expenseRepository.DeleteAsync(id, cancellationToken);
+        var expense = await expenseRepository.GetAsync(id, cancellationToken);
+        if (expense is null)
+        {
+            return false;
+        }
+
+        var trip = await tripRepository.GetAsync(expense.TripId, cancellationToken);
+        if (trip is null || trip.OwnerUserId != currentUserContext.UserId)
+        {
+            return false;
+        }
+
+        var before = SnapshotExpense(expense);
+        var deleted = await expenseRepository.DeleteAsync(id, cancellationToken);
+        if (!deleted)
+        {
+            return false;
+        }
+
+        await auditService.LogAsync(
+            currentUserContext.UserId,
+            AuditAction.Delete,
+            "Expense",
+            id,
+            before,
+            after: null,
+            cancellationToken);
+
+        return true;
     }
 
     private async Task<IReadOnlyList<ExpenseDto>> MapListToDto(
@@ -195,5 +245,19 @@ internal sealed class ExpensesService(
 
         var converted = decimal.Round(expense.Amount.Amount * rate.Rate, 2, MidpointRounding.AwayFromZero);
         return (converted, homeCurrency, rate.Rate);
+    }
+
+    private static object SnapshotExpense(Expense expense)
+    {
+        return new
+        {
+            expense.Id,
+            expense.TripId,
+            Category = expense.Category.ToString(),
+            Amount = expense.Amount.Amount,
+            Currency = expense.Amount.Currency.Code,
+            expense.OccurredAtUtc,
+            expense.Notes,
+        };
     }
 }
