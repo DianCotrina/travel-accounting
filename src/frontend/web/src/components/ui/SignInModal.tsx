@@ -112,7 +112,7 @@ export function SignInModal({ open, onClose }: SignInModalProps) {
           aria-label="Close sign in dialog"
           onClick={onClose}
         >
-          <span aria-hidden="true">×</span>
+          <span aria-hidden="true">x</span>
         </Button>
 
         <DialogHeader className="sa-signInModal__header">
@@ -172,7 +172,7 @@ export function SignInModal({ open, onClose }: SignInModalProps) {
                 inputMode="email"
                 autoComplete="email"
                 spellCheck={false}
-                placeholder="you@company.com…"
+                placeholder="you@company.com..."
                 required
               />
             </div>
@@ -190,7 +190,7 @@ export function SignInModal({ open, onClose }: SignInModalProps) {
                 name="password"
                 type={showPassword ? "text" : "password"}
                 autoComplete="current-password"
-                placeholder="Enter your password…"
+                placeholder="Enter your password..."
                 required
               />
               <Button
@@ -230,3 +230,4 @@ export function SignInModal({ open, onClose }: SignInModalProps) {
 function LabelRow({ title }: { title: string }) {
   return <p className="sa-signInModal__labelRow">{title}</p>;
 }
+

@@ -138,7 +138,6 @@ Implemented frontend functionality:
 
 Implemented backend functionality:
 
-- Header-based authentication scheme for protected endpoints (`X-User-Id`).
 - Per-user ownership on trips and user-isolated access for:
   - Trips
   - Expenses
@@ -148,8 +147,22 @@ Implemented backend functionality:
 
 Implemented frontend functionality:
 
-- All API requests now include `X-User-Id`.
-- Configurable user id through `VITE_USER_ID` (default `demo-user`).
+- Session-based login state and protected dashboard routing.
+
+## Real Authentication Module (Phase 9)
+
+Implemented backend functionality:
+
+- Replaced header-based auth with JWT bearer authentication.
+- Validates `iss`, `aud`, lifetime, and signature (symmetric key mode or authority mode).
+- User identity is read from JWT `sub` claim by `ICurrentUserContext`.
+- Removed development header auth handler.
+
+Implemented frontend functionality:
+
+- Dashboard API calls now send `Authorization: Bearer <token>`.
+- Auth context stores a bearer token in session and blocks login when token is not configured.
+- Added `.env` support for `VITE_AUTH_BEARER_TOKEN`.
 
 ## Database Persistence Module (Phase 8)
 
@@ -269,7 +282,7 @@ GET http://localhost:<port>/api/trips/{tripId}/reports/export/csv
 Auth header for protected endpoints:
 
 ```text
-X-User-Id: <your-user-id>
+Authorization: Bearer <your-jwt-token>
 ```
 
 Auto-rate behavior:
@@ -291,7 +304,7 @@ src/frontend/web/.env.example
 Includes:
 
 - `VITE_API_BASE_URL`
-- `VITE_USER_ID`
+- `VITE_AUTH_BEARER_TOKEN`
 
 Frontend screenshot helper (optional, Brave + `puppeteer-core`):
 

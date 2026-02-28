@@ -184,13 +184,13 @@ GET /api/trips/{tripId}/reports/export/csv
 
 ## Auth and Multiuser Status
 - Status: Completed (MVP)
-- Implemented header-based authentication for protected APIs (`X-User-Id`).
+- Implemented initial header-based authentication for protected APIs (`X-User-Id`) as a bridge to real auth.
 - Added per-user trip ownership in domain (`Trip.OwnerUserId`).
 - Enforced user data isolation across trips, expenses, exchange rates, ledger, and reports.
 - Added integration tests for:
   - unauthorized access without user header (`401`)
   - cross-user trip access isolation (`404`)
-- Updated frontend API calls to send `X-User-Id` via `VITE_USER_ID`.
+- Updated frontend API calls (phase 7) to include a user identity header for isolated data access.
 
 ## Database Persistence Status
 - Status: Completed (MVP)
@@ -201,9 +201,18 @@ GET /api/trips/{tripId}/reports/export/csv
 - Added local database provisioning with `docker-compose.yml` (PostgreSQL 16).
 - Preserved API integration test isolation using EF Core in-memory provider in test host overrides.
 
+## Real Authentication Status
+- Status: Completed (JWT MVP)
+- Replaced header-based authentication with JWT bearer authentication in API.
+- Added startup-validated JWT configuration (`Authentication:Jwt`) for issuer, audience, authority/signing key, and HTTPS metadata behavior.
+- Removed `HeaderUserIdAuthenticationHandler` and switched user-context resolution to JWT `sub` claim.
+- Updated API integration tests to mint and send bearer tokens.
+- Updated frontend dashboard API requests to send `Authorization: Bearer <token>` from auth context.
+- Replaced frontend auth env variable `VITE_USER_ID` with `VITE_AUTH_BEARER_TOKEN`.
+
 ## Next Phase
-1. `module/real-auth`
-- Replace development header-based authentication with real JWT provider integration.
+1. `module/audit-trail`
+- Add immutable audit history for accounting-sensitive create/update/delete operations.
 
 ---
 
@@ -225,7 +234,7 @@ However, the current implementation has **three critical gaps** that must be res
 | Gap | Risk | Impact |
 |-----|------|--------|
 | **No persistent storage** | All data is lost when the server restarts | Users cannot rely on the system for real accounting |
-| **No real authentication** | Login uses hardcoded credentials; API uses a debug header (`X-User-Id`) | No real user accounts; no security boundary |
+| **Auth provider UX not connected** | API validates JWT bearer tokens, but sign-in is still developer-token driven | Real account signup/login UX is still pending |
 | **No audit trail** | Accounting-sensitive edits are not tracked | Does not meet basic accounting compliance expectations |
 
 The following 4 phases close these gaps and bring the application to **production-ready MVP** status.
@@ -1201,3 +1210,4 @@ These items are out of scope for the current Production MVP but are captured for
 | Trip sharing | Share trips with team members for collaborative expense tracking | High |
 | Batch operations | Bulk import/export of expenses, bulk edits | Medium |
 | Real-time sync | WebSocket or SSE for live updates across devices | High |
+

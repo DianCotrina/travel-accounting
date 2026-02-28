@@ -1,4 +1,5 @@
 using System.Net;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
 
@@ -10,13 +11,13 @@ public sealed class AuthApiTests(CustomWebApplicationFactory factory)
     private readonly CustomWebApplicationFactory _factory = factory;
 
     [Fact]
-    public async Task TripsEndpoints_ReturnUnauthorized_WhenUserHeaderMissing()
+    public async Task TripsEndpoints_ReturnUnauthorized_WhenBearerTokenMissing()
     {
         var client = _factory.CreateClient(new WebApplicationFactoryClientOptions
         {
             BaseAddress = new Uri("https://localhost"),
         });
-        client.DefaultRequestHeaders.Remove("X-User-Id");
+        client.DefaultRequestHeaders.Authorization = null;
 
         var response = await client.GetAsync("/api/trips");
 
@@ -30,8 +31,9 @@ public sealed class AuthApiTests(CustomWebApplicationFactory factory)
         {
             BaseAddress = new Uri("https://localhost"),
         });
-        ownerClient.DefaultRequestHeaders.Remove("X-User-Id");
-        ownerClient.DefaultRequestHeaders.Add("X-User-Id", "owner-user");
+        ownerClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+            "Bearer",
+            JwtTestTokenFactory.CreateToken("owner-user"));
 
         var createResponse = await ownerClient.PostAsJsonAsync("/api/trips", new
         {
@@ -50,8 +52,9 @@ public sealed class AuthApiTests(CustomWebApplicationFactory factory)
         {
             BaseAddress = new Uri("https://localhost"),
         });
-        anotherClient.DefaultRequestHeaders.Remove("X-User-Id");
-        anotherClient.DefaultRequestHeaders.Add("X-User-Id", "another-user");
+        anotherClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+            "Bearer",
+            JwtTestTokenFactory.CreateToken("another-user"));
 
         var getResponse = await anotherClient.GetAsync($"/api/trips/{createdTrip!.Id}");
 

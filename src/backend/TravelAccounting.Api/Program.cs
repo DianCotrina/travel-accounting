@@ -1,5 +1,7 @@
-using Microsoft.AspNetCore.Authentication;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using TravelAccounting.Api.Auth;
 using TravelAccounting.Api.Configuration;
 using TravelAccounting.Application;
@@ -16,14 +18,55 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ICurrentUserContext, HttpCurrentUserContext>();
 builder.Services
+    .AddOptions<JwtAuthenticationSettings>()
+    .Bind(builder.Configuration.GetRequiredSection(JwtAuthenticationSettings.SectionName))
+    .ValidateDataAnnotations()
+    .Validate(
+        settings => !string.IsNullOrWhiteSpace(settings.Authority) || !string.IsNullOrWhiteSpace(settings.SigningKey),
+        "Authentication:Jwt must define either Authority or SigningKey.")
+    .Validate(
+        settings => string.IsNullOrWhiteSpace(settings.SigningKey) || settings.SigningKey.Length >= 32,
+        "Authentication:Jwt:SigningKey must be at least 32 characters when provided.")
+    .ValidateOnStart();
+
+var jwtSettings = builder.Configuration
+                      .GetRequiredSection(JwtAuthenticationSettings.SectionName)
+                      .Get<JwtAuthenticationSettings>()
+                  ?? throw new InvalidOperationException(
+                      $"Configuration section '{JwtAuthenticationSettings.SectionName}' is required.");
+
+builder.Services
     .AddAuthentication(options =>
     {
-        options.DefaultAuthenticateScheme = HeaderUserIdAuthenticationHandler.SchemeName;
-        options.DefaultChallengeScheme = HeaderUserIdAuthenticationHandler.SchemeName;
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     })
-    .AddScheme<AuthenticationSchemeOptions, HeaderUserIdAuthenticationHandler>(
-        HeaderUserIdAuthenticationHandler.SchemeName,
-        _ => { });
+    .AddJwtBearer(options =>
+    {
+        options.MapInboundClaims = false;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = jwtSettings.Issuer,
+            ValidateAudience = true,
+            ValidAudience = jwtSettings.Audience,
+            ValidateLifetime = true,
+            ClockSkew = TimeSpan.FromMinutes(1),
+            NameClaimType = "sub",
+        };
+
+        if (!string.IsNullOrWhiteSpace(jwtSettings.Authority))
+        {
+            options.Authority = jwtSettings.Authority;
+            options.RequireHttpsMetadata = jwtSettings.RequireHttpsMetadata;
+            options.TokenValidationParameters.ValidateIssuerSigningKey = false;
+            return;
+        }
+
+        options.TokenValidationParameters.ValidateIssuerSigningKey = true;
+        options.TokenValidationParameters.IssuerSigningKey =
+            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.SigningKey));
+    });
 builder.Services.AddAuthorization();
 builder.Services
     .AddOptions<AppSettings>()

@@ -60,6 +60,7 @@ The format is inspired by Keep a Changelog, with versions listed in reverse chro
 - Added API integration tests for unauthorized access and cross-user data isolation (`AuthApiTests`).
 - Added modular frontend component architecture by splitting `App.tsx` into shared app types and section components (`HealthCard`, `TripsSection`, `ExpensesSection`).
 - Added a component-based landing page for Sacatucuenta with logo-driven hero section and direct CTA into the accounting workspace.
+- Added JWT bearer token test utilities (`JwtTestTokenFactory`) and migrated API integration test authentication to bearer tokens.
 
 ### Changed
 
@@ -102,6 +103,9 @@ The format is inspired by Keep a Changelog, with versions listed in reverse chro
 - Added initial database migration files under `src/backend/TravelAccounting.Infrastructure/Data/Migrations`.
 - Added local PostgreSQL development orchestration (`docker-compose.yml`) and local `dotnet-ef` tool manifest (`dotnet-tools.json`).
 - Updated API integration test host to override persistence with EF Core in-memory provider for test isolation.
+- Replaced API header-based auth (`X-User-Id`) with JWT bearer auth and removed `HeaderUserIdAuthenticationHandler`.
+- Updated frontend auth context and dashboard API wiring to send `Authorization: Bearer` headers.
+- Replaced frontend env variable `VITE_USER_ID` with `VITE_AUTH_BEARER_TOKEN`.
 
 ### Changed (Landing Page Redesign — Yeldra-inspired)
 
@@ -123,3 +127,5 @@ The format is inspired by Keep a Changelog, with versions listed in reverse chro
 - Updated `App.css`: switched font to Inter, removed dot-pattern body pseudo-element, removed unused purple CTA styles and `.eyebrow` class, removed `.app` padding.
 - Added shooting stars fade-out in lower page via CSS `mask-image` on `.sa-page-sky`.
 - Added shared CSS utilities: `.sa-section-inner`, `.sa-section-header--centered`, `.sa-btn--lg`.
+
+

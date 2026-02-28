@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using System.Net.Http.Headers;
 using TravelAccounting.Application.ExchangeRates;
 using TravelAccounting.Infrastructure.Data;
 
@@ -14,6 +16,18 @@ public sealed class CustomWebApplicationFactory : WebApplicationFactory<Program>
 
     protected override void ConfigureWebHost(Microsoft.AspNetCore.Hosting.IWebHostBuilder builder)
     {
+        builder.ConfigureAppConfiguration((_, configBuilder) =>
+        {
+            configBuilder.AddInMemoryCollection(new Dictionary<string, string?>
+            {
+                ["Authentication:Jwt:Issuer"] = JwtTestTokenFactory.Issuer,
+                ["Authentication:Jwt:Audience"] = JwtTestTokenFactory.Audience,
+                ["Authentication:Jwt:SigningKey"] = JwtTestTokenFactory.SigningKey,
+                ["Authentication:Jwt:Authority"] = string.Empty,
+                ["Authentication:Jwt:RequireHttpsMetadata"] = "false",
+            });
+        });
+
         builder.ConfigureServices(services =>
         {
             var databaseName = $"travel-accounting-tests-{Guid.NewGuid():N}";
@@ -35,10 +49,9 @@ public sealed class CustomWebApplicationFactory : WebApplicationFactory<Program>
     protected override void ConfigureClient(HttpClient client)
     {
         base.ConfigureClient(client);
-        if (!client.DefaultRequestHeaders.Contains("X-User-Id"))
-        {
-            client.DefaultRequestHeaders.Add("X-User-Id", DefaultTestUserId);
-        }
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+            "Bearer",
+            JwtTestTokenFactory.CreateToken(DefaultTestUserId));
     }
 
     private sealed class FakeExchangeRateProvider : IExchangeRateProvider
