@@ -65,8 +65,8 @@ Implemented frontend functionality:
 
 Current persistence scope:
 
-- In-memory repository (`InMemoryTripRepository`)
-- Data resets when API process restarts
+- EF Core repository backed by PostgreSQL.
+- Data persists across API process restarts.
 
 ## Expenses Module (Phase 3)
 
@@ -151,6 +151,22 @@ Implemented frontend functionality:
 - All API requests now include `X-User-Id`.
 - Configurable user id through `VITE_USER_ID` (default `demo-user`).
 
+## Database Persistence Module (Phase 8)
+
+Implemented backend functionality:
+
+- Replaced in-memory persistence with EF Core + PostgreSQL:
+  - `EfTripRepository`
+  - `EfExpenseRepository`
+  - `EfExchangeRateRepository`
+- Added database context and mappings:
+  - `src/backend/TravelAccounting.Infrastructure/Data/AppDbContext.cs`
+  - `src/backend/TravelAccounting.Infrastructure/Data/Configurations/`
+- Added initial migration:
+  - `src/backend/TravelAccounting.Infrastructure/Data/Migrations/`
+- API startup applies pending migrations automatically for relational providers.
+- API integration tests run against EF Core in-memory provider for isolated test runs.
+
 ## Local Commands
 
 Build backend:
@@ -169,6 +185,24 @@ Run API:
 
 ```powershell
 dotnet run --project src/backend/TravelAccounting.Api
+```
+
+Start local PostgreSQL (Phase 8):
+
+```powershell
+docker compose up -d
+```
+
+Generate EF migration:
+
+```powershell
+dotnet dotnet-ef migrations add <MigrationName> --project src/backend/TravelAccounting.Infrastructure --startup-project src/backend/TravelAccounting.Api --output-dir Data/Migrations
+```
+
+Apply EF migration:
+
+```powershell
+dotnet dotnet-ef database update --project src/backend/TravelAccounting.Infrastructure --startup-project src/backend/TravelAccounting.Api
 ```
 
 Install frontend dependencies:

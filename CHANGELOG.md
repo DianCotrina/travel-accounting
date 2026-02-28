@@ -97,6 +97,11 @@ The format is inspired by Keep a Changelog, with versions listed in reverse chro
 - Expanded landing page information architecture with About, Testimonials, Contact Us, and Footer sections plus visible contact info and provider-styled login method UI.
 - Added `StatsBand` component for full-width stats section with gradient numbers.
 - Added `CLAUDE.md` with frontend design workflow, screenshot tooling, and anti-generic guardrails.
+- Replaced backend persistence from in-memory repositories to EF Core + PostgreSQL.
+- Updated infrastructure DI registrations to use scoped EF repositories and `AppDbContext`.
+- Added initial database migration files under `src/backend/TravelAccounting.Infrastructure/Data/Migrations`.
+- Added local PostgreSQL development orchestration (`docker-compose.yml`) and local `dotnet-ef` tool manifest (`dotnet-tools.json`).
+- Updated API integration test host to override persistence with EF Core in-memory provider for test isolation.
 
 ### Changed (Landing Page Redesign — Yeldra-inspired)
 

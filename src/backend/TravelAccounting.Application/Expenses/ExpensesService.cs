@@ -89,6 +89,7 @@ internal sealed class ExpensesService(
             new Money(request.Amount, new Currency(request.Currency)),
             request.OccurredAtUtc,
             request.Notes);
+        await expenseRepository.SaveChangesAsync(cancellationToken);
 
         var trip = await tripRepository.GetAsync(expense.TripId, cancellationToken);
         if (trip is null || trip.OwnerUserId != currentUserContext.UserId)

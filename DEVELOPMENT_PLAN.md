@@ -192,6 +192,19 @@ GET /api/trips/{tripId}/reports/export/csv
   - cross-user trip access isolation (`404`)
 - Updated frontend API calls to send `X-User-Id` via `VITE_USER_ID`.
 
+## Database Persistence Status
+- Status: Completed (MVP)
+- Replaced in-memory repositories with EF Core repositories backed by PostgreSQL.
+- Added `AppDbContext` with entity mappings for trips, expenses, and exchange rates.
+- Added initial EF Core migration under `src/backend/TravelAccounting.Infrastructure/Data/Migrations`.
+- Added startup migration application for relational providers in API startup.
+- Added local database provisioning with `docker-compose.yml` (PostgreSQL 16).
+- Preserved API integration test isolation using EF Core in-memory provider in test host overrides.
+
+## Next Phase
+1. `module/real-auth`
+- Replace development header-based authentication with real JWT provider integration.
+
 ---
 
 # Production MVP - Next Development Phases

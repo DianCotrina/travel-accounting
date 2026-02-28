@@ -60,6 +60,7 @@ internal sealed class TripsService(
             new Currency(request.LocalCurrency),
             new TravelDate(request.StartDate),
             new TravelDate(request.EndDate));
+        await tripRepository.SaveChangesAsync(cancellationToken);
 
         return MapToDto(trip);
     }
@@ -73,6 +74,7 @@ internal sealed class TripsService(
         }
 
         trip.Archive();
+        await tripRepository.SaveChangesAsync(cancellationToken);
         return MapToDto(trip);
     }
 
