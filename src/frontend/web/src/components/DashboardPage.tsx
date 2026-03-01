@@ -79,10 +79,6 @@ export function DashboardPage() {
   // --- load expenses when trip selection changes ---
   useEffect(() => {
     if (!selectedExpensesTripId || !backendAvailable) {
-      setExpenses([]);
-      setExchangeRates([]);
-      setLedgerSummary(null);
-      setReportSummary(null);
       return;
     }
     (async () => {
@@ -203,6 +199,16 @@ export function DashboardPage() {
     setExpenseForm(initialExpenseFormState);
   }, []);
 
+  const handleTripSelectionChange = useCallback((tripId: string) => {
+    setSelectedExpensesTripId(tripId);
+    setSelectedExpenseId(null);
+    setExpenseForm(initialExpenseFormState);
+    setExpenses([]);
+    setExchangeRates([]);
+    setLedgerSummary(null);
+    setReportSummary(null);
+  }, []);
+
   const handleExpenseDelete = useCallback(
     async (expenseId: string) => {
       if (!backendAvailable || !selectedExpensesTripId) return;
@@ -301,7 +307,7 @@ export function DashboardPage() {
           ledgerSummary={ledgerSummary}
           reportSummary={reportSummary}
           reportFilters={reportFilters}
-          onTripSelectionChange={setSelectedExpensesTripId}
+          onTripSelectionChange={handleTripSelectionChange}
           onExpenseFormChange={setExpenseForm}
           onExpenseSubmit={handleExpenseSubmit}
           onClearExpenseForm={handleClearExpenseForm}
