@@ -31,6 +31,7 @@ If any check fails: fix and re-run. If a tool is missing, stop and tell the user
 - Stage only files that belong to this change (no screenshots, local settings, or build output).
 - Conventional Commits subject (`feat(scope): …`, `fix(scope): …`, `!` + `BREAKING CHANGE:` footer for breaking changes); body explains why when not obvious.
 - Push: `git push -u origin HEAD`, then open or update the PR against `main`.
+- Enable auto-merge right away (standing authorization, do not ask): `gh pr merge <number> --auto --merge --subject "<conventional subject> (#<number>)"`. It merges when required checks pass; never use `--admin`.
 
 ## 6. Report
 State what was verified (with the commands run), what was not, and the branch/commit pushed.

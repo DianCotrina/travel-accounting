@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - Added `docs/PRD.md` describing the current MVP scope (v0.1.0), known issues, next-version requirements, success metrics, and open product questions.
 
+### Changed
+
+- Pull requests to `main` get auto-merge (merge commit) enabled as soon as they are opened; required checks gate the merge. Pre-approved for Claude Code in `.claude/settings.json`, and `guard-branch` blocks `gh pr merge --admin` and merges without `--auto`.
+
 ### Fixed
 
 - Fixed dashboard API calls that targeted non-existent routes (PRD K-1): countries now use `/api/reference/countries`, ledger uses `/ledger/summary`, and reports use `/reports/summary` and `/reports/export/csv`. Previously the countries 404 also prevented trips from loading.

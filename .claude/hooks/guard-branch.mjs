@@ -42,6 +42,18 @@ for (const segment of segments) {
     }
   }
 
+  // PR merges must wait for required checks: auto-merge only, never an admin bypass.
+  const prMerge = segment.match(/^gh\s+pr\s+merge\b(.*)$/);
+  if (prMerge) {
+    const args = prMerge[1];
+    if (/(^|\s)--admin(\s|$)/.test(args)) {
+      block("guard-branch: `gh pr merge --admin` bypasses required checks and is not allowed. Use `gh pr merge <n> --auto --merge`.");
+    }
+    if (!/(^|\s)--(auto|disable-auto)(\s|$)/.test(args)) {
+      block("guard-branch: merge PRs with auto-merge so required checks gate them: `gh pr merge <n> --auto --merge`.");
+    }
+  }
+
   const mutating = segment.match(/^git\s+(commit|merge|cherry-pick|revert|am|rebase)\b/) || /^git\s+reset\b.*--hard/.test(segment);
   if (mutating && onProtected && !switchesBranch) {
     block(`guard-branch: '${segment}' on protected branch '${branch}' is not allowed.\n${fix}`);

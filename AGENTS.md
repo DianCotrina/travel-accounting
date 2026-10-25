@@ -94,7 +94,10 @@ If a required tool is missing (no .NET SDK, no `node_modules`), say so explicitl
 - If checks pass, commit and push automatically to the current working branch (never `main`).
 - If checks fail, report the failures clearly and do not commit or push until resolved.
 - Commit messages follow Conventional Commits (e.g. `feat(reports): add CSV export for trip reports`).
-- Open pull requests against `main`.
+- Open pull requests against `main`, then immediately enable auto-merge with a merge commit — no need to ask each time:
+  `gh pr merge <number> --auto --merge --subject "<conventional subject> (#<number>)"`
+  GitHub merges it once the required checks (`backend`, `frontend`, `versioning`) pass.
+- Never bypass required checks: no `gh pr merge --admin`, no merging without `--auto`. If checks fail, fix them on the branch; auto-merge proceeds once they pass.
 - In PowerShell, do not chain commands with `&&`; use `;` or separate commands.
 
 ## Definition of Done (per module or feature)
