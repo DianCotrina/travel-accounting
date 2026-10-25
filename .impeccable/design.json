@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-25T00:00:00Z",
+  "title": "Design System: Sacatucuenta",
+  "extensions": {
+    "colorMeta": {
+      "copper": { "role": "primary", "displayName": "Copper", "canonical": "oklch(0.70 0.125 52)", "tonalRamp": ["#241004", "#45240e", "#713e1c", "#9f5a2c", "#cd7a44", "#ef9963", "#ffb982", "#ffe0c5"] },
+      "copper-light": { "role": "primary", "displayName": "Copper Light", "canonical": "oklch(0.78 0.10 60)" },
+      "copper-deep": { "role": "primary", "displayName": "Copper Deep", "canonical": "oklch(0.58 0.11 48)" },
+      "graphite": { "role": "neutral", "displayName": "Graphite", "canonical": "oklch(0.165 0.006 55)", "tonalRamp": ["#181513", "#322d29", "#524c48", "#746d69", "#97918c", "#b6afab", "#d6cfcb", "#eeeae7"] },
+      "graphite-surface": { "role": "neutral", "displayName": "Graphite Surface", "canonical": "oklch(0.205 0.008 55)" },
+      "graphite-raised": { "role": "neutral", "displayName": "Graphite Raised", "canonical": "oklch(0.25 0.009 55)" },
+      "graphite-border": { "role": "neutral", "displayName": "Graphite Border", "canonical": "oklch(0.31 0.012 55)" },
+      "ivory": { "role": "neutral", "displayName": "Ivory", "canonical": "oklch(0.955 0.006 75)" },
+      "stone": { "role": "neutral", "displayName": "Stone", "canonical": "oklch(0.74 0.012 65)" },
+      "ash": { "role": "neutral", "displayName": "Ash", "canonical": "oklch(0.615 0.012 60)" },
+      "danger": { "role": "status", "displayName": "Danger", "canonical": "oklch(0.70 0.15 25)" },
+      "warning": { "role": "status", "displayName": "Warning", "canonical": "oklch(0.82 0.13 85)" },
+      "success": { "role": "status", "displayName": "Success", "canonical": "oklch(0.76 0.12 155)" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Landing hero headline only, one per page." },
+      "headline": { "displayName": "Headline", "purpose": "Landing section titles." },
+      "title": { "displayName": "Title", "purpose": "Card, panel, and dialog headings in the app." },
+      "body": { "displayName": "Body", "purpose": "Paragraphs and descriptions; ~48–65ch." },
+      "body-small": { "displayName": "Body Small", "purpose": "Dense app UI, fields, table rows, buttons." },
+      "label": { "displayName": "Label", "purpose": "Uppercase kickers and small group labels." },
+      "numeric": { "displayName": "Numeric", "purpose": "Trip totals and key amounts, tabular figures." }
+    },
+    "shadows": [
+      { "name": "float", "value": "0 12px 32px #00000066, 0 2px 6px #0000004d", "purpose": "Dialogs, dropdown menus, popovers." },
+      { "name": "cta-glow", "value": "0 8px 24px #db86501f", "purpose": "Primary button at rest; the only glow on a screen." },
+      { "name": "cta-glow-hover", "value": "0 10px 28px #db86502e", "purpose": "Primary button hover." },
+      { "name": "focus-ring", "value": "0 0 0 3px #db865047", "purpose": "Every focusable element on :focus-visible." }
+    ],
+    "motion": [
+      { "name": "state", "value": "160ms ease", "purpose": "Hover, focus, and active state changes (transform, opacity, colors)." },
+      { "name": "reveal", "value": "600ms cubic-bezier(0.2, 0.8, 0.2, 1)", "purpose": "Landing section reveal; disabled under prefers-reduced-motion." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "36rem" },
+      { "name": "md", "value": "48rem" },
+      { "name": "lg", "value": "64rem" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The single copper action per view, with the only glow on screen.",
+      "html": "<button class=\"ds-btn-primary\">Agregar gasto</button>",
+      "css": ".ds-btn-primary { min-height: 3rem; padding: 0.8rem 1.6rem; border-radius: 10px; border: 1px solid #ae643c; background: linear-gradient(180deg, #e7a875 0%, #db8650 100%); color: #100e0c; font: 700 0.875rem/1.2 Inter, system-ui, sans-serif; cursor: pointer; box-shadow: 0 8px 24px #db86501f; transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease; } .ds-btn-primary:hover { background: #e7a875; transform: translateY(-2px); box-shadow: 0 10px 28px #db86502e; } .ds-btn-primary:focus-visible { outline: none; box-shadow: 0 0 0 3px #db865047, 0 8px 24px #db86501f; } .ds-btn-primary:active { background: #ae643c; color: #f2f0ec; transform: translateY(0); }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Every non-primary action.",
+      "html": "<button class=\"ds-btn-secondary\">Exportar CSV</button>",
+      "css": ".ds-btn-secondary { min-height: 3rem; padding: 0.8rem 1.6rem; border-radius: 10px; border: 1px solid #352f2b; background: #25211e; color: #f2f0ec; font: 700 0.875rem/1.2 Inter, system-ui, sans-serif; cursor: pointer; transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease; } .ds-btn-secondary:hover { background: #352f2b; transform: translateY(-2px); } .ds-btn-secondary:focus-visible { outline: none; box-shadow: 0 0 0 3px #db865047; } .ds-btn-secondary:active { transform: translateY(0); }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Labeled field with a graphite well and copper focus.",
+      "html": "<label class=\"ds-field\"><span>Monto</span><input class=\"ds-input\" placeholder=\"12.500\" inputmode=\"decimal\"></label>",
+      "css": ".ds-field { display: grid; gap: 0.35rem; font: 600 0.875rem/1.4 Inter, system-ui, sans-serif; color: #b0a9a3; } .ds-input { min-height: 2.75rem; padding: 0.6rem 0.85rem; border-radius: 10px; border: 1px solid #352f2b; background: #100e0c; color: #f2f0ec; font: 400 0.875rem/1.4 Inter, system-ui, sans-serif; font-variant-numeric: tabular-nums; transition: border-color 160ms ease, box-shadow 160ms ease; } .ds-input::placeholder { color: #8a837e; } .ds-input:hover { border-color: #4a423d; } .ds-input:focus-visible { outline: none; border-color: #db8650; box-shadow: 0 0 0 3px #db865047; }"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Flat graphite surface separated by tone and a hairline.",
+      "html": "<section class=\"ds-card\"><h3>Gastos del viaje</h3><p>Buenos Aires · 1–10 ene</p></section>",
+      "css": ".ds-card { padding: 1.25rem; border-radius: 14px; border: 1px solid #352f2b; background: #1a1614; color: #f2f0ec; font-family: Inter, system-ui, sans-serif; } .ds-card h3 { margin: 0 0 0.35rem; font-size: 1.15rem; font-weight: 700; letter-spacing: -0.01em; } .ds-card p { margin: 0; color: #b0a9a3; font-size: 0.875rem; }"
+    },
+    {
+      "name": "Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Category or filter pill; selected state uses a copper border.",
+      "html": "<span class=\"ds-chip\"><i></i>Comida</span> <span class=\"ds-chip ds-chip--selected\"><i></i>Transporte</span>",
+      "css": ".ds-chip { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.35rem 0.75rem; border-radius: 999px; border: 1px solid #352f2b; background: #25211e; color: #b0a9a3; font: 700 0.72rem/1.2 Inter, system-ui, sans-serif; letter-spacing: 0.08em; text-transform: uppercase; } .ds-chip i { width: 6px; height: 6px; border-radius: 999px; background: #b0a9a3; } .ds-chip--selected { border-color: #db8650; color: #f2f0ec; } .ds-chip--selected i { background: #db8650; }"
+    },
+    {
+      "name": "Money Row",
+      "kind": "custom",
+      "refersTo": "card",
+      "description": "Signature unit: local amount with its home-currency pair, or an explicit not-converted marker.",
+      "html": "<div class=\"ds-money\"><div><strong>Taxi al aeropuerto</strong><span>Transporte · 3 ene</span></div><div class=\"ds-money__amt\"><strong>ARS 18.500</strong><span>USD 17.62 · 1.050</span></div></div><div class=\"ds-money\"><div><strong>Museo MALBA</strong><span>Turismo · 4 ene</span></div><div class=\"ds-money__amt\"><strong>ARS 9.000</strong><span class=\"ds-money__warn\">No convertido</span></div></div>",
+      "css": ".ds-money { display: flex; justify-content: space-between; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid #352f2b; font-family: Inter, system-ui, sans-serif; } .ds-money strong { display: block; color: #f2f0ec; font-size: 0.875rem; font-weight: 600; } .ds-money span { display: block; color: #b0a9a3; font-size: 0.78rem; } .ds-money__amt { text-align: right; font-variant-numeric: tabular-nums; } .ds-money__warn { color: #ebbd57 !important; }"
+    },
+    {
+      "name": "Top Navigation",
+      "kind": "nav",
+      "refersTo": "nav",
+      "description": "Sticky bar; flat links, copper marks the active item.",
+      "html": "<nav class=\"ds-nav\"><b>Sacatucuenta</b><a href=\"#\" aria-current=\"page\">Viajes</a><a href=\"#\">Reportes</a></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; gap: 1.5rem; min-height: 4rem; padding: 0 1.5rem; background: #100e0cd9; backdrop-filter: blur(16px); border-bottom: 1px solid #352f2b; font: 600 0.875rem/1 Inter, system-ui, sans-serif; } .ds-nav b { color: #f2f0ec; font-weight: 700; margin-right: auto; } .ds-nav a { color: #b0a9a3; text-decoration: none; padding: 0.5rem 0; border-bottom: 2px solid transparent; transition: color 160ms ease, border-color 160ms ease; } .ds-nav a:hover { color: #f2f0ec; } .ds-nav a[aria-current=page] { color: #f2f0ec; border-bottom-color: #db8650; } .ds-nav a:focus-visible { outline: none; box-shadow: 0 0 0 3px #db865047; border-radius: 4px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Ember After Dark",
+    "overview": "Sacatucuenta lives at night: a warm graphite canvas where one color — copper — does all the signaling. The mood is bold and premium: big, tightly tracked headlines, generous section rhythm, and a confident single call to action per screen. The warmth comes from the material, not from neon. Copper reads like metal catching low light, never like a glowing sign.\n\nComponents are refined and contained. Surfaces separate by tone and hairline borders rather than by shadows or color; buttons, inputs, and cards are quiet until touched, and state changes are small and exact (a 2px lift, a border shift, a focus ring). Money is the content: amounts are set in tabular figures with clear local-versus-home hierarchy, so the interface feels like a precise ledger, not a dashboard of decorations.\n\nThe marketing landing carries the most expression (the night-sky backdrop, display type, reveal motion); the app dashboard keeps the same palette and type but trades expression for scanability and fast entry on a phone.",
+    "keyCharacteristics": [
+      "Warm graphite surfaces, never pure black; copper as the single accent.",
+      "One subtle glow per screen, on the primary action only.",
+      "Display headlines at 700 weight with tight negative tracking.",
+      "Depth by tonal steps and hairline borders, not drop shadows.",
+      "Tabular, right-aligned money with local and home currency always paired.",
+      "Bilingual by construction: layouts tolerate ~30% longer Spanish strings."
+    ],
+    "rules": [
+      { "name": "The One Copper Rule", "body": "Copper covers at most ~10% of any screen, and only one copper-filled button exists per view. Everything else is graphite, ivory, and stone.", "section": "colors" },
+      { "name": "The Warm Black Rule", "body": "No pure black (#000) and no cool grays. Every neutral carries the same warm hue (~55°).", "section": "colors" },
+      { "name": "The No Neon Rule", "body": "No saturated orange (#ff6a1c family), no colored text glows, no glowing borders. Warmth comes from copper and graphite, not light effects.", "section": "colors" },
+      { "name": "The Tabular Money Rule", "body": "Every amount uses tabular figures (`font-variant-numeric: tabular-nums`) and is right-aligned in lists and tables, so columns of money line up.", "section": "typography" },
+      { "name": "The Paired Currency Rule", "body": "A home-currency amount is always shown with its local-currency original (local first and larger in entry contexts, home first and larger in summaries), and a missing conversion is shown explicitly as \"not converted\", never as 0.", "section": "typography" },
+      { "name": "The Flat-By-Default Rule", "body": "Cards and panels have no shadow at rest; they separate from the page by tone and a hairline. Shadows appear only for floating layers.", "section": "elevation" },
+      { "name": "The Single Glow Rule", "body": "Only the primary action on a screen may glow. No glowing cards, borders, icons, or text.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do use the Copper tokens from this file for every color; reference CSS custom properties, never hard-coded hex in components.",
+      "Do keep one copper-filled primary action per view, with the CTA Glow as the only glow on screen.",
+      "Do set every amount in tabular figures and pair local and home currency (The Paired Currency Rule).",
+      "Do give every interactive element distinct hover, `:focus-visible` (Focus Ring), and active states.",
+      "Do animate only `transform` and `opacity` (140–180ms ease for state, 500–600ms `cubic-bezier(0.2, 0.8, 0.2, 1)` for landing reveals) and honor `prefers-reduced-motion`.",
+      "Do design every screen for both Spanish and English copy lengths.",
+      "Do (migration) consolidate the three color sources in code — `--sc-*` in `App.css`, `--sa-*` in `LandingPage.css`, and shadcn's light oklch tokens in `tailwind.css` — into one dark token set matching this file, and load Inter."
+    ],
+    "donts": [
+      "Don't use the old neon orange (#ff6a1c, #ff8f47) or saturated glow shadows (`0 0 30–40px #ff6a1c…`).",
+      "Don't use pure black, cool grays, or the purple (#6e45ff) and mint (#3dfd98) accents that appear in the login and category previews.",
+      "Don't put shadows on cards at rest, or glow on anything but the primary action.",
+      "Don't use `transition: all`.",
+      "Don't show a missing conversion as 0 or hide it; mark it \"not converted\".",
+      "Don't render the light shadcn theme inside the dark app (current dialog/button/input primitives read light tokens).",
+      "Don't present placeholder statistics or testimonials as real (see PRODUCT.md, Evidence on Hand)."
+    ]
+  }
+}

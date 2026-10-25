@@ -10,6 +10,7 @@ paths:
 
 ## Before writing UI
 - Invoke the `frontend-design` skill (if available) before writing UI code.
+- `DESIGN.md` (root) is the visual source of truth: tokens, type scale, components, and rules (Copper on graphite, "Ember After Dark"). `PRODUCT.md` holds product context. Read both before UI work.
 - Check `assets/` (especially `assets/logos/` and `assets/design-inspirations/`) and use provided logos and palettes exactly. Do not invent brand colors when a palette exists.
 - Preserve the existing React/Vite architecture and component patterns.
 
@@ -23,7 +24,7 @@ paths:
 - Screenshots: `npm --prefix src/frontend/web run screenshot -- http://localhost:5173` (see `scripts/screenshot.mjs` for the browser-path env var; never hardcode machine paths in docs). Output goes to `src/frontend/web/temporary-screenshots/` (gitignored). Read the PNG to review it.
 
 ## Guardrails (all UI)
-- Theme: orange/black brand palette. Never default Tailwind blue/indigo as primary; avoid default-looking palettes.
+- Theme: Copper on warm graphite per `DESIGN.md` (one copper accent per view; no neon orange, no pure black, no cool grays). Never default Tailwind blue/indigo as primary.
 - Motion: animate only `transform` and `opacity`. Never `transition-all`. Prefer subtle motion and respect `prefers-reduced-motion`.
 - States: every interactive element has hover, `focus-visible`, and active states; keyboard accessible; readable contrast on dark backgrounds.
 - Depth: layered, color-tinted, low-opacity shadows (base/elevated/floating) instead of flat repeated cards.
@@ -38,10 +39,10 @@ paths:
 - Hero heading `3rem+` on desktop with tight letter-spacing (`-0.04em` or tighter).
 - Flat link navbar with glassmorphism on scroll; avoid grid dropdown panels on single-page sites.
 - Do not wrap every section in the same bordered rounded shell; vary section morphology (grids, centered content, split layouts).
-- Featured elements use accent-color glow (`box-shadow`) rather than only a 1px colored border.
+- Glow is reserved for the single primary action per screen (DESIGN.md "Single Glow Rule"); featured elements use a copper border or tonal step instead.
 - Section intros default to centered kicker + heading + subtitle.
-- Cards hover with `translateY(-2px … -4px)` plus a subtle border or glow change.
-- Product screenshots float (perspective, layered shadows, optional glow).
+- Interactive cards hover with `translateY(-2px)` plus a subtle border change (no glow).
+- Product screenshots float (perspective and the neutral Float shadow; no colored glow).
 - Stats live in their own full-width band; testimonials include avatar circles.
 - Default flow (adapt as needed): Nav → Hero → How it works → Features → Stats → Pricing → Testimonials → FAQ → CTA band → Footer.
 - Add `scroll-margin-top` to anchored sections. Keep each section a reusable component with local CSS; orchestrate in a single landing container.
