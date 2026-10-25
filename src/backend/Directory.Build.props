@@ -1,0 +1,6 @@
+<Project>
+  <!-- Single source of the backend version (SemVer). Must match src/frontend/web/package.json. -->
+  <PropertyGroup>
+    <Version>0.1.0</Version>
+  </PropertyGroup>
+</Project>
