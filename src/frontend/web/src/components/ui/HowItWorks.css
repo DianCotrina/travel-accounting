@@ -17,7 +17,7 @@
   text-wrap: balance;
 }
 
-.sa-howItWorks__header p:not(.sa-kicker) {
+.sa-howItWorks__header p {
   margin: 1rem auto 0;
   max-width: 48ch;
   color: var(--stone);
@@ -84,22 +84,6 @@
 .sa-howItWorks__card:hover {
   border-color: color-mix(in oklab, var(--copper) 19%, transparent);
   transform: translateY(-4px);
-}
-
-.sa-howItWorks__iconWrap {
-  width: 3.5rem;
-  height: 3.5rem;
-  display: grid;
-  place-items: center;
-  border-radius: 0.75rem;
-  border: 1px solid var(--graphite-border);
-  background: radial-gradient(circle at 30% 30%, color-mix(in oklab, var(--copper) 13%, transparent) 0%, transparent 70%), var(--graphite-surface);
-  color: var(--copper-light);
-}
-
-.sa-howItWorks__iconWrap svg {
-  width: 1.5rem;
-  height: 1.5rem;
 }
 
 .sa-howItWorks__card h3 {

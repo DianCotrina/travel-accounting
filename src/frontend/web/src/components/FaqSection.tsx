@@ -26,7 +26,6 @@ export function FaqSection({
     <section id={id} className="sa-faqSection" aria-labelledby="sa-faq-title">
       <div className="sa-section-inner">
         <header className="sa-section-header--centered">
-          <p className="sa-kicker">FAQ</p>
           <h2 id="sa-faq-title">{title}</h2>
           <p>{description}</p>
         </header>

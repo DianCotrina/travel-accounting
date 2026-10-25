@@ -1,47 +1,26 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowLeftRight, FileSpreadsheet, Receipt } from "lucide-react";
 import "./LandingPage.css";
 import { BenefitsSection } from "./BenefitsSection";
 import { FaqSection } from "./FaqSection";
 import { FinalCtaSection } from "./FinalCtaSection";
 import { PricingSection } from "./PricingSection";
-import { StatsBand } from "./StatsBand";
-import { TestimonialsSection } from "./TestimonialsSection";
 import { LandingNavbar } from "./ui/LandingNavbar";
 import { SignInModal } from "./ui/SignInModal";
 import { HeroSectionDark } from "./ui/HeroSectionDark";
 import { HowItWorks } from "./ui/HowItWorks";
-import { AnalyticsDashboardPreview } from "./ui/AnalyticsDashboardPreview";
+import { SampleTripPreview } from "./ui/SampleTripPreview";
 import { ShootingStars } from "./ui/shooting-stars";
-
-const trustedByCompanies = [
-  "TravelCorp",
-  "NomadOps",
-  "Globex",
-  "FinanceHub",
-  "RemoteFirst",
-];
-
-const productStats = [
-  { label: "Trips logged", value: "12,480+" },
-  { label: "Expense entries", value: "1.8M" },
-  { label: "Countries used", value: "84" },
-  { label: "Average export time", value: "< 2 min" },
-];
 
 const benefitsCards = [
   {
-    icon: <Receipt />,
     title: "Stop rebuilding trips from receipts after you get home",
     body: "Capture expenses while you travel so finance review is based on real entries, not reconstructed memory and screenshots.",
   },
   {
-    icon: <ArrowLeftRight />,
     title: "See local spending and home-currency impact in the same workflow",
     body: "Keep destination and home currency context together so travel decisions and accounting review stay aligned.",
   },
   {
-    icon: <FileSpreadsheet />,
     title: "Export summaries that finance can actually use",
     body: "Category and ledger outputs are designed for reimbursement and bookkeeping workflows, not generic personal budgeting notes.",
   },
@@ -53,7 +32,7 @@ const pricingPlans = [
     price: "$0",
     subtitle: "For occasional trips",
     highlights: ["1 active trip", "Manual review workflow", "Basic expense logging"],
-    cta: "Get Started",
+    cta: "Try the preview",
     featured: false,
   },
   {
@@ -67,7 +46,7 @@ const pricingPlans = [
       "Exchange-rate visibility",
       "Priority support",
     ],
-    cta: "Start Free Trial",
+    cta: "Try the preview",
     featured: true,
   },
   {
@@ -75,39 +54,7 @@ const pricingPlans = [
     price: "$39",
     subtitle: "Per month",
     highlights: ["Shared trip workflows", "Audit-ready exports", "Team visibility", "Onboarding support"],
-    cta: "Contact Sales",
     featured: false,
-  },
-];
-
-const testimonials = [
-  {
-    role: "Operations Consultant",
-    quote:
-      "I stopped sending spreadsheets after every trip. Sacatucuenta gives finance a clean summary the same day instead of a week later.",
-    person: "Mariana R.",
-    rating: 5,
-  },
-  {
-    role: "Startup Founder",
-    quote:
-      "The most useful part is seeing ARS expenses translated to USD impact without guessing rates or redoing calculations at month-end.",
-    person: "David L.",
-    rating: 5,
-  },
-  {
-    role: "Remote Team Lead",
-    quote:
-      "Categories and exports cut reimbursement review time dramatically for our travel-heavy team. It removed the back-and-forth.",
-    person: "Ana P.",
-    rating: 4,
-  },
-  {
-    role: "Digital Nomad",
-    quote:
-      "I use it like an accounting journal for travel. By the end of the month, everything is already categorized and exportable.",
-    person: "Carlos M.",
-    rating: 5,
   },
 ];
 
@@ -187,8 +134,10 @@ export function LandingPage() {
     return () => observer.disconnect();
   }, []);
 
+  const openPreview = () => setSignInOpen(true);
+
   return (
-    <div className="sa-landing" aria-labelledby="sa-hero-title">
+    <div className="sa-landing">
       <div className="sa-page-sky" aria-hidden="true">
         <div className="sa-page-sky__glow" />
         <div className="sa-page-sky__stars" />
@@ -216,7 +165,7 @@ export function LandingPage() {
         />
       </div>
 
-      <LandingNavbar onLoginClick={() => setSignInOpen(true)} />
+      <LandingNavbar onTryPreview={openPreview} />
 
       <main id="top" className="sa-main" ref={mainRef}>
         <HeroSectionDark
@@ -225,12 +174,11 @@ export function LandingPage() {
             gradient: "accounting clarity.",
           }}
           description="Log local-currency spending, monitor home-currency impact, and export finance-ready summaries — before month-end pressure starts."
-          ctaText="Start Free Trial"
-          ctaHref="#pricing"
+          ctaText="Try the preview"
+          onCtaClick={openPreview}
           secondaryCtaText="See How It Works"
           secondaryCtaHref="#how-it-works"
-          trustedBy={trustedByCompanies}
-          bottomSlot={<AnalyticsDashboardPreview />}
+          bottomSlot={<SampleTripPreview />}
           gridOptions={{ angle: 66, cellSize: 54, opacity: 0.2, lineColor: "color-mix(in oklab, var(--copper) 6%, transparent)" }}
         />
 
@@ -245,18 +193,11 @@ export function LandingPage() {
           cards={benefitsCards}
         />
 
-        <StatsBand stats={productStats} />
-
         <PricingSection
           title="Pricing for travelers and teams"
           description="Start simple for personal trips, then scale into recurring travel workflows with ledger summaries and export-ready reporting."
           plans={pricingPlans}
-        />
-
-        <TestimonialsSection
-          title="Trusted by travelers and finance teams"
-          description="Fewer spreadsheets, less rework, and faster reimbursement review with better expense context."
-          items={testimonials}
+          onTryPreview={openPreview}
         />
 
         <FaqSection
@@ -268,7 +209,7 @@ export function LandingPage() {
         <FinalCtaSection
           title="Take control of travel expenses before month-end"
           description="Start with the traveler workflow, then extend into a finance-friendly review process with categorized records and export-ready summaries."
-          primaryCta={{ label: "Start Free Trial", href: "#pricing" }}
+          primaryCta={{ label: "Try the preview", onClick: openPreview }}
         />
       </main>
 

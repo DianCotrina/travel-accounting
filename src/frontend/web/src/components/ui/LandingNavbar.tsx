@@ -10,7 +10,6 @@ const menu: NavItem[] = [
   { title: "Features", url: "#features" },
   { title: "How It Works", url: "#how-it-works" },
   { title: "Pricing", url: "#pricing" },
-  { title: "Testimonials", url: "#testimonials" },
   { title: "FAQ", url: "#faq" },
 ];
 
@@ -42,7 +41,7 @@ function CloseIcon() {
   );
 }
 
-export function LandingNavbar({ onLoginClick }: { onLoginClick?: () => void }) {
+export function LandingNavbar({ onTryPreview }: { onTryPreview: () => void }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const mobileId = useMemo(() => "sa-mobile-nav", []);
@@ -68,10 +67,10 @@ export function LandingNavbar({ onLoginClick }: { onLoginClick?: () => void }) {
       className={`sa-nav${scrolled ? " sa-nav--scrolled" : ""}`}
       aria-label="Site header"
     >
-      <a className="sa-nav__brand" href="#top">
+      <a className="sa-nav__brand" href="#top" aria-label="Sacatucuenta, back to top">
         <img
           src="/sacatucuenta-logo.png"
-          alt="Sacatucuenta logo"
+          alt=""
           width={768}
           height={768}
           loading="eager"
@@ -88,12 +87,9 @@ export function LandingNavbar({ onLoginClick }: { onLoginClick?: () => void }) {
       </nav>
 
       <div className="sa-nav__actions">
-        <button type="button" className="sa-nav__login" onClick={onLoginClick}>
-          Log In
+        <button type="button" className="sa-nav__cta" onClick={onTryPreview}>
+          Try the preview
         </button>
-        <a className="sa-nav__cta" href="#contact">
-          Get Early Access
-        </a>
         <button
           type="button"
           className="sa-nav__mobileTrigger"
@@ -124,25 +120,6 @@ export function LandingNavbar({ onLoginClick }: { onLoginClick?: () => void }) {
             ))}
           </div>
 
-          <div className="sa-mobileNav__footer">
-            <button
-              type="button"
-              className="sa-nav__login"
-              onClick={() => {
-                setMobileOpen(false);
-                onLoginClick?.();
-              }}
-            >
-              Log In
-            </button>
-            <a
-              className="sa-nav__cta"
-              href="#contact"
-              onClick={() => setMobileOpen(false)}
-            >
-              Get Early Access
-            </a>
-          </div>
         </div>
       </div>
     </header>

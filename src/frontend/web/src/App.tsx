@@ -12,9 +12,9 @@ export default function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <main className="app">
+        <div className="app">
           <AppRoutes />
-        </main>
+        </div>
       </BrowserRouter>
     </AuthProvider>
   );

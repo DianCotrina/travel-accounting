@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- Landing hero now shows a labeled sample trip (ARS → USD) rendered with the app's real Money Row, including a "Not converted" expense, as honest product proof.
 - Rebuilt the dashboard around trips (impeccable critique follow-up): routes `/trips`, `/trips/new`, `/trips/:id/edit` and `/trips/:id` with Expenses · Summary · Export sections (React Router). The trip header shows the home-currency total, local total, and unconverted count.
 - Fast expense capture: amount-first form with the trip's local currency and a date inside the trip by default; sticky panel on desktop, bottom sheet with a floating "Add expense" button on phones; the form stays ready for back-to-back entry.
 - DESIGN.md Money Row for expenses (local amount, home amount and rate, or a "Not converted" marker), grouped by day, with `Intl.NumberFormat` money and tabular figures; summary tables by category and day.
@@ -18,6 +19,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+- Landing: one CTA label ("Try the preview") everywhere, and every CTA opens the preview sign-in instead of looping between anchors; the Team plan shows "Coming soon"; "Most popular" became "Recommended"; the sign-in dialog only offers what works (email + password into the preview) and names other methods as coming soon.
+- Landing structure: removed kicker labels and decorative icon tiles, fixed the heading hierarchy, a single `<main>` landmark, document title "Sacatucuenta", and a shorter page on phones (~11 → ~7.6 screens).
 - Removed `DashboardPage`, `TripsSection`, and `ExpensesSection` in favor of `src/components/trips/*`; added `react-router` and shared `useApi`, toast, backend-status, formatting, and category helpers.
 - Applied the Copper palette from `DESIGN.md` across the frontend: one token source in `tailwind.css` (the `--sc-*`/`--sa-*` aliases and ~470 hard-coded colors replaced), shadcn primitives now render the dark theme, Inter is self-hosted (`@fontsource-variable/inter`), focus states are visibly distinct from hover with a copper focus ring, glows are limited to primary actions, gradient text and neon purple/mint accents are removed, and browser surfaces (selection, caret, scrollbar) use the palette.
 - `.claude/rules/frontend-design.md` now defers to `DESIGN.md` (Copper palette, glow only on the primary action) instead of the orange/black and accent-glow rules.
@@ -26,6 +29,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
+- **Removed fabricated proof from the landing** (PRODUCT.md principle 5): usage stats band, named testimonials with star ratings, the "Trusted by" logo row, and the invented contact email.
+- Removed dead code: `LandingLoginSection`, `CategoryCatalogPreview`, `categoryCatalog`, `landingCategories.json`, `HealthCard`, the shooting-stars demo, `AnalyticsDashboardPreview`, `StatsBand`, `TestimonialsSection`, and the unused `categories.png`.
 - Dashboard no longer fails silently: every action shows progress, inline errors (backend `{ error }` and validation details), and a confirmation toast; writes are disabled with an explanation when the API is unreachable (health check with retry); deleting an expense offers Undo; archiving asks for confirmation; CSV downloads use the server's file name.
 - Dashboard accessibility: every field has a visible label, inputs use the copper focus ring, touch targets are at least 44px, each view has an `h1`, row actions name their expense, and errors are announced.
 - Fixed the dashboard top bar overflowing at phone width (the user email now truncates and the layout no longer widens past the viewport).

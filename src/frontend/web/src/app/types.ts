@@ -1,4 +1,3 @@
-export type HealthResponse = { status: string; utcNow: string };
 export type Trip = {
   id: string;
   name: string;

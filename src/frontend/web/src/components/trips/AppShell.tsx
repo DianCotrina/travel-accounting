@@ -35,9 +35,9 @@ export function AppShell() {
         </div>
       )}
 
-      <div className="sa-app__content">
+      <main className="sa-app__content">
         <Outlet />
-      </div>
+      </main>
     </div>
   );
 }

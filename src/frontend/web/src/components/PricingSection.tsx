@@ -5,7 +5,8 @@ export interface PricingPlan {
   price: string;
   subtitle: string;
   highlights: string[];
-  cta: string;
+  /** Omit for plans that aren't available yet; they show as "Coming soon". */
+  cta?: string;
   featured?: boolean;
 }
 
@@ -14,6 +15,7 @@ export interface PricingSectionProps {
   title: string;
   description: string;
   plans: PricingPlan[];
+  onTryPreview: () => void;
 }
 
 export function PricingSection({
@@ -21,12 +23,12 @@ export function PricingSection({
   title,
   description,
   plans,
+  onTryPreview,
 }: PricingSectionProps) {
   return (
     <section id={id} className="sa-pricingSection" aria-labelledby="sa-pricing-title">
       <div className="sa-section-inner">
         <header className="sa-section-header--centered">
-          <p className="sa-kicker">Pricing</p>
           <h2 id="sa-pricing-title">{title}</h2>
           <p>{description}</p>
         </header>
@@ -42,7 +44,7 @@ export function PricingSection({
               }
             >
               {plan.featured ? (
-                <p className="sa-pricingSection__badge">Most Popular</p>
+                <p className="sa-pricingSection__badge">Recommended</p>
               ) : null}
               <p className="sa-pricingSection__name">{plan.name}</p>
               <div className="sa-pricingSection__price">
@@ -54,12 +56,17 @@ export function PricingSection({
                   <li key={item}>{item}</li>
                 ))}
               </ul>
-              <a
-                className={plan.featured ? "sa-btn sa-btn--primary" : "sa-btn sa-btn--ghost"}
-                href="#contact"
-              >
-                {plan.cta}
-              </a>
+              {plan.cta ? (
+                <button
+                  type="button"
+                  className={plan.featured ? "sa-btn sa-btn--primary" : "sa-btn sa-btn--ghost"}
+                  onClick={onTryPreview}
+                >
+                  {plan.cta}
+                </button>
+              ) : (
+                <p className="sa-pricingSection__soon">Coming soon</p>
+              )}
             </article>
           ))}
         </div>
