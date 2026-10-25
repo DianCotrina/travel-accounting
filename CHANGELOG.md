@@ -8,11 +8,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- Added `DESIGN.md` and `.impeccable/design.json`: the "Ember After Dark" design system with the new Copper-on-graphite palette (replacing the neon orange), type scale, spacing, radii, components, and rules (One Copper, Single Glow, Tabular Money, Paired Currency). The code still uses the old palette until it is applied.
 - Added `PRODUCT.md` (Impeccable product context): users (nomads, business travelers, friends/couples — equal weight), purpose, positioning, bilingual ES/EN requirement, real pricing, and the rule that no proof is fabricated.
 - Added `docs/PRD.md` describing the current MVP scope (v0.1.0), known issues, next-version requirements, success metrics, and open product questions.
 
 ### Changed
 
+- `.claude/rules/frontend-design.md` now defers to `DESIGN.md` (Copper palette, glow only on the primary action) instead of the orange/black and accent-glow rules.
 - **BREAKING (workflow):** Linear history on `main`. PRs merge only via "Rebase and merge" (merge commits and squash disabled; branch protection requires linear history). Branches are updated with `git pull --rebase` / `git rebase origin/main` (or `--onto`) and republished with `--force-with-lease`; auto-merge uses `--auto --rebase`. `guard-branch` blocks non-fast-forward `git merge`, `git pull` without rebase, and non-rebase PR merges.
 - Pull requests to `main` get auto-merge enabled as soon as they are opened; required checks gate the merge. Pre-approved for Claude Code in `.claude/settings.json`, and `guard-branch` blocks `gh pr merge --admin` and merges without `--auto`.
 
