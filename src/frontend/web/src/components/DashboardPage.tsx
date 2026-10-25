@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import type { FormEvent } from "react";
 import { LogOut } from "lucide-react";
 import { useAuth } from "@/app/AuthContext";
+import { apiRoutes } from "@/app/apiRoutes";
 import type {
   CountryReference,
   ExchangeRate,
@@ -79,8 +80,8 @@ export function DashboardPage() {
     (async () => {
       try {
         const [t, c] = await Promise.all([
-          api<Trip[]>("/api/trips"),
-          api<CountryReference[]>("/api/countries"),
+          api<Trip[]>(apiRoutes.trips()),
+          api<CountryReference[]>(apiRoutes.countries()),
         ]);
         setTrips(t);
         setCountries(c);
@@ -98,9 +99,9 @@ export function DashboardPage() {
     (async () => {
       try {
         const [e, r, l] = await Promise.all([
-          api<Expense[]>(`/api/trips/${selectedExpensesTripId}/expenses`),
-          api<ExchangeRate[]>(`/api/trips/${selectedExpensesTripId}/exchange-rates`),
-          api<LedgerSummary>(`/api/trips/${selectedExpensesTripId}/ledger`),
+          api<Expense[]>(apiRoutes.expenses(selectedExpensesTripId)),
+          api<ExchangeRate[]>(apiRoutes.exchangeRates(selectedExpensesTripId)),
+          api<LedgerSummary>(apiRoutes.ledgerSummary(selectedExpensesTripId)),
         ]);
         setExpenses(e);
         setExchangeRates(r);
@@ -118,13 +119,13 @@ export function DashboardPage() {
       if (!backendAvailable) return;
       try {
         if (selectedTripId) {
-          const updated = await api<Trip>(`/api/trips/${selectedTripId}`, {
+          const updated = await api<Trip>(apiRoutes.trip(selectedTripId), {
             method: "PUT",
             body: JSON.stringify(tripForm),
           });
           setTrips((prev) => prev.map((t) => (t.id === updated.id ? updated : t)));
         } else {
-          const created = await api<Trip>("/api/trips", {
+          const created = await api<Trip>(apiRoutes.trips(), {
             method: "POST",
             body: JSON.stringify(tripForm),
           });
@@ -160,7 +161,7 @@ export function DashboardPage() {
     async (tripId: string) => {
       if (!backendAvailable) return;
       try {
-        const updated = await api<Trip>(`/api/trips/${tripId}/archive`, { method: "POST" });
+        const updated = await api<Trip>(apiRoutes.archiveTrip(tripId), { method: "POST" });
         setTrips((prev) => prev.map((t) => (t.id === updated.id ? updated : t)));
       } catch {
         /* backend error */
@@ -177,13 +178,13 @@ export function DashboardPage() {
       try {
         if (selectedExpenseId) {
           const updated = await api<Expense>(
-            `/api/trips/${selectedExpensesTripId}/expenses/${selectedExpenseId}`,
+            apiRoutes.expense(selectedExpensesTripId, selectedExpenseId),
             { method: "PUT", body: JSON.stringify(expenseForm) },
           );
           setExpenses((prev) => prev.map((e) => (e.id === updated.id ? updated : e)));
         } else {
           const created = await api<Expense>(
-            `/api/trips/${selectedExpensesTripId}/expenses`,
+            apiRoutes.expenses(selectedExpensesTripId),
             { method: "POST", body: JSON.stringify(expenseForm) },
           );
           setExpenses((prev) => [...prev, created]);
@@ -227,7 +228,7 @@ export function DashboardPage() {
     async (expenseId: string) => {
       if (!backendAvailable || !selectedExpensesTripId) return;
       try {
-        await api(`/api/trips/${selectedExpensesTripId}/expenses/${expenseId}`, {
+        await api(apiRoutes.expense(selectedExpensesTripId, expenseId), {
           method: "DELETE",
         });
         setExpenses((prev) => prev.filter((e) => e.id !== expenseId));
@@ -242,12 +243,8 @@ export function DashboardPage() {
   const handleLoadReportSummary = useCallback(async () => {
     if (!backendAvailable || !selectedExpensesTripId) return;
     try {
-      const params = new URLSearchParams();
-      if (reportFilters.fromDate) params.set("fromDate", reportFilters.fromDate);
-      if (reportFilters.toDate) params.set("toDate", reportFilters.toDate);
-      if (reportFilters.category) params.set("category", reportFilters.category);
       const summary = await api<ReportSummary>(
-        `/api/trips/${selectedExpensesTripId}/report?${params}`,
+        apiRoutes.reportSummary(selectedExpensesTripId, reportFilters),
       );
       setReportSummary(summary);
     } catch {
@@ -258,12 +255,8 @@ export function DashboardPage() {
   const handleDownloadReportCsv = useCallback(async () => {
     if (!backendAvailable || !selectedExpensesTripId) return;
     try {
-      const params = new URLSearchParams();
-      if (reportFilters.fromDate) params.set("fromDate", reportFilters.fromDate);
-      if (reportFilters.toDate) params.set("toDate", reportFilters.toDate);
-      if (reportFilters.category) params.set("category", reportFilters.category);
       const res = await fetch(
-        `/api/trips/${selectedExpensesTripId}/report/csv?${params}`,
+        apiRoutes.reportCsv(selectedExpensesTripId, reportFilters),
         {
           headers: token ? { Authorization: `Bearer ${token}` } : undefined,
         },
