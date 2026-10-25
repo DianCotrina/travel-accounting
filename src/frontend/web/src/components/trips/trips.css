@@ -1,0 +1,887 @@
+/* Authenticated app (Operate mode). Tokens and rules: DESIGN.md / tailwind.css. */
+
+.sa-app {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  grid-template-columns: minmax(0, 1fr);
+  background: var(--graphite);
+  color: var(--ivory);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Top bar ── */
+.sa-app__topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 3.5rem;
+  padding: 0.5rem clamp(1rem, 3vw, 1.5rem);
+  border-bottom: 1px solid var(--graphite-border);
+  background: color-mix(in oklab, var(--graphite-surface) 92%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+.sa-app__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--ivory);
+  font-weight: 700;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.sa-app__logo {
+  border-radius: 6px;
+}
+
+.sa-app__user {
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.sa-app__email {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.82rem;
+  color: var(--stone);
+}
+
+.sa-app__banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  padding: 0.6rem clamp(1rem, 3vw, 1.5rem);
+  border-bottom: 1px solid color-mix(in oklab, var(--warning) 35%, transparent);
+  background: color-mix(in oklab, var(--warning) 10%, var(--graphite));
+  color: var(--warning);
+  font-size: 0.85rem;
+}
+
+.sa-app__bannerAction {
+  min-height: 2.25rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--warning) 45%, transparent);
+  background: transparent;
+  color: var(--warning);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sa-app__content {
+  width: 100%;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: clamp(1rem, 3vw, 2rem) clamp(1rem, 3vw, 1.5rem) 6rem;
+}
+
+/* ── Page scaffolding ── */
+.sa-page {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.sa-page--narrow {
+  max-width: 40rem;
+}
+
+.sa-page__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.sa-page__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+
+.sa-page__section {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.sa-sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--ivory);
+  text-align: left;
+}
+
+.sa-count {
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  background: var(--graphite-raised);
+  color: var(--stone);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.sa-backLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  color: var(--stone);
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+
+.sa-backLink:hover {
+  color: var(--ivory);
+}
+
+.sa-surface {
+  padding: 1.25rem;
+  border: 1px solid var(--graphite-border);
+  border-radius: 14px;
+  background: var(--graphite-surface);
+}
+
+.sa-loading,
+.sa-note {
+  margin: 0;
+  color: var(--stone);
+  font-size: 0.9rem;
+}
+
+.sa-note--warning {
+  color: var(--warning);
+}
+
+.sa-inlineError {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid color-mix(in oklab, var(--danger) 40%, transparent);
+  border-radius: 14px;
+  background: color-mix(in oklab, var(--danger) 8%, var(--graphite-surface));
+  color: var(--ivory);
+}
+
+.sa-inlineError p {
+  margin: 0;
+}
+
+.sa-empty {
+  display: grid;
+  justify-items: start;
+  gap: 0.5rem;
+  padding: 2rem 1.5rem;
+  border: 1px dashed var(--graphite-border-strong);
+  border-radius: 14px;
+}
+
+.sa-empty__title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.sa-empty__body {
+  margin: 0 0 0.5rem;
+  max-width: 52ch;
+  color: var(--stone);
+}
+
+.sa-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid var(--graphite-border);
+  background: var(--graphite-raised);
+  color: var(--stone);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ── Buttons (DESIGN.md: one copper primary per view) ── */
+.sa-btn-primary,
+.sa-btn-secondary,
+.sa-btn-ghost,
+.sa-btn-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-height: 2.75rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.sa-btn-primary svg,
+.sa-btn-secondary svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.sa-btn-primary {
+  border-color: var(--copper-deep);
+  background: linear-gradient(180deg, var(--copper-light) 0%, var(--copper) 100%);
+  color: var(--graphite);
+  box-shadow: var(--shadow-cta);
+}
+
+.sa-btn-primary:hover:not(:disabled, [aria-disabled="true"]) {
+  background: var(--copper-light);
+  box-shadow: var(--shadow-cta-hover);
+  transform: translateY(-1px);
+}
+
+.sa-btn-primary:active:not(:disabled) {
+  background: var(--copper-deep);
+  color: var(--ivory);
+  transform: translateY(0);
+}
+
+.sa-btn-secondary {
+  border-color: var(--graphite-border);
+  background: var(--graphite-raised);
+  color: var(--ivory);
+}
+
+.sa-btn-secondary:hover:not(:disabled) {
+  border-color: var(--graphite-border-strong);
+  background: var(--graphite-border);
+}
+
+.sa-btn-secondary--sm,
+.sa-btn-ghost--sm {
+  min-height: 2.25rem;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8rem;
+}
+
+.sa-btn-ghost {
+  background: transparent;
+  color: var(--stone);
+}
+
+.sa-btn-ghost:hover:not(:disabled) {
+  background: var(--graphite-raised);
+  color: var(--ivory);
+}
+
+.sa-btn-ghost--danger:hover:not(:disabled) {
+  color: var(--danger);
+}
+
+.sa-btn-danger {
+  border-color: color-mix(in oklab, var(--danger) 55%, transparent);
+  background: color-mix(in oklab, var(--danger) 14%, var(--graphite-raised));
+  color: var(--danger);
+}
+
+.sa-btn-danger:hover:not(:disabled) {
+  background: color-mix(in oklab, var(--danger) 22%, var(--graphite-raised));
+}
+
+.sa-btn-primary:disabled,
+.sa-btn-primary[aria-disabled="true"],
+.sa-btn-secondary:disabled,
+.sa-btn-ghost:disabled,
+.sa-btn-danger:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  box-shadow: none;
+}
+
+.sa-btn-primary:focus-visible,
+.sa-btn-secondary:focus-visible,
+.sa-btn-ghost:focus-visible,
+.sa-btn-danger:focus-visible,
+.sa-iconBtn:focus-visible {
+  outline: 2px solid var(--copper);
+  outline-offset: 2px;
+}
+
+.sa-iconBtn {
+  display: inline-grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 10px;
+  border: 1px solid var(--graphite-border);
+  background: var(--graphite-raised);
+  color: var(--ivory);
+  cursor: pointer;
+}
+
+.sa-iconBtn svg {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+/* ── Forms ── */
+.sa-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.sa-form__row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+  gap: 1rem;
+}
+
+.sa-form__row--amount {
+  grid-template-columns: minmax(0, 2fr) minmax(6rem, 1fr);
+}
+
+.sa-form__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.sa-form__error {
+  margin: 0;
+  color: var(--danger);
+  font-size: 0.875rem;
+}
+
+.sa-form__hint {
+  margin: 0;
+  color: var(--stone);
+  font-size: 0.82rem;
+}
+
+.sa-field {
+  display: grid;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.sa-field__label {
+  color: var(--stone);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.sa-field__hint {
+  margin: 0;
+  color: var(--ash);
+  font-size: 0.78rem;
+}
+
+.sa-field__error {
+  margin: 0;
+  color: var(--danger);
+  font-size: 0.8rem;
+}
+
+.sa-input {
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.6rem 0.85rem;
+  border: 1px solid var(--graphite-border);
+  border-radius: 10px;
+  background: var(--graphite);
+  color: var(--ivory);
+  font: inherit;
+  font-size: 0.95rem;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.sa-input::placeholder {
+  color: var(--ash);
+}
+
+.sa-input:hover {
+  border-color: var(--graphite-border-strong);
+}
+
+.sa-input:focus-visible {
+  outline: none;
+  border-color: var(--copper);
+  box-shadow: var(--focus-ring);
+}
+
+.sa-input[aria-invalid="true"] {
+  border-color: var(--danger);
+}
+
+.sa-input--amount {
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* ── Trips list ── */
+.sa-tripList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sa-tripCard {
+  display: grid;
+  gap: 0.35rem;
+  height: 100%;
+  padding: 1.1rem 1.25rem;
+  border: 1px solid var(--graphite-border);
+  border-radius: 14px;
+  background: var(--graphite-surface);
+  color: var(--ivory);
+  text-decoration: none;
+  transition:
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.sa-tripCard:hover {
+  border-color: var(--graphite-border-strong);
+  transform: translateY(-2px);
+}
+
+.sa-tripCard__name {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.sa-tripCard__meta,
+.sa-tripCard__currencies {
+  color: var(--stone);
+  font-size: 0.85rem;
+}
+
+.sa-tripList--archived .sa-tripCard {
+  background: transparent;
+}
+
+/* ── Trip view ── */
+.sa-trip__header {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.sa-trip__titleRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.sa-trip__meta {
+  margin: 0.35rem 0 0;
+  color: var(--stone);
+  font-size: 0.9rem;
+}
+
+.sa-trip__total {
+  display: grid;
+  justify-items: end;
+  gap: 0.15rem;
+  text-align: right;
+}
+
+.sa-trip__totalHome {
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.sa-trip__totalLocal {
+  color: var(--stone);
+  font-size: 0.875rem;
+}
+
+.sa-trip__missing {
+  color: var(--warning);
+  font-size: 0.8rem;
+}
+
+.sa-trip__tools {
+  display: flex;
+  gap: 0.25rem;
+  margin-left: -0.6rem;
+}
+
+.sa-tabs {
+  display: flex;
+  gap: 0.25rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  border-bottom: 1px solid var(--graphite-border);
+}
+
+.sa-tabs__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0 0.9rem;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  color: var(--stone);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    color 160ms ease,
+    border-color 160ms ease;
+}
+
+.sa-tabs__link:hover {
+  color: var(--ivory);
+}
+
+.sa-tabs__link[aria-current="page"] {
+  border-bottom-color: var(--copper);
+  color: var(--ivory);
+}
+
+/* ── Expenses: entry + list ── */
+.sa-expenses {
+  display: grid;
+  grid-template-columns: minmax(18rem, 22rem) minmax(0, 1fr);
+  align-items: start;
+  gap: 1.5rem;
+}
+
+.sa-expenses__entry {
+  position: sticky;
+  top: 5rem;
+  padding: 1.25rem;
+  border: 1px solid var(--graphite-border);
+  border-radius: 14px;
+  background: var(--graphite-surface);
+}
+
+.sa-expenses__list {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.sa-expenses__close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+}
+
+.sa-dayGroup {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.sa-dayGroup__title {
+  margin: 0;
+  color: var(--ash);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.sa-moneyList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sa-money {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "main amounts"
+    "actions actions";
+  align-items: center;
+  gap: 0.25rem 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--graphite-border);
+}
+
+.sa-money--compact {
+  grid-template-areas: "main amounts";
+}
+
+.sa-money__main {
+  grid-area: main;
+  display: grid;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.sa-money__note {
+  overflow-wrap: anywhere;
+  font-weight: 600;
+}
+
+.sa-money__meta {
+  color: var(--stone);
+  font-size: 0.8rem;
+}
+
+.sa-money__amounts {
+  grid-area: amounts;
+  display: grid;
+  justify-items: end;
+  gap: 0.15rem;
+  text-align: right;
+}
+
+.sa-money__local {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.sa-money__home {
+  color: var(--stone);
+  font-size: 0.8rem;
+}
+
+.sa-money__rate {
+  color: var(--ash);
+}
+
+.sa-money__missing {
+  padding: 0.1rem 0.5rem;
+  border: 1px solid color-mix(in oklab, var(--warning) 40%, transparent);
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--warning) 10%, transparent);
+  color: var(--warning);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.sa-money__actions {
+  grid-area: actions;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.25rem;
+}
+
+/* ── Summary and export ── */
+.sa-summary,
+.sa-export {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.sa-summary__totals {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+  gap: 1rem;
+  margin: 0;
+}
+
+.sa-summary__totals > div {
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--graphite-border);
+  border-radius: 14px;
+  background: var(--graphite-surface);
+}
+
+.sa-summary__totals dt {
+  color: var(--stone);
+  font-size: 0.82rem;
+}
+
+.sa-summary__totals dd {
+  margin: 0.25rem 0 0;
+}
+
+.sa-numeric {
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.sa-numeric--secondary {
+  color: var(--stone);
+  font-size: 1.1rem;
+}
+
+.sa-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.sa-table__caption {
+  caption-side: top;
+  margin-bottom: 0.5rem;
+  color: var(--ivory);
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-align: left;
+}
+
+.sa-table th,
+.sa-table td {
+  padding: 0.65rem 0.5rem;
+  border-bottom: 1px solid var(--graphite-border);
+  text-align: left;
+}
+
+.sa-table thead th {
+  color: var(--ash);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.sa-table tbody th {
+  font-weight: 600;
+}
+
+.sa-table__num {
+  text-align: right !important;
+  white-space: nowrap;
+}
+
+.sa-table__missing {
+  color: var(--warning);
+  font-size: 0.78rem;
+}
+
+.sa-form__row--three {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
+}
+
+.sa-export__preview {
+  display: grid;
+  gap: 0.5rem;
+}
+
+/* ── Toasts ── */
+.sa-toasts {
+  position: fixed;
+  left: 50%;
+  bottom: 1.25rem;
+  z-index: 60;
+  display: grid;
+  gap: 0.5rem;
+  width: min(calc(100% - 2rem), 26rem);
+  transform: translateX(-50%);
+}
+
+.sa-toast {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--graphite-border);
+  border-radius: 12px;
+  background: var(--graphite-raised);
+  box-shadow: var(--shadow-float);
+  color: var(--ivory);
+  font-size: 0.875rem;
+}
+
+.sa-toast--error {
+  border-color: color-mix(in oklab, var(--danger) 55%, transparent);
+}
+
+.sa-toast__action {
+  min-height: 2.25rem;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid var(--graphite-border-strong);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--copper-light);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ── Phone layout: list first, entry in a bottom sheet ── */
+.sa-fab {
+  position: fixed;
+  right: 1rem;
+  bottom: calc(1rem + env(safe-area-inset-bottom));
+  z-index: 30;
+  min-height: 3.25rem;
+  padding-inline: 1.25rem;
+  border-radius: 999px;
+}
+
+.sa-sheetBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: color-mix(in oklab, var(--shadow-color) 60%, transparent);
+}
+
+@media (max-width: 48rem) {
+  .sa-expenses {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sa-expenses__entry--sheet {
+    position: fixed;
+    inset: auto 0 0 0;
+    top: auto;
+    z-index: 50;
+    max-height: 88vh;
+    overflow-y: auto;
+    padding: 1.25rem 1rem calc(1.25rem + env(safe-area-inset-bottom));
+    border-radius: 20px 20px 0 0;
+    box-shadow: var(--shadow-float);
+  }
+
+  .sa-trip__total {
+    justify-items: start;
+    text-align: left;
+  }
+
+  /* Top on phones so toasts never cover the bottom sheet or the add button. */
+  .sa-toasts {
+    top: 4rem;
+    bottom: auto;
+  }
+}

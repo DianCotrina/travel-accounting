@@ -13,6 +13,7 @@ function reportQuery(filters: ReportFilterState): string {
 }
 
 export const apiRoutes = {
+  health: () => "/api/health",
   trips: () => "/api/trips",
   trip: (tripId: string) => `/api/trips/${tripId}`,
   archiveTrip: (tripId: string) => `/api/trips/${tripId}/archive`,

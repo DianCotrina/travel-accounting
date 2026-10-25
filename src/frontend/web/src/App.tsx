@@ -1,18 +1,21 @@
+import { BrowserRouter } from "react-router";
 import { AuthProvider, useAuth } from "./app/AuthContext";
 import { LandingPage } from "./components/LandingPage";
-import { DashboardPage } from "./components/DashboardPage";
+import { DashboardRoutes } from "./components/trips/DashboardRoutes";
 
 function AppRoutes() {
   const { user } = useAuth();
-  return user ? <DashboardPage /> : <LandingPage />;
+  return user ? <DashboardRoutes /> : <LandingPage />;
 }
 
 export default function App() {
   return (
     <AuthProvider>
-      <main className="app">
-        <AppRoutes />
-      </main>
+      <BrowserRouter>
+        <main className="app">
+          <AppRoutes />
+        </main>
+      </BrowserRouter>
     </AuthProvider>
   );
 }
