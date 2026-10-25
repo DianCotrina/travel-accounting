@@ -35,12 +35,28 @@ docs/                               PRD, architecture, workflow diagrams
 ```
 Feature modules (Trips, Expenses, ExchangeRates, AccountingLedger, ReportsExport, Audit, Auth) are folders inside each layer project.
 
-## Branching Strategy
-- Base release branch: `release/2026.1.0`.
-- Never commit or push directly to `main` or `release/*`.
-- New work starts in its own branch created from `release/2026.1.0`:
+## Branching Strategy (trunk-based)
+- `main` is the only long-lived branch and always releasable. There are no release branches; releases are SemVer tags on `main`.
+- Never commit or push directly to `main`. All changes reach `main` through a pull request.
+- New work starts in a short-lived branch created from the latest `origin/main`:
   - `module/<module-name>` for features/modules, `fix/<topic>`, `docs/<topic>`, `chore/<topic>` otherwise.
-- New branches must not track `release/*` as upstream; publish with `git push -u origin HEAD`.
+- New branches must not track `main` as upstream; publish with `git push -u origin HEAD`.
+- Merge PRs with a merge commit or squash whose message follows Conventional Commits (see below).
+
+## Versioning (SemVer 2.0.0)
+- Version format `MAJOR.MINOR.PATCH`; current line is `0.x` (pre-1.0: the API is not yet stable, breaking changes bump MINOR).
+- Bump rules (from 1.0.0 on): breaking change → MAJOR, new backwards-compatible feature → MINOR, backwards-compatible fix → PATCH. While on `0.x`: breaking → MINOR, feature or fix → PATCH.
+- The version lives in exactly two places and must always match:
+  - `src/backend/Directory.Build.props` → `<Version>`
+  - `src/frontend/web/package.json` (and `package-lock.json`) → `"version"`
+- A release is the tag `vX.Y.Z` (annotated) on a `main` commit, plus a `CHANGELOG.md` section `## [X.Y.Z] - YYYY-MM-DD`. Use the `release` skill; never retag or move a published tag.
+
+## Commit Messages (Conventional Commits 1.0.0)
+- Format: `<type>(<optional scope>): <imperative summary>`; subject ≤ 72 characters, no trailing period.
+- Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`.
+- Scopes (optional): module or area, e.g. `trips`, `expenses`, `exchange-rates`, `ledger`, `reports`, `audit`, `auth`, `frontend`, `backend`, `deps`, `release`.
+- Breaking changes: `!` after the type/scope (`feat(api)!: …`) and a `BREAKING CHANGE: …` footer explaining the migration.
+- The commit types since the last tag determine the next version bump.
 
 ## Engineering Rules
 - Optimize for correctness, clarity, and reliability over speed.
@@ -75,9 +91,10 @@ If a required tool is missing (no .NET SDK, no `node_modules`), say so explicitl
 
 ## Delivery Workflow
 - After code changes, run the required checks.
-- If checks pass, commit and push automatically to the current working branch (never `main` or `release/*`).
+- If checks pass, commit and push automatically to the current working branch (never `main`).
 - If checks fail, report the failures clearly and do not commit or push until resolved.
-- Commit messages: imperative, concise subject describing the change (e.g. `Add CSV export for trip reports`).
+- Commit messages follow Conventional Commits (e.g. `feat(reports): add CSV export for trip reports`).
+- Open pull requests against `main`.
 - In PowerShell, do not chain commands with `&&`; use `;` or separate commands.
 
 ## Definition of Done (per module or feature)
@@ -88,5 +105,5 @@ If a required tool is missing (no .NET SDK, no `node_modules`), say so explicitl
 
 ## Documentation
 - Keep `README.md` and code-level docs aligned with behavior.
-- Record notable user-facing or architectural changes in `CHANGELOG.md` under `[Unreleased]`.
+- Record notable user-facing or architectural changes in `CHANGELOG.md` under `[Unreleased]` (Keep a Changelog groups: Added, Changed, Deprecated, Removed, Fixed, Security). Breaking changes are marked **BREAKING**.
 - Repository docs are written in English.

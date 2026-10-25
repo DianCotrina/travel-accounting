@@ -1,12 +1,12 @@
 // Stop gate: before a turn ends, run the required checks for every area changed on this branch
-// (vs release/2026.1.0, including uncommitted and untracked files). A passing working tree is
+// (vs origin/main, including uncommitted and untracked files). A passing working tree is
 // remembered by its git tree hash, so unchanged work is not re-verified (e.g. after committing).
 import { existsSync, rmSync } from "node:fs";
 import path from "node:path";
 import { block, git, hasCommand, projectDir, readInput, readState, run, stateFile, tail, writeState } from "./lib.mjs";
 
 const MAX_BLOCKS = 3;
-const BASE_REF = "origin/release/2026.1.0";
+const BASE_REF = "origin/main";
 
 const input = readInput();
 const dir = projectDir(input);

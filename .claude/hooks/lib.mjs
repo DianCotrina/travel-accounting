@@ -3,7 +3,7 @@ import { spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
-export const PROTECTED_BRANCH = /^(main|master|release\/.+)$/;
+export const PROTECTED_BRANCH = /^(main|master)$/;
 
 export function readInput() {
   const raw = readFileSync(0, "utf8");

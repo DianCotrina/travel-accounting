@@ -1,6 +1,6 @@
 ---
 name: new-module
-description: Start and deliver a new feature module in travel-accounting (branch from release/2026.1.0, vertical slices across Domain/Application/Infrastructure/API/frontend, tests, docs). Use when the user asks to build a new module, phase, or feature area.
+description: Start and deliver a new feature module in travel-accounting (branch from main, vertical slices across Domain/Application/Infrastructure/API/frontend, tests, docs). Use when the user asks to build a new module, phase, or feature area.
 ---
 
 # New Module
@@ -10,7 +10,7 @@ Deliver a module as one vertical slice that meets the Definition of Done in `AGE
 ## 1. Branch
 ```bash
 git fetch origin
-git switch -c module/<module-name> origin/release/2026.1.0
+git switch -c module/<module-name> origin/main
 git branch --unset-upstream
 ```
 Confirm `git branch --show-current` is the new branch before editing anything.
@@ -33,7 +33,7 @@ Confirm `git branch --show-current` is the new branch before editing anything.
 
 ## 5. Docs
 - `README.md`: new section `## <Module> Module (Phase N)` listing endpoints and UI behavior.
-- `CHANGELOG.md` `[Unreleased]`: Added/Changed entries.
+- `CHANGELOG.md` `[Unreleased]`: Added/Changed entries (mark **BREAKING** changes).
 - `DEVELOPMENT_PLAN.md`: mark status and set the next module.
 - `docs/PRD.md`: update requirement status / resolved questions if applicable.
 

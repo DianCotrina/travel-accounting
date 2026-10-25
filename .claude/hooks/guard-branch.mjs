@@ -1,4 +1,5 @@
-// PreToolUse guard: no edits, commits, merges, or pushes on main/release branches; no force pushes.
+// PreToolUse guard: no edits, commits, merges, or pushes while on main; no force pushes; no pushes
+// targeting main. Pushing release tags (vX.Y.Z) is allowed from any branch.
 import { PROTECTED_BRANCH, block, currentBranch, isInside, projectDir, readInput } from "./lib.mjs";
 
 const input = readInput();
@@ -10,7 +11,7 @@ const onProtected = PROTECTED_BRANCH.test(branch);
 const tool = input.tool_name;
 const toolInput = input.tool_input ?? {};
 
-const fix = "Create a working branch first: git switch -c module/<name> origin/release/2026.1.0 && git branch --unset-upstream";
+const fix = "Create a working branch first: git switch -c <type>/<name> origin/main && git branch --unset-upstream";
 
 if (tool !== "Bash") {
   const file = toolInput.file_path ?? toolInput.notebook_path;
@@ -32,10 +33,11 @@ for (const segment of segments) {
     if (/(^|\s)(--force|-f)(\s|$)/.test(args)) {
       block("guard-branch: force push is not allowed. Use --force-with-lease on your own working branch only if strictly necessary.");
     }
-    if (/(^|[\s:+])(main|master|release\/\S+)(\s|$)/.test(args)) {
-      block("guard-branch: pushing to main/release branches is not allowed. Open a pull request from your working branch instead.");
+    if (/(^|[\s:+])(refs\/heads\/)?(main|master)(\s|$)/.test(args)) {
+      block("guard-branch: pushing to main is not allowed. Open a pull request from your working branch instead.");
     }
-    if (onProtected && !switchesBranch) {
+    const tagOnly = /(^|\s)(--tags|refs\/tags\/\S+|v\d+\.\d+\.\d+\S*)(\s|$)/.test(args) && !/(^|\s)HEAD(\s|:|$)/.test(args);
+    if (onProtected && !switchesBranch && !tagOnly) {
       block(`guard-branch: pushing while on protected branch '${branch}' is not allowed.\n${fix}`);
     }
   }

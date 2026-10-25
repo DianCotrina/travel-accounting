@@ -33,5 +33,5 @@ description: Change the travel-accounting PostgreSQL schema with EF Core migrati
 6. Record the migration in `CHANGELOG.md`.
 
 ## Never
-- Edit or delete a migration that exists on `release/*`; add a new corrective migration instead.
+- Edit or delete a migration that has been merged into `main`; add a new corrective migration instead.
 - Commit real connection strings or passwords.

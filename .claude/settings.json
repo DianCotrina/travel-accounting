@@ -13,6 +13,12 @@
         "hooks": [
           { "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/guard-patterns.mjs\"", "timeout": 15 }
         ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/guard-commit-msg.mjs\"", "timeout": 15 }
+        ]
       }
     ],
     "PostToolUse": [

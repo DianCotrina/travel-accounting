@@ -18,10 +18,12 @@ Use the matching skill instead of improvising the workflow:
 - `add-endpoint` — add or change an API endpoint end-to-end (domain → API → frontend call → tests).
 - `ef-migration` — change the database schema safely with EF Core migrations.
 - `ship` — final verification, docs, commit, and push for the current branch.
+- `release` — cut a SemVer release from `main`: compute the bump, update versions and `CHANGELOG.md`, tag `vX.Y.Z`.
 
 ### Guards (`.claude/hooks/`, wired in `.claude/settings.json`)
 These run automatically; treat a block as a real defect to fix, not something to work around:
-- `guard-branch` — blocks edits, commits, and pushes on `main`/`release/*`, force pushes, and pushes to those branches.
+- `guard-branch` — blocks edits, commits, and pushes while on `main`, force pushes, and pushes targeting `main` (tag pushes are allowed).
+- `guard-commit-msg` — blocks `git commit -m` messages that are not Conventional Commits.
 - `guard-patterns` — blocks `as any`, `as unknown as`, `transition-all`, empty catch blocks, broad `catch (Exception)`, and real-looking secrets in `appsettings*.json`.
 - `post-edit-check` — after each edit, runs ESLint on edited TS/TSX files and `dotnet build` on the edited .NET project; fix reported errors before moving on.
 - `stop-gate` — before a turn ends with changes under `src/`, runs the required checks for touched areas and blocks until they pass.

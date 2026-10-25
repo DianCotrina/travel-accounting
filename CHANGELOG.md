@@ -2,12 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is inspired by Keep a Changelog, with versions listed in reverse chronological order.
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-10-25
+
+First SemVer release: consolidates all work previously delivered on `release/2026.1.0` (modules 1–10: foundation, trips, expenses, exchange rates, accounting ledger, reports export, auth/multi-user, persistence, JWT auth, audit trail) plus the landing page.
+
 ### Added
 
+- Adopted Semantic Versioning: version `0.1.0` in `src/backend/Directory.Build.props` and `src/frontend/web/package.json`, released as tag `v0.1.0`; CI verifies both versions match (and match the tag on tag builds).
+- Adopted Conventional Commits for commit messages, enforced for Claude Code by the `guard-commit-msg` hook.
+- Added `release` Claude Code skill to compute the next version, update versions and changelog, and tag releases.
 - Added shared Claude Code configuration in `.claude/`: path-scoped rules (backend, frontend, frontend design), skills (`new-module`, `add-endpoint`, `ef-migration`, `ship`), and cross-platform Node.js guard hooks (protected branches, anti-pattern/secret detection, per-edit lint/build, stop-time verification gate).
 - Added `AGENTS.md` to define Codex collaboration and engineering conventions.
 - Added `CHANGELOG.md` to track notable project changes.
@@ -72,6 +79,7 @@ The format is inspired by Keep a Changelog, with versions listed in reverse chro
 
 ### Changed
 
+- **BREAKING (workflow):** Switched to trunk-based development on `main`; `release/*` branches are retired. Work branches start from `origin/main` and merge back via pull request; releases are `vX.Y.Z` tags on `main`.
 - Rewrote `AGENTS.md` as the single source of core agent standards (current stack: EF Core + PostgreSQL, JWT, audit) and reduced `CLAUDE.md` to an import of it plus Claude-specific setup; moved frontend design rules to `.claude/rules/frontend-design.md`.
 - Changed `.gitignore` to commit shared `.claude/` config while ignoring local Claude state.
 - Replaced `AGENTS.md` template with project-specific context, modular branch strategy, and strict engineering execution rules.
@@ -141,3 +149,6 @@ The format is inspired by Keep a Changelog, with versions listed in reverse chro
 - Added shared CSS utilities: `.sa-section-inner`, `.sa-section-header--centered`, `.sa-btn--lg`.
 
 
+
+[Unreleased]: https://github.com/DianCotrina/travel-accounting/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/DianCotrina/travel-accounting/releases/tag/v0.1.0

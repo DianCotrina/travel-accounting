@@ -1169,7 +1169,7 @@ builder.Host.UseSerilog((context, config) =>
   persistence          real-auth            audit-trail          hardening
        │                    │                    │                    │
        └────────────────────┴────────────────────┴────────────────────┘
-                          All branches from release/2026.1.0
+                            All branches from main   
 ```
 
 Phases are **sequential** — each depends on the previous:
@@ -1206,7 +1206,7 @@ npm run typecheck
 npm run lint
 ```
 - [ ] `CHANGELOG.md` updated
-- [ ] Code reviewed and merged to `release/2026.1.0`
+- [ ] Code reviewed and merged to `main`
 
 ---
 

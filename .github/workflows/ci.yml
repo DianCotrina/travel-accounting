@@ -4,11 +4,31 @@ on:
   push:
     branches:
       - main
-      - release/**
-      - module/**
+    tags:
+      - "v*.*.*"
   pull_request:
+    branches:
+      - main
 
 jobs:
+  versioning:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check version consistency (SemVer)
+        run: |
+          backend=$(sed -n "s:.*<Version>\(.*\)</Version>.*:\1:p" src/backend/Directory.Build.props)
+          frontend=$(node -p "require('./src/frontend/web/package.json').version")
+          lock=$(node -p "require('./src/frontend/web/package-lock.json').version")
+          echo "backend=$backend frontend=$frontend lock=$lock"
+          echo "$backend" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$' || { echo "::error::Backend version '$backend' is not SemVer"; exit 1; }
+          [ "$backend" = "$frontend" ] && [ "$frontend" = "$lock" ] || { echo "::error::Versions differ"; exit 1; }
+          if [ "$GITHUB_REF_TYPE" = "tag" ]; then
+            [ "$GITHUB_REF_NAME" = "v$backend" ] || { echo "::error::Tag $GITHUB_REF_NAME does not match version v$backend"; exit 1; }
+          fi
+
   backend:
     runs-on: ubuntu-latest
     steps:
