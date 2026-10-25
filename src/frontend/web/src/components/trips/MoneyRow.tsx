@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { categoryLabel } from "@/app/categories";
 import { formatDateTime, formatMoney, formatRate } from "@/app/format";
 import type { Expense } from "@/app/types";
+import "./MoneyRow.css";
 
 type MoneyRowProps = {
   expense: Expense;

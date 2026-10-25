@@ -11,8 +11,8 @@ const scripts = import.meta.glob<string>(["/src/**/*.tsx", "/src/**/*.ts", "!/sr
 });
 
 const TOKEN_SOURCE = "/src/tailwind.css";
-// Third-party brand marks that must keep their official colors, and an unused vendor demo.
-const ALLOWED = new Set(["/src/components/ui/SignInModal.tsx", "/src/components/ui/shooting-stars-demo.tsx"]);
+// Files allowed to carry raw colors (none today; add third-party brand marks here with a reason).
+const ALLOWED = new Set<string>();
 const COLOR_LITERAL = /#[0-9a-f]{3,8}\b|rgba?\(\s*\d/gi;
 
 function violations(files: Record<string, string>): string[] {

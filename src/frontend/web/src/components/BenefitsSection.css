@@ -25,23 +25,6 @@
   transform: translateY(-4px);
 }
 
-.sa-benefits__cardIcon {
-  width: 3rem;
-  height: 3rem;
-  display: grid;
-  place-items: center;
-  border-radius: 0.75rem;
-  background: radial-gradient(circle at 30% 30%, color-mix(in oklab, var(--copper) 13%, transparent) 0%, transparent 70%), var(--graphite-surface);
-  border: 1px solid var(--graphite-border);
-  color: var(--copper-light);
-  margin-bottom: 1.25rem;
-}
-
-.sa-benefits__cardIcon svg {
-  width: 1.35rem;
-  height: 1.35rem;
-}
-
 .sa-benefits__card h3 {
   margin: 0 0 0.75rem;
   color: var(--ivory);

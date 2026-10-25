@@ -12,18 +12,6 @@
   border: 1px solid var(--graphite-border);
 }
 
-.sa-finalCta__glow {
-  position: absolute;
-  top: -50%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 40rem;
-  height: 40rem;
-  border-radius: 50%;
-  background: radial-gradient(circle, color-mix(in oklab, var(--copper) 13%, transparent) 0%, transparent 65%);
-  pointer-events: none;
-}
-
 .sa-finalCta__content {
   position: relative;
   z-index: 1;
@@ -106,7 +94,7 @@
   gap: 3rem;
 }
 
-.sa-footer__columns h4 {
+.sa-footer__columns h3 {
   color: var(--ivory);
   font-size: 0.8rem;
   text-transform: uppercase;

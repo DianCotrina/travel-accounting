@@ -4,11 +4,11 @@ export interface FinalCtaSectionProps {
   id?: string;
   title: string;
   description: string;
-  primaryCta: { label: string; href: string };
+  primaryCta: { label: string; onClick: () => void };
 }
 
 export function FinalCtaSection({
-  id = "contact",
+  id = "get-started",
   title,
   description,
   primaryCta,
@@ -17,14 +17,13 @@ export function FinalCtaSection({
     <section id={id} className="sa-finalCta" aria-labelledby="sa-finalCta-title">
       <div className="sa-section-inner">
         <div className="sa-finalCta__band">
-          <div className="sa-finalCta__glow" aria-hidden="true" />
           <div className="sa-finalCta__content">
             <h2 id="sa-finalCta-title">{title}</h2>
             <p>{description}</p>
             <div className="sa-finalCta__actions">
-              <a className="sa-btn sa-btn--primary sa-btn--lg" href={primaryCta.href}>
+              <button type="button" className="sa-btn sa-btn--primary sa-btn--lg" onClick={primaryCta.onClick}>
                 {primaryCta.label}
-              </a>
+              </button>
             </div>
           </div>
         </div>
@@ -41,16 +40,11 @@ export function FinalCtaSection({
           </div>
           <nav className="sa-footer__columns" aria-label="Footer navigation">
             <div>
-              <h4>Product</h4>
+              <h3>Product</h3>
               <a href="#features">Features</a>
-              <a href="#how-it-works">How It Works</a>
+              <a href="#how-it-works">How it works</a>
               <a href="#pricing">Pricing</a>
-            </div>
-            <div>
-              <h4>Resources</h4>
-              <a href="#testimonials">Testimonials</a>
               <a href="#faq">FAQ</a>
-              <a href="mailto:hello@sacatucuenta.com">Contact</a>
             </div>
           </nav>
         </div>

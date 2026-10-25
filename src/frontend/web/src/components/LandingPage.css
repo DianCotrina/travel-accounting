@@ -118,23 +118,6 @@
   margin: 0.75rem 0 0;
 }
 
-.sa-section-header--centered > p:not(.sa-kicker) {
-  color: var(--stone);
-  font-size: 1.05rem;
-  line-height: 1.6;
-  margin: 1rem auto 0;
-  max-width: 48ch;
-}
-
-.sa-kicker {
-  margin: 0;
-  color: var(--copper);
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  font-size: 0.78rem;
-  font-weight: 700;
-}
-
 /* ── Buttons ── */
 
 .sa-btn {

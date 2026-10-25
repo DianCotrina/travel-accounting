@@ -84,12 +84,6 @@
     --success: oklch(0.76 0.12 155);
     --shadow-color: oklch(0.08 0.005 55);
 
-    /* Third-party brand marks (Google sign-in icon). Not part of the product palette. */
-    --brand-google-red: #ea4335;
-    --brand-google-yellow: #fbbc05;
-    --brand-google-green: #34a853;
-    --brand-google-blue: #4285f4;
-
     /* Depth and focus (DESIGN.md Elevation & Depth) */
     --shadow-float: 0 12px 32px color-mix(in oklab, var(--shadow-color) 40%, transparent),
         0 2px 6px color-mix(in oklab, var(--shadow-color) 30%, transparent);

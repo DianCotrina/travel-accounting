@@ -8,11 +8,10 @@ interface HeroSectionDarkProps extends HTMLAttributes<HTMLDivElement> {
   };
   description?: string;
   ctaText?: string;
-  ctaHref?: string;
+  onCtaClick: () => void;
   secondaryCtaText?: string;
   secondaryCtaHref?: string;
   bottomSlot?: ReactNode;
-  trustedBy?: string[];
   gridOptions?: {
     angle?: number;
     cellSize?: number;
@@ -32,12 +31,11 @@ export function HeroSectionDark({
     gradient: "accounting clarity.",
   },
   description = "Log local-currency travel spending, monitor home-currency impact, and export clean summaries for reimbursement and bookkeeping.",
-  ctaText = "Start Free Trial",
-  ctaHref = "#pricing",
+  ctaText = "Try the preview",
+  onCtaClick,
   secondaryCtaText = "See How It Works",
   secondaryCtaHref = "#how-it-works",
   bottomSlot,
-  trustedBy,
   gridOptions,
   ...props
 }: HeroSectionDarkProps) {
@@ -70,9 +68,9 @@ export function HeroSectionDark({
         <p className="sa-heroDark__description">{description}</p>
 
         <div className="sa-heroDark__actions">
-          <a className="sa-btn sa-btn--primary sa-btn--lg" href={ctaHref}>
+          <button type="button" className="sa-btn sa-btn--primary sa-btn--lg" onClick={onCtaClick}>
             {ctaText}
-          </a>
+          </button>
           <a className="sa-btn sa-btn--ghost sa-btn--lg" href={secondaryCtaHref}>
             {secondaryCtaText}
           </a>
@@ -80,19 +78,6 @@ export function HeroSectionDark({
 
         {bottomSlot ? (
           <div className="sa-heroDark__bottom">{bottomSlot}</div>
-        ) : null}
-
-        {trustedBy && trustedBy.length > 0 ? (
-          <div className="sa-heroDark__trustedBy">
-            <p>Trusted by teams at</p>
-            <div className="sa-heroDark__logos">
-              {trustedBy.map((name) => (
-                <span key={name} className="sa-heroDark__logoPlaceholder">
-                  {name}
-                </span>
-              ))}
-            </div>
-          </div>
         ) : null}
       </div>
     </section>
