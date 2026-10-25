@@ -28,10 +28,12 @@ If any check fails: fix and re-run. If a tool is missing, stop and tell the user
 - `README.md` / `DEVELOPMENT_PLAN.md` / `docs/PRD.md` updated if behavior, endpoints, or module status changed.
 
 ## 5. Commit and push
+- Rebase onto the latest main first: `git fetch origin && git rebase origin/main` (use `git push --force-with-lease` if the branch was already pushed).
+- Every commit lands on `main` individually (rebase-and-merge): squash WIP/fixup commits with `git rebase --autosquash origin/main` so each commit is Conventional and green.
 - Stage only files that belong to this change (no screenshots, local settings, or build output).
 - Conventional Commits subject (`feat(scope): …`, `fix(scope): …`, `!` + `BREAKING CHANGE:` footer for breaking changes); body explains why when not obvious.
 - Push: `git push -u origin HEAD`, then open or update the PR against `main`.
-- Enable auto-merge right away (standing authorization, do not ask): `gh pr merge <number> --auto --merge --subject "<conventional subject> (#<number>)"`. It merges when required checks pass; never use `--admin`.
+- Enable auto-merge right away (standing authorization, do not ask): `gh pr merge <number> --auto --rebase`. It rebases and merges when required checks pass; never use `--admin`.
 
 ## 6. Report
 State what was verified (with the commands run), what was not, and the branch/commit pushed.
