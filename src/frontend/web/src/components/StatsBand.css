@@ -1,0 +1,50 @@
+.sa-statsBand {
+  padding: 4rem 0;
+  background:
+    radial-gradient(circle at 20% 50%, #ff6a1c0c 0, transparent 40%),
+    radial-gradient(circle at 80% 50%, #ff6a1c08 0, transparent 40%),
+    #060606;
+  border-top: 1px solid #1a1a1a;
+  border-bottom: 1px solid #1a1a1a;
+}
+
+.sa-statsBand__inner {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 3vw, 2.5rem);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  text-align: center;
+}
+
+.sa-statsBand__item strong {
+  display: block;
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  background: linear-gradient(180deg, #ffffff 0%, #ff8f47 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.sa-statsBand__item span {
+  display: block;
+  margin-top: 0.5rem;
+  color: var(--sa-faint);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+@media (max-width: 48rem) {
+  .sa-statsBand {
+    padding: 3rem 0;
+  }
+
+  .sa-statsBand__inner {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem 1rem;
+  }
+}

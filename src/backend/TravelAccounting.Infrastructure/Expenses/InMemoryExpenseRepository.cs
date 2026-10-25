@@ -44,4 +44,10 @@ internal sealed class InMemoryExpenseRepository : IExpenseRepository
         var removed = _expenses.TryRemove(id, out _);
         return Task.FromResult(removed);
     }
+
+    public Task SaveChangesAsync(CancellationToken cancellationToken)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+        return Task.CompletedTask;
+    }
 }

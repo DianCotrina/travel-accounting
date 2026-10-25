@@ -1,0 +1,183 @@
+.sa-heroDark {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(4rem, 8vw, 7rem) clamp(1.25rem, 3vw, 2.5rem) clamp(3rem, 6vw, 5rem);
+  background:
+    radial-gradient(ellipse at 50% -10%, #ff6a1c18 0, transparent 55%),
+    linear-gradient(180deg, #060606 0%, #030303 100%);
+}
+
+.sa-heroDark__ambient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 0%, #ff6a1c12 0, transparent 45%),
+    radial-gradient(circle at 15% 80%, #ff6a1c06 0, transparent 24%),
+    radial-gradient(circle at 85% 28%, #ff8f4705 0, transparent 20%);
+}
+
+.sa-heroDark__gridWrap {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--sa-hero-grid-opacity, 0.22);
+  mask-image: linear-gradient(to bottom, #000 12%, #000 55%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 12%, #000 55%, transparent 100%);
+}
+
+.sa-heroDark__gridPlane {
+  position: absolute;
+  inset: 0;
+  perspective: 220px;
+}
+
+.sa-heroDark__gridPlane::before {
+  content: "";
+  position: absolute;
+  inset: -35% -120% -75%;
+  transform-origin: 50% 0;
+  transform: rotateX(var(--sa-hero-grid-angle, 66deg));
+  background-image:
+    linear-gradient(to right, var(--sa-hero-grid-line, #ffffff0e) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--sa-hero-grid-line, #ffffff0e) 1px, transparent 1px);
+  background-size: var(--sa-hero-grid-size, 56px) var(--sa-hero-grid-size, 56px);
+  animation: sa-hero-grid-drift 18s linear infinite;
+}
+
+.sa-heroDark__gridFade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 0%, #040404 92%);
+}
+
+.sa-heroDark__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 72rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.sa-heroDark__title {
+  margin: 0 auto;
+  max-width: 18ch;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  color: var(--sa-text);
+  text-wrap: balance;
+}
+
+.sa-heroDark__titleAccent {
+  color: transparent;
+  background: linear-gradient(135deg, #ffc08a 0%, #ff6a1c 50%, #e05000 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.sa-heroDark__description {
+  margin: 1.5rem auto 0;
+  max-width: 52ch;
+  color: var(--sa-muted);
+  font-size: 1.15rem;
+  line-height: 1.7;
+}
+
+.sa-heroDark__actions {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.sa-heroDark__bottom {
+  margin-top: 3.5rem;
+  position: relative;
+}
+
+.sa-heroDark__bottom::before {
+  content: "";
+  position: absolute;
+  top: -3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 60%;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ff6a1c20 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Trusted-by band ── */
+
+.sa-heroDark__trustedBy {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid #1a1a1a;
+  text-align: center;
+}
+
+.sa-heroDark__trustedBy p {
+  color: var(--sa-faint);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin: 0 0 1.25rem;
+}
+
+.sa-heroDark__logos {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.sa-heroDark__logoPlaceholder {
+  color: var(--sa-faint);
+  font-size: 1rem;
+  font-weight: 700;
+  opacity: 0.5;
+  letter-spacing: 0.05em;
+}
+
+@keyframes sa-hero-grid-drift {
+  from {
+    transform: rotateX(var(--sa-hero-grid-angle, 66deg)) translateY(0);
+  }
+  to {
+    transform: rotateX(var(--sa-hero-grid-angle, 66deg)) translateY(56px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sa-heroDark__gridPlane::before {
+    animation: none;
+  }
+}
+
+@media (max-width: 48rem) {
+  .sa-heroDark__title {
+    max-width: 15ch;
+  }
+
+  .sa-heroDark__description {
+    font-size: 1rem;
+  }
+
+  .sa-heroDark__bottom {
+    margin-top: 2.5rem;
+  }
+
+  .sa-heroDark__trustedBy {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+  }
+
+  .sa-heroDark__logos {
+    gap: 1.5rem;
+  }
+}

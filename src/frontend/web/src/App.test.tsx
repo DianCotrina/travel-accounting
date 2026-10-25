@@ -1,63 +1,40 @@
-import { render, screen } from "@testing-library/react";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import App from "./App";
 
 describe("App", () => {
-  afterEach(() => {
-    vi.restoreAllMocks();
-  });
-
-  it("renders health response from the API", async () => {
-    vi.spyOn(globalThis, "fetch").mockImplementation(async (input) => {
-      const url = String(input);
-
-      if (url.endsWith("/api/health")) {
-        return {
-          ok: true,
-          json: async () => ({ status: "ok", utcNow: "2026-02-18T00:00:00Z" }),
-        } as Response;
-      }
-
-      if (url.endsWith("/api/trips")) {
-        return {
-          ok: true,
-          json: async () => [],
-        } as Response;
-      }
-
-      if (url.includes("/api/trips/") && url.endsWith("/expenses")) {
-        return {
-          ok: true,
-          json: async () => [],
-        } as Response;
-      }
-
-      if (url.includes("/api/trips/") && url.endsWith("/exchange-rates")) {
-        return {
-          ok: true,
-          json: async () => [],
-        } as Response;
-      }
-
-      if (url.endsWith("/api/reference/countries")) {
-        return {
-          ok: true,
-          json: async () => [
-            {
-              countryCode: "AR",
-              countryName: "Argentina",
-              currencyCode: "ARS",
-              currencyName: "Argentine Peso",
-            },
-          ],
-        } as Response;
-      }
-
-      throw new Error(`Unexpected URL in test: ${url}`);
-    });
-
+  it("renders the new landing page hero and pricing section", () => {
     render(<App />);
 
-    expect(await screen.findByText("Status: ok")).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", {
+        name: /travel expenses with accounting clarity/i,
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", {
+        name: /pricing for travelers and teams/i,
+      }),
+    ).toBeInTheDocument();
+    expect(screen.getAllByRole("link", { name: /start free trial/i }).length).toBeGreaterThanOrEqual(2);
+    expect(
+      screen.getByRole("link", { name: /get early access/i }),
+    ).toBeInTheDocument();
+  });
+
+  it("opens the sign-in popup when clicking login", () => {
+    render(<App />);
+
+    fireEvent.click(screen.getAllByRole("button", { name: /log in/i })[0]);
+
+    expect(
+      screen.getByRole("dialog", {
+        name: /sign in to sacatucuenta/i,
+      }),
+    ).toBeInTheDocument();
+    const dialog = screen.getByRole("dialog", { name: /sign in to sacatucuenta/i });
+    expect(dialog).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /gmail/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /email me a sign-in link/i })).toBeInTheDocument();
   });
 });

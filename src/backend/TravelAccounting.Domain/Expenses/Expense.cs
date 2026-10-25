@@ -4,8 +4,8 @@ namespace TravelAccounting.Domain.Expenses;
 
 public sealed class Expense
 {
-    public Guid Id { get; }
-    public Guid TripId { get; }
+    public Guid Id { get; private set; }
+    public Guid TripId { get; private set; }
     public ExpenseCategory Category { get; private set; }
     public Money Amount { get; private set; }
     public DateTimeOffset OccurredAtUtc { get; private set; }
@@ -45,6 +45,12 @@ public sealed class Expense
         Amount = amount ?? throw new ArgumentNullException(nameof(amount));
         OccurredAtUtc = occurredAtUtc;
         Notes = notes.Trim();
+    }
+
+    private Expense()
+    {
+        Amount = null!;
+        Notes = string.Empty;
     }
 
     public void Update(

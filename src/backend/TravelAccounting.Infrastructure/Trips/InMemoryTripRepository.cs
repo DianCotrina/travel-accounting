@@ -34,4 +34,10 @@ internal sealed class InMemoryTripRepository : ITripRepository
 
         return Task.CompletedTask;
     }
+
+    public Task SaveChangesAsync(CancellationToken cancellationToken)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+        return Task.CompletedTask;
+    }
 }

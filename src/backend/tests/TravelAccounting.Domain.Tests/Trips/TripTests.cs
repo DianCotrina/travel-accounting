@@ -10,6 +10,7 @@ public sealed class TripTests
     {
         var action = () => _ = new Trip(
             Guid.NewGuid(),
+            "test-user",
             "Argentina Vacation",
             "Argentina",
             new Currency("USD"),
@@ -25,6 +26,7 @@ public sealed class TripTests
     {
         var trip = new Trip(
             Guid.NewGuid(),
+            "test-user",
             "Argentina Vacation",
             "Argentina",
             new Currency("USD"),

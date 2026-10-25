@@ -1,10 +1,12 @@
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TravelAccounting.Application.ReportsExport;
 
 namespace TravelAccounting.Api.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("api/trips/{tripId:guid}/reports")]
 public sealed class ReportsController(IReportsExportService reportsExportService) : ControllerBase
 {

@@ -1,13 +1,16 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TravelAccounting.Application.Audit;
 using TravelAccounting.Application.Expenses;
 using TravelAccounting.Application.ExchangeRates;
 using TravelAccounting.Application.Reference;
 using TravelAccounting.Application.Trips;
-using TravelAccounting.Infrastructure.Expenses;
+using TravelAccounting.Infrastructure.Audit;
+using TravelAccounting.Infrastructure.Data;
+using TravelAccounting.Infrastructure.Data.Repositories;
 using TravelAccounting.Infrastructure.ExchangeRates;
 using TravelAccounting.Infrastructure.Reference;
-using TravelAccounting.Infrastructure.Trips;
 
 namespace TravelAccounting.Infrastructure;
 
@@ -34,9 +37,19 @@ public static class InfrastructureServiceCollectionExtensions
                 httpClient.BaseAddress = new Uri(options.BaseUrl);
             });
 
-        services.AddSingleton<ITripRepository, InMemoryTripRepository>();
-        services.AddSingleton<IExpenseRepository, InMemoryExpenseRepository>();
-        services.AddSingleton<IExchangeRateRepository, InMemoryExchangeRateRepository>();
+        var connectionString = configuration.GetConnectionString("DefaultConnection");
+        if (string.IsNullOrWhiteSpace(connectionString))
+        {
+            throw new InvalidOperationException(
+                "Connection string 'DefaultConnection' is required for persistence.");
+        }
+
+        services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
+
+        services.AddScoped<IAuditService, EfAuditService>();
+        services.AddScoped<ITripRepository, EfTripRepository>();
+        services.AddScoped<IExpenseRepository, EfExpenseRepository>();
+        services.AddScoped<IExchangeRateRepository, EfExchangeRateRepository>();
         services.AddSingleton<ICountryReferenceService, InMemoryCountryReferenceService>();
 
         return services;

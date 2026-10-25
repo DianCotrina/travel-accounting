@@ -7,6 +7,7 @@ The format is inspired by Keep a Changelog, with versions listed in reverse chro
 ## [Unreleased]
 
 ### Added
+
 - Added `AGENTS.md` to define Codex collaboration and engineering conventions.
 - Added `CHANGELOG.md` to track notable project changes.
 - Added `DEVELOPMENT_PLAN.md` with phased modular roadmap and immediate foundation execution steps.
@@ -54,8 +55,22 @@ The format is inspired by Keep a Changelog, with versions listed in reverse chro
   - `GET /api/trips/{tripId}/reports/export/csv`
 - Added frontend reports section with date/category filters and CSV download.
 - Added API integration tests for reports summary filtering and CSV export (`ReportsApiTests`).
+- Added auth-and-multiuser MVP with header-based authentication (`X-User-Id`) and per-user ownership isolation.
+- Added authenticated user context abstraction (`ICurrentUserContext`) and HTTP implementation.
+- Added API integration tests for unauthorized access and cross-user data isolation (`AuthApiTests`).
+- Added modular frontend component architecture by splitting `App.tsx` into shared app types and section components (`HealthCard`, `TripsSection`, `ExpensesSection`).
+- Added a component-based landing page for Sacatucuenta with logo-driven hero section and direct CTA into the accounting workspace.
+- Added JWT bearer token test utilities (`JwtTestTokenFactory`) and migrated API integration test authentication to bearer tokens.
+- Added audit trail domain/application/infrastructure slices:
+  - `AuditEntry` and `AuditAction`
+  - `IAuditService` with filtered audit query support
+  - `EfAuditService` with JSON before/after diff payload generation
+- Added audit API endpoint `GET /api/audit` with query filters (`entityType`, `entityId`, `userId`, `fromDate`, `toDate`).
+- Added audit integration tests covering create/update/delete expense auditing, trip create auditing, exchange-rate upsert auditing, and user-filter authorization.
+- Added EF Core migration `20260228233504_AddAuditEntries` for immutable `audit_entries` persistence.
 
 ### Changed
+
 - Replaced `AGENTS.md` template with project-specific context, modular branch strategy, and strict engineering execution rules.
 - Updated `README.md` with backend structure, run/build commands, and framework note.
 - Upgraded backend target frameworks from `net7.0` to `net10.0` after installing `.NET SDK 10.0.103`.
@@ -81,3 +96,45 @@ The format is inspired by Keep a Changelog, with versions listed in reverse chro
 - Updated `README.md` with phase-5 accounting ledger endpoint and UI behavior.
 - Updated `DEVELOPMENT_PLAN.md` to mark Reports Export MVP completed and set `module/auth-and-multiuser` as next.
 - Updated `README.md` with phase-6 reports/export endpoints and UI workflow.
+- Updated services/controllers to enforce trip ownership checks across trips, expenses, exchange rates, ledger, and reports.
+- Updated frontend API calls to include `X-User-Id`, with new `VITE_USER_ID` env support.
+- Updated `DEVELOPMENT_PLAN.md` to mark Auth and Multiuser MVP completed.
+- Updated `README.md` with phase-7 auth/multiuser behavior and usage.
+- Refreshed frontend UI styling for landing + workspace sections, preserving existing accounting flows with improved layout and visual hierarchy.
+- Evolved the landing page into a product-marketing surface with social proof, a 4-step workflow timeline, and JSON-driven category catalog preview.
+- Expanded landing page information architecture with About, Testimonials, Contact Us, and Footer sections plus visible contact info and provider-styled login method UI.
+- Added `StatsBand` component for full-width stats section with gradient numbers.
+- Added `CLAUDE.md` with frontend design workflow, screenshot tooling, and anti-generic guardrails.
+- Replaced backend persistence from in-memory repositories to EF Core + PostgreSQL.
+- Updated infrastructure DI registrations to use scoped EF repositories and `AppDbContext`.
+- Added initial database migration files under `src/backend/TravelAccounting.Infrastructure/Data/Migrations`.
+- Added local PostgreSQL development orchestration (`docker-compose.yml`) and local `dotnet-ef` tool manifest (`dotnet-tools.json`).
+- Updated API integration test host to override persistence with EF Core in-memory provider for test isolation.
+- Replaced API header-based auth (`X-User-Id`) with JWT bearer auth and removed `HeaderUserIdAuthenticationHandler`.
+- Updated frontend auth context and dashboard API wiring to send `Authorization: Bearer` headers.
+- Replaced frontend env variable `VITE_USER_ID` with `VITE_AUTH_BEARER_TOKEN`.
+- Updated trip/expense/exchange-rate application services to emit audit logs on accounting-sensitive mutations.
+- Strengthened expense update/delete ownership enforcement before mutation execution.
+
+### Changed (Landing Page Redesign — Yeldra-inspired)
+
+- Redesigned landing page from scratch with modern premium SaaS aesthetic inspired by yeldra.com, preserving the orange-black brand palette.
+- Replaced constrained `64rem` page container with full-bleed layout where each section manages its own `max-width: 72rem` inner container.
+- Increased inter-section spacing from `1.65rem` to `clamp(4rem, 8vw, 7rem)` for generous modern whitespace.
+- Removed visible section divider lines in favor of pure spacing separation.
+- Redesigned navbar: removed dropdown panel menus, switched to flat links with glassmorphism-on-scroll effect (`backdrop-filter: blur(16px)`).
+- Redesigned hero section: increased heading to `clamp(3rem, 7vw, 5.5rem)` with orange gradient keywords, removed pill badge, added trusted-by company band, removed inline stats.
+- Added floating 3D tilt effect to dashboard preview (`perspective(1200px) rotateX(2deg)`) with orange glow shadow.
+- Extracted `HowItWorks` from `BenefitsSection` into a standalone section with its own `#how-it-works` hash anchor.
+- Simplified `HowItWorks` step cards: removed benefit lists, kept icon + title + description only. Enhanced connecting line with orange gradient.
+- Restructured `BenefitsSection` from two-column intro+cards layout into centered header + 3-column icon card grid with Lucide icons (Receipt, ArrowLeftRight, FileSpreadsheet).
+- Removed `proofPoints` and `workflow` props from `BenefitsSection` interface.
+- Redesigned `PricingSection`: removed two-column intro and "rail" side panel, switched to centered header + 3-column card grid. Featured card uses orange border glow + slight scale-up.
+- Redesigned `TestimonialsSection`: replaced featured/compact/ribbon card hierarchy with uniform 2x2 grid. Added avatar circles with initial letter and orange gradient. Removed embedded stats panel.
+- Redesigned `FaqSection`: removed bordered shell wrapper, added 2-column accordion layout on desktop with `+`/`-` rotation indicators.
+- Redesigned `FinalCtaSection`: centered CTA band with ambient orange radial glow, separated multi-column footer with Product/Resources nav groups and copyright.
+- Updated `App.css`: switched font to Inter, removed dot-pattern body pseudo-element, removed unused purple CTA styles and `.eyebrow` class, removed `.app` padding.
+- Added shooting stars fade-out in lower page via CSS `mask-image` on `.sa-page-sky`.
+- Added shared CSS utilities: `.sa-section-inner`, `.sa-section-header--centered`, `.sa-btn--lg`.
+
+

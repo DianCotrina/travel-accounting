@@ -1,0 +1,131 @@
+.sa-howItWorks {
+  padding: 0;
+}
+
+.sa-howItWorks__header {
+  max-width: 52rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.sa-howItWorks__header h2 {
+  margin: 0.75rem 0 0;
+  color: var(--sa-text);
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.sa-howItWorks__header p:not(.sa-kicker) {
+  margin: 1rem auto 0;
+  max-width: 48ch;
+  color: var(--sa-muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.sa-howItWorks__indicators {
+  position: relative;
+  margin: 2.5rem auto 1.5rem;
+  max-width: 62rem;
+}
+
+.sa-howItWorks__line {
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  top: 50%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, #ff6a1c30 20%, #ff6a1c30 80%, transparent 100%);
+  transform: translateY(-50%);
+}
+
+.sa-howItWorks__numbers {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.sa-howItWorks__number {
+  width: 3rem;
+  height: 3rem;
+  justify-self: center;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid #ff6a1c40;
+  background: #0a0a0a;
+  color: var(--sa-accent);
+  font-size: 1rem;
+  font-weight: 700;
+  box-shadow: 0 0 0 6px #030303, 0 0 20px #ff6a1c15;
+}
+
+.sa-howItWorks__grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 0;
+}
+
+.sa-howItWorks__card {
+  position: relative;
+  border: 1px solid #1a1a1a;
+  border-radius: 1rem;
+  background: linear-gradient(180deg, #0c0c0c 0%, #080808 100%);
+  padding: 2rem 1.75rem;
+  transition:
+    transform 300ms ease,
+    border-color 300ms ease,
+    box-shadow 300ms ease;
+}
+
+.sa-howItWorks__card:hover {
+  border-color: #ff6a1c30;
+  box-shadow: 0 0 40px #ff6a1c10;
+  transform: translateY(-4px);
+}
+
+.sa-howItWorks__iconWrap {
+  width: 3.5rem;
+  height: 3.5rem;
+  display: grid;
+  place-items: center;
+  border-radius: 0.75rem;
+  border: 1px solid #2a1a12;
+  background: radial-gradient(circle at 30% 30%, #ff6a1c20 0%, transparent 70%), #111;
+  color: var(--sa-accent-2);
+}
+
+.sa-howItWorks__iconWrap svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.sa-howItWorks__card h3 {
+  margin: 1.25rem 0 0;
+  color: var(--sa-text);
+  font-size: 1.15rem;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.sa-howItWorks__card p {
+  margin: 0.75rem 0 0;
+  color: var(--sa-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 64rem) {
+  .sa-howItWorks__grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .sa-howItWorks__line,
+  .sa-howItWorks__indicators {
+    display: none;
+  }
+}

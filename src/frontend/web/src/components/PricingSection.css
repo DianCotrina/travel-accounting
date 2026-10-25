@@ -1,0 +1,130 @@
+.sa-pricingSection {
+  padding: 0;
+}
+
+.sa-pricingSection__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+  align-items: stretch;
+}
+
+.sa-pricingSection__card {
+  border: 1px solid #1a1a1a;
+  border-radius: 1rem;
+  background: #0a0a0a;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition:
+    border-color 300ms ease,
+    transform 300ms ease,
+    box-shadow 300ms ease;
+}
+
+.sa-pricingSection__card:hover {
+  border-color: #333;
+  transform: translateY(-2px);
+}
+
+.sa-pricingSection__card--featured {
+  border-color: #ff6a1c50;
+  background: linear-gradient(180deg, #0a0a0a 0%, #ff6a1c08 100%);
+  box-shadow:
+    0 0 40px #ff6a1c15,
+    inset 0 0 0 1px #ff6a1c15;
+  transform: scale(1.02);
+}
+
+.sa-pricingSection__card--featured:hover {
+  transform: scale(1.03) translateY(-2px);
+}
+
+.sa-pricingSection__badge {
+  margin: 0;
+  color: var(--sa-accent-2);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.sa-pricingSection__name {
+  margin: 0;
+  color: var(--sa-text);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+}
+
+.sa-pricingSection__price {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.sa-pricingSection__price strong {
+  color: var(--sa-text);
+  font-size: 2.5rem;
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.sa-pricingSection__card--featured .sa-pricingSection__price strong {
+  font-size: 3rem;
+}
+
+.sa-pricingSection__price span {
+  color: var(--sa-muted);
+  font-size: 0.9rem;
+}
+
+.sa-pricingSection__card ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.sa-pricingSection__card li {
+  color: var(--sa-muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.sa-pricingSection__card li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.42rem;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 999px;
+  background: var(--sa-accent);
+  box-shadow: 0 0 8px #ff6a1c55;
+}
+
+.sa-pricingSection__card .sa-btn {
+  width: 100%;
+  margin-top: auto;
+}
+
+@media (max-width: 48rem) {
+  .sa-pricingSection__grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .sa-pricingSection__card--featured {
+    transform: none;
+    order: -1;
+  }
+
+  .sa-pricingSection__card--featured:hover {
+    transform: translateY(-2px);
+  }
+}

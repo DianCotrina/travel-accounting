@@ -1,0 +1,235 @@
+.sa-landing {
+  --sa-bg: #050505;
+  --sa-border: #1a1a1a;
+  --sa-text: #f7f6f3;
+  --sa-muted: #a7a29a;
+  --sa-faint: #78746c;
+  --sa-accent: #ff6a1c;
+  --sa-accent-2: #ff8f47;
+  --sa-accent-glow: #ff6a1c2a;
+  color: var(--sa-text);
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+.sa-nav,
+.sa-main {
+  position: relative;
+}
+
+.sa-nav {
+  z-index: 50;
+}
+
+.sa-main {
+  z-index: 3;
+  display: grid;
+  gap: clamp(4rem, 8vw, 7rem);
+}
+
+.sa-main > section[id] {
+  scroll-margin-top: 5rem;
+}
+
+.sa-main > * {
+  will-change: transform, opacity;
+}
+
+.sa-main > *.sa-reveal {
+  opacity: 0;
+  transform: translateY(24px) scale(0.995);
+  transition:
+    opacity 500ms ease,
+    transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition-delay: var(--sa-reveal-delay, 0ms);
+}
+
+.sa-main > *.sa-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* ── Page sky (shooting stars + ambient glows) ── */
+
+.sa-page-sky {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0.9;
+  mask-image: linear-gradient(to bottom, black 0%, black 50%, transparent 85%);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 50%, transparent 85%);
+}
+
+.sa-page-sky__glow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 8%, #ff6a1c0e 0, transparent 28%),
+    radial-gradient(circle at 10% 42%, #ff6a1c06 0, transparent 18%),
+    radial-gradient(circle at 88% 60%, #ff8f4705 0, transparent 18%),
+    radial-gradient(circle at 50% 92%, #ff6a1c07 0, transparent 20%);
+}
+
+.sa-page-sky__stars {
+  position: absolute;
+  inset: 0;
+  opacity: 0.12;
+  background-image:
+    radial-gradient(1px 1px at 16px 24px, #fff4e8, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 42px 68px, #ffd6b7, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 78px 36px, #ffffff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 128px 92px, #ffc493, rgba(0, 0, 0, 0));
+  background-size: 220px 220px;
+  background-repeat: repeat;
+}
+
+.sa-page-sky__shootingStars {
+  opacity: 0.34;
+}
+
+.sa-page-sky__shootingStars--a {
+  filter: blur(0.15px);
+}
+
+.sa-page-sky__shootingStars--b {
+  opacity: 0.2;
+}
+
+.shooting-stars-base {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Shared utilities ── */
+
+.sa-section-inner {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 3vw, 2.5rem);
+}
+
+.sa-section-header--centered {
+  text-align: center;
+  max-width: 52rem;
+  margin: 0 auto;
+}
+
+.sa-section-header--centered h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  margin: 0.75rem 0 0;
+}
+
+.sa-section-header--centered > p:not(.sa-kicker) {
+  color: var(--sa-muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin: 1rem auto 0;
+  max-width: 48ch;
+}
+
+.sa-kicker {
+  margin: 0;
+  color: var(--sa-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+/* ── Buttons ── */
+
+.sa-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0.8rem 1.6rem;
+  border-radius: 0.6rem;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease,
+    box-shadow 180ms ease,
+    color 180ms ease;
+}
+
+.sa-btn--primary {
+  color: #190c05;
+  border-color: #8d3e14;
+  background: linear-gradient(180deg, var(--sa-accent-2) 0%, var(--sa-accent) 100%);
+  box-shadow:
+    0 0 30px #ff6a1c30,
+    0 14px 28px #ff6a1c20;
+}
+
+.sa-btn--primary:hover,
+.sa-btn--primary:focus-visible {
+  outline: none;
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+  box-shadow:
+    0 0 40px #ff6a1c40,
+    0 18px 34px #ff6a1c28;
+}
+
+.sa-btn--primary:active {
+  transform: translateY(0);
+}
+
+.sa-btn--ghost {
+  color: var(--sa-text);
+  border-color: #333;
+  background: #0f0f0f;
+}
+
+.sa-btn--ghost:hover,
+.sa-btn--ghost:focus-visible {
+  outline: none;
+  border-color: #555;
+  background: #161616;
+  transform: translateY(-2px);
+}
+
+.sa-btn--ghost:active {
+  transform: translateY(0);
+}
+
+.sa-btn--lg {
+  min-height: 3.25rem;
+  padding: 1rem 2.5rem;
+  font-size: 1rem;
+}
+
+@media (max-width: 48rem) {
+  .sa-main {
+    gap: clamp(2.5rem, 6vw, 4rem);
+  }
+
+  .sa-main > section[id] {
+    scroll-margin-top: 4.5rem;
+  }
+
+  .sa-section-header--centered h2 {
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sa-main > *.sa-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

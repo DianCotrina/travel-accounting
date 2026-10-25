@@ -39,3 +39,108 @@ Example scenario: an American user traveling in Argentina records expenses in AR
 ## Documentation
 - Keep `README.md` and code-level docs aligned with behavior.
 - Record notable user-facing or architectural changes in `CHANGELOG.md`.
+
+## Delivery Workflow
+- After making code changes, run the relevant tests and/or smoke checks.
+- If checks pass, commit and push automatically.
+- If checks fail, report failures clearly and do not push until resolved.
+- When running shell commands in PowerShell, do not chain commands with `&&`; use PowerShell separators (`;`) or separate commands to avoid parser errors.
+
+## Frontend Design & UI Execution Rules
+
+### Always Do First (Frontend)
+- If a `frontend-design` skill is available in the current session, invoke it before writing frontend UI code.
+- If no such skill is available, follow the rules in this section directly.
+- Preserve the existing React/Vite architecture unless the user explicitly asks for a standalone prototype.
+
+### Reference-Driven UI Work
+- If a reference image is provided, match layout, spacing, typography, and color as closely as possible.
+- Do not add features, sections, or content that are not present in the reference.
+- Use placeholder content only where real content/assets are not provided.
+- If visual matching is requested, perform at least two comparison/fix passes before considering the task complete (unless the user stops earlier).
+
+### Visual Review Workflow (Portable)
+- Always preview from a local server (`http://localhost:<port>`), not `file:///`.
+- If screenshot tooling exists in the repo, use it; otherwise use the available local preview workflow.
+- Avoid hardcoded machine paths in instructions. Use placeholders when documenting local tool paths:
+  - `<put your path here>`
+- If the user or repo provides a screenshot script, document and use the repo-local path only.
+
+### Output Defaults (This Repo)
+- Default to React components within `src/frontend/web`, not single-file HTML.
+- Reuse existing app structure and patterns before introducing new UI architecture.
+- Keep the UI mobile-friendly and responsive by default.
+
+### Brand Assets
+- Check `assets/` (especially `assets/logos/` and `assets/design-inspirations/`) before using placeholders.
+- Use provided logos, palettes, and style guides exactly when available.
+- Do not invent brand colors if a brand palette exists.
+
+### Anti-Generic Design Guardrails
+- Avoid default-looking color choices; use intentional, project-appropriate palettes.
+- Use layered depth (base/elevated/floating) rather than flat repeated cards.
+- Use purposeful typography hierarchy; avoid identical visual treatment for headings and body text.
+- Do not use `transition-all`; animate only the properties that need to change.
+- Every interactive element must have hover, focus-visible, and active states.
+- Keep spacing consistent and token-like, not ad hoc.
+- Avoid repeating the same bordered panel shell across every section; vary section morphology and chapter rhythm.
+
+### Anti-Conservative Design Rules
+These rules exist to prevent the page from looking dated, cramped, or overly "safe":
+- **Full-bleed over boxed:** Prefer full-width sections with inner content containers (`max-width` + `margin: auto`) instead of wrapping the entire page in a narrow bordered box.
+- **Generous spacing:** Inter-section gaps should be large (`4rem+`). Cramped layouts (gaps under `2rem` between major sections) are not allowed. Let the design breathe.
+- **No visible section dividers:** Use whitespace to separate sections, not `1px` gradient lines or `<hr>` elements. Dividers make the page feel like a form, not a product.
+- **Bold hero typography:** Hero headings must be large (`3rem+` at desktop) with tight letter-spacing (`-0.04em` or tighter). Small, polite hero text reads as generic.
+- **Flat navigation:** Prefer flat link navbars with glassmorphism on scroll. Avoid dropdown panels with grid layouts for landing pages — they add complexity without value on single-page sites.
+- **No bordered container shells around every section:** Wrapping sections in bordered rounded rectangles makes every section look identical. Use open layouts, subtle background gradients, or border-top/bottom accents instead.
+- **Accent glow over flat borders:** Use `box-shadow` with the accent color at low opacity for featured elements (cards, CTAs) instead of just a 1px colored border.
+- **Centered section headers by default:** Use centered kicker + heading + subtitle patterns for section introductions. Two-column intro layouts (text left, metadata right) are complex and rarely necessary.
+- **Cards should hover:** Every card must have a hover state that includes at least `translateY(-2px to -4px)` and a subtle border-color or glow change.
+- **Product screenshots float:** Dashboard/product preview images should have perspective transforms, layered shadows, and optional glow effects — not just flat bordered images.
+- **Stats deserve their own section:** Large impressive numbers belong in a dedicated full-width stats band with gradient text, not tucked inside another section's header.
+- **Avatar circles for testimonials:** Testimonial cards should include avatar elements (initial letter circles with brand gradient) for visual personality, not just text.
+- **No uniform card grids everywhere:** Vary visual treatment across sections — some use card grids, others use centered content, others use split layouts. Monotony is the enemy.
+
+### Landing Page Pattern (Recommended Baseline)
+- For marketing landing pages, prefer a modern SaaS aesthetic with full-bleed sections, generous whitespace, and visual variety between chapters.
+- Default landing flow (adapt as needed):
+  1. **Sticky Nav** — flat links, glassmorphism on scroll, logo + CTA
+  2. **Hero** — bold heading (3rem+), gradient accent words, product screenshot with float effect, trusted-by band
+  3. **How It Works** — 3 numbered steps with connecting line and icons
+  4. **Features Grid** — 3-column icon card grid with hover glow
+  5. **Stats Band** — full-width large gradient numbers
+  6. **Pricing** — 3-column cards, featured card with accent glow + scale
+  7. **Testimonials** — uniform card grid with avatar circles and star ratings
+  8. **FAQ** — 2-column accordion on desktop
+  9. **CTA Band** — centered statement with ambient accent glow
+  10. **Footer** — multi-column with logo, nav groups, copyright
+- Each section manages its own inner container (`max-width: 72rem; margin: 0 auto`).
+- Vary section backgrounds (transparent, subtle gradients, bordered bands) so the page has visual rhythm.
+- Add `scroll-margin-top` for anchored sections and ensure nav jumps land on a clear section start.
+- Preserve accessibility and interaction quality while styling:
+  - visible focus states,
+  - hover/active states,
+  - keyboard-accessible nav,
+  - readable contrast in dark themes.
+- Prefer subtle motion (small lift/zoom on hover, opacity/transform transitions) over heavy animation.
+- Use reusable section components with local CSS (or modules) and keep page orchestration in a single landing container component.
+
+### Frontend Architecture Rules
+- Keep shared frontend types and defaults in app-level modules (for example `src/frontend/web/src/app`).
+- Split large UI surfaces into focused components (presentation) and keep orchestration in container components.
+- Reuse fetch helpers / shared request patterns instead of duplicating API wiring.
+- Preserve current behavior while refactoring; refactors should be behavior-safe by default.
+
+### Frontend Validation Checklist
+- Run relevant checks after frontend changes:
+  - `npm --prefix src/frontend/web run typecheck`
+  - `npm --prefix src/frontend/web run test`
+  - `npm --prefix src/frontend/web run lint`
+- If the change is visual, do a quick smoke test in the browser (or screenshot review if available).
+- If checks fail, fix before commit/push.
+
+### Frontend UI Review Mode
+- For frontend UI review requests, use a structured checklist covering accessibility, focus states, forms, motion, typography, content handling, images, performance, navigation/state, touch/safe areas, theming, locale/i18n, hydration safety, and anti-patterns.
+- Report findings grouped by file using `file:line` format with terse, high-signal notes (no long explanations unless the fix is non-obvious).
+- Apply framework-appropriate checks (React/Vite in this repo) and avoid Next.js-specific assumptions unless the code actually uses them.
+- Include repo-specific checks: reuse shared category catalog/components, preserve landing-page modularity, and flag encoding/mojibake text issues.
