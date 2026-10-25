@@ -4,10 +4,11 @@ import { errorMessage, useApi } from "@/app/api";
 import { apiRoutes } from "@/app/apiRoutes";
 import { useBackendStatus } from "@/app/backendStatus";
 import { formatDateRange } from "@/app/format";
+import { useI18n } from "@/app/i18n";
 import type { Trip } from "@/app/types";
 import { EmptyState } from "./EmptyState";
 
-type LoadState = { kind: "loading" } | { kind: "error"; message: string } | { kind: "ready"; trips: Trip[] };
+type LoadState = { kind: "loading" } | { kind: "error"; error: unknown } | { kind: "ready"; trips: Trip[] };
 
 function TripCard({ trip }: { trip: Trip }) {
   return (
@@ -28,12 +29,13 @@ function TripCard({ trip }: { trip: Trip }) {
 export function TripsPage() {
   const { json } = useApi();
   const { status } = useBackendStatus();
+  const { t } = useI18n();
   const [state, setState] = useState<LoadState>({ kind: "loading" });
 
   const fetchTrips = useCallback(() => {
     json<Trip[]>(apiRoutes.trips())
       .then((trips) => setState({ kind: "ready", trips }))
-      .catch((error: unknown) => setState({ kind: "error", message: errorMessage(error) }));
+      .catch((error: unknown) => setState({ kind: "error", error }));
   }, [json]);
 
   useEffect(fetchTrips, [fetchTrips]);
@@ -46,11 +48,11 @@ export function TripsPage() {
   const newTrip =
     status === "offline" ? (
       <span className="sa-btn-primary" aria-disabled="true">
-        New trip
+        {t.trips.newTrip}
       </span>
     ) : (
       <Link to="/trips/new" className="sa-btn-primary">
-        New trip
+        {t.trips.newTrip}
       </Link>
     );
 
@@ -61,36 +63,36 @@ export function TripsPage() {
     <section className="sa-page" aria-labelledby="trips-title">
       <header className="sa-page__header">
         <h1 id="trips-title" className="sa-page__title">
-          Your trips
+          {t.trips.title}
         </h1>
         {state.kind === "ready" && state.trips.length > 0 && newTrip}
       </header>
 
       {state.kind === "loading" && (
         <p className="sa-loading" role="status">
-          Loading trips…
+          {t.trips.loading}
         </p>
       )}
 
       {state.kind === "error" && (
         <div className="sa-inlineError" role="alert">
-          <p>{state.message}</p>
+          <p>{errorMessage(state.error, t.errors)}</p>
           <button type="button" className="sa-btn-secondary" onClick={load}>
-            Try again
+            {t.common.tryAgain}
           </button>
         </div>
       )}
 
       {state.kind === "ready" && state.trips.length === 0 && (
         <EmptyState
-          title="Start your first trip"
-          body="A trip holds your expenses in the local currency and converts them to your home currency."
+          title={t.trips.emptyTitle}
+          body={t.trips.emptyBody}
           action={newTrip}
         />
       )}
 
       {active.length > 0 && (
-        <ul className="sa-tripList" aria-label="Active trips">
+        <ul className="sa-tripList" aria-label={t.trips.activeLabel}>
           {active.map((trip) => (
             <TripCard key={trip.id} trip={trip} />
           ))}
@@ -100,9 +102,9 @@ export function TripsPage() {
       {archived.length > 0 && (
         <section className="sa-page__section" aria-labelledby="archived-title">
           <h2 id="archived-title" className="sa-sectionTitle">
-            Archived
+            {t.trips.archived}
           </h2>
-          <ul className="sa-tripList sa-tripList--archived" aria-label="Archived trips">
+          <ul className="sa-tripList sa-tripList--archived" aria-label={t.trips.archivedLabel}>
             {archived.map((trip) => (
               <TripCard key={trip.id} trip={trip} />
             ))}

@@ -1,3 +1,4 @@
+import { useI18n } from "@/app/i18n";
 import "./PricingSection.css";
 
 export interface PricingPlan {
@@ -25,6 +26,7 @@ export function PricingSection({
   plans,
   onTryPreview,
 }: PricingSectionProps) {
+  const { t } = useI18n();
   return (
     <section id={id} className="sa-pricingSection" aria-labelledby="sa-pricing-title">
       <div className="sa-section-inner">
@@ -44,7 +46,7 @@ export function PricingSection({
               }
             >
               {plan.featured ? (
-                <p className="sa-pricingSection__badge">Recommended</p>
+                <p className="sa-pricingSection__badge">{t.pricing.recommended}</p>
               ) : null}
               <p className="sa-pricingSection__name">{plan.name}</p>
               <div className="sa-pricingSection__price">
@@ -65,7 +67,7 @@ export function PricingSection({
                   {plan.cta}
                 </button>
               ) : (
-                <p className="sa-pricingSection__soon">Coming soon</p>
+                <p className="sa-pricingSection__soon">{t.pricing.comingSoon}</p>
               )}
             </article>
           ))}

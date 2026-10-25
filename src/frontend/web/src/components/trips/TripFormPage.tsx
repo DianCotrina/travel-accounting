@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from "react-router";
 import { ApiError, errorMessage, useApi } from "@/app/api";
 import { apiRoutes } from "@/app/apiRoutes";
 import { useBackendStatus } from "@/app/backendStatus";
+import { useI18n } from "@/app/i18n";
 import { useToast } from "@/app/toast";
 import type { CountryReference, Trip, TripFormState } from "@/app/types";
 import { initialFormState } from "@/app/types";
@@ -17,11 +18,12 @@ export function TripFormPage() {
   const { json } = useApi();
   const { notify } = useToast();
   const { status } = useBackendStatus();
+  const { t } = useI18n();
 
   const [countries, setCountries] = useState<CountryReference[]>([]);
   const [form, setForm] = useState<TripFormState>(initialFormState);
-  const [loadError, setLoadError] = useState<string | null>(null);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [loadError, setLoadError] = useState<unknown>(null);
+  const [submitError, setSubmitError] = useState<unknown>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string[]>>({});
   const [saving, setSaving] = useState(false);
 
@@ -44,7 +46,7 @@ export function TripFormPage() {
           });
         }
       })
-      .catch((error: unknown) => setLoadError(errorMessage(error)));
+      .catch((error: unknown) => setLoadError(error));
   }, [json, tripId]);
 
   const currencies = useMemo(
@@ -67,10 +69,10 @@ export function TripFormPage() {
         method: isEdit ? "PUT" : "POST",
         body: JSON.stringify(form),
       });
-      notify(isEdit ? "Trip updated" : "Trip created");
+      notify(isEdit ? t.tripForm.updated : t.tripForm.created);
       navigate(`/trips/${saved.id}`, { replace: isEdit });
     } catch (error) {
-      setSubmitError(errorMessage(error));
+      setSubmitError(error);
       if (error instanceof ApiError) setFieldErrors(error.fieldErrors);
     } finally {
       setSaving(false);
@@ -82,32 +84,32 @@ export function TripFormPage() {
       <header className="sa-page__header">
         <div>
           <Link to={isEdit && tripId ? `/trips/${tripId}` : "/trips"} className="sa-backLink">
-            ← {isEdit ? "Back to trip" : "Your trips"}
+            ← {isEdit ? t.tripForm.backToTrip : t.tripForm.backToTrips}
           </Link>
           <h1 id="trip-form-title" className="sa-page__title">
-            {isEdit ? "Edit trip" : "New trip"}
+            {isEdit ? t.tripForm.editTitle : t.tripForm.newTitle}
           </h1>
         </div>
       </header>
 
-      {loadError ? (
+      {loadError != null ? (
         <div className="sa-inlineError" role="alert">
-          <p>{loadError}</p>
+          <p>{errorMessage(loadError, t.errors)}</p>
         </div>
       ) : (
         <form className="sa-form sa-surface" onSubmit={handleSubmit}>
-          <Field label="Trip name" error={fieldError("name")}>
+          <Field label={t.tripForm.name} error={fieldError("name")}>
             <input
               className="sa-input"
               required
               autoComplete="off"
-              placeholder="Buenos Aires, January"
+              placeholder={t.tripForm.namePlaceholder}
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
             />
           </Field>
 
-          <Field label="Destination" error={fieldError("destinationCountry")}>
+          <Field label={t.tripForm.destination} error={fieldError("destinationCountry")}>
             <select
               className="sa-input"
               required
@@ -117,7 +119,7 @@ export function TripFormPage() {
                 setForm({ ...form, destinationCountry: e.target.value, localCurrency: country?.currencyCode ?? form.localCurrency });
               }}
             >
-              <option value="">Choose a country</option>
+              <option value="">{t.tripForm.chooseCountry}</option>
               {countries.map((c) => (
                 <option key={c.countryCode} value={c.countryName}>
                   {c.countryName}
@@ -127,7 +129,7 @@ export function TripFormPage() {
           </Field>
 
           <div className="sa-form__row">
-            <Field label="Local currency" hint="What you pay in on this trip" error={fieldError("localCurrency")}>
+            <Field label={t.tripForm.localCurrency} hint={t.tripForm.localHint} error={fieldError("localCurrency")}>
               <select className="sa-input" required value={form.localCurrency} onChange={(e) => setForm({ ...form, localCurrency: e.target.value })}>
                 {currencies.map((code) => (
                   <option key={code} value={code}>
@@ -136,7 +138,7 @@ export function TripFormPage() {
                 ))}
               </select>
             </Field>
-            <Field label="Home currency" hint="What totals convert to" error={fieldError("homeCurrency")}>
+            <Field label={t.tripForm.homeCurrency} hint={t.tripForm.homeHint} error={fieldError("homeCurrency")}>
               <select className="sa-input" required value={form.homeCurrency} onChange={(e) => setForm({ ...form, homeCurrency: e.target.value })}>
                 {currencies.map((code) => (
                   <option key={code} value={code}>
@@ -148,10 +150,10 @@ export function TripFormPage() {
           </div>
 
           <div className="sa-form__row">
-            <Field label="Start date" error={fieldError("startDate")}>
+            <Field label={t.tripForm.startDate} error={fieldError("startDate")}>
               <input className="sa-input" type="date" required value={form.startDate} onChange={(e) => setForm({ ...form, startDate: e.target.value })} />
             </Field>
-            <Field label="End date" error={datesInvalid ? "End date can't be before the start date." : fieldError("endDate")}>
+            <Field label={t.tripForm.endDate} error={datesInvalid ? t.tripForm.endBeforeStart : fieldError("endDate")}>
               <input
                 className="sa-input"
                 type="date"
@@ -163,21 +165,21 @@ export function TripFormPage() {
             </Field>
           </div>
 
-          {submitError && (
+          {submitError != null && (
             <p className="sa-form__error" role="alert">
-              {submitError}
+              {errorMessage(submitError, t.errors)}
             </p>
           )}
 
           <div className="sa-form__actions">
             <button type="submit" className="sa-btn-primary" disabled={disabled} aria-busy={saving}>
-              {saving ? "Saving…" : isEdit ? "Save trip" : "Create trip"}
+              {saving ? t.common.saving : isEdit ? t.tripForm.save : t.tripForm.create}
             </button>
             <Link to={isEdit && tripId ? `/trips/${tripId}` : "/trips"} className="sa-btn-secondary">
-              Cancel
+              {t.common.cancel}
             </Link>
           </div>
-          {status === "offline" && <p className="sa-form__hint">Saving is disabled while the server is unreachable.</p>}
+          {status === "offline" && <p className="sa-form__hint">{t.tripForm.offlineHint}</p>}
         </form>
       )}
     </section>

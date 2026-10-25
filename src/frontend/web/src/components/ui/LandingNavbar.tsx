@@ -1,17 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
+import { useI18n } from "@/app/i18n";
+import { LanguageSwitch } from "@/app/i18n/LanguageSwitch";
 import "./LandingNavbar.css";
-
-type NavItem = {
-  title: string;
-  url: string;
-};
-
-const menu: NavItem[] = [
-  { title: "Features", url: "#features" },
-  { title: "How It Works", url: "#how-it-works" },
-  { title: "Pricing", url: "#pricing" },
-  { title: "FAQ", url: "#faq" },
-];
 
 function MenuIcon() {
   return (
@@ -45,6 +35,13 @@ export function LandingNavbar({ onTryPreview }: { onTryPreview: () => void }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const mobileId = useMemo(() => "sa-mobile-nav", []);
+  const { t } = useI18n();
+  const menu = [
+    { title: t.nav.features, url: "#features" },
+    { title: t.nav.howItWorks, url: "#how-it-works" },
+    { title: t.nav.pricing, url: "#pricing" },
+    { title: t.nav.faq, url: "#faq" },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -65,9 +62,9 @@ export function LandingNavbar({ onTryPreview }: { onTryPreview: () => void }) {
   return (
     <header
       className={`sa-nav${scrolled ? " sa-nav--scrolled" : ""}`}
-      aria-label="Site header"
+      aria-label={t.nav.siteHeader}
     >
-      <a className="sa-nav__brand" href="#top" aria-label="Sacatucuenta, back to top">
+      <a className="sa-nav__brand" href="#top" aria-label={t.nav.brandHome}>
         <img
           src="/sacatucuenta-logo.png"
           alt=""
@@ -75,10 +72,10 @@ export function LandingNavbar({ onTryPreview }: { onTryPreview: () => void }) {
           height={768}
           loading="eager"
         />
-        <span>Sacatucuenta</span>
+        <span>{t.common.brand}</span>
       </a>
 
-      <nav className="sa-nav__desktop" aria-label="Primary navigation">
+      <nav className="sa-nav__desktop" aria-label={t.nav.primary}>
         {menu.map((item) => (
           <a key={item.title} className="sa-nav__link" href={item.url}>
             {item.title}
@@ -87,13 +84,14 @@ export function LandingNavbar({ onTryPreview }: { onTryPreview: () => void }) {
       </nav>
 
       <div className="sa-nav__actions">
+        <LanguageSwitch />
         <button type="button" className="sa-nav__cta" onClick={onTryPreview}>
-          Try the preview
+          {t.common.tryPreview}
         </button>
         <button
           type="button"
           className="sa-nav__mobileTrigger"
-          aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-label={mobileOpen ? t.nav.closeMenu : t.nav.openMenu}
           aria-expanded={mobileOpen}
           aria-controls={mobileId}
           onClick={() => setMobileOpen((v) => !v)}
@@ -106,7 +104,7 @@ export function LandingNavbar({ onTryPreview }: { onTryPreview: () => void }) {
         className={mobileOpen ? "sa-mobileNav sa-mobileNav--open" : "sa-mobileNav"}
         id={mobileId}
       >
-        <div className="sa-mobileNav__panel" role="dialog" aria-label="Mobile navigation">
+        <div className="sa-mobileNav__panel" role="dialog" aria-label={t.nav.mobileMenu}>
           <div className="sa-mobileNav__links">
             {menu.map((item) => (
               <a

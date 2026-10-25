@@ -2,14 +2,14 @@ import type { CSSProperties, HTMLAttributes, ReactNode } from "react";
 import "./HeroSectionDark.css";
 
 interface HeroSectionDarkProps extends HTMLAttributes<HTMLDivElement> {
-  subtitle?: {
+  subtitle: {
     regular: string;
     gradient: string;
   };
-  description?: string;
-  ctaText?: string;
+  description: string;
+  ctaText: string;
   onCtaClick: () => void;
-  secondaryCtaText?: string;
+  secondaryCtaText: string;
   secondaryCtaHref?: string;
   bottomSlot?: ReactNode;
   gridOptions?: {
@@ -26,14 +26,11 @@ function classNames(...values: Array<string | false | undefined>) {
 
 export function HeroSectionDark({
   className,
-  subtitle = {
-    regular: "Track foreign travel expenses without losing ",
-    gradient: "accounting clarity.",
-  },
-  description = "Log local-currency travel spending, monitor home-currency impact, and export clean summaries for reimbursement and bookkeeping.",
-  ctaText = "Try the preview",
+  subtitle,
+  description,
+  ctaText,
   onCtaClick,
-  secondaryCtaText = "See How It Works",
+  secondaryCtaText,
   secondaryCtaHref = "#how-it-works",
   bottomSlot,
   gridOptions,

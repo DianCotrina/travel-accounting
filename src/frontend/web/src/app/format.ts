@@ -1,6 +1,11 @@
 // Locale-aware formatting for money and dates (DESIGN.md Tabular Money and Paired Currency rules).
 
-const locale = typeof navigator !== "undefined" ? navigator.language : "en-US";
+let locale = typeof navigator !== "undefined" ? navigator.language : "en-US";
+
+/** Set by the I18nProvider so every Intl formatter follows the chosen language. */
+export function setFormatLocale(next: string): void {
+  locale = next;
+}
 
 export function formatMoney(amount: number, currency: string): string {
   try {

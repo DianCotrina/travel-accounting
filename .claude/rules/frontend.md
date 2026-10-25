@@ -11,6 +11,14 @@ paths:
 - Container components (e.g. `DashboardPage`) orchestrate data and state; presentational components receive props.
 - Default to React components inside `src/frontend/web` — no standalone HTML prototypes unless asked.
 
+## Bilingual UI (ES/EN)
+- Every user-visible string — text, labels, placeholders, `aria-label`, toasts, errors — comes from the i18n catalogs in `src/app/i18n/` (`en.ts` defines the shape, `es.ts` must match; `i18n.test.tsx` checks parity). Never hard-code UI copy in components.
+- Spanish is neutral Latin American with informal "tú". Keep English and Spanish CTA labels short enough for the 375px nav.
+- Read copy with `const { t } = useI18n()`; parameterized or plural copy is a function in the catalog (e.g. `t.expenses.deleted(note)`).
+- Format money and dates only through `src/app/format.ts` (it follows the active locale); never `toLocaleString()` ad hoc.
+- User data (trip names, notes) is never translated. Server error messages are shown as sent; generic fallbacks are localized via `errorMessage(error, t.errors)`.
+- Layouts must tolerate ~30% longer Spanish strings: no fixed widths on text containers.
+
 ## Types
 - `strict` TypeScript. No `any`, no `as any`, no `as unknown as T`. Use type guards, discriminated unions, or proper generics.
 - API response types are declared once in `src/app/types.ts` and mirror backend DTOs field-for-field.

@@ -1,0 +1,44 @@
+.sa-langSwitch {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  min-width: 2.75rem;
+  min-height: 2.25rem;
+  padding: 0.35rem 0.6rem;
+  border: 1px solid var(--graphite-border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--stone);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition:
+    color 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease;
+}
+
+.sa-langSwitch svg {
+  width: 0.95rem;
+  height: 0.95rem;
+}
+
+.sa-langSwitch:hover {
+  border-color: var(--graphite-border-strong);
+  background: var(--graphite-raised);
+  color: var(--ivory);
+}
+
+.sa-langSwitch:focus-visible {
+  outline: 2px solid var(--copper);
+  outline-offset: 2px;
+}
+
+@media (pointer: coarse) {
+  .sa-langSwitch {
+    min-height: 2.75rem;
+  }
+}

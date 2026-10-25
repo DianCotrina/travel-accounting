@@ -9,35 +9,17 @@ type StepItem = {
 
 interface HowItWorksProps extends React.HTMLAttributes<HTMLElement> {
   id?: string;
-  steps?: StepItem[];
-  title?: string;
-  description?: string;
+  steps: StepItem[];
+  title: string;
+  description: string;
 }
-
-const defaultSteps: StepItem[] = [
-  {
-    title: "Set up trip context",
-    description:
-      "Choose home and destination currencies before expenses start, so every entry stays traceable.",
-  },
-  {
-    title: "Capture categorized expenses",
-    description:
-      "Log day-to-day spending by category with notes that stay useful for reimbursement review.",
-  },
-  {
-    title: "Review and export",
-    description:
-      "See ledger totals, category breakdowns, and export CSV files for finance or bookkeeping.",
-  },
-];
 
 export function HowItWorks({
   className,
   id = "how-it-works",
-  steps = defaultSteps,
-  title = "How it works",
-  description = "Sacatucuenta organizes travel accounting into a simple workflow: set trip context, capture categorized spending, and export finance-ready summaries.",
+  steps,
+  title,
+  description,
   ...props
 }: HowItWorksProps) {
   return (

@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- Bilingual ES/EN app and landing: typed catalogs (`src/app/i18n/en.ts`, `es.ts` in neutral Latin American Spanish with "tú"), language picked from the browser with an ES/EN switch that remembers the choice, `<html lang>` kept in sync, and money/dates formatted with `Intl` for the active language. A parity test fails if Spanish misses any English key, list item, or parameter.
 - Landing hero now shows a labeled sample trip (ARS → USD) rendered with the app's real Money Row, including a "Not converted" expense, as honest product proof.
 - Rebuilt the dashboard around trips (impeccable critique follow-up): routes `/trips`, `/trips/new`, `/trips/:id/edit` and `/trips/:id` with Expenses · Summary · Export sections (React Router). The trip header shows the home-currency total, local total, and unconverted count.
 - Fast expense capture: amount-first form with the trip's local currency and a date inside the trip by default; sticky panel on desktop, bottom sheet with a floating "Add expense" button on phones; the form stays ready for back-to-back entry.
@@ -19,6 +20,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+- `.claude/rules/frontend.md`: all UI copy must come from the i18n catalogs; formatting goes through `format.ts`.
+- `errorMessage(error, t.errors)` now localizes generic API failures; server-specific messages are shown as sent. Auth errors are stored as codes and rendered in the active language.
 - Landing: one CTA label ("Try the preview") everywhere, and every CTA opens the preview sign-in instead of looping between anchors; the Team plan shows "Coming soon"; "Most popular" became "Recommended"; the sign-in dialog only offers what works (email + password into the preview) and names other methods as coming soon.
 - Landing structure: removed kicker labels and decorative icon tiles, fixed the heading hierarchy, a single `<main>` landmark, document title "Sacatucuenta", and a shorter page on phones (~11 → ~7.6 screens).
 - Removed `DashboardPage`, `TripsSection`, and `ExpensesSection` in favor of `src/components/trips/*`; added `react-router` and shared `useApi`, toast, backend-status, formatting, and category helpers.

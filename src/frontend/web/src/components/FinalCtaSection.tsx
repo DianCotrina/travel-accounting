@@ -1,3 +1,4 @@
+import { useI18n } from "@/app/i18n";
 import "./FinalCtaSection.css";
 
 export interface FinalCtaSectionProps {
@@ -13,6 +14,7 @@ export function FinalCtaSection({
   description,
   primaryCta,
 }: FinalCtaSectionProps) {
+  const { t } = useI18n();
   return (
     <section id={id} className="sa-finalCta" aria-labelledby="sa-finalCta-title">
       <div className="sa-section-inner">
@@ -29,27 +31,27 @@ export function FinalCtaSection({
         </div>
       </div>
 
-      <footer className="sa-footer" aria-label="Site footer">
+      <footer className="sa-footer" aria-label={t.finalCta.siteFooter}>
         <div className="sa-footer__inner">
           <div className="sa-footer__brand">
             <div className="sa-footer__brandRow">
               <img src="/sacatucuenta-logo.png" alt="" width={32} height={32} />
-              <span>Sacatucuenta</span>
+              <span>{t.common.brand}</span>
             </div>
-            <p>Travel accounting made practical.</p>
+            <p>{t.finalCta.tagline}</p>
           </div>
-          <nav className="sa-footer__columns" aria-label="Footer navigation">
+          <nav className="sa-footer__columns" aria-label={t.finalCta.footerNav}>
             <div>
-              <h3>Product</h3>
-              <a href="#features">Features</a>
-              <a href="#how-it-works">How it works</a>
-              <a href="#pricing">Pricing</a>
-              <a href="#faq">FAQ</a>
+              <h3>{t.finalCta.product}</h3>
+              <a href="#features">{t.nav.features}</a>
+              <a href="#how-it-works">{t.nav.howItWorks}</a>
+              <a href="#pricing">{t.nav.pricing}</a>
+              <a href="#faq">{t.nav.faq}</a>
             </div>
           </nav>
         </div>
         <div className="sa-footer__bottom">
-          <p>&copy; 2026 Sacatucuenta. All rights reserved.</p>
+          <p>{t.finalCta.rights(new Date().getFullYear())}</p>
         </div>
       </footer>
     </section>

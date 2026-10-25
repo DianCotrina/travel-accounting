@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useI18n } from "@/app/i18n";
 import "./LandingPage.css";
 import { BenefitsSection } from "./BenefitsSection";
 import { FaqSection } from "./FaqSection";
@@ -11,78 +12,14 @@ import { HowItWorks } from "./ui/HowItWorks";
 import { SampleTripPreview } from "./ui/SampleTripPreview";
 import { ShootingStars } from "./ui/shooting-stars";
 
-const benefitsCards = [
-  {
-    title: "Stop rebuilding trips from receipts after you get home",
-    body: "Capture expenses while you travel so finance review is based on real entries, not reconstructed memory and screenshots.",
-  },
-  {
-    title: "See local spending and home-currency impact in the same workflow",
-    body: "Keep destination and home currency context together so travel decisions and accounting review stay aligned.",
-  },
-  {
-    title: "Export summaries that finance can actually use",
-    body: "Category and ledger outputs are designed for reimbursement and bookkeeping workflows, not generic personal budgeting notes.",
-  },
-];
-
-const pricingPlans = [
-  {
-    name: "Starter",
-    price: "$0",
-    subtitle: "For occasional trips",
-    highlights: ["1 active trip", "Manual review workflow", "Basic expense logging"],
-    cta: "Try the preview",
-    featured: false,
-  },
-  {
-    name: "Traveler Pro",
-    price: "$15",
-    subtitle: "Per month",
-    highlights: [
-      "Unlimited trips",
-      "Ledger summaries",
-      "CSV export",
-      "Exchange-rate visibility",
-      "Priority support",
-    ],
-    cta: "Try the preview",
-    featured: true,
-  },
-  {
-    name: "Team",
-    price: "$39",
-    subtitle: "Per month",
-    highlights: ["Shared trip workflows", "Audit-ready exports", "Team visibility", "Onboarding support"],
-    featured: false,
-  },
-];
-
-const faqs = [
-  {
-    question: "Does Sacatucuenta replace accounting software?",
-    answer:
-      "No. It focuses on travel expense capture, currency context, and exportable summaries that fit into your accounting workflow.",
-  },
-  {
-    question: "Can I log expenses in local currency and still review home-currency impact?",
-    answer:
-      "Yes. Trips store both home and destination currency context, so local spending and home-equivalent review can be tracked together.",
-  },
-  {
-    question: "Is this useful for reimbursements and bookkeeping?",
-    answer:
-      "Yes. The product is designed around categorized entries, ledger summaries, and CSV exports that support reimbursement and bookkeeping processes.",
-  },
-  {
-    question: "Do teams use it or is it only for solo travelers?",
-    answer:
-      "Both. Solo travelers can keep personal records clean, and teams can use the current MVP multi-user direction for shared travel workflows.",
-  },
-];
-
 export function LandingPage() {
   const [signInOpen, setSignInOpen] = useState(false);
+  const { t } = useI18n();
+  const pricingPlans = [
+    { ...t.pricing.plans.starter, price: "$0", cta: t.common.tryPreview },
+    { ...t.pricing.plans.pro, price: "$15", subtitle: t.pricing.perMonth, cta: t.common.tryPreview, featured: true },
+    { ...t.pricing.plans.team, price: "$39", subtitle: t.pricing.perMonth },
+  ];
   const mainRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -170,46 +107,47 @@ export function LandingPage() {
       <main id="top" className="sa-main" ref={mainRef}>
         <HeroSectionDark
           subtitle={{
-            regular: "Travel expenses with ",
-            gradient: "accounting clarity.",
+            regular: t.hero.titleRegular,
+            gradient: t.hero.titleAccent,
           }}
-          description="Log local-currency spending, monitor home-currency impact, and export finance-ready summaries — before month-end pressure starts."
-          ctaText="Try the preview"
+          description={t.hero.description}
+          ctaText={t.common.tryPreview}
           onCtaClick={openPreview}
-          secondaryCtaText="See How It Works"
+          secondaryCtaText={t.hero.secondaryCta}
           secondaryCtaHref="#how-it-works"
           bottomSlot={<SampleTripPreview />}
           gridOptions={{ angle: 66, cellSize: 54, opacity: 0.2, lineColor: "color-mix(in oklab, var(--copper) 6%, transparent)" }}
         />
 
         <HowItWorks
-          title="How the travel accounting workflow stays clean"
-          description="From trip setup to export, each step is structured to produce records that remain useful for finance review."
+          title={t.howItWorks.title}
+          description={t.howItWorks.description}
+          steps={t.howItWorks.steps}
         />
 
         <BenefitsSection
-          title="Built for real travel accounting work"
-          description="Designed for the handoff between travelers and finance: capture daily spend, preserve currency context, and generate records for review."
-          cards={benefitsCards}
+          title={t.benefits.title}
+          description={t.benefits.description}
+          cards={t.benefits.cards}
         />
 
         <PricingSection
-          title="Pricing for travelers and teams"
-          description="Start simple for personal trips, then scale into recurring travel workflows with ledger summaries and export-ready reporting."
+          title={t.pricing.title}
+          description={t.pricing.description}
           plans={pricingPlans}
           onTryPreview={openPreview}
         />
 
         <FaqSection
-          title="Answers for evaluating the workflow"
-          description="Better travel accounting records with less cleanup."
-          items={faqs}
+          title={t.faq.title}
+          description={t.faq.description}
+          items={t.faq.items}
         />
 
         <FinalCtaSection
-          title="Take control of travel expenses before month-end"
-          description="Start with the traveler workflow, then extend into a finance-friendly review process with categorized records and export-ready summaries."
-          primaryCta={{ label: "Try the preview", onClick: openPreview }}
+          title={t.finalCta.title}
+          description={t.finalCta.description}
+          primaryCta={{ label: t.common.tryPreview, onClick: openPreview }}
         />
       </main>
 
