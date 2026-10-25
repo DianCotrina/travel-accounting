@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- Added `PRODUCT.md` (Impeccable product context): users (nomads, business travelers, friends/couples — equal weight), purpose, positioning, bilingual ES/EN requirement, real pricing, and the rule that no proof is fabricated.
 - Added `docs/PRD.md` describing the current MVP scope (v0.1.0), known issues, next-version requirements, success metrics, and open product questions.
 
 ### Changed
