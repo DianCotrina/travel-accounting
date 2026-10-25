@@ -14,6 +14,10 @@ Thumbs.db
 .tmp/
 
 # Local tooling / visual QA artifacts
-.claude/
+# Claude Code: share project config, ignore personal/local state
+.claude/settings.local.json
+.claude/worktrees/
+.claude/.state/
+CLAUDE.local.md
 src/frontend/web/temporary-screenshots/
 src/frontend/web/src/frontend/

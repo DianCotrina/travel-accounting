@@ -8,6 +8,7 @@ The format is inspired by Keep a Changelog, with versions listed in reverse chro
 
 ### Added
 
+- Added shared Claude Code configuration in `.claude/`: path-scoped rules (backend, frontend, frontend design), skills (`new-module`, `add-endpoint`, `ef-migration`, `ship`), and cross-platform Node.js guard hooks (protected branches, anti-pattern/secret detection, per-edit lint/build, stop-time verification gate).
 - Added `AGENTS.md` to define Codex collaboration and engineering conventions.
 - Added `CHANGELOG.md` to track notable project changes.
 - Added `DEVELOPMENT_PLAN.md` with phased modular roadmap and immediate foundation execution steps.
@@ -71,6 +72,8 @@ The format is inspired by Keep a Changelog, with versions listed in reverse chro
 
 ### Changed
 
+- Rewrote `AGENTS.md` as the single source of core agent standards (current stack: EF Core + PostgreSQL, JWT, audit) and reduced `CLAUDE.md` to an import of it plus Claude-specific setup; moved frontend design rules to `.claude/rules/frontend-design.md`.
+- Changed `.gitignore` to commit shared `.claude/` config while ignoring local Claude state.
 - Replaced `AGENTS.md` template with project-specific context, modular branch strategy, and strict engineering execution rules.
 - Updated `README.md` with backend structure, run/build commands, and framework note.
 - Upgraded backend target frameworks from `net7.0` to `net10.0` after installing `.NET SDK 10.0.103`.
