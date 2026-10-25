@@ -10,6 +10,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - Added `docs/PRD.md` describing the current MVP scope (v0.1.0), known issues, next-version requirements, success metrics, and open product questions.
 
+### Fixed
+
+- Fixed dashboard API calls that targeted non-existent routes (PRD K-1): countries now use `/api/reference/countries`, ledger uses `/ledger/summary`, and reports use `/reports/summary` and `/reports/export/csv`. Previously the countries 404 also prevented trips from loading.
+- Added `src/frontend/web/src/app/apiRoutes.ts` as the single source of API paths, with a route-parity test that checks every path against the ASP.NET controllers so frontend/backend route drift fails CI.
+
 ## [0.1.0] - 2026-10-25
 
 First SemVer release: consolidates all work previously delivered on `release/2026.1.0` (modules 1–10: foundation, trips, expenses, exchange rates, accounting ledger, reports export, auth/multi-user, persistence, JWT auth, audit trail) plus the landing page.
