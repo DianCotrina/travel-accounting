@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added
+
+- Added `docs/PRD.md` describing the current MVP scope (v0.1.0), known issues, next-version requirements, success metrics, and open product questions.
+
 ## [0.1.0] - 2026-10-25
 
 First SemVer release: consolidates all work previously delivered on `release/2026.1.0` (modules 1–10: foundation, trips, expenses, exchange rates, accounting ledger, reports export, auth/multi-user, persistence, JWT auth, audit trail) plus the landing page.
