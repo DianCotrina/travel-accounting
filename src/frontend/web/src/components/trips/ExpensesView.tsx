@@ -4,6 +4,7 @@ import { errorMessage, useApi } from "@/app/api";
 import { apiRoutes } from "@/app/apiRoutes";
 import { useBackendStatus } from "@/app/backendStatus";
 import { formatDate } from "@/app/format";
+import { useI18n } from "@/app/i18n";
 import { useToast } from "@/app/toast";
 import type { Expense } from "@/app/types";
 import { EmptyState } from "./EmptyState";
@@ -47,6 +48,7 @@ export function ExpensesView() {
   const { notify } = useToast();
   const { status } = useBackendStatus();
   const isMobile = useIsMobile();
+  const { t } = useI18n();
 
   const [editing, setEditing] = useState<Expense | null>(null);
   const [sheetOpen, setSheetOpen] = useState(false);
@@ -60,10 +62,10 @@ export function ExpensesView() {
         await refresh();
       } catch (error) {
         setExpenses((current) => [...current, expense]);
-        notify(`Couldn't delete "${expense.notes}". ${errorMessage(error)}`, { tone: "error" });
+        notify(t.expenses.deleteFailed(expense.notes, errorMessage(error, t.errors)), { tone: "error" });
       }
     },
-    [notify, refresh, send, setExpenses, trip.id],
+    [notify, refresh, send, setExpenses, t, trip.id],
   );
 
   // Leaving the view inside the undo window still deletes: the user already chose to.
@@ -87,11 +89,11 @@ export function ExpensesView() {
     setExpenses((current) => current.filter((e) => e.id !== expense.id));
     const timer = window.setTimeout(() => void commitDelete(expense), UNDO_WINDOW_MS);
     pendingDeletes.current.set(expense.id, { timer, expense });
-    notify(`Deleted "${expense.notes}"`, {
+    notify(t.expenses.deleted(expense.notes), {
       tone: "info",
       durationMs: UNDO_WINDOW_MS,
       action: {
-        label: "Undo",
+        label: t.expenses.undo,
         onAction: () => {
           window.clearTimeout(timer);
           pendingDeletes.current.delete(expense.id);
@@ -115,15 +117,15 @@ export function ExpensesView() {
     try {
       await refresh();
     } catch (error) {
-      notify(`Saved, but totals couldn't refresh. ${errorMessage(error)}`, { tone: "error" });
+      notify(t.expenses.refreshFailed(errorMessage(error, t.errors)), { tone: "error" });
     }
   }
 
   const disabledReason =
     trip.status === "Archived"
-      ? "This trip is archived, so it's read-only."
+      ? t.expenses.archivedReason
       : status === "offline"
-        ? "Adding expenses is disabled while the server is unreachable."
+        ? t.expenses.offlineReason
         : undefined;
 
   const sheet = isMobile && sheetOpen;
@@ -147,10 +149,10 @@ export function ExpensesView() {
             className={sheet ? "sa-expenses__entry sa-expenses__entry--sheet" : "sa-expenses__entry"}
             role={sheet ? "dialog" : undefined}
             aria-modal={sheet || undefined}
-            aria-label={sheet ? (editing ? "Edit expense" : "Add expense") : undefined}
+            aria-label={sheet ? (editing ? t.expenseForm.editTitle : t.expenseForm.addTitle) : undefined}
           >
             {sheet && (
-              <button type="button" className="sa-iconBtn sa-expenses__close" aria-label="Close" onClick={() => setSheetOpen(false)}>
+              <button type="button" className="sa-iconBtn sa-expenses__close" aria-label={t.common.close} onClick={() => setSheetOpen(false)}>
                 <X aria-hidden="true" />
               </button>
             )}
@@ -172,14 +174,14 @@ export function ExpensesView() {
 
       <section className="sa-expenses__list" aria-labelledby="expense-list-title">
         <h2 id="expense-list-title" className="sa-sectionTitle">
-          Expenses <span className="sa-count">{expenses.length}</span>
+          {t.expenses.title} <span className="sa-count">{expenses.length}</span>
         </h2>
-        {trip.status === "Archived" && <p className="sa-note">This trip is archived. Expenses are read-only.</p>}
+        {trip.status === "Archived" && <p className="sa-note">{t.expenses.archivedNote}</p>}
 
         {expenses.length === 0 ? (
           <EmptyState
-            title="Log your first expense"
-            body={`Enter what you paid in ${trip.localCurrency}; it converts to ${trip.homeCurrency} using that day's rate.`}
+            title={t.expenses.emptyTitle}
+            body={t.expenses.emptyBody(trip.localCurrency, trip.homeCurrency)}
           />
         ) : (
           groups.map(([day, items]) => (
@@ -194,16 +196,16 @@ export function ExpensesView() {
                     actions={
                       readOnly ? undefined : (
                         <>
-                          <button type="button" className="sa-btn-ghost sa-btn-ghost--sm" onClick={() => startEdit(expense)} aria-label={`Edit ${expense.notes}`}>
-                            Edit
+                          <button type="button" className="sa-btn-ghost sa-btn-ghost--sm" onClick={() => startEdit(expense)} aria-label={t.expenses.editLabel(expense.notes)}>
+                            {t.expenses.edit}
                           </button>
                           <button
                             type="button"
                             className="sa-btn-ghost sa-btn-ghost--sm sa-btn-ghost--danger"
                             onClick={() => requestDelete(expense)}
-                            aria-label={`Delete ${expense.notes}`}
+                            aria-label={t.expenses.deleteLabel(expense.notes)}
                           >
-                            Delete
+                            {t.expenses.delete}
                           </button>
                         </>
                       )
@@ -227,7 +229,7 @@ export function ExpensesView() {
           disabled={readOnly}
         >
           <Plus aria-hidden="true" />
-          Add expense
+          {t.expenses.addButton}
         </button>
       )}
     </div>

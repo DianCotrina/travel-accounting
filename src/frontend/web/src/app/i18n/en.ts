@@ -1,0 +1,300 @@
+// English copy. Its shape defines `Messages`; every other locale must provide the same keys.
+
+const plural = (n: number, one: string, other: string) => (n === 1 ? one : other);
+
+export const en = {
+  locale: { label: "Language", switchTo: "Español", switchToLabel: "Cambiar a español" },
+  common: {
+    brand: "Sacatucuenta",
+    tryPreview: "Try the preview",
+    close: "Close",
+    cancel: "Cancel",
+    tryAgain: "Try again",
+    saving: "Saving…",
+  },
+
+  // ── Landing ──
+  nav: {
+    siteHeader: "Site header",
+    brandHome: "Sacatucuenta, back to top",
+    features: "Features",
+    howItWorks: "How it works",
+    pricing: "Pricing",
+    faq: "FAQ",
+    openMenu: "Open navigation menu",
+    closeMenu: "Close navigation menu",
+    mobileMenu: "Mobile navigation",
+    primary: "Primary navigation",
+  },
+  hero: {
+    titleRegular: "Travel expenses with ",
+    titleAccent: "accounting clarity.",
+    description:
+      "Log local-currency spending, monitor home-currency impact, and export finance-ready summaries — before month-end pressure starts.",
+    secondaryCta: "See how it works",
+  },
+  sample: {
+    figureLabel: "Sample trip: Buenos Aires in pesos, converted to US dollars",
+    label: "Sample trip",
+    name: "Buenos Aires, January",
+    meta: "ARS → USD · rate stored with each expense",
+    notConvertedYet: (n: number) => `${n} not converted yet`,
+    caption: "Sample data showing how expenses look in the app.",
+    notes: {
+      taxi: "Taxi from the airport",
+      dinner: "Dinner in Palermo",
+      museum: "Museum tickets",
+      coffee: "Coffee and medialunas",
+    },
+  },
+  howItWorks: {
+    title: "How the travel accounting workflow stays clean",
+    description: "From trip setup to export, each step is structured to produce records that remain useful for finance review.",
+    steps: [
+      {
+        title: "Set up trip context",
+        description: "Choose home and destination currencies before expenses start, so every entry stays traceable.",
+      },
+      {
+        title: "Capture categorized expenses",
+        description: "Log day-to-day spending by category with notes that stay useful for reimbursement review.",
+      },
+      {
+        title: "Review and export",
+        description: "See ledger totals, category breakdowns, and export CSV files for finance or bookkeeping.",
+      },
+    ],
+  },
+  benefits: {
+    title: "Built for real travel accounting work",
+    gridLabel: "Core product benefits",
+    description:
+      "Designed for the handoff between travelers and finance: capture daily spend, preserve currency context, and generate records for review.",
+    cards: [
+      {
+        title: "Stop rebuilding trips from receipts after you get home",
+        body: "Capture expenses while you travel so finance review is based on real entries, not reconstructed memory and screenshots.",
+      },
+      {
+        title: "See local spending and home-currency impact in the same workflow",
+        body: "Keep destination and home currency context together so travel decisions and accounting review stay aligned.",
+      },
+      {
+        title: "Export summaries that finance can actually use",
+        body: "Category and ledger outputs are designed for reimbursement and bookkeeping workflows, not generic personal budgeting notes.",
+      },
+    ],
+  },
+  pricing: {
+    title: "Pricing for travelers and teams",
+    description:
+      "Start simple for personal trips, then scale into recurring travel workflows with ledger summaries and export-ready reporting.",
+    recommended: "Recommended",
+    comingSoon: "Coming soon",
+    perMonth: "Per month",
+    plans: {
+      starter: {
+        name: "Starter",
+        subtitle: "For occasional trips",
+        highlights: ["1 active trip", "Manual review workflow", "Basic expense logging"],
+      },
+      pro: {
+        name: "Traveler Pro",
+        highlights: ["Unlimited trips", "Ledger summaries", "CSV export", "Exchange-rate visibility", "Priority support"],
+      },
+      team: {
+        name: "Team",
+        highlights: ["Shared trip workflows", "Audit-ready exports", "Team visibility", "Onboarding support"],
+      },
+    },
+  },
+  faq: {
+    title: "Answers for evaluating the workflow",
+    description: "Better travel accounting records with less cleanup.",
+    items: [
+      {
+        question: "Does Sacatucuenta replace accounting software?",
+        answer: "No. It focuses on travel expense capture, currency context, and exportable summaries that fit into your accounting workflow.",
+      },
+      {
+        question: "Can I log expenses in local currency and still review home-currency impact?",
+        answer:
+          "Yes. Trips store both home and destination currency context, so local spending and home-equivalent review can be tracked together.",
+      },
+      {
+        question: "Is this useful for reimbursements and bookkeeping?",
+        answer:
+          "Yes. The product is designed around categorized entries, ledger summaries, and CSV exports that support reimbursement and bookkeeping processes.",
+      },
+      {
+        question: "Do teams use it or is it only for solo travelers?",
+        answer:
+          "Both. Solo travelers can keep personal records clean, and teams can use the current MVP multi-user direction for shared travel workflows.",
+      },
+    ],
+  },
+  finalCta: {
+    title: "Take control of travel expenses before month-end",
+    description:
+      "Start with the traveler workflow, then extend into a finance-friendly review process with categorized records and export-ready summaries.",
+    tagline: "Travel accounting made practical.",
+    footerNav: "Footer navigation",
+    siteFooter: "Site footer",
+    product: "Product",
+    rights: (year: number) => `© ${year} Sacatucuenta. All rights reserved.`,
+  },
+  signIn: {
+    title: "Try the preview",
+    description: "Log trips and expenses in local currency, see their home-currency value, and export CSV summaries.",
+    notice:
+      "Sacatucuenta is in preview: sign in with any email and password. Personal accounts, plus Google, Apple, phone, and passkey sign-in, are coming soon.",
+    email: "Email",
+    emailPlaceholder: "you@example.com",
+    password: "Password",
+    showPassword: "Show password",
+    hidePassword: "Hide password",
+    submit: "Enter the preview",
+    required: "Email and password are required.",
+    missingToken: "Missing VITE_AUTH_BEARER_TOKEN. Configure a valid JWT to access the API.",
+  },
+
+  // ── App ──
+  shell: {
+    logout: "Log out",
+    offline: "Can't reach the server. Changes are disabled until the connection is back.",
+  },
+  errors: {
+    sessionExpired: "Your session expired. Log in again.",
+    network: "Couldn't reach the server. Check your connection and try again.",
+    server: "The server couldn't complete the request. Try again.",
+    notFound: "We couldn't find that.",
+    generic: "Something went wrong. Try again.",
+    request: (status: number) => `Request failed (${status}).`,
+  },
+  categories: {
+    Transport: "Transport",
+    Meal: "Meal",
+    Lodging: "Lodging",
+    TouristActivity: "Tourist activity",
+    Museum: "Museum",
+    Snack: "Snack",
+    Other: "Other",
+  } as Record<string, string>,
+  money: { rate: "rate", notConverted: "Not converted" },
+  trips: {
+    title: "Your trips",
+    newTrip: "New trip",
+    loading: "Loading trips…",
+    activeLabel: "Active trips",
+    archived: "Archived",
+    archivedLabel: "Archived trips",
+    emptyTitle: "Start your first trip",
+    emptyBody: "A trip holds your expenses in the local currency and converts them to your home currency.",
+  },
+  tripForm: {
+    newTitle: "New trip",
+    editTitle: "Edit trip",
+    backToTrips: "Your trips",
+    backToTrip: "Back to trip",
+    name: "Trip name",
+    namePlaceholder: "Buenos Aires, January",
+    destination: "Destination",
+    chooseCountry: "Choose a country",
+    localCurrency: "Local currency",
+    localHint: "What you pay in on this trip",
+    homeCurrency: "Home currency",
+    homeHint: "What totals convert to",
+    startDate: "Start date",
+    endDate: "End date",
+    endBeforeStart: "End date can't be before the start date.",
+    create: "Create trip",
+    save: "Save trip",
+    offlineHint: "Saving is disabled while the server is unreachable.",
+    created: "Trip created",
+    updated: "Trip updated",
+  },
+  trip: {
+    loading: "Loading trip…",
+    notFound: "We couldn't find that trip.",
+    totalLabel: "Trip total",
+    notConverted: (n: number) => `${n} not converted`,
+    edit: "Edit trip",
+    archive: "Archive",
+    archivedChip: "Archived",
+    sections: "Trip sections",
+    tabs: { expenses: "Expenses", summary: "Summary", export: "Export" },
+    archiveTitle: "Archive this trip?",
+    archiveBody:
+      "Archived trips become read-only: you can still view and export them, but not add or edit expenses. This can't be undone yet.",
+    keepActive: "Keep trip active",
+    archiveConfirm: "Archive trip",
+    archiving: "Archiving…",
+    archivedToast: "Trip archived. It's now read-only.",
+  },
+  expenseForm: {
+    addTitle: "Add expense",
+    editTitle: "Edit expense",
+    amount: "Amount",
+    amountInvalid: "Enter an amount greater than 0.",
+    currency: "Currency",
+    what: "What was it?",
+    whatHint: "Shown on the expense and in exports.",
+    whatPlaceholder: "Taxi to the airport",
+    category: "Category",
+    when: "When",
+    add: "Add expense",
+    save: "Save expense",
+    added: "Expense added",
+    updated: "Expense updated",
+  },
+  expenses: {
+    title: "Expenses",
+    addButton: "Add expense",
+    archivedNote: "This trip is archived. Expenses are read-only.",
+    archivedReason: "This trip is archived, so it's read-only.",
+    offlineReason: "Adding expenses is disabled while the server is unreachable.",
+    emptyTitle: "Log your first expense",
+    emptyBody: (local: string, home: string) => `Enter what you paid in ${local}; it converts to ${home} using that day's rate.`,
+    edit: "Edit",
+    delete: "Delete",
+    editLabel: (note: string) => `Edit ${note}`,
+    deleteLabel: (note: string) => `Delete ${note}`,
+    deleted: (note: string) => `Deleted "${note}"`,
+    undo: "Undo",
+    deleteFailed: (note: string, reason: string) => `Couldn't delete "${note}". ${reason}`,
+    refreshFailed: (reason: string) => `Saved, but totals couldn't refresh. ${reason}`,
+  },
+  summary: {
+    emptyTitle: "Nothing to summarize yet",
+    emptyBody: "Totals by category and day appear once you log expenses.",
+    totalIn: (currency: string) => `Total in ${currency}`,
+    converted: "Converted",
+    convertedOf: (converted: number, total: number) => `${converted} of ${total}`,
+    missingNote: (n: number, home: string) =>
+      `${n} ${plural(n, "expense isn't", "expenses aren't")} converted yet, so the ${home} total leaves ${plural(n, "it", "them")} out.`,
+    byCategory: "By category",
+    byDay: "By day",
+    category: "Category",
+    day: "Day",
+    expensesCol: "Expenses",
+    notConverted: "Not converted",
+    someNotConverted: (n: number) => `${n} not converted`,
+  },
+  exportView: {
+    title: "Export expenses",
+    from: "From",
+    to: "To",
+    rangeInvalid: "End date can't be before the start date.",
+    category: "Category",
+    allCategories: "All categories",
+    download: "Download CSV",
+    preparing: "Preparing CSV…",
+    preview: "Preview totals",
+    loadingPreview: "Loading…",
+    downloaded: (file: string) => `Downloaded ${file}`,
+    fallbackFile: (trip: string) => `${trip}-expenses.csv`,
+    count: (n: number) => `${n} ${plural(n, "expense", "expenses")}`,
+  },
+};
+
+export type Messages = typeof en;

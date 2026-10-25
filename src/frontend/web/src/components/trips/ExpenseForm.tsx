@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import { ApiError, errorMessage, useApi } from "@/app/api";
 import { apiRoutes } from "@/app/apiRoutes";
-import { EXPENSE_CATEGORIES } from "@/app/categories";
+import { EXPENSE_CATEGORIES, categoryLabel } from "@/app/categories";
 import { defaultExpenseTime, fromDateTimeInput, toDateTimeInput } from "@/app/format";
+import { useI18n } from "@/app/i18n";
 import { useToast } from "@/app/toast";
 import type { Expense, Trip } from "@/app/types";
 import { Field } from "./Field";
@@ -42,10 +43,11 @@ function draftFrom(expense: Expense): Draft {
 export function ExpenseForm({ trip, editing, disabled, disabledReason, onSaved, onCancelEdit, autoFocusAmount = false }: ExpenseFormProps) {
   const { json } = useApi();
   const { notify } = useToast();
+  const { t } = useI18n();
   const amountRef = useRef<HTMLInputElement>(null);
   const [draft, setDraft] = useState<Draft>(() => (editing ? draftFrom(editing) : emptyDraft(trip)));
   const [saving, setSaving] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<unknown>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string[]>>({});
 
   useEffect(() => {
@@ -75,17 +77,17 @@ export function ExpenseForm({ trip, editing, disabled, disabledReason, onSaved, 
     try {
       if (editing) {
         const saved = await json<Expense>(apiRoutes.expense(trip.id, editing.id), { method: "PUT", body });
-        notify("Expense updated");
+        notify(t.expenseForm.updated);
         onSaved(saved, "updated");
       } else {
         const saved = await json<Expense>(apiRoutes.expenses(trip.id), { method: "POST", body });
-        notify("Expense added");
+        notify(t.expenseForm.added);
         onSaved(saved, "created");
         setDraft(emptyDraft(trip, draft.category));
         amountRef.current?.focus();
       }
     } catch (err) {
-      setError(errorMessage(err));
+      setError(err);
       if (err instanceof ApiError) setFieldErrors(err.fieldErrors);
     } finally {
       setSaving(false);
@@ -95,11 +97,11 @@ export function ExpenseForm({ trip, editing, disabled, disabledReason, onSaved, 
   return (
     <form className="sa-form sa-expenseForm" onSubmit={handleSubmit} aria-labelledby="expense-form-title">
       <h2 id="expense-form-title" className="sa-sectionTitle">
-        {editing ? "Edit expense" : "Add expense"}
+        {editing ? t.expenseForm.editTitle : t.expenseForm.addTitle}
       </h2>
 
       <div className="sa-form__row sa-form__row--amount">
-        <Field label="Amount" error={amountInvalid ? "Enter an amount greater than 0." : fieldError("Amount")}>
+        <Field label={t.expenseForm.amount} error={amountInvalid ? t.expenseForm.amountInvalid : fieldError("Amount")}>
           <input
             ref={amountRef}
             autoFocus={autoFocusAmount}
@@ -114,7 +116,7 @@ export function ExpenseForm({ trip, editing, disabled, disabledReason, onSaved, 
             onChange={(e) => setDraft({ ...draft, amount: e.target.value })}
           />
         </Field>
-        <Field label="Currency">
+        <Field label={t.expenseForm.currency}>
           <select className="sa-input" value={draft.currency} onChange={(e) => setDraft({ ...draft, currency: e.target.value })}>
             {currencies.map((code) => (
               <option key={code} value={code}>
@@ -125,28 +127,28 @@ export function ExpenseForm({ trip, editing, disabled, disabledReason, onSaved, 
         </Field>
       </div>
 
-      <Field label="What was it?" hint="Shown on the expense and in exports." error={fieldError("Notes")}>
+      <Field label={t.expenseForm.what} hint={t.expenseForm.whatHint} error={fieldError("Notes")}>
         <input
           className="sa-input"
           required
           autoComplete="off"
-          placeholder="Taxi to the airport"
+          placeholder={t.expenseForm.whatPlaceholder}
           value={draft.notes}
           onChange={(e) => setDraft({ ...draft, notes: e.target.value })}
         />
       </Field>
 
       <div className="sa-form__row">
-        <Field label="Category" error={fieldError("Category")}>
+        <Field label={t.expenseForm.category} error={fieldError("Category")}>
           <select className="sa-input" value={draft.category} onChange={(e) => setDraft({ ...draft, category: e.target.value })}>
-            {EXPENSE_CATEGORIES.map((c) => (
-              <option key={c.value} value={c.value}>
-                {c.label}
+            {EXPENSE_CATEGORIES.map((value) => (
+              <option key={value} value={value}>
+                {categoryLabel(t.categories, value)}
               </option>
             ))}
           </select>
         </Field>
-        <Field label="When" error={fieldError("OccurredAtUtc")}>
+        <Field label={t.expenseForm.when} error={fieldError("OccurredAtUtc")}>
           <input
             className="sa-input"
             type="datetime-local"
@@ -157,19 +159,19 @@ export function ExpenseForm({ trip, editing, disabled, disabledReason, onSaved, 
         </Field>
       </div>
 
-      {error && (
+      {error != null && (
         <p className="sa-form__error" role="alert">
-          {error}
+          {errorMessage(error, t.errors)}
         </p>
       )}
 
       <div className="sa-form__actions">
         <button type="submit" className="sa-btn-primary" disabled={disabled || saving} aria-busy={saving}>
-          {saving ? "Saving…" : editing ? "Save expense" : "Add expense"}
+          {saving ? t.common.saving : editing ? t.expenseForm.save : t.expenseForm.add}
         </button>
         {editing && (
           <button type="button" className="sa-btn-secondary" onClick={onCancelEdit}>
-            Cancel
+            {t.common.cancel}
           </button>
         )}
       </div>

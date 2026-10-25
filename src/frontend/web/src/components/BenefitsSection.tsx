@@ -1,3 +1,4 @@
+import { useI18n } from "@/app/i18n";
 import "./BenefitsSection.css";
 
 export interface BenefitsSectionCard {
@@ -18,6 +19,7 @@ export function BenefitsSection({
   description,
   cards,
 }: BenefitsSectionProps) {
+  const { t } = useI18n();
   return (
     <section id={id} className="sa-benefits" aria-labelledby="sa-benefits-title">
       <div className="sa-section-inner">
@@ -26,7 +28,7 @@ export function BenefitsSection({
           <p>{description}</p>
         </header>
 
-        <div className="sa-benefits__grid" aria-label="Core product benefits">
+        <div className="sa-benefits__grid" aria-label={t.benefits.gridLabel}>
           {cards.map((card) => (
             <article key={card.title} className="sa-benefits__card">
               <h3>{card.title}</h3>

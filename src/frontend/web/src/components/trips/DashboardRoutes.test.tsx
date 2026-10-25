@@ -1,6 +1,7 @@
 import { act, cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { I18nProvider } from "@/app/i18n";
 import type { Expense, LedgerSummary, Trip } from "@/app/types";
 import { DashboardRoutes } from "./DashboardRoutes";
 
@@ -65,9 +66,11 @@ function calls(method: string, path: string) {
 
 function renderAt(path: string) {
   return render(
-    <MemoryRouter initialEntries={[path]}>
-      <DashboardRoutes />
-    </MemoryRouter>,
+    <I18nProvider initialLocale="en">
+      <MemoryRouter initialEntries={[path]}>
+        <DashboardRoutes />
+      </MemoryRouter>
+    </I18nProvider>,
   );
 }
 

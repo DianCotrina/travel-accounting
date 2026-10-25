@@ -4,6 +4,8 @@ import type { ReactNode } from "react";
 const STORAGE_KEY = "sa_auth_user";
 const DEV_BEARER_TOKEN = import.meta.env.VITE_AUTH_BEARER_TOKEN?.trim() ?? "";
 
+export type AuthError = "required" | "missingToken";
+
 interface User {
   email: string;
   token: string;
@@ -12,7 +14,8 @@ interface User {
 interface AuthContextValue {
   user: User | null;
   token: string | null;
-  error: string | null;
+  /** Why the last login failed; the UI maps it to localized text. */
+  error: AuthError | null;
   login: (email: string, password: string) => boolean;
   logout: () => void;
   clearError: () => void;
@@ -42,16 +45,16 @@ function readSession(): User | null {
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(readSession);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<AuthError | null>(null);
 
   const login = useCallback((email: string, password: string): boolean => {
     if (!email.trim() || !password.trim()) {
-      setError("Email and password are required.");
+      setError("required");
       return false;
     }
 
     if (!DEV_BEARER_TOKEN) {
-      setError("Missing VITE_AUTH_BEARER_TOKEN. Configure a valid JWT to access the API.");
+      setError("missingToken");
       return false;
     }
 

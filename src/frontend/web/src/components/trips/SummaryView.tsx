@@ -1,11 +1,13 @@
 import { categoryLabel } from "@/app/categories";
 import { formatDate, formatMoney } from "@/app/format";
+import { useI18n } from "@/app/i18n";
+import type { Messages } from "@/app/i18n/en";
 import { EmptyState } from "./EmptyState";
 import { useTrip } from "./TripPage";
 
 type Row = { key: string; label: string; local: number; home: number; count: number; missing: number };
 
-function TotalsTable({ caption, firstColumn, rows, localCurrency, homeCurrency }: { caption: string; firstColumn: string; rows: Row[]; localCurrency: string; homeCurrency: string }) {
+function TotalsTable({ caption, firstColumn, rows, localCurrency, homeCurrency, t }: { caption: string; firstColumn: string; rows: Row[]; localCurrency: string; homeCurrency: string; t: Messages }) {
   return (
     <table className="sa-table">
       <caption className="sa-table__caption">{caption}</caption>
@@ -13,7 +15,7 @@ function TotalsTable({ caption, firstColumn, rows, localCurrency, homeCurrency }
         <tr>
           <th scope="col">{firstColumn}</th>
           <th scope="col" className="sa-table__num">
-            Expenses
+            {t.summary.expensesCol}
           </th>
           <th scope="col" className="sa-table__num">
             {localCurrency}
@@ -31,11 +33,11 @@ function TotalsTable({ caption, firstColumn, rows, localCurrency, homeCurrency }
             <td className="sa-table__num">{formatMoney(row.local, localCurrency)}</td>
             <td className="sa-table__num">
               {row.missing === row.count ? (
-                <span className="sa-table__missing">Not converted</span>
+                <span className="sa-table__missing">{t.summary.notConverted}</span>
               ) : (
                 <>
                   {formatMoney(row.home, homeCurrency)}
-                  {row.missing > 0 && <span className="sa-table__missing"> · {row.missing} not converted</span>}
+                  {row.missing > 0 && <span className="sa-table__missing"> · {t.summary.someNotConverted(row.missing)}</span>}
                 </>
               )}
             </td>
@@ -49,14 +51,15 @@ function TotalsTable({ caption, firstColumn, rows, localCurrency, homeCurrency }
 /** `/trips/:tripId/summary`: ledger totals by category and day, with conversion coverage. */
 export function SummaryView() {
   const { ledger } = useTrip();
+  const { t } = useI18n();
 
   if (!ledger || ledger.expenseCount === 0) {
-    return <EmptyState title="Nothing to summarize yet" body="Totals by category and day appear once you log expenses." />;
+    return <EmptyState title={t.summary.emptyTitle} body={t.summary.emptyBody} />;
   }
 
   const byCategory: Row[] = ledger.categoryTotals.map((c) => ({
     key: c.category,
-    label: categoryLabel(c.category),
+    label: categoryLabel(t.categories, c.category),
     local: c.totalLocalAmount,
     home: c.convertedHomeAmount,
     count: c.expenseCount,
@@ -75,28 +78,23 @@ export function SummaryView() {
     <div className="sa-summary">
       <dl className="sa-summary__totals">
         <div>
-          <dt>Total in {ledger.homeCurrency}</dt>
+          <dt>{t.summary.totalIn(ledger.homeCurrency)}</dt>
           <dd className="sa-numeric">{formatMoney(ledger.convertedHomeAmount, ledger.homeCurrency)}</dd>
         </div>
         <div>
-          <dt>Total in {ledger.localCurrency}</dt>
+          <dt>{t.summary.totalIn(ledger.localCurrency)}</dt>
           <dd className="sa-numeric sa-numeric--secondary">{formatMoney(ledger.totalLocalAmount, ledger.localCurrency)}</dd>
         </div>
         <div>
-          <dt>Converted</dt>
-          <dd className="sa-numeric sa-numeric--secondary">
-            {ledger.convertedExpenseCount} of {ledger.expenseCount}
-          </dd>
+          <dt>{t.summary.converted}</dt>
+          <dd className="sa-numeric sa-numeric--secondary">{t.summary.convertedOf(ledger.convertedExpenseCount, ledger.expenseCount)}</dd>
         </div>
       </dl>
       {ledger.missingHomeConversionCount > 0 && (
-        <p className="sa-note sa-note--warning">
-          {ledger.missingHomeConversionCount} expense{ledger.missingHomeConversionCount === 1 ? " isn't" : "s aren't"} converted yet, so the{" "}
-          {ledger.homeCurrency} total leaves {ledger.missingHomeConversionCount === 1 ? "it" : "them"} out.
-        </p>
+        <p className="sa-note sa-note--warning">{t.summary.missingNote(ledger.missingHomeConversionCount, ledger.homeCurrency)}</p>
       )}
-      <TotalsTable caption="By category" firstColumn="Category" rows={byCategory} localCurrency={ledger.localCurrency} homeCurrency={ledger.homeCurrency} />
-      <TotalsTable caption="By day" firstColumn="Day" rows={byDay} localCurrency={ledger.localCurrency} homeCurrency={ledger.homeCurrency} />
+      <TotalsTable caption={t.summary.byCategory} firstColumn={t.summary.category} rows={byCategory} localCurrency={ledger.localCurrency} homeCurrency={ledger.homeCurrency} t={t} />
+      <TotalsTable caption={t.summary.byDay} firstColumn={t.summary.day} rows={byDay} localCurrency={ledger.localCurrency} homeCurrency={ledger.homeCurrency} t={t} />
     </div>
   );
 }
