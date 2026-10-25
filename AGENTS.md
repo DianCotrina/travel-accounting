@@ -41,7 +41,24 @@ Feature modules (Trips, Expenses, ExchangeRates, AccountingLedger, ReportsExport
 - New work starts in a short-lived branch created from the latest `origin/main`:
   - `module/<module-name>` for features/modules, `fix/<topic>`, `docs/<topic>`, `chore/<topic>` otherwise.
 - New branches must not track `main` as upstream; publish with `git push -u origin HEAD`.
-- Merge PRs with a merge commit or squash whose message follows Conventional Commits (see below).
+
+## Linear History (always the priority)
+`main` has a strictly linear history: no merge commits, ever. GitHub enforces it (only "Rebase and merge" is enabled; branch protection requires linear history).
+- **Pull with rebase:** `git pull --rebase` (or `--ff-only`). Configure once per clone:
+  ```bash
+  git config pull.rebase true
+  git config rebase.autoStash true
+  git config rebase.updateRefs true
+  ```
+- **Update a branch by rebasing onto `main`, never by merging `main` into it:**
+  ```bash
+  git fetch origin
+  git rebase origin/main
+  ```
+  Move a branch to a new base with `git rebase --onto <new-base> <old-base> <branch>` (e.g. after the branch it was stacked on lands).
+- **After rebasing an already-pushed working branch**, publish with `git push --force-with-lease` (never plain `--force`, never on `main`).
+- **Merge PRs with "Rebase and merge" only.** Every commit on the branch lands on `main` as-is, so each commit must have a Conventional Commits message and leave the build green. Clean up WIP/fixup commits before merging (`git commit --fixup <sha>` + `git rebase --autosquash origin/main`).
+- Never use `git merge` (except `git merge --ff-only`), squash merges, or merge commits.
 
 ## Versioning (SemVer 2.0.0)
 - Version format `MAJOR.MINOR.PATCH`; current line is `0.x` (pre-1.0: the API is not yet stable, breaking changes bump MINOR).
@@ -94,9 +111,10 @@ If a required tool is missing (no .NET SDK, no `node_modules`), say so explicitl
 - If checks pass, commit and push automatically to the current working branch (never `main`).
 - If checks fail, report the failures clearly and do not commit or push until resolved.
 - Commit messages follow Conventional Commits (e.g. `feat(reports): add CSV export for trip reports`).
-- Open pull requests against `main`, then immediately enable auto-merge with a merge commit — no need to ask each time:
-  `gh pr merge <number> --auto --merge --subject "<conventional subject> (#<number>)"`
-  GitHub merges it once the required checks (`backend`, `frontend`, `versioning`) pass.
+- Before opening or updating a PR, rebase the branch onto the latest `origin/main` (see Linear History).
+- Open pull requests against `main`, then immediately enable auto-merge with rebase — no need to ask each time:
+  `gh pr merge <number> --auto --rebase`
+  GitHub rebases and merges it once the required checks (`backend`, `frontend`, `versioning`) pass.
 - Never bypass required checks: no `gh pr merge --admin`, no merging without `--auto`. If checks fail, fix them on the branch; auto-merge proceeds once they pass.
 - In PowerShell, do not chain commands with `&&`; use `;` or separate commands.
 

@@ -12,7 +12,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
-- Pull requests to `main` get auto-merge (merge commit) enabled as soon as they are opened; required checks gate the merge. Pre-approved for Claude Code in `.claude/settings.json`, and `guard-branch` blocks `gh pr merge --admin` and merges without `--auto`.
+- **BREAKING (workflow):** Linear history on `main`. PRs merge only via "Rebase and merge" (merge commits and squash disabled; branch protection requires linear history). Branches are updated with `git pull --rebase` / `git rebase origin/main` (or `--onto`) and republished with `--force-with-lease`; auto-merge uses `--auto --rebase`. `guard-branch` blocks non-fast-forward `git merge`, `git pull` without rebase, and non-rebase PR merges.
+- Pull requests to `main` get auto-merge enabled as soon as they are opened; required checks gate the merge. Pre-approved for Claude Code in `.claude/settings.json`, and `guard-branch` blocks `gh pr merge --admin` and merges without `--auto`.
 
 ### Fixed
 

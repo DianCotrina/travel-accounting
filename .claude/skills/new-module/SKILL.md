@@ -13,6 +13,7 @@ git fetch origin
 git switch -c module/<module-name> origin/main
 git branch --unset-upstream
 ```
+Keep the branch current by rebasing (`git fetch origin && git rebase origin/main`), never by merging `main` in.
 Confirm `git branch --show-current` is the new branch before editing anything.
 
 ## 2. Scope
