@@ -49,9 +49,9 @@ node -p "require('./src/frontend/web/package.json').version"
 ## 4. Verify, commit, PR
 - Run the full required checks (backend and frontend) — a release is never cut on unverified code.
 - Commit: `chore(release): vX.Y.Z`, push, open a PR to `main` titled `chore(release): vX.Y.Z` with the changelog section as the body.
-- Wait for the user to merge it.
+- Enable auto-merge: `gh pr merge <number> --auto --merge --subject "chore(release): vX.Y.Z (#<number>)"`, and tag (step 5) once it has merged.
 
-## 5. Tag (after the PR is merged)
+## 5. Tag (after the PR has merged)
 ```bash
 git fetch origin
 git switch main && git pull --ff-only

@@ -22,7 +22,10 @@ Use the matching skill instead of improvising the workflow:
 
 ### Guards (`.claude/hooks/`, wired in `.claude/settings.json`)
 These run automatically; treat a block as a real defect to fix, not something to work around:
-- `guard-branch` — blocks edits, commits, and pushes while on `main`, force pushes, and pushes targeting `main` (tag pushes are allowed).
+- `guard-branch` — blocks edits, commits, and pushes while on `main`, force pushes, and pushes targeting `main` (tag pushes are allowed); PR merges must use `--auto` and never `--admin`.
+
+### Auto-merge (standing authorization)
+After opening a PR to `main`, enable auto-merge without asking: `gh pr merge <n> --auto --merge --subject "<conventional subject> (#<n>)"`. Required checks gate the merge. This is pre-approved in `.claude/settings.json`.
 - `guard-commit-msg` — blocks `git commit -m` messages that are not Conventional Commits.
 - `guard-patterns` — blocks `as any`, `as unknown as`, `transition-all`, empty catch blocks, broad `catch (Exception)`, and real-looking secrets in `appsettings*.json`.
 - `post-edit-check` — after each edit, runs ESLint on edited TS/TSX files and `dotnet build` on the edited .NET project; fix reported errors before moving on.
