@@ -11,9 +11,9 @@
 
 .sa-testimonialsSection__card {
   margin: 0;
-  border: 1px solid #1a1a1a;
+  border: 1px solid var(--graphite-border);
   border-radius: 1rem;
-  background: #0a0a0a;
+  background: var(--graphite);
   padding: 1.75rem;
   display: flex;
   flex-direction: column;
@@ -22,7 +22,7 @@
 }
 
 .sa-testimonialsSection__card:hover {
-  border-color: #ff6a1c20;
+  border-color: color-mix(in oklab, var(--copper) 13%, transparent);
 }
 
 .sa-testimonialsSection__rating {
@@ -32,18 +32,17 @@
 }
 
 .sa-testimonialsSection__rating span {
-  color: #3a3a3a;
+  color: var(--graphite);
   font-size: 0.95rem;
   line-height: 1;
 }
 
 .sa-testimonialsSection__rating span.is-on {
-  color: var(--sa-accent);
-  text-shadow: 0 0 10px #ff6a1c30;
+  color: var(--copper);
 }
 
 .sa-testimonialsSection__card p {
-  color: var(--sa-text);
+  color: var(--ivory);
   line-height: 1.6;
   font-size: 1rem;
   margin: 0;
@@ -60,23 +59,23 @@
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
-  background: linear-gradient(135deg, #ff6a1c 0%, #ff8f47 100%);
+  background: linear-gradient(135deg, var(--copper) 0%, var(--copper-light) 100%);
   display: grid;
   place-items: center;
-  color: #050505;
+  color: var(--graphite);
   font-weight: 700;
   font-size: 1rem;
   flex-shrink: 0;
 }
 
 .sa-testimonialsSection__card footer strong {
-  color: var(--sa-text);
+  color: var(--ivory);
   display: block;
   font-size: 0.9rem;
 }
 
 .sa-testimonialsSection__card footer span {
-  color: var(--sa-faint);
+  color: var(--ash);
   font-size: 0.8rem;
 }
 

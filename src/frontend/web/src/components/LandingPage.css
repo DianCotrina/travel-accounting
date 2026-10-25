@@ -1,13 +1,5 @@
 .sa-landing {
-  --sa-bg: #050505;
-  --sa-border: #1a1a1a;
-  --sa-text: #f7f6f3;
-  --sa-muted: #a7a29a;
-  --sa-faint: #78746c;
-  --sa-accent: #ff6a1c;
-  --sa-accent-2: #ff8f47;
-  --sa-accent-glow: #ff6a1c2a;
-  color: var(--sa-text);
+  color: var(--ivory);
   min-height: 100vh;
   width: 100%;
   position: relative;
@@ -67,10 +59,10 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 50% 8%, #ff6a1c0e 0, transparent 28%),
-    radial-gradient(circle at 10% 42%, #ff6a1c06 0, transparent 18%),
-    radial-gradient(circle at 88% 60%, #ff8f4705 0, transparent 18%),
-    radial-gradient(circle at 50% 92%, #ff6a1c07 0, transparent 20%);
+    radial-gradient(circle at 50% 8%, color-mix(in oklab, var(--copper) 5%, transparent) 0, transparent 28%),
+    radial-gradient(circle at 10% 42%, color-mix(in oklab, var(--copper) 2%, transparent) 0, transparent 18%),
+    radial-gradient(circle at 88% 60%, color-mix(in oklab, var(--copper-light) 2%, transparent) 0, transparent 18%),
+    radial-gradient(circle at 50% 92%, color-mix(in oklab, var(--copper) 3%, transparent) 0, transparent 20%);
 }
 
 .sa-page-sky__stars {
@@ -78,10 +70,10 @@
   inset: 0;
   opacity: 0.12;
   background-image:
-    radial-gradient(1px 1px at 16px 24px, #fff4e8, rgba(0, 0, 0, 0)),
-    radial-gradient(1px 1px at 42px 68px, #ffd6b7, rgba(0, 0, 0, 0)),
-    radial-gradient(1px 1px at 78px 36px, #ffffff, rgba(0, 0, 0, 0)),
-    radial-gradient(1px 1px at 128px 92px, #ffc493, rgba(0, 0, 0, 0));
+    radial-gradient(1px 1px at 16px 24px, var(--ivory), transparent),
+    radial-gradient(1px 1px at 42px 68px, var(--ivory), transparent),
+    radial-gradient(1px 1px at 78px 36px, var(--ivory), transparent),
+    radial-gradient(1px 1px at 128px 92px, var(--copper-light), transparent);
   background-size: 220px 220px;
   background-repeat: repeat;
 }
@@ -127,7 +119,7 @@
 }
 
 .sa-section-header--centered > p:not(.sa-kicker) {
-  color: var(--sa-muted);
+  color: var(--stone);
   font-size: 1.05rem;
   line-height: 1.6;
   margin: 1rem auto 0;
@@ -136,7 +128,7 @@
 
 .sa-kicker {
   margin: 0;
-  color: var(--sa-accent);
+  color: var(--copper);
   text-transform: uppercase;
   letter-spacing: 0.15em;
   font-size: 0.78rem;
@@ -166,40 +158,45 @@
 }
 
 .sa-btn--primary {
-  color: #190c05;
-  border-color: #8d3e14;
-  background: linear-gradient(180deg, var(--sa-accent-2) 0%, var(--sa-accent) 100%);
-  box-shadow:
-    0 0 30px #ff6a1c30,
-    0 14px 28px #ff6a1c20;
+  color: var(--graphite);
+  border-color: var(--copper-deep);
+  background: linear-gradient(180deg, var(--copper-light) 0%, var(--copper) 100%);
+  box-shadow: var(--shadow-cta);
 }
 
-.sa-btn--primary:hover,
+.sa-btn--primary:hover {
+  transform: translateY(-2px);
+  background: var(--copper-light);
+  box-shadow: var(--shadow-cta-hover);
+}
+
 .sa-btn--primary:focus-visible {
   outline: none;
-  transform: translateY(-2px);
-  filter: brightness(1.06);
-  box-shadow:
-    0 0 40px #ff6a1c40,
-    0 18px 34px #ff6a1c28;
+  box-shadow: var(--focus-ring), var(--shadow-cta);
 }
 
 .sa-btn--primary:active {
   transform: translateY(0);
+  color: var(--ivory);
+  background: var(--copper-deep);
 }
 
 .sa-btn--ghost {
-  color: var(--sa-text);
-  border-color: #333;
-  background: #0f0f0f;
+  color: var(--ivory);
+  border-color: var(--graphite-border);
+  background: var(--graphite-raised);
 }
 
-.sa-btn--ghost:hover,
+.sa-btn--ghost:hover {
+  border-color: var(--graphite-border-strong);
+  background: var(--graphite-border);
+  transform: translateY(-2px);
+}
+
 .sa-btn--ghost:focus-visible {
   outline: none;
-  border-color: #555;
-  background: #161616;
-  transform: translateY(-2px);
+  border-color: var(--copper);
+  box-shadow: var(--focus-ring);
 }
 
 .sa-btn--ghost:active {

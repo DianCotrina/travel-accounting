@@ -16,10 +16,10 @@
 }
 
 .sa-nav--scrolled {
-  background: rgba(5, 5, 5, 0.82);
+  background: color-mix(in oklab, var(--graphite) 82%, transparent);
   backdrop-filter: blur(16px) saturate(1.4);
   -webkit-backdrop-filter: blur(16px) saturate(1.4);
-  border-bottom-color: rgba(255, 106, 28, 0.08);
+  border-bottom-color: color-mix(in oklab, var(--copper) 8%, transparent);
 }
 
 .sa-nav__brand {
@@ -27,7 +27,7 @@
   align-items: center;
   gap: 0.6rem;
   text-decoration: none;
-  color: var(--sa-text);
+  color: var(--ivory);
   font-weight: 700;
   font-size: 1.05rem;
   letter-spacing: 0.01em;
@@ -49,7 +49,7 @@
 }
 
 .sa-nav__link {
-  color: var(--sa-muted);
+  color: var(--stone);
   text-decoration: none;
   font-size: 0.875rem;
   padding: 0.5rem 0.75rem;
@@ -59,8 +59,7 @@
 
 .sa-nav__link:hover,
 .sa-nav__link:focus-visible {
-  color: var(--sa-text);
-  outline: none;
+  color: var(--ivory);
 }
 
 .sa-nav__actions {
@@ -77,8 +76,8 @@
   min-height: 2.25rem;
   padding: 0.45rem 0.85rem;
   border-radius: 0.5rem;
-  border: 1px solid #333;
-  color: var(--sa-text);
+  border: 1px solid var(--graphite-border);
+  color: var(--ivory);
   text-decoration: none;
   font-size: 0.85rem;
   background: transparent;
@@ -88,9 +87,8 @@
 
 .sa-nav__login:hover,
 .sa-nav__login:focus-visible {
-  outline: none;
-  border-color: #555;
-  background: #111;
+  border-color: var(--graphite-border-strong);
+  background: var(--graphite-surface);
 }
 
 .sa-nav__cta {
@@ -100,20 +98,19 @@
   min-height: 2.25rem;
   padding: 0.45rem 0.85rem;
   border-radius: 0.5rem;
-  border: 1px solid #7f3710;
-  background: linear-gradient(180deg, #ff7d35 0%, #ff5a0f 100%);
-  color: #140904;
+  border: 1px solid var(--graphite-border-strong);
+  background: var(--graphite-raised);
+  color: var(--ivory);
   text-decoration: none;
   font-size: 0.85rem;
   font-weight: 700;
-  box-shadow: 0 8px 16px #ff6a1c18;
-  transition: transform 200ms ease, filter 200ms ease;
+  transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease;
 }
 
-.sa-nav__cta:hover,
-.sa-nav__cta:focus-visible {
-  outline: none;
-  filter: brightness(1.06);
+/* Secondary style on purpose: the hero CTA is the single copper action in view (DESIGN.md One Copper Rule). */
+.sa-nav__cta:hover {
+  border-color: var(--copper);
+  background: var(--graphite-border);
   transform: translateY(-1px);
 }
 
@@ -124,9 +121,9 @@
   width: 2.25rem;
   height: 2.25rem;
   border-radius: 0.5rem;
-  border: 1px solid #333;
+  border: 1px solid var(--graphite-border);
   background: transparent;
-  color: var(--sa-text);
+  color: var(--ivory);
   cursor: pointer;
   transition: border-color 200ms ease, background-color 200ms ease;
 }
@@ -138,9 +135,8 @@
 
 .sa-nav__mobileTrigger:hover,
 .sa-nav__mobileTrigger:focus-visible {
-  outline: none;
-  border-color: #555;
-  background: #111;
+  border-color: var(--graphite-border-strong);
+  background: var(--graphite-surface);
 }
 
 /* ── Mobile nav ── */
@@ -151,9 +147,9 @@
 
 .sa-mobileNav__panel {
   margin-top: 0.5rem;
-  border: 1px solid #1a1a1a;
+  border: 1px solid var(--graphite-border);
   border-radius: 0.75rem;
-  background: rgba(8, 8, 8, 0.95);
+  background: color-mix(in oklab, var(--graphite) 95%, transparent);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   padding: 0.75rem;
@@ -166,7 +162,7 @@
 
 .sa-mobileNav__link {
   display: block;
-  color: var(--sa-text);
+  color: var(--ivory);
   text-decoration: none;
   padding: 0.75rem 0.85rem;
   border-radius: 0.5rem;
@@ -177,14 +173,13 @@
 
 .sa-mobileNav__link:hover,
 .sa-mobileNav__link:focus-visible {
-  outline: none;
-  background: #111;
+  background: var(--graphite-surface);
 }
 
 .sa-mobileNav__footer {
   margin-top: 0.5rem;
   padding-top: 0.75rem;
-  border-top: 1px solid #1a1a1a;
+  border-top: 1px solid var(--graphite-border);
   display: grid;
   gap: 0.5rem;
 }

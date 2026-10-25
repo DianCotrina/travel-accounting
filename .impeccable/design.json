@@ -4,43 +4,174 @@
   "title": "Design System: Sacatucuenta",
   "extensions": {
     "colorMeta": {
-      "copper": { "role": "primary", "displayName": "Copper", "canonical": "oklch(0.70 0.125 52)", "tonalRamp": ["#241004", "#45240e", "#713e1c", "#9f5a2c", "#cd7a44", "#ef9963", "#ffb982", "#ffe0c5"] },
-      "copper-light": { "role": "primary", "displayName": "Copper Light", "canonical": "oklch(0.78 0.10 60)" },
-      "copper-deep": { "role": "primary", "displayName": "Copper Deep", "canonical": "oklch(0.58 0.11 48)" },
-      "graphite": { "role": "neutral", "displayName": "Graphite", "canonical": "oklch(0.165 0.006 55)", "tonalRamp": ["#181513", "#322d29", "#524c48", "#746d69", "#97918c", "#b6afab", "#d6cfcb", "#eeeae7"] },
-      "graphite-surface": { "role": "neutral", "displayName": "Graphite Surface", "canonical": "oklch(0.205 0.008 55)" },
-      "graphite-raised": { "role": "neutral", "displayName": "Graphite Raised", "canonical": "oklch(0.25 0.009 55)" },
-      "graphite-border": { "role": "neutral", "displayName": "Graphite Border", "canonical": "oklch(0.31 0.012 55)" },
-      "ivory": { "role": "neutral", "displayName": "Ivory", "canonical": "oklch(0.955 0.006 75)" },
-      "stone": { "role": "neutral", "displayName": "Stone", "canonical": "oklch(0.74 0.012 65)" },
-      "ash": { "role": "neutral", "displayName": "Ash", "canonical": "oklch(0.615 0.012 60)" },
-      "danger": { "role": "status", "displayName": "Danger", "canonical": "oklch(0.70 0.15 25)" },
-      "warning": { "role": "status", "displayName": "Warning", "canonical": "oklch(0.82 0.13 85)" },
-      "success": { "role": "status", "displayName": "Success", "canonical": "oklch(0.76 0.12 155)" }
+      "copper": {
+        "role": "primary",
+        "displayName": "Copper",
+        "canonical": "oklch(0.70 0.125 52)",
+        "tonalRamp": [
+          "#241004",
+          "#45240e",
+          "#713e1c",
+          "#9f5a2c",
+          "#cd7a44",
+          "#ef9963",
+          "#ffb982",
+          "#ffe0c5"
+        ]
+      },
+      "copper-light": {
+        "role": "primary",
+        "displayName": "Copper Light",
+        "canonical": "oklch(0.78 0.10 60)"
+      },
+      "copper-deep": {
+        "role": "primary",
+        "displayName": "Copper Deep",
+        "canonical": "oklch(0.58 0.11 48)"
+      },
+      "graphite": {
+        "role": "neutral",
+        "displayName": "Graphite",
+        "canonical": "oklch(0.165 0.006 55)",
+        "tonalRamp": [
+          "#181513",
+          "#322d29",
+          "#524c48",
+          "#746d69",
+          "#97918c",
+          "#b6afab",
+          "#d6cfcb",
+          "#eeeae7"
+        ]
+      },
+      "graphite-surface": {
+        "role": "neutral",
+        "displayName": "Graphite Surface",
+        "canonical": "oklch(0.205 0.008 55)"
+      },
+      "graphite-raised": {
+        "role": "neutral",
+        "displayName": "Graphite Raised",
+        "canonical": "oklch(0.25 0.009 55)"
+      },
+      "graphite-border": {
+        "role": "neutral",
+        "displayName": "Graphite Border",
+        "canonical": "oklch(0.31 0.012 55)"
+      },
+      "graphite-border-strong": {
+        "role": "neutral",
+        "displayName": "Graphite Border Strong",
+        "canonical": "oklch(0.40 0.012 55)"
+      },
+      "ivory": {
+        "role": "neutral",
+        "displayName": "Ivory",
+        "canonical": "oklch(0.955 0.006 75)"
+      },
+      "stone": {
+        "role": "neutral",
+        "displayName": "Stone",
+        "canonical": "oklch(0.74 0.012 65)"
+      },
+      "ash": {
+        "role": "neutral",
+        "displayName": "Ash",
+        "canonical": "oklch(0.615 0.012 60)"
+      },
+      "danger": {
+        "role": "status",
+        "displayName": "Danger",
+        "canonical": "oklch(0.70 0.15 25)"
+      },
+      "warning": {
+        "role": "status",
+        "displayName": "Warning",
+        "canonical": "oklch(0.82 0.13 85)"
+      },
+      "success": {
+        "role": "status",
+        "displayName": "Success",
+        "canonical": "oklch(0.76 0.12 155)"
+      }
     },
     "typographyMeta": {
-      "display": { "displayName": "Display", "purpose": "Landing hero headline only, one per page." },
-      "headline": { "displayName": "Headline", "purpose": "Landing section titles." },
-      "title": { "displayName": "Title", "purpose": "Card, panel, and dialog headings in the app." },
-      "body": { "displayName": "Body", "purpose": "Paragraphs and descriptions; ~48–65ch." },
-      "body-small": { "displayName": "Body Small", "purpose": "Dense app UI, fields, table rows, buttons." },
-      "label": { "displayName": "Label", "purpose": "Uppercase kickers and small group labels." },
-      "numeric": { "displayName": "Numeric", "purpose": "Trip totals and key amounts, tabular figures." }
+      "display": {
+        "displayName": "Display",
+        "purpose": "Landing hero headline only, one per page."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Landing section titles."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Card, panel, and dialog headings in the app."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Paragraphs and descriptions; ~48–65ch."
+      },
+      "body-small": {
+        "displayName": "Body Small",
+        "purpose": "Dense app UI, fields, table rows, buttons."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Uppercase kickers and small group labels."
+      },
+      "numeric": {
+        "displayName": "Numeric",
+        "purpose": "Trip totals and key amounts, tabular figures."
+      }
     },
     "shadows": [
-      { "name": "float", "value": "0 12px 32px #00000066, 0 2px 6px #0000004d", "purpose": "Dialogs, dropdown menus, popovers." },
-      { "name": "cta-glow", "value": "0 8px 24px #db86501f", "purpose": "Primary button at rest; the only glow on a screen." },
-      { "name": "cta-glow-hover", "value": "0 10px 28px #db86502e", "purpose": "Primary button hover." },
-      { "name": "focus-ring", "value": "0 0 0 3px #db865047", "purpose": "Every focusable element on :focus-visible." }
+      {
+        "name": "float",
+        "value": "0 12px 32px #00000066, 0 2px 6px #0000004d",
+        "purpose": "Dialogs, dropdown menus, popovers."
+      },
+      {
+        "name": "cta-glow",
+        "value": "0 8px 24px #db86501f",
+        "purpose": "Primary button at rest; the only glow on a screen."
+      },
+      {
+        "name": "cta-glow-hover",
+        "value": "0 10px 28px #db86502e",
+        "purpose": "Primary button hover."
+      },
+      {
+        "name": "focus-ring",
+        "value": "0 0 0 3px #db865047",
+        "purpose": "Every focusable element on :focus-visible."
+      }
     ],
     "motion": [
-      { "name": "state", "value": "160ms ease", "purpose": "Hover, focus, and active state changes (transform, opacity, colors)." },
-      { "name": "reveal", "value": "600ms cubic-bezier(0.2, 0.8, 0.2, 1)", "purpose": "Landing section reveal; disabled under prefers-reduced-motion." }
+      {
+        "name": "state",
+        "value": "160ms ease",
+        "purpose": "Hover, focus, and active state changes (transform, opacity, colors)."
+      },
+      {
+        "name": "reveal",
+        "value": "600ms cubic-bezier(0.2, 0.8, 0.2, 1)",
+        "purpose": "Landing section reveal; disabled under prefers-reduced-motion."
+      }
     ],
     "breakpoints": [
-      { "name": "sm", "value": "36rem" },
-      { "name": "md", "value": "48rem" },
-      { "name": "lg", "value": "64rem" }
+      {
+        "name": "sm",
+        "value": "36rem"
+      },
+      {
+        "name": "md",
+        "value": "48rem"
+      },
+      {
+        "name": "lg",
+        "value": "64rem"
+      }
     ]
   },
   "components": [
@@ -113,13 +244,41 @@
       "Bilingual by construction: layouts tolerate ~30% longer Spanish strings."
     ],
     "rules": [
-      { "name": "The One Copper Rule", "body": "Copper covers at most ~10% of any screen, and only one copper-filled button exists per view. Everything else is graphite, ivory, and stone.", "section": "colors" },
-      { "name": "The Warm Black Rule", "body": "No pure black (#000) and no cool grays. Every neutral carries the same warm hue (~55°).", "section": "colors" },
-      { "name": "The No Neon Rule", "body": "No saturated orange (#ff6a1c family), no colored text glows, no glowing borders. Warmth comes from copper and graphite, not light effects.", "section": "colors" },
-      { "name": "The Tabular Money Rule", "body": "Every amount uses tabular figures (`font-variant-numeric: tabular-nums`) and is right-aligned in lists and tables, so columns of money line up.", "section": "typography" },
-      { "name": "The Paired Currency Rule", "body": "A home-currency amount is always shown with its local-currency original (local first and larger in entry contexts, home first and larger in summaries), and a missing conversion is shown explicitly as \"not converted\", never as 0.", "section": "typography" },
-      { "name": "The Flat-By-Default Rule", "body": "Cards and panels have no shadow at rest; they separate from the page by tone and a hairline. Shadows appear only for floating layers.", "section": "elevation" },
-      { "name": "The Single Glow Rule", "body": "Only the primary action on a screen may glow. No glowing cards, borders, icons, or text.", "section": "elevation" }
+      {
+        "name": "The One Copper Rule",
+        "body": "Copper covers at most ~10% of any screen, and only one copper-filled button exists per view. Everything else is graphite, ivory, and stone.",
+        "section": "colors"
+      },
+      {
+        "name": "The Warm Black Rule",
+        "body": "No pure black (#000) and no cool grays. Every neutral carries the same warm hue (~55°).",
+        "section": "colors"
+      },
+      {
+        "name": "The No Neon Rule",
+        "body": "No saturated orange (#ff6a1c family), no colored text glows, no glowing borders. Warmth comes from copper and graphite, not light effects.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tabular Money Rule",
+        "body": "Every amount uses tabular figures (`font-variant-numeric: tabular-nums`) and is right-aligned in lists and tables, so columns of money line up.",
+        "section": "typography"
+      },
+      {
+        "name": "The Paired Currency Rule",
+        "body": "A home-currency amount is always shown with its local-currency original (local first and larger in entry contexts, home first and larger in summaries), and a missing conversion is shown explicitly as \"not converted\", never as 0.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat-By-Default Rule",
+        "body": "Cards and panels have no shadow at rest; they separate from the page by tone and a hairline. Shadows appear only for floating layers.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Single Glow Rule",
+        "body": "Only the primary action on a screen may glow. No glowing cards, borders, icons, or text.",
+        "section": "elevation"
+      }
     ],
     "dos": [
       "Do use the Copper tokens from this file for every color; reference CSS custom properties, never hard-coded hex in components.",
@@ -128,7 +287,7 @@
       "Do give every interactive element distinct hover, `:focus-visible` (Focus Ring), and active states.",
       "Do animate only `transform` and `opacity` (140–180ms ease for state, 500–600ms `cubic-bezier(0.2, 0.8, 0.2, 1)` for landing reveals) and honor `prefers-reduced-motion`.",
       "Do design every screen for both Spanish and English copy lengths.",
-      "Do (migration) consolidate the three color sources in code — `--sc-*` in `App.css`, `--sa-*` in `LandingPage.css`, and shadcn's light oklch tokens in `tailwind.css` — into one dark token set matching this file, and load Inter."
+      "Do add or change colors only in `src/frontend/web/src/tailwind.css`; components reference `var(--token)` (enforced by `designTokens.test.ts`)."
     ],
     "donts": [
       "Don't use the old neon orange (#ff6a1c, #ff8f47) or saturated glow shadows (`0 0 30–40px #ff6a1c…`).",
@@ -136,7 +295,7 @@
       "Don't put shadows on cards at rest, or glow on anything but the primary action.",
       "Don't use `transition: all`.",
       "Don't show a missing conversion as 0 or hide it; mark it \"not converted\".",
-      "Don't render the light shadcn theme inside the dark app (current dialog/button/input primitives read light tokens).",
+      "Don't reintroduce a light theme or a `.dark` toggle; shadcn semantic tokens map to the dark Copper palette.",
       "Don't present placeholder statistics or testimonials as real (see PRODUCT.md, Evidence on Hand)."
     ]
   }

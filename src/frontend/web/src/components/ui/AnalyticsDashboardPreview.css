@@ -3,13 +3,12 @@
   z-index: 1;
   margin: 0 auto;
   width: min(100%, 64rem);
-  border: 1px solid #2a1913;
+  border: 1px solid var(--graphite-border);
   border-radius: 1rem;
-  background: linear-gradient(180deg, #0f0f0f 0%, #090909 100%);
+  background: linear-gradient(180deg, var(--graphite-surface) 0%, var(--graphite) 100%);
   box-shadow:
-    0 25px 50px rgba(0, 0, 0, 0.5),
-    0 0 60px #ff6a1c10,
-    inset 0 0 0 1px #ff6a1c10;
+    0 25px 50px color-mix(in oklab, var(--shadow-color) 50%, transparent),
+    inset 0 0 0 1px color-mix(in oklab, var(--copper) 6%, transparent);
   overflow: hidden;
   transform: perspective(1200px) rotateX(2deg);
   transition: transform 600ms ease;
@@ -21,8 +20,8 @@
   align-items: center;
   gap: 0.8rem;
   padding: 0.7rem 0.85rem;
-  border-bottom: 1px solid #1d1d1d;
-  background: #0b0b0b;
+  border-bottom: 1px solid var(--graphite-border);
+  background: var(--graphite);
 }
 
 .sa-analyticsDash__dots {
@@ -37,20 +36,20 @@
 }
 
 .sa-analyticsDash__dots span:nth-child(1) {
-  background: #ff6a1c;
+  background: var(--copper);
 }
 
 .sa-analyticsDash__dots span:nth-child(2) {
-  background: #ff9c4f;
+  background: var(--copper-light);
 }
 
 .sa-analyticsDash__dots span:nth-child(3) {
-  background: #f7c96c;
+  background: var(--warning);
 }
 
 .sa-analyticsDash__title {
   margin: 0;
-  color: var(--sa-faint);
+  color: var(--ash);
   font-size: 0.82rem;
   letter-spacing: 0.03em;
 }
@@ -77,7 +76,7 @@
 
 .sa-analyticsDash__ringTrack {
   fill: none;
-  stroke: #272727;
+  stroke: var(--graphite);
   stroke-width: 3;
 }
 
@@ -94,7 +93,7 @@
   inset: 0;
   display: grid;
   place-items: center;
-  color: var(--sa-text);
+  color: var(--ivory);
   font-size: 0.68rem;
   font-weight: 700;
 }
@@ -106,8 +105,8 @@
 }
 
 .sa-analyticsDash__sidebar {
-  border-right: 1px solid #1a1a1a;
-  background: #0a0a0a;
+  border-right: 1px solid var(--graphite-border);
+  background: var(--graphite);
   padding: 0.75rem 0.55rem;
   display: grid;
   align-content: start;
@@ -117,21 +116,21 @@
 .sa-analyticsDash__sidebarBrand {
   height: 1.35rem;
   border-radius: 0.4rem;
-  background: linear-gradient(90deg, #ff6a1c5c, #ff6a1c00);
+  background: linear-gradient(90deg, color-mix(in oklab, var(--copper) 36%, transparent), transparent);
   margin-bottom: 0.15rem;
 }
 
 .sa-analyticsDash__sidebarItem {
   height: 2.25rem;
   border-radius: 0.5rem;
-  border: 1px solid #1f1f1f;
-  background: #101010;
+  border: 1px solid var(--graphite-border);
+  background: var(--graphite-surface);
 }
 
 .sa-analyticsDash__sidebarItem--active {
-  border-color: #6f2f10;
-  background: linear-gradient(180deg, #2b150d, #160d09);
-  box-shadow: inset 0 0 0 1px #ff6a1c18;
+  border-color: var(--copper-deep);
+  background: linear-gradient(180deg, var(--graphite-raised), var(--graphite-surface));
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--copper) 9%, transparent);
 }
 
 .sa-analyticsDash__main {
@@ -139,8 +138,8 @@
   display: grid;
   gap: 0.75rem;
   background:
-    radial-gradient(circle at 84% 16%, #ff6a1c0e 0, transparent 34%),
-    #0b0b0b;
+    radial-gradient(circle at 84% 16%, color-mix(in oklab, var(--copper) 5%, transparent) 0, transparent 34%),
+    var(--graphite);
 }
 
 .sa-analyticsDash__headerRow {
@@ -152,14 +151,14 @@
 
 .sa-analyticsDash__headerCopy h3 {
   margin: 0;
-  color: var(--sa-text);
+  color: var(--ivory);
   font-size: 1.1rem;
   letter-spacing: -0.03em;
 }
 
 .sa-analyticsDash__headerCopy p {
   margin: 0.25rem 0 0;
-  color: var(--sa-muted);
+  color: var(--stone);
   font-size: 0.8rem;
 }
 
@@ -167,9 +166,9 @@
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
-  border: 1px solid #222222;
+  border: 1px solid var(--graphite-border);
   border-radius: 0.55rem;
-  background: #101010;
+  background: var(--graphite-surface);
   padding: 0.2rem;
 }
 
@@ -179,7 +178,7 @@
   border-radius: 0.4rem;
   border: 1px solid transparent;
   background: transparent;
-  color: var(--sa-muted);
+  color: var(--stone);
   font-size: 0.76rem;
   font-weight: 600;
   cursor: pointer;
@@ -188,15 +187,14 @@
 
 .sa-analyticsDash__tab:hover,
 .sa-analyticsDash__tab:focus-visible {
-  outline: none;
-  color: var(--sa-text);
-  background: #151515;
+  color: var(--ivory);
+  background: var(--graphite-surface);
 }
 
 .sa-analyticsDash__tab--active {
-  color: var(--sa-text);
-  border-color: #423126;
-  background: linear-gradient(180deg, #191411 0%, #13100e 100%);
+  color: var(--ivory);
+  border-color: var(--graphite-border);
+  background: linear-gradient(180deg, var(--graphite-surface) 0%, var(--graphite-surface) 100%);
 }
 
 .sa-analyticsDash__metrics {
@@ -206,9 +204,9 @@
 }
 
 .sa-analyticsDash__metric {
-  border: 1px solid #202020;
+  border: 1px solid var(--graphite-border);
   border-radius: 0.6rem;
-  background: #101010;
+  background: var(--graphite-surface);
   padding: 0.65rem;
   display: grid;
   gap: 0.18rem;
@@ -216,20 +214,20 @@
 }
 
 .sa-analyticsDash__metric--accent {
-  border-color: #6f2f10;
-  background: linear-gradient(180deg, #25130c 0%, #140d09 100%);
-  box-shadow: inset 0 0 0 1px #ff6a1c14;
+  border-color: var(--copper-deep);
+  background: linear-gradient(180deg, var(--graphite-raised) 0%, var(--graphite-surface) 100%);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--copper) 8%, transparent);
 }
 
 .sa-analyticsDash__metric span {
-  color: var(--sa-faint);
+  color: var(--ash);
   font-size: 0.66rem;
   text-transform: uppercase;
   letter-spacing: 0.07em;
 }
 
 .sa-analyticsDash__metric strong {
-  color: var(--sa-text);
+  color: var(--ivory);
   font-size: 0.95rem;
 }
 
@@ -240,9 +238,9 @@
 }
 
 .sa-analyticsDash__panel {
-  border: 1px solid #202020;
+  border: 1px solid var(--graphite-border);
   border-radius: 0.65rem;
-  background: #101010;
+  background: var(--graphite-surface);
   padding: 0.7rem;
 }
 
@@ -255,21 +253,21 @@
 
 .sa-analyticsDash__panelHead h4 {
   margin: 0;
-  color: var(--sa-text);
+  color: var(--ivory);
   font-size: 0.92rem;
 }
 
 .sa-analyticsDash__panelHead p {
   margin: 0.22rem 0 0;
-  color: var(--sa-faint);
+  color: var(--ash);
   font-size: 0.74rem;
 }
 
 .sa-analyticsDash__chip {
   border-radius: 999px;
-  border: 1px solid #503325;
-  background: #1a120e;
-  color: var(--sa-accent-2);
+  border: 1px solid var(--graphite-border-strong);
+  background: var(--graphite-surface);
+  color: var(--copper-light);
   font-size: 0.72rem;
   font-weight: 700;
   padding: 0.25rem 0.45rem;
@@ -279,11 +277,11 @@
   margin-top: 0.7rem;
   height: 9.25rem;
   border-radius: 0.55rem;
-  border: 1px solid #1b1b1b;
+  border: 1px solid var(--graphite-border);
   background:
-    linear-gradient(#181818 1px, transparent 1px),
-    linear-gradient(90deg, #181818 1px, transparent 1px),
-    #0d0d0d;
+    linear-gradient(var(--graphite-raised) 1px, transparent 1px),
+    linear-gradient(90deg, var(--graphite-raised) 1px, transparent 1px),
+    var(--graphite-surface);
   background-size: 100% 1.35rem, 1.35rem 100%, auto;
   position: relative;
   overflow: hidden;
@@ -296,7 +294,7 @@
   right: 8%;
   bottom: -58%;
   border-radius: 999px;
-  background: radial-gradient(circle, #ff6a1c26 0, transparent 70%);
+  background: radial-gradient(circle, color-mix(in oklab, var(--copper) 15%, transparent) 0, transparent 70%);
 }
 
 .sa-analyticsDash__chartLine {
@@ -306,12 +304,11 @@
   background: linear-gradient(
     90deg,
     transparent 0 6%,
-    #ff6a1c 16%,
-    #ff9c4f 48%,
-    #ff6a1c 78%,
+    var(--copper) 16%,
+    var(--copper-light) 48%,
+    var(--copper) 78%,
     transparent 92%
   );
-  box-shadow: 0 0 14px #ff6a1c66;
   transform: skewY(-7deg);
 }
 
@@ -328,7 +325,7 @@
 .sa-analyticsDash__trendBars span {
   display: block;
   border-radius: 0.25rem 0.25rem 0.15rem 0.15rem;
-  background: linear-gradient(180deg, #ff8f47 0%, #ff6a1c 100%);
+  background: linear-gradient(180deg, var(--copper-light) 0%, var(--copper) 100%);
   opacity: 0.88;
 }
 
@@ -345,9 +342,9 @@
   justify-content: space-between;
   gap: 0.65rem;
   align-items: center;
-  border-bottom: 1px solid #171717;
+  border-bottom: 1px solid var(--graphite-border);
   padding-bottom: 0.42rem;
-  color: var(--sa-muted);
+  color: var(--stone);
   font-size: 0.78rem;
 }
 
@@ -357,7 +354,7 @@
 }
 
 .sa-analyticsDash__summaryList strong {
-  color: var(--sa-text);
+  color: var(--ivory);
 }
 
 .sa-analyticsDash__summaryActions {
@@ -369,17 +366,17 @@
 .sa-analyticsDash__button {
   min-height: 2rem;
   border-radius: 0.45rem;
-  border: 1px solid #6f2f10;
-  background: linear-gradient(180deg, #ff7d35 0%, #ff5a0f 100%);
-  color: #160a05;
+  border: 1px solid var(--copper-deep);
+  background: linear-gradient(180deg, var(--copper) 0%, var(--copper) 100%);
+  color: var(--graphite);
   font-weight: 700;
   font-size: 0.78rem;
 }
 
 .sa-analyticsDash__button--ghost {
-  border-color: #2a2a2a;
-  background: #111111;
-  color: var(--sa-text);
+  border-color: var(--graphite-border);
+  background: var(--graphite-surface);
+  color: var(--ivory);
 }
 
 @media (max-width: 64rem) {

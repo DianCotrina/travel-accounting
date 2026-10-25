@@ -16,21 +16,21 @@
 }
 
 .sa-faqSection__item {
-  border: 1px solid #1a1a1a;
+  border: 1px solid var(--graphite-border);
   border-radius: 0.75rem;
-  background: #0a0a0a;
+  background: var(--graphite);
   overflow: hidden;
   transition: border-color 300ms ease;
 }
 
 .sa-faqSection__item:hover {
-  border-color: #2a2a2a;
+  border-color: var(--graphite-border);
 }
 
 .sa-faqSection__item summary {
   list-style: none;
   cursor: pointer;
-  color: var(--sa-text);
+  color: var(--ivory);
   font-weight: 600;
   font-size: 0.95rem;
   padding: 1rem 1.25rem;
@@ -50,7 +50,7 @@
   right: 1.25rem;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--sa-faint);
+  color: var(--ash);
   font-size: 1.25rem;
   font-weight: 300;
   transition: transform 200ms ease;
@@ -62,19 +62,18 @@
 
 .sa-faqSection__item summary:hover,
 .sa-faqSection__item summary:focus-visible {
-  background: #111;
-  outline: none;
+  background: var(--graphite-surface);
 }
 
 .sa-faqSection__item[open] summary {
-  border-bottom: 1px solid #1a1a1a;
-  background: #0d0d0d;
+  border-bottom: 1px solid var(--graphite-border);
+  background: var(--graphite-surface);
 }
 
 .sa-faqSection__item p {
   margin: 0;
   padding: 1rem 1.25rem;
-  color: var(--sa-muted);
+  color: var(--stone);
   line-height: 1.6;
   font-size: 0.92rem;
 }

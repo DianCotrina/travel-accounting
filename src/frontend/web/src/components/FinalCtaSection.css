@@ -8,8 +8,8 @@
   text-align: center;
   overflow: hidden;
   border-radius: 1.5rem;
-  background: #0a0a0a;
-  border: 1px solid #1a1a1a;
+  background: var(--graphite);
+  border: 1px solid var(--graphite-border);
 }
 
 .sa-finalCta__glow {
@@ -20,7 +20,7 @@
   width: 40rem;
   height: 40rem;
   border-radius: 50%;
-  background: radial-gradient(circle, #ff6a1c20 0%, transparent 65%);
+  background: radial-gradient(circle, color-mix(in oklab, var(--copper) 13%, transparent) 0%, transparent 65%);
   pointer-events: none;
 }
 
@@ -35,13 +35,13 @@
   line-height: 1.05;
   max-width: 18ch;
   margin: 0 auto;
-  color: var(--sa-text);
+  color: var(--ivory);
 }
 
 .sa-finalCta__content p {
   max-width: 52ch;
   margin: 1rem auto 0;
-  color: var(--sa-muted);
+  color: var(--stone);
   font-size: 1.05rem;
   line-height: 1.6;
 }
@@ -58,7 +58,7 @@
 .sa-footer {
   margin-top: 4rem;
   padding: 2.5rem clamp(1.25rem, 3vw, 2.5rem) 0;
-  border-top: 1px solid #1a1a1a;
+  border-top: 1px solid var(--graphite-border);
 }
 
 .sa-footer__inner {
@@ -89,14 +89,14 @@
 }
 
 .sa-footer__brandRow span {
-  color: var(--sa-text);
+  color: var(--ivory);
   font-weight: 700;
   font-size: 1rem;
 }
 
 .sa-footer__brand p {
   margin: 0;
-  color: var(--sa-faint);
+  color: var(--ash);
   font-size: 0.85rem;
 }
 
@@ -107,7 +107,7 @@
 }
 
 .sa-footer__columns h4 {
-  color: var(--sa-text);
+  color: var(--ivory);
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -117,7 +117,7 @@
 
 .sa-footer__columns a {
   display: block;
-  color: var(--sa-muted);
+  color: var(--stone);
   text-decoration: none;
   font-size: 0.9rem;
   padding: 0.25rem 0;
@@ -126,21 +126,20 @@
 
 .sa-footer__columns a:hover,
 .sa-footer__columns a:focus-visible {
-  color: var(--sa-text);
-  outline: none;
+  color: var(--ivory);
 }
 
 .sa-footer__bottom {
   max-width: 72rem;
   margin: 1.5rem auto 0;
   padding: 1.5rem 0;
-  border-top: 1px solid #111;
+  border-top: 1px solid var(--graphite-border);
   text-align: center;
 }
 
 .sa-footer__bottom p {
   margin: 0;
-  color: var(--sa-faint);
+  color: var(--ash);
   font-size: 0.8rem;
 }
 

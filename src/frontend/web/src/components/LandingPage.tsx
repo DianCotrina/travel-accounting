@@ -194,8 +194,8 @@ export function LandingPage() {
         <div className="sa-page-sky__stars" />
         <ShootingStars
           className="sa-page-sky__shootingStars sa-page-sky__shootingStars--a"
-          starColor="#ff8f47"
-          trailColor="#ff6a1c"
+          starColor="var(--copper-light)"
+          trailColor="var(--copper)"
           minSpeed={12}
           maxSpeed={26}
           minDelay={900}
@@ -205,8 +205,8 @@ export function LandingPage() {
         />
         <ShootingStars
           className="sa-page-sky__shootingStars sa-page-sky__shootingStars--b"
-          starColor="#ffd09e"
-          trailColor="#ff9c4f"
+          starColor="var(--ivory)"
+          trailColor="var(--copper-light)"
           minSpeed={8}
           maxSpeed={18}
           minDelay={1600}
@@ -231,7 +231,7 @@ export function LandingPage() {
           secondaryCtaHref="#how-it-works"
           trustedBy={trustedByCompanies}
           bottomSlot={<AnalyticsDashboardPreview />}
-          gridOptions={{ angle: 66, cellSize: 54, opacity: 0.2, lineColor: "#ff6a1c10" }}
+          gridOptions={{ angle: 66, cellSize: 54, opacity: 0.2, lineColor: "color-mix(in oklab, var(--copper) 6%, transparent)" }}
         />
 
         <HowItWorks
