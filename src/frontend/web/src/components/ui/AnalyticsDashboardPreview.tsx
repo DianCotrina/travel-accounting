@@ -84,8 +84,8 @@ export function AnalyticsDashboardPreview() {
             <svg viewBox="0 0 40 40" aria-hidden="true">
               <defs>
                 <linearGradient id="saAnalyticsGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#ff8f47" />
-                  <stop offset="100%" stopColor="#ff6a1c" />
+                  <stop offset="0%" style={{ stopColor: "var(--copper-light)" }} />
+                  <stop offset="100%" style={{ stopColor: "var(--copper)" }} />
                 </linearGradient>
               </defs>
               <circle className="sa-analyticsDash__ringTrack" cx="20" cy="20" r={radius} />

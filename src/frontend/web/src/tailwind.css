@@ -43,75 +43,99 @@
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
+    --color-copper: var(--copper);
+    --color-copper-light: var(--copper-light);
+    --color-copper-deep: var(--copper-deep);
+    --color-graphite: var(--graphite);
+    --color-graphite-surface: var(--graphite-surface);
+    --color-graphite-raised: var(--graphite-raised);
+    --color-graphite-border: var(--graphite-border);
+    --color-ivory: var(--ivory);
+    --color-stone: var(--stone);
+    --color-ash: var(--ash);
+    --color-danger: var(--danger);
+    --color-warning: var(--warning);
+    --color-success: var(--success);
+    --font-sans: var(--font-family-base);
 }
 
+/*
+ * Design tokens: the single source of color, type, depth, and motion.
+ * Values mirror DESIGN.md ("Ember After Dark", Copper on graphite). Components reference
+ * these custom properties; raw color literals outside this file fail `designTokens.test.ts`.
+ */
 :root {
-    --radius: 0.625rem;
-    --background: oklch(0.99 0.008 70);
-    --foreground: oklch(0.18 0.01 40);
-    --card: oklch(0.995 0.006 70);
-    --card-foreground: oklch(0.18 0.01 40);
-    --popover: oklch(0.995 0.006 70);
-    --popover-foreground: oklch(0.18 0.01 40);
-    --primary: oklch(0.69 0.2 45);
-    --primary-foreground: oklch(0.16 0.01 40);
-    --secondary: oklch(0.95 0.012 55);
-    --secondary-foreground: oklch(0.21 0.012 40);
-    --muted: oklch(0.96 0.008 55);
-    --muted-foreground: oklch(0.5 0.01 45);
-    --accent: oklch(0.95 0.02 50);
-    --accent-foreground: oklch(0.22 0.01 40);
-    --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.9 0.01 50);
-    --input: oklch(0.9 0.01 50);
-    --ring: oklch(0.69 0.2 45);
-    --chart-1: oklch(0.69 0.2 45);
-    --chart-2: oklch(0.58 0.15 35);
-    --chart-3: oklch(0.45 0.06 40);
-    --chart-4: oklch(0.78 0.14 80);
-    --chart-5: oklch(0.62 0.12 22);
-    --sidebar: oklch(0.985 0.004 70);
-    --sidebar-foreground: oklch(0.18 0.01 40);
-    --sidebar-primary: oklch(0.69 0.2 45);
-    --sidebar-primary-foreground: oklch(0.16 0.01 40);
-    --sidebar-accent: oklch(0.95 0.012 50);
-    --sidebar-accent-foreground: oklch(0.2 0.01 40);
-    --sidebar-border: oklch(0.9 0.01 50);
-    --sidebar-ring: oklch(0.69 0.2 45);
-}
+    color-scheme: dark;
 
-.dark {
-    --background: oklch(0.13 0.008 40);
-    --foreground: oklch(0.97 0.006 70);
-    --card: oklch(0.17 0.008 40);
-    --card-foreground: oklch(0.97 0.006 70);
-    --popover: oklch(0.17 0.008 40);
-    --popover-foreground: oklch(0.97 0.006 70);
-    --primary: oklch(0.7 0.21 45);
-    --primary-foreground: oklch(0.14 0.008 40);
-    --secondary: oklch(0.24 0.01 40);
-    --secondary-foreground: oklch(0.96 0.006 70);
-    --muted: oklch(0.22 0.008 40);
-    --muted-foreground: oklch(0.72 0.01 55);
-    --accent: oklch(0.24 0.014 42);
-    --accent-foreground: oklch(0.97 0.006 70);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 9%);
-    --input: oklch(1 0 0 / 12%);
-    --ring: oklch(0.7 0.21 45);
-    --chart-1: oklch(0.7 0.21 45);
-    --chart-2: oklch(0.62 0.15 32);
-    --chart-3: oklch(0.8 0.14 80);
-    --chart-4: oklch(0.58 0.09 22);
-    --chart-5: oklch(0.75 0.09 65);
-    --sidebar: oklch(0.17 0.008 40);
-    --sidebar-foreground: oklch(0.97 0.006 70);
-    --sidebar-primary: oklch(0.7 0.21 45);
-    --sidebar-primary-foreground: oklch(0.14 0.008 40);
-    --sidebar-accent: oklch(0.24 0.014 42);
-    --sidebar-accent-foreground: oklch(0.97 0.006 70);
-    --sidebar-border: oklch(1 0 0 / 9%);
-    --sidebar-ring: oklch(0.7 0.21 45);
+    /* Brand palette (DESIGN.md colors) */
+    --copper: oklch(0.70 0.125 52);
+    --copper-light: oklch(0.78 0.10 60);
+    --copper-deep: oklch(0.58 0.11 48);
+    --graphite: oklch(0.165 0.006 55);
+    --graphite-surface: oklch(0.205 0.008 55);
+    --graphite-raised: oklch(0.25 0.009 55);
+    --graphite-border: oklch(0.31 0.012 55);
+    --graphite-border-strong: oklch(0.40 0.012 55);
+    --ivory: oklch(0.955 0.006 75);
+    --stone: oklch(0.74 0.012 65);
+    --ash: oklch(0.615 0.012 60);
+    --danger: oklch(0.70 0.15 25);
+    --warning: oklch(0.82 0.13 85);
+    --success: oklch(0.76 0.12 155);
+    --shadow-color: oklch(0.08 0.005 55);
+
+    /* Third-party brand marks (Google sign-in icon). Not part of the product palette. */
+    --brand-google-red: #ea4335;
+    --brand-google-yellow: #fbbc05;
+    --brand-google-green: #34a853;
+    --brand-google-blue: #4285f4;
+
+    /* Depth and focus (DESIGN.md Elevation & Depth) */
+    --shadow-float: 0 12px 32px color-mix(in oklab, var(--shadow-color) 40%, transparent),
+        0 2px 6px color-mix(in oklab, var(--shadow-color) 30%, transparent);
+    --shadow-cta: 0 8px 24px color-mix(in oklab, var(--copper) 12%, transparent);
+    --shadow-cta-hover: 0 10px 28px color-mix(in oklab, var(--copper) 18%, transparent);
+    --focus-ring: 0 0 0 3px color-mix(in oklab, var(--copper) 28%, transparent);
+
+    /* Type and motion */
+    --font-family-base: "Inter Variable", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --ease-state: ease;
+    --dur-state: 160ms;
+    --ease-reveal: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+    /* shadcn semantic tokens, mapped to the dark Copper palette (the app is dark-only) */
+    --radius: 0.625rem;
+    --background: var(--graphite);
+    --foreground: var(--ivory);
+    --card: var(--graphite-surface);
+    --card-foreground: var(--ivory);
+    --popover: var(--graphite-raised);
+    --popover-foreground: var(--ivory);
+    --primary: var(--copper);
+    --primary-foreground: var(--graphite);
+    --secondary: var(--graphite-raised);
+    --secondary-foreground: var(--ivory);
+    --muted: var(--graphite-raised);
+    --muted-foreground: var(--stone);
+    --accent: var(--graphite-raised);
+    --accent-foreground: var(--ivory);
+    --destructive: var(--danger);
+    --border: var(--graphite-border);
+    --input: var(--graphite-border);
+    --ring: var(--copper);
+    --chart-1: var(--copper);
+    --chart-2: var(--copper-light);
+    --chart-3: var(--stone);
+    --chart-4: var(--warning);
+    --chart-5: var(--success);
+    --sidebar: var(--graphite-surface);
+    --sidebar-foreground: var(--ivory);
+    --sidebar-primary: var(--copper);
+    --sidebar-primary-foreground: var(--graphite);
+    --sidebar-accent: var(--graphite-raised);
+    --sidebar-accent-foreground: var(--ivory);
+    --sidebar-border: var(--graphite-border);
+    --sidebar-ring: var(--copper);
 }
 
 @layer base {
@@ -121,4 +145,23 @@
   body {
     @apply bg-background text-foreground;
     }
+
+  /* Browser surfaces themed from the palette */
+  ::selection {
+    background: color-mix(in oklab, var(--copper) 35%, transparent);
+    color: var(--ivory);
+  }
+  input,
+  textarea,
+  select {
+    caret-color: var(--copper);
+  }
+  html {
+    scrollbar-color: var(--graphite-border-strong) var(--graphite);
+    accent-color: var(--copper);
+  }
+  :focus-visible {
+    outline: 2px solid var(--copper);
+    outline-offset: 2px;
+  }
 }

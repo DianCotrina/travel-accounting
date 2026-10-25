@@ -1,24 +1,11 @@
 :root {
-  --sc-base-black: #050505;
-  --sc-base-white: #ffffff;
-  --sc-ember: #ff6a1c;
-  --sc-ember-soft: #ffb182;
-  --sc-gold-soft: #ffd7a9;
-  --sc-ink: #0e0b08;
-  --sc-panel: #0d0b09;
-  --sc-panel-2: #14100d;
-  --sc-border: #2d2119;
-  --sc-border-soft: #453124;
-  --sc-text: #f8f4ef;
-  --sc-text-muted: #bcae9f;
-  --sc-text-faint: #897d71;
   color-scheme: dark;
-  color: var(--sc-text);
-  background: var(--sc-base-black);
-  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--ivory);
+  background: var(--graphite);
+  font-family: var(--font-family-base);
   line-height: 1.5;
   font-weight: 400;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
 }
 
 * {
@@ -33,14 +20,14 @@ html {
 
 body {
   margin: 0;
-  color: var(--sc-text);
+  color: var(--ivory);
   background:
-    radial-gradient(ellipse at 50% 0%, #ff6a1c12 0, transparent 50%),
-    radial-gradient(circle at 18% 84%, #ff6a1c08 0, transparent 32%),
-    radial-gradient(circle at 84% 76%, #ff8f4706 0, transparent 28%),
-    #030303;
+    radial-gradient(ellipse at 50% 0%, color-mix(in oklab, var(--copper) 7%, transparent) 0, transparent 50%),
+    radial-gradient(circle at 18% 84%, color-mix(in oklab, var(--copper) 3%, transparent) 0, transparent 32%),
+    radial-gradient(circle at 84% 76%, color-mix(in oklab, var(--copper-light) 2%, transparent) 0, transparent 28%),
+    var(--graphite);
   overflow-x: hidden;
-  -webkit-tap-highlight-color: #ff6a1c26;
+  -webkit-tap-highlight-color: color-mix(in oklab, var(--copper) 15%, transparent);
 }
 
 #root {
@@ -70,19 +57,19 @@ input {
   z-index: 10;
   padding: 0.6rem 0.85rem;
   border-radius: 999px;
-  background: var(--sc-base-white);
-  color: var(--sc-ink);
+  background: var(--ivory);
+  color: var(--graphite);
   font-weight: 700;
   text-decoration: none;
-  box-shadow: 0 14px 30px #00000055;
+  box-shadow: 0 14px 30px color-mix(in oklab, var(--shadow-color) 33%, transparent);
   transition: top 140ms ease, box-shadow 140ms ease;
 }
 
 .skip-link:focus-visible {
   top: 1rem;
-  outline: 2px solid var(--sc-ember);
+  outline: 2px solid var(--copper);
   outline-offset: 2px;
-  box-shadow: 0 16px 34px #ff6a1c30;
+  box-shadow: var(--focus-ring), var(--shadow-float);
 }
 
 #landing-main section[id],

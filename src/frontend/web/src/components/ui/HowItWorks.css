@@ -10,7 +10,7 @@
 
 .sa-howItWorks__header h2 {
   margin: 0.75rem 0 0;
-  color: var(--sa-text);
+  color: var(--ivory);
   font-size: clamp(2rem, 4vw, 3rem);
   line-height: 1.05;
   letter-spacing: -0.04em;
@@ -20,7 +20,7 @@
 .sa-howItWorks__header p:not(.sa-kicker) {
   margin: 1rem auto 0;
   max-width: 48ch;
-  color: var(--sa-muted);
+  color: var(--stone);
   font-size: 1.05rem;
   line-height: 1.6;
 }
@@ -37,7 +37,7 @@
   right: 12%;
   top: 50%;
   height: 2px;
-  background: linear-gradient(90deg, transparent 0%, #ff6a1c30 20%, #ff6a1c30 80%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, color-mix(in oklab, var(--copper) 19%, transparent) 20%, color-mix(in oklab, var(--copper) 19%, transparent) 80%, transparent 100%);
   transform: translateY(-50%);
 }
 
@@ -54,12 +54,12 @@
   display: grid;
   place-items: center;
   border-radius: 999px;
-  border: 1px solid #ff6a1c40;
-  background: #0a0a0a;
-  color: var(--sa-accent);
+  border: 1px solid color-mix(in oklab, var(--copper) 25%, transparent);
+  background: var(--graphite);
+  color: var(--copper);
   font-size: 1rem;
   font-weight: 700;
-  box-shadow: 0 0 0 6px #030303, 0 0 20px #ff6a1c15;
+  box-shadow: 0 0 0 6px var(--graphite);
 }
 
 .sa-howItWorks__grid {
@@ -71,9 +71,9 @@
 
 .sa-howItWorks__card {
   position: relative;
-  border: 1px solid #1a1a1a;
+  border: 1px solid var(--graphite-border);
   border-radius: 1rem;
-  background: linear-gradient(180deg, #0c0c0c 0%, #080808 100%);
+  background: linear-gradient(180deg, var(--graphite) 0%, var(--graphite) 100%);
   padding: 2rem 1.75rem;
   transition:
     transform 300ms ease,
@@ -82,8 +82,7 @@
 }
 
 .sa-howItWorks__card:hover {
-  border-color: #ff6a1c30;
-  box-shadow: 0 0 40px #ff6a1c10;
+  border-color: color-mix(in oklab, var(--copper) 19%, transparent);
   transform: translateY(-4px);
 }
 
@@ -93,9 +92,9 @@
   display: grid;
   place-items: center;
   border-radius: 0.75rem;
-  border: 1px solid #2a1a12;
-  background: radial-gradient(circle at 30% 30%, #ff6a1c20 0%, transparent 70%), #111;
-  color: var(--sa-accent-2);
+  border: 1px solid var(--graphite-border);
+  background: radial-gradient(circle at 30% 30%, color-mix(in oklab, var(--copper) 13%, transparent) 0%, transparent 70%), var(--graphite-surface);
+  color: var(--copper-light);
 }
 
 .sa-howItWorks__iconWrap svg {
@@ -105,7 +104,7 @@
 
 .sa-howItWorks__card h3 {
   margin: 1.25rem 0 0;
-  color: var(--sa-text);
+  color: var(--ivory);
   font-size: 1.15rem;
   line-height: 1.2;
   letter-spacing: -0.02em;
@@ -113,7 +112,7 @@
 
 .sa-howItWorks__card p {
   margin: 0.75rem 0 0;
-  color: var(--sa-muted);
+  color: var(--stone);
   font-size: 0.95rem;
   line-height: 1.6;
 }

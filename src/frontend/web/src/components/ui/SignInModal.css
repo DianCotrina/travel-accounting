@@ -6,24 +6,21 @@
   place-items: center;
   padding: 1rem;
   background:
-    radial-gradient(circle at 20% 15%, #ff6a1c18 0, transparent 40%),
-    radial-gradient(circle at 85% 80%, #ff6a1c14 0, transparent 42%),
-    rgba(3, 3, 3, 0.78);
+    radial-gradient(circle at 20% 15%, color-mix(in oklab, var(--copper) 9%, transparent) 0, transparent 40%),
+    radial-gradient(circle at 85% 80%, color-mix(in oklab, var(--copper) 8%, transparent) 0, transparent 42%),
+    color-mix(in oklab, var(--graphite) 78%, transparent);
   backdrop-filter: blur(6px);
 }
 
 .sa-signInModal__panel {
   width: min(100%, 31rem);
   border-radius: 1.15rem;
-  border: 1px solid #2e2119;
+  border: 1px solid var(--graphite-border);
   background:
-    radial-gradient(circle at 82% 8%, #ff6a1c12 0, transparent 34%),
-    radial-gradient(circle at 8% 100%, #ff6a1c08 0, transparent 34%),
-    linear-gradient(180deg, #0f0e0d 0%, #0a0a0a 100%);
-  box-shadow:
-    0 28px 58px rgba(0, 0, 0, 0.55),
-    inset 0 0 0 1px #ff6a1c0d,
-    inset 0 1px 0 #ffffff05;
+    radial-gradient(circle at 82% 8%, color-mix(in oklab, var(--copper) 7%, transparent) 0, transparent 34%),
+    radial-gradient(circle at 8% 100%, color-mix(in oklab, var(--copper) 3%, transparent) 0, transparent 34%),
+    linear-gradient(180deg, var(--graphite-surface) 0%, var(--graphite) 100%);
+  box-shadow: var(--shadow-float);
   padding: 1.1rem;
   display: grid;
   gap: 0.95rem;
@@ -38,9 +35,9 @@
   width: 2rem;
   height: 2rem;
   border-radius: 0.55rem;
-  border: 1px solid #2f2621;
-  background: #111110;
-  color: var(--sa-muted);
+  border: 1px solid var(--graphite-border);
+  background: var(--graphite-surface);
+  color: var(--stone);
   display: grid;
   place-items: center;
   cursor: pointer;
@@ -58,10 +55,9 @@
 
 .sa-signInModal__close:hover,
 .sa-signInModal__close:focus-visible {
-  outline: none;
-  color: var(--sa-text);
-  border-color: #4b3222;
-  background: #171514;
+  color: var(--ivory);
+  border-color: var(--graphite-border-strong);
+  background: var(--graphite-surface);
   transform: translateY(-1px);
 }
 
@@ -71,7 +67,7 @@
 
 .sa-signInModal__header h2 {
   margin: 0.55rem 0 0;
-  color: var(--sa-text);
+  color: var(--ivory);
   font-size: clamp(1.35rem, 2.8vw, 2rem);
   line-height: 1;
   letter-spacing: -0.04em;
@@ -81,7 +77,7 @@
 
 .sa-signInModal__header p:last-child {
   margin: 0.65rem 0 0;
-  color: var(--sa-muted);
+  color: var(--stone);
   line-height: 1.55;
   font-size: 0.92rem;
 }
@@ -93,7 +89,7 @@
 
 .sa-signInModal__labelRow {
   margin: 0;
-  color: var(--sa-faint);
+  color: var(--ash);
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.11em;
@@ -108,9 +104,9 @@
 .sa-signInModal__providerButton {
   min-height: 3rem;
   border-radius: 0.75rem;
-  border: 1px solid #2b221d;
-  background: linear-gradient(180deg, #121211 0%, #0e0e0e 100%);
-  color: var(--sa-text);
+  border: 1px solid var(--graphite-border);
+  background: linear-gradient(180deg, var(--graphite-surface) 0%, var(--graphite-surface) 100%);
+  color: var(--ivory);
   cursor: pointer;
   display: grid;
   justify-items: center;
@@ -135,15 +131,15 @@
 .sa-signInModal__providerButton.is-selected {
   outline: none;
   transform: translateY(-1px) scale(1.015);
-  border-color: #4f3122;
-  background: #161311;
-  box-shadow: inset 0 0 0 1px #ff6a1c10;
+  border-color: var(--graphite-border-strong);
+  background: var(--graphite-surface);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--copper) 6%, transparent);
 }
 
 .sa-signInModal__providerIcon {
   width: 0.95rem;
   height: 0.95rem;
-  color: var(--sa-accent-2);
+  color: var(--copper-light);
 }
 
 
@@ -156,11 +152,11 @@
 
 .sa-signInModal__divider span {
   height: 1px;
-  background: linear-gradient(90deg, transparent 0%, #2b211c 25%, #2b211c 75%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, var(--graphite-raised) 25%, var(--graphite-raised) 75%, transparent 100%);
 }
 
 .sa-signInModal__divider small {
-  color: var(--sa-faint);
+  color: var(--ash);
   text-transform: uppercase;
   letter-spacing: 0.12em;
   font-size: 0.68rem;
@@ -177,9 +173,9 @@
   gap: 0.4rem;
   padding: 0.55rem 0.7rem;
   border-radius: 0.6rem;
-  border: 1px solid #5c1a1a;
-  background: #1c0d0d;
-  color: #f87171;
+  border: 1px solid var(--copper-deep);
+  background: var(--graphite-surface);
+  color: var(--copper);
   font-size: 0.82rem;
   line-height: 1.4;
 }
@@ -196,7 +192,7 @@
 }
 
 .sa-signInModal__field label {
-  color: var(--sa-text);
+  color: var(--ivory);
   font-size: 0.83rem;
   font-weight: 600;
 }
@@ -209,14 +205,13 @@
 }
 
 .sa-signInModal__fieldRow a {
-  color: var(--sa-accent-2);
+  color: var(--copper-light);
   font-size: 0.78rem;
   text-decoration: none;
 }
 
 .sa-signInModal__fieldRow a:hover,
 .sa-signInModal__fieldRow a:focus-visible {
-  outline: none;
   text-decoration: underline;
 }
 
@@ -228,9 +223,9 @@
   width: 100%;
   min-height: 2.6rem;
   border-radius: 0.7rem;
-  border: 1px solid #2b231e;
-  background: #10100f;
-  color: var(--sa-text);
+  border: 1px solid var(--graphite-border);
+  background: var(--graphite-surface);
+  color: var(--ivory);
   padding: 0.65rem 2.35rem 0.65rem 2.2rem;
   font-size: 0.9rem;
   transition:
@@ -240,14 +235,14 @@
 }
 
 .sa-signInModal__inputWrap input::placeholder {
-  color: #837a72;
+  color: var(--ash);
 }
 
 .sa-signInModal__inputWrap input:focus-visible {
   outline: none;
-  border-color: #5a3928;
-  box-shadow: 0 0 0 3px #ff6a1c18;
-  background: #131210;
+  border-color: var(--graphite-border-strong);
+  box-shadow: var(--focus-ring);
+  background: var(--graphite-surface);
 }
 
 .sa-signInModal__inputIcon {
@@ -257,7 +252,7 @@
   transform: translateY(-50%);
   width: 0.95rem;
   height: 0.95rem;
-  color: var(--sa-accent-2);
+  color: var(--copper-light);
   pointer-events: none;
 }
 
@@ -271,7 +266,7 @@
   border-radius: 0.5rem;
   border: 1px solid transparent;
   background: transparent;
-  color: var(--sa-muted);
+  color: var(--stone);
   display: grid;
   place-items: center;
   cursor: pointer;
@@ -288,19 +283,18 @@
 
 .sa-signInModal__toggle:hover,
 .sa-signInModal__toggle:focus-visible {
-  outline: none;
-  color: var(--sa-text);
-  border-color: #30241d;
-  background: #161311;
+  color: var(--ivory);
+  border-color: var(--graphite-border);
+  background: var(--graphite-surface);
 }
 
 .sa-signInModal__submit {
   margin-top: 0.15rem;
   min-height: 2.75rem;
   border-radius: 0.75rem;
-  border: 1px solid #8c3e15;
-  background: linear-gradient(180deg, #ff8b45 0%, #ff6114 100%);
-  color: #180b05;
+  border: 1px solid var(--copper-deep);
+  background: linear-gradient(180deg, var(--copper-light) 0%, var(--copper) 100%);
+  color: var(--graphite);
   font-weight: 700;
   font-size: 0.9rem;
   display: inline-flex;
@@ -308,7 +302,7 @@
   justify-content: center;
   gap: 0.4rem;
   cursor: pointer;
-  box-shadow: 0 12px 22px #ff6a1c20;
+  box-shadow: var(--shadow-cta);
   transition:
     transform 140ms ease,
     filter 140ms ease,
@@ -325,22 +319,22 @@
   outline: none;
   transform: translateY(-1px);
   filter: brightness(1.03);
-  box-shadow: 0 16px 26px #ff6a1c26;
+  box-shadow: var(--focus-ring), var(--shadow-cta);
 }
 
 .sa-signInModal__footer {
   display: grid;
   gap: 0.55rem;
-  border-top: 1px solid #1f1b18;
+  border-top: 1px solid var(--graphite-border);
   padding-top: 0.8rem;
 }
 
 .sa-signInModal__magicLink {
   min-height: 2.3rem;
   border-radius: 0.65rem;
-  border: 1px solid #2a211b;
-  background: #11100f;
-  color: var(--sa-text);
+  border: 1px solid var(--graphite-border);
+  background: var(--graphite-surface);
+  color: var(--ivory);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -356,20 +350,19 @@
 .sa-signInModal__magicLink svg {
   width: 0.9rem;
   height: 0.9rem;
-  color: var(--sa-accent-2);
+  color: var(--copper-light);
 }
 
 .sa-signInModal__magicLink:hover,
 .sa-signInModal__magicLink:focus-visible {
-  outline: none;
-  border-color: #463023;
-  background: #161311;
+  border-color: var(--graphite-border-strong);
+  background: var(--graphite-surface);
   transform: translateY(-1px);
 }
 
 .sa-signInModal__footer p {
   margin: 0;
-  color: var(--sa-faint);
+  color: var(--ash);
   font-size: 0.74rem;
   line-height: 1.45;
   display: grid;
@@ -381,7 +374,7 @@
 .sa-signInModal__footer p svg {
   width: 0.85rem;
   height: 0.85rem;
-  color: var(--sa-accent-2);
+  color: var(--copper-light);
   margin-top: 0.08rem;
 }
 

@@ -9,6 +9,7 @@ colors:
   graphite-surface: "#1a1614"
   graphite-raised: "#25211e"
   graphite-border: "#352f2b"
+  graphite-border-strong: "#4a423d"
   ivory: "#f2f0ec"
   stone: "#b0a9a3"
   ash: "#8a837e"
@@ -21,7 +22,7 @@ typography:
     fontSize: "clamp(3rem, 7vw, 5.5rem)"
     fontWeight: 700
     lineHeight: 0.95
-    letterSpacing: "-0.05em"
+    letterSpacing: "-0.04em"
   headline:
     fontFamily: "Inter, system-ui, -apple-system, Segoe UI, sans-serif"
     fontSize: "clamp(2rem, 4vw, 3rem)"
@@ -120,7 +121,7 @@ components:
     height: "4rem"
 ---
 
-<!-- STATUS: Target system. Colors were changed from the incumbent neon orange (#ff6a1c, with glows) to the Copper palette on 2026-10-25; the code still uses the old orange until the palette is applied (see "Do's and Don'ts" → migration). Typography, spacing, radii, and component structure are extracted from the current code. -->
+<!-- STATUS: Implemented. Tokens live in src/frontend/web/src/tailwind.css (single source; oklch canonical values); src/test/designTokens.test.ts fails on raw color literals elsewhere. Typography, spacing, radii, and component structure are extracted from the code. -->
 
 # Design System: Sacatucuenta
 
@@ -156,6 +157,7 @@ A warm, low-saturation dark palette: copper on graphite, with ivory text and sto
 - **Graphite Surface** (#1a1614): cards, panels, list containers, the dashboard top bar.
 - **Graphite Raised** (#25211e): secondary buttons, chips, menus, dialogs — anything that floats or is one step above a card.
 - **Graphite Border** (#352f2b): hairline borders (1px) between and around surfaces, table row dividers, input strokes at rest.
+- **Graphite Border Strong** (#4a423d): hover state of hairlines and secondary-button edges; the strongest neutral stroke.
 - **Ivory** (#f2f0ec): primary text and headings (16.9:1 on graphite).
 - **Stone** (#b0a9a3): secondary text — descriptions, labels, home-currency subamounts (7.7:1 on surface).
 - **Ash** (#8a837e): metadata, placeholders, captions. Only on graphite or graphite-surface (≥4.8:1); not on graphite-raised.
@@ -179,10 +181,10 @@ Status colors appear as text, icons, or a 1px border with a tinted background at
 **Display Font:** Inter (with system-ui, -apple-system, Segoe UI, sans-serif)
 **Body Font:** Inter (same family)
 
-**Character:** A single grotesk family carried from 0.78rem labels to 5.5rem display. Boldness comes from weight (700) and tight negative tracking at large sizes, not from a second typeface. Inter must actually be loaded (self-hosted or via a font service); today it is declared but not loaded, so it falls back to the system font.
+**Character:** A single grotesk family carried from 0.78rem labels to 5.5rem display. Boldness comes from weight (700) and tight negative tracking at large sizes, not from a second typeface. Inter is self-hosted via `@fontsource-variable/inter` ("Inter Variable").
 
 ### Hierarchy
-- **Display** (700, clamp(3rem, 7vw, 5.5rem), 0.95, -0.05em): landing hero headline only, one per page.
+- **Display** (700, clamp(3rem, 7vw, 5.5rem), 0.95, -0.04em): landing hero headline only, one per page.
 - **Headline** (700, clamp(2rem, 4vw, 3rem), 1.05, -0.04em): landing section titles.
 - **Title** (700, 1.15rem, 1.3): card and panel headings in the app; dialog titles.
 - **Body** (400, 1rem, 1.6): paragraphs and descriptions; max line length ~48–65ch.
@@ -266,7 +268,7 @@ The core repeated unit of the product: category, note, and date on the left; the
 - **Do** give every interactive element distinct hover, `:focus-visible` (Focus Ring), and active states.
 - **Do** animate only `transform` and `opacity` (140–180ms ease for state, 500–600ms `cubic-bezier(0.2, 0.8, 0.2, 1)` for landing reveals) and honor `prefers-reduced-motion`.
 - **Do** design every screen for both Spanish and English copy lengths.
-- **Do** (migration) consolidate the three color sources in code — `--sc-*` in `App.css`, `--sa-*` in `LandingPage.css`, and shadcn's light oklch tokens in `tailwind.css` — into one dark token set matching this file, and load Inter.
+- **Do** add or change colors only in `src/frontend/web/src/tailwind.css`; components reference `var(--token)` (enforced by `designTokens.test.ts`).
 
 ### Don't:
 - **Don't** use the old neon orange (#ff6a1c, #ff8f47) or saturated glow shadows (`0 0 30–40px #ff6a1c…`).
@@ -274,5 +276,5 @@ The core repeated unit of the product: category, note, and date on the left; the
 - **Don't** put shadows on cards at rest, or glow on anything but the primary action.
 - **Don't** use `transition: all`.
 - **Don't** show a missing conversion as 0 or hide it; mark it "not converted".
-- **Don't** render the light shadcn theme inside the dark app (current dialog/button/input primitives read light tokens).
+- **Don't** reintroduce a light theme or a `.dark` toggle; shadcn semantic tokens map to the dark Copper palette.
 - **Don't** present placeholder statistics or testimonials as real (see PRODUCT.md, Evidence on Hand).

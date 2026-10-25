@@ -45,7 +45,7 @@ export function HeroSectionDark({
     "--sa-hero-grid-angle": `${gridOptions?.angle ?? 66}deg`,
     "--sa-hero-grid-size": `${gridOptions?.cellSize ?? 56}px`,
     "--sa-hero-grid-opacity": `${gridOptions?.opacity ?? 0.22}`,
-    "--sa-hero-grid-line": gridOptions?.lineColor ?? "#ff6a1c12",
+    "--sa-hero-grid-line": gridOptions?.lineColor ?? "color-mix(in oklab, var(--copper) 7%, transparent)",
   } as CSSProperties;
 
   return (

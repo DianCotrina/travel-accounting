@@ -3,8 +3,8 @@
   overflow: hidden;
   padding: clamp(4rem, 8vw, 7rem) clamp(1.25rem, 3vw, 2.5rem) clamp(3rem, 6vw, 5rem);
   background:
-    radial-gradient(ellipse at 50% -10%, #ff6a1c18 0, transparent 55%),
-    linear-gradient(180deg, #060606 0%, #030303 100%);
+    radial-gradient(ellipse at 50% -10%, color-mix(in oklab, var(--copper) 9%, transparent) 0, transparent 55%),
+    linear-gradient(180deg, var(--graphite) 0%, var(--graphite) 100%);
 }
 
 .sa-heroDark__ambient {
@@ -12,9 +12,9 @@
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(circle at 50% 0%, #ff6a1c12 0, transparent 45%),
-    radial-gradient(circle at 15% 80%, #ff6a1c06 0, transparent 24%),
-    radial-gradient(circle at 85% 28%, #ff8f4705 0, transparent 20%);
+    radial-gradient(circle at 50% 0%, color-mix(in oklab, var(--copper) 7%, transparent) 0, transparent 45%),
+    radial-gradient(circle at 15% 80%, color-mix(in oklab, var(--copper) 2%, transparent) 0, transparent 24%),
+    radial-gradient(circle at 85% 28%, color-mix(in oklab, var(--copper-light) 2%, transparent) 0, transparent 20%);
 }
 
 .sa-heroDark__gridWrap {
@@ -22,8 +22,8 @@
   inset: 0;
   pointer-events: none;
   opacity: var(--sa-hero-grid-opacity, 0.22);
-  mask-image: linear-gradient(to bottom, #000 12%, #000 55%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, #000 12%, #000 55%, transparent 100%);
+  mask-image: linear-gradient(to bottom, var(--graphite) 12%, var(--graphite) 55%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, var(--graphite) 12%, var(--graphite) 55%, transparent 100%);
 }
 
 .sa-heroDark__gridPlane {
@@ -39,8 +39,8 @@
   transform-origin: 50% 0;
   transform: rotateX(var(--sa-hero-grid-angle, 66deg));
   background-image:
-    linear-gradient(to right, var(--sa-hero-grid-line, #ffffff0e) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--sa-hero-grid-line, #ffffff0e) 1px, transparent 1px);
+    linear-gradient(to right, var(--sa-hero-grid-line, color-mix(in oklab, var(--ivory) 5%, transparent)) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--sa-hero-grid-line, color-mix(in oklab, var(--ivory) 5%, transparent)) 1px, transparent 1px);
   background-size: var(--sa-hero-grid-size, 56px) var(--sa-hero-grid-size, 56px);
   animation: sa-hero-grid-drift 18s linear infinite;
 }
@@ -48,7 +48,7 @@
 .sa-heroDark__gridFade {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 0%, #040404 92%);
+  background: linear-gradient(180deg, transparent 0%, var(--graphite) 92%);
 }
 
 .sa-heroDark__inner {
@@ -64,22 +64,19 @@
   max-width: 18ch;
   font-size: clamp(3rem, 7vw, 5.5rem);
   line-height: 0.95;
-  letter-spacing: -0.05em;
-  color: var(--sa-text);
+  letter-spacing: -0.04em;
+  color: var(--ivory);
   text-wrap: balance;
 }
 
 .sa-heroDark__titleAccent {
-  color: transparent;
-  background: linear-gradient(135deg, #ffc08a 0%, #ff6a1c 50%, #e05000 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
+  color: var(--copper);
 }
 
 .sa-heroDark__description {
   margin: 1.5rem auto 0;
   max-width: 52ch;
-  color: var(--sa-muted);
+  color: var(--stone);
   font-size: 1.15rem;
   line-height: 1.7;
 }
@@ -106,7 +103,7 @@
   width: 80%;
   height: 60%;
   border-radius: 50%;
-  background: radial-gradient(circle, #ff6a1c20 0%, transparent 60%);
+  background: radial-gradient(circle, color-mix(in oklab, var(--copper) 13%, transparent) 0%, transparent 60%);
   pointer-events: none;
   z-index: 0;
 }
@@ -116,12 +113,12 @@
 .sa-heroDark__trustedBy {
   margin-top: 3rem;
   padding-top: 2rem;
-  border-top: 1px solid #1a1a1a;
+  border-top: 1px solid var(--graphite-border);
   text-align: center;
 }
 
 .sa-heroDark__trustedBy p {
-  color: var(--sa-faint);
+  color: var(--ash);
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.15em;
@@ -137,7 +134,7 @@
 }
 
 .sa-heroDark__logoPlaceholder {
-  color: var(--sa-faint);
+  color: var(--ash);
   font-size: 1rem;
   font-weight: 700;
   opacity: 0.5;

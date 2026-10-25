@@ -1,11 +1,11 @@
 .sa-statsBand {
   padding: 4rem 0;
   background:
-    radial-gradient(circle at 20% 50%, #ff6a1c0c 0, transparent 40%),
-    radial-gradient(circle at 80% 50%, #ff6a1c08 0, transparent 40%),
-    #060606;
-  border-top: 1px solid #1a1a1a;
-  border-bottom: 1px solid #1a1a1a;
+    radial-gradient(circle at 20% 50%, color-mix(in oklab, var(--copper) 5%, transparent) 0, transparent 40%),
+    radial-gradient(circle at 80% 50%, color-mix(in oklab, var(--copper) 3%, transparent) 0, transparent 40%),
+    var(--graphite);
+  border-top: 1px solid var(--graphite-border);
+  border-bottom: 1px solid var(--graphite-border);
 }
 
 .sa-statsBand__inner {
@@ -23,16 +23,14 @@
   font-size: clamp(2.5rem, 5vw, 3.5rem);
   line-height: 1;
   letter-spacing: -0.04em;
-  background: linear-gradient(180deg, #ffffff 0%, #ff8f47 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  font-variant-numeric: tabular-nums;
+  color: var(--ivory);
 }
 
 .sa-statsBand__item span {
   display: block;
   margin-top: 0.5rem;
-  color: var(--sa-faint);
+  color: var(--ash);
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
