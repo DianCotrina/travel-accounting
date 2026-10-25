@@ -55,6 +55,8 @@ const expenseId = "22222222-2222-2222-2222-222222222222";
 const filters = { fromDate: "2026-01-01", toDate: "2026-01-31", category: "Meal" };
 
 const frontendCalls: Array<[HttpMethod, string]> = [
+  ["GET", apiRoutes.health()],
+  ["GET", apiRoutes.trip(tripId)],
   ["GET", apiRoutes.trips()],
   ["POST", apiRoutes.trips()],
   ["PUT", apiRoutes.trip(tripId)],
