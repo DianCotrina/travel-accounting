@@ -5,7 +5,8 @@ export interface PricingPlan {
   name: string;
   price: string;
   subtitle: string;
-  highlights: string[];
+  /** `planned` marks features that don't exist yet; they render muted with a "Planned" tag. */
+  highlights: { text: string; planned?: boolean }[];
   /** Omit for plans that aren't available yet; they show as "Coming soon". */
   cta?: string;
   featured?: boolean;
@@ -55,7 +56,10 @@ export function PricingSection({
               </div>
               <ul>
                 {plan.highlights.map((item) => (
-                  <li key={item}>{item}</li>
+                  <li key={item.text} className={item.planned ? "sa-pricingSection__planned" : undefined}>
+                    {item.text}
+                    {item.planned && <span className="sa-pricingSection__plannedTag">{t.pricing.planned}</span>}
+                  </li>
                 ))}
               </ul>
               {plan.cta ? (

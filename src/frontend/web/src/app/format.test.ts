@@ -1,5 +1,13 @@
 import { describe, expect, it } from "vitest";
-import { defaultExpenseTime } from "./format";
+import { defaultExpenseTime, formatInverseRate, setFormatLocale } from "./format";
+
+describe("formatInverseRate", () => {
+  it("shows local units per 1 home unit, the way travelers read rates", () => {
+    setFormatLocale("en-US");
+    expect(formatInverseRate(0.000952)).toBe("1,050.42");
+    expect(formatInverseRate(1.08)).toBe("0.9259");
+  });
+});
 
 describe("defaultExpenseTime", () => {
   const at = (iso: string) => new Date(`${iso}:00`);

@@ -807,3 +807,36 @@
     bottom: auto;
   }
 }
+
+/* ── Conversion recovery ── */
+.sa-btn-ghost--accent {
+  color: var(--copper-light);
+}
+
+.sa-conversion {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.sa-conversion__retry {
+  display: grid;
+  justify-items: start;
+  gap: 0.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--graphite-border);
+}
+
+.sa-rateInput {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--stone);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.sa-inlineLink {
+  color: var(--copper-light);
+  text-underline-offset: 0.2em;
+}

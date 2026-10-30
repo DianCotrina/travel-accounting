@@ -138,3 +138,22 @@
   font-size: 0.9rem;
   font-weight: 600;
 }
+
+.sa-pricingSection__planned {
+  color: var(--ash);
+}
+
+.sa-pricingSection__plannedTag {
+  margin-left: 0.5rem;
+  padding: 0.05rem 0.45rem;
+  border: 1px solid var(--graphite-border-strong);
+  border-radius: 999px;
+  color: var(--stone);
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.sa-pricingSection__card li.sa-pricingSection__planned::before {
+  background: var(--graphite-border-strong);
+}

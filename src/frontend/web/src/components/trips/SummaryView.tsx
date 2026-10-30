@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import { categoryLabel } from "@/app/categories";
 import { formatDate, formatMoney } from "@/app/format";
 import { useI18n } from "@/app/i18n";
@@ -50,7 +51,7 @@ function TotalsTable({ caption, firstColumn, rows, localCurrency, homeCurrency, 
 
 /** `/trips/:tripId/summary`: ledger totals by category and day, with conversion coverage. */
 export function SummaryView() {
-  const { ledger } = useTrip();
+  const { ledger, trip, readOnly } = useTrip();
   const { t } = useI18n();
 
   if (!ledger || ledger.expenseCount === 0) {
@@ -91,7 +92,14 @@ export function SummaryView() {
         </div>
       </dl>
       {ledger.missingHomeConversionCount > 0 && (
-        <p className="sa-note sa-note--warning">{t.summary.missingNote(ledger.missingHomeConversionCount, ledger.homeCurrency)}</p>
+        <p className="sa-note sa-note--warning">
+          {t.summary.missingNote(ledger.missingHomeConversionCount, ledger.homeCurrency)}{" "}
+          {!readOnly && (
+            <Link to={`/trips/${trip.id}/expenses`} className="sa-inlineLink">
+              {t.summary.fixHint}
+            </Link>
+          )}
+        </p>
       )}
       <TotalsTable caption={t.summary.byCategory} firstColumn={t.summary.category} rows={byCategory} localCurrency={ledger.localCurrency} homeCurrency={ledger.homeCurrency} t={t} />
       <TotalsTable caption={t.summary.byDay} firstColumn={t.summary.day} rows={byDay} localCurrency={ledger.localCurrency} homeCurrency={ledger.homeCurrency} t={t} />

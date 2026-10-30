@@ -24,7 +24,7 @@ export type TripContext = {
   readOnly: boolean;
   setExpenses: (update: (current: Expense[]) => Expense[]) => void;
   /** Refetches expenses and ledger after a change so conversions and totals stay server-truth. */
-  refresh: () => Promise<void>;
+  refresh: () => Promise<Expense[]>;
 };
 
 export function useTrip(): TripContext {
@@ -55,6 +55,7 @@ export function TripPage() {
     ]);
     setExpensesState(e);
     setLedger(l);
+    return e;
   }, [json, tripId]);
 
   const fetchAll = useCallback(() => {
