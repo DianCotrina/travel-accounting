@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- Expenses without a conversion can now be fixed in place ("Fix conversion"): retry the automatic rate or enter it as "1 USD = x ARS" (stored inverted for the API); a manual rate applies to every expense in that currency on that day, and the summary links to the fix. Exchange rates are shown the way travelers read them ("1 USD = 1,050.42 ARS").
 - Bilingual ES/EN app and landing: typed catalogs (`src/app/i18n/en.ts`, `es.ts` in neutral Latin American Spanish with "tú"), language picked from the browser with an ES/EN switch that remembers the choice, `<html lang>` kept in sync, and money/dates formatted with `Intl` for the active language. A parity test fails if Spanish misses any English key, list item, or parameter.
 - Landing hero now shows a labeled sample trip (ARS → USD) rendered with the app's real Money Row, including a "Not converted" expense, as honest product proof.
 - Rebuilt the dashboard around trips (impeccable critique follow-up): routes `/trips`, `/trips/new`, `/trips/:id/edit` and `/trips/:id` with Expenses · Summary · Export sections (React Router). The trip header shows the home-currency total, local total, and unconverted count.
@@ -20,6 +21,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+- Pricing no longer presents unshipped features as available: "Priority support" and every Team feature are marked "Planned"; Starter copy no longer uses "manual review workflow"; FAQ 4 states that shared trips are planned instead of claiming teams can use them today.
 - `.claude/rules/frontend.md`: all UI copy must come from the i18n catalogs; formatting goes through `format.ts`.
 - `errorMessage(error, t.errors)` now localizes generic API failures; server-specific messages are shown as sent. Auth errors are stored as codes and rendered in the active language.
 - Landing: one CTA label ("Try the preview") everywhere, and every CTA opens the preview sign-in instead of looping between anchors; the Team plan shows "Coming soon"; "Most popular" became "Recommended"; the sign-in dialog only offers what works (email + password into the preview) and names other methods as coming soon.

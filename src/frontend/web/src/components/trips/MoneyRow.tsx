@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { categoryLabel } from "@/app/categories";
-import { formatDateTime, formatMoney, formatRate } from "@/app/format";
+import { formatDateTime, formatInverseRate, formatMoney, formatRate } from "@/app/format";
 import { useI18n } from "@/app/i18n";
 import type { Expense } from "@/app/types";
 import "./MoneyRow.css";
@@ -32,7 +32,10 @@ export function MoneyRow({ expense, homeCurrency, actions }: MoneyRowProps) {
         {converted ? (
           <span className="sa-money__home">
             {formatMoney(expense.homeAmount ?? 0, expense.homeCurrency ?? homeCurrency)}
-            <span className="sa-money__rate"> · {t.money.rate} {formatRate(expense.exchangeRateUsed ?? 0)}</span>
+            <span className="sa-money__rate" title={formatRate(expense.exchangeRateUsed ?? 0)}>
+              {" · "}
+              {t.money.ratePair(expense.homeCurrency ?? homeCurrency, formatInverseRate(expense.exchangeRateUsed ?? 1), expense.currency)}
+            </span>
           </span>
         ) : (
           <span className="sa-money__missing">{t.money.notConverted}</span>

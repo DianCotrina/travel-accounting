@@ -92,20 +92,32 @@ export const es: Messages = {
       "Empieza simple con tus viajes personales y crece hacia viajes frecuentes con totales por viaje y reportes listos para exportar.",
     recommended: "Recomendado",
     comingSoon: "Próximamente",
+    planned: "Planeado",
     perMonth: "Por mes",
     plans: {
       starter: {
         name: "Starter",
         subtitle: "Para viajes ocasionales",
-        highlights: ["1 viaje activo", "Revisión manual", "Registro básico de gastos"],
+        highlights: [{ text: "1 viaje activo" }, { text: "Gastos en moneda local y en tu moneda" }, { text: "Totales por categoría y por día" }],
       },
       pro: {
         name: "Traveler Pro",
-        highlights: ["Viajes ilimitados", "Totales por viaje", "Exportación CSV", "Tipo de cambio visible", "Soporte prioritario"],
+        highlights: [
+          { text: "Viajes ilimitados" },
+          { text: "Totales por categoría y por día" },
+          { text: "Exportación CSV" },
+          { text: "Tipo de cambio en cada gasto" },
+          { text: "Soporte prioritario", planned: true },
+        ],
       },
       team: {
         name: "Team",
-        highlights: ["Viajes compartidos", "Exportaciones listas para auditoría", "Visibilidad para el equipo", "Acompañamiento inicial"],
+        highlights: [
+          { text: "Viajes compartidos y saldar cuentas", planned: true },
+          { text: "Exportaciones listas para auditoría", planned: true },
+          { text: "Revisión de finanzas para equipos", planned: true },
+          { text: "Acompañamiento inicial", planned: true },
+        ],
       },
     },
   },
@@ -131,7 +143,7 @@ export const es: Messages = {
       {
         question: "¿Lo usan equipos o solo viajeros individuales?",
         answer:
-          "Ambos. Quien viaja solo mantiene sus registros ordenados, y los equipos pueden usar la dirección multiusuario actual para viajes compartidos.",
+          "Hoy cada persona lleva sus propios viajes. Los viajes compartidos para amigos, parejas y equipos, con quién pagó qué y saldar cuentas, están planeados.",
       },
     ],
   },
@@ -182,7 +194,27 @@ export const es: Messages = {
     Snack: "Snack",
     Other: "Otro",
   },
-  money: { rate: "tipo de cambio", notConverted: "Sin convertir" },
+  money: {
+    notConverted: "Sin convertir",
+    ratePair: (home, value, local) => `1 ${home} = ${value} ${local}`,
+  },
+  conversion: {
+    fix: "Resolver conversión",
+    fixLabel: (note) => `Resolver la conversión de ${note}`,
+    title: (note) => `Convertir "${note}"`,
+    missing: (local, home, date) => `Todavía no hay tipo de cambio ${local} → ${home} para el ${date}.`,
+    retry: "Reintentar el tipo de cambio automático",
+    retrying: "Consultando…",
+    stillMissing: "Sigue sin haber tipo de cambio automático para ese día. Puedes ingresarlo tú.",
+    converted: "Convertido",
+    manualTitle: "O ingresa el tipo de cambio tú",
+    manualLabel: (home) => `¿Cuántas unidades por 1 ${home}?`,
+    manualHint: (local, date) => `Se aplica a todos los gastos en ${local} del ${date} en este viaje.`,
+    preview: (converted) => `Este gasto queda en ${converted}.`,
+    invalid: "Ingresa un tipo de cambio mayor que 0.",
+    save: "Guardar tipo de cambio",
+    saved: "Tipo de cambio guardado. Totales actualizados.",
+  },
   trips: {
     title: "Tus viajes",
     newTrip: "Nuevo viaje",
@@ -274,6 +306,7 @@ export const es: Messages = {
     convertedOf: (converted, total) => `${converted} de ${total}`,
     missingNote: (n, home) =>
       `${n} ${plural(n, "gasto todavía no está convertido", "gastos todavía no están convertidos")}, así que el total en ${home} no ${plural(n, "lo incluye", "los incluye")}.`,
+    fixHint: "Resuélvelos desde la pestaña Gastos con \"Resolver conversión\".",
     byCategory: "Por categoría",
     byDay: "Por día",
     category: "Categoría",

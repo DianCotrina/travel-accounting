@@ -115,7 +115,7 @@ describe("trip view", () => {
 
     const taxi = (await screen.findByText("Taxi to the airport")).closest("li");
     expect(taxi).not.toBeNull();
-    expect(within(taxi as HTMLElement).getByText(/rate/)).toBeInTheDocument();
+    expect(within(taxi as HTMLElement).getByText(/1 USD = 1,050\.42 ARS/)).toBeInTheDocument();
 
     const museum = screen.getByText("MALBA").closest("li");
     expect(within(museum as HTMLElement).getByText("Not converted")).toBeInTheDocument();
@@ -171,6 +171,34 @@ describe("trip view", () => {
       vi.advanceTimersByTime(6000);
     });
     await waitFor(() => expect(calls("DELETE", `/api/trips/${tripId}/expenses/e-1`)).toHaveLength(1));
+  });
+
+  it("fixes an unconverted expense with a manual rate entered the way travelers read it", async () => {
+    routes[`PUT /api/trips/${tripId}/exchange-rates`] = (init) => Response.json(JSON.parse(String(init?.body)));
+    renderAt(`/trips/${tripId}/expenses`);
+
+    fireEvent.click(await screen.findByRole("button", { name: "Fix conversion for MALBA" }));
+    const dialog = screen.getByRole("dialog", { name: 'Convert "MALBA"' });
+    fireEvent.change(within(dialog).getByLabelText("How many units per 1 USD?"), { target: { value: "1050" } });
+    expect(within(dialog).getByText("This expense becomes USD 8.57.")).toBeInTheDocument();
+    fireEvent.click(within(dialog).getByRole("button", { name: "Save rate" }));
+
+    await waitFor(() => expect(calls("PUT", `/api/trips/${tripId}/exchange-rates`)).toHaveLength(1));
+    const body = JSON.parse(String(calls("PUT", `/api/trips/${tripId}/exchange-rates`)[0][1]?.body)) as Record<string, unknown>;
+    expect(body).toMatchObject({ date: "2026-01-03", fromCurrency: "ARS", toCurrency: "USD" });
+    expect(body.rate).toBeCloseTo(1 / 1050, 10);
+    expect(await screen.findByText("Rate saved. Totals updated.")).toBeInTheDocument();
+  });
+
+  it("retries the automatic rate and explains when there still is none", async () => {
+    renderAt(`/trips/${tripId}/expenses`);
+
+    fireEvent.click(await screen.findByRole("button", { name: "Fix conversion for MALBA" }));
+    const before = calls("GET", `/api/trips/${tripId}/expenses`).length;
+    fireEvent.click(screen.getByRole("button", { name: "Try the automatic rate again" }));
+
+    expect(await screen.findByText(/still no automatic rate/i)).toBeInTheDocument();
+    expect(calls("GET", `/api/trips/${tripId}/expenses`).length).toBeGreaterThan(before);
   });
 
   it("disables adding expenses with an explanation when the server is unreachable", async () => {

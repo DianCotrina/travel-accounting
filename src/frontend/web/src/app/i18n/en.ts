@@ -91,20 +91,32 @@ export const en = {
       "Start simple for personal trips, then scale into recurring travel workflows with ledger summaries and export-ready reporting.",
     recommended: "Recommended",
     comingSoon: "Coming soon",
+    planned: "Planned",
     perMonth: "Per month",
     plans: {
       starter: {
         name: "Starter",
         subtitle: "For occasional trips",
-        highlights: ["1 active trip", "Manual review workflow", "Basic expense logging"],
+        highlights: [{ text: "1 active trip" }, { text: "Expenses in local and home currency" }, { text: "Totals by category and day" }],
       },
       pro: {
         name: "Traveler Pro",
-        highlights: ["Unlimited trips", "Ledger summaries", "CSV export", "Exchange-rate visibility", "Priority support"],
+        highlights: [
+          { text: "Unlimited trips" },
+          { text: "Totals by category and day" },
+          { text: "CSV export" },
+          { text: "Exchange rate shown on every expense" },
+          { text: "Priority support", planned: true },
+        ],
       },
       team: {
         name: "Team",
-        highlights: ["Shared trip workflows", "Audit-ready exports", "Team visibility", "Onboarding support"],
+        highlights: [
+          { text: "Shared trips and settle-up", planned: true },
+          { text: "Audit-ready exports", planned: true },
+          { text: "Finance review for teams", planned: true },
+          { text: "Onboarding support", planned: true },
+        ],
       },
     },
   },
@@ -129,7 +141,7 @@ export const en = {
       {
         question: "Do teams use it or is it only for solo travelers?",
         answer:
-          "Both. Solo travelers can keep personal records clean, and teams can use the current MVP multi-user direction for shared travel workflows.",
+          "Today each traveler keeps their own trips. Shared trips for friends, couples, and teams, with who-paid-what and settle-up, are planned.",
       },
     ],
   },
@@ -180,7 +192,27 @@ export const en = {
     Snack: "Snack",
     Other: "Other",
   } as Record<string, string>,
-  money: { rate: "rate", notConverted: "Not converted" },
+  money: {
+    notConverted: "Not converted",
+    ratePair: (home: string, value: string, local: string) => `1 ${home} = ${value} ${local}`,
+  },
+  conversion: {
+    fix: "Fix conversion",
+    fixLabel: (note: string) => `Fix conversion for ${note}`,
+    title: (note: string) => `Convert "${note}"`,
+    missing: (local: string, home: string, date: string) => `There's no ${local} → ${home} rate for ${date} yet.`,
+    retry: "Try the automatic rate again",
+    retrying: "Checking…",
+    stillMissing: "Still no automatic rate for that day. You can enter it yourself.",
+    converted: "Converted",
+    manualTitle: "Or enter the rate yourself",
+    manualLabel: (home: string) => `How many units per 1 ${home}?`,
+    manualHint: (local: string, date: string) => `Applies to every ${local} expense on ${date} in this trip.`,
+    preview: (converted: string) => `This expense becomes ${converted}.`,
+    invalid: "Enter a rate greater than 0.",
+    save: "Save rate",
+    saved: "Rate saved. Totals updated.",
+  },
   trips: {
     title: "Your trips",
     newTrip: "New trip",
@@ -272,6 +304,7 @@ export const en = {
     convertedOf: (converted: number, total: number) => `${converted} of ${total}`,
     missingNote: (n: number, home: string) =>
       `${n} ${plural(n, "expense isn't", "expenses aren't")} converted yet, so the ${home} total leaves ${plural(n, "it", "them")} out.`,
+    fixHint: "Fix them from the Expenses tab with \"Fix conversion\".",
     byCategory: "By category",
     byDay: "By day",
     category: "Category",

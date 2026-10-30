@@ -22,6 +22,16 @@ export function formatRate(rate: number): string {
   return new Intl.NumberFormat(locale, { maximumSignificantDigits: 6 }).format(rate);
 }
 
+/**
+ * Stored rates are home-currency units per 1 local unit (ARS→USD 0.000952). Travelers think the
+ * other way round ("1 USD = 1,050 ARS"), so display the inverse: local units per 1 home unit.
+ */
+export function formatInverseRate(rate: number): string {
+  const inverse = 1 / rate;
+  const options: Intl.NumberFormatOptions = inverse >= 1 ? { maximumFractionDigits: 2 } : { maximumSignificantDigits: 4 };
+  return new Intl.NumberFormat(locale, options).format(inverse);
+}
+
 /** Formats a calendar date ("2026-01-10") without shifting it across time zones. */
 export function formatDate(isoDate: string): string {
   const [y, m, d] = isoDate.slice(0, 10).split("-").map(Number);

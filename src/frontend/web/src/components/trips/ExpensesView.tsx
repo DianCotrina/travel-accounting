@@ -7,6 +7,7 @@ import { formatDate } from "@/app/format";
 import { useI18n } from "@/app/i18n";
 import { useToast } from "@/app/toast";
 import type { Expense } from "@/app/types";
+import { ConversionDialog } from "./ConversionDialog";
 import { EmptyState } from "./EmptyState";
 import { ExpenseForm } from "./ExpenseForm";
 import { MoneyRow } from "./MoneyRow";
@@ -52,6 +53,7 @@ export function ExpensesView() {
 
   const [editing, setEditing] = useState<Expense | null>(null);
   const [sheetOpen, setSheetOpen] = useState(false);
+  const [fixing, setFixing] = useState<Expense | null>(null);
   const pendingDeletes = useRef(new Map<string, { timer: number; expense: Expense }>());
 
   const commitDelete = useCallback(
@@ -196,6 +198,16 @@ export function ExpensesView() {
                     actions={
                       readOnly ? undefined : (
                         <>
+                          {expense.homeAmount == null && (
+                            <button
+                              type="button"
+                              className="sa-btn-ghost sa-btn-ghost--sm sa-btn-ghost--accent"
+                              onClick={() => setFixing(expense)}
+                              aria-label={t.conversion.fixLabel(expense.notes)}
+                            >
+                              {t.conversion.fix}
+                            </button>
+                          )}
                           <button type="button" className="sa-btn-ghost sa-btn-ghost--sm" onClick={() => startEdit(expense)} aria-label={t.expenses.editLabel(expense.notes)}>
                             {t.expenses.edit}
                           </button>
@@ -232,6 +244,7 @@ export function ExpensesView() {
           {t.expenses.addButton}
         </button>
       )}
+      <ConversionDialog expense={fixing} onClose={() => setFixing(null)} />
     </div>
   );
 }

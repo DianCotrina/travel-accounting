@@ -57,6 +57,13 @@ describe("Landing page", () => {
     expect(within(dialog).queryByRole("link")).not.toBeInTheDocument();
   });
 
+  it("labels unshipped plan features as planned and doesn't claim team features exist", () => {
+    render(<App />);
+    const team = screen.getByText("Team").closest("article") as HTMLElement;
+    expect(within(team).getAllByText("Planned")).toHaveLength(4);
+    expect(screen.queryByText(/MVP multi-user/i)).not.toBeInTheDocument();
+  });
+
   it("has exactly one main landmark", () => {
     render(<App />);
     expect(screen.getAllByRole("main")).toHaveLength(1);
